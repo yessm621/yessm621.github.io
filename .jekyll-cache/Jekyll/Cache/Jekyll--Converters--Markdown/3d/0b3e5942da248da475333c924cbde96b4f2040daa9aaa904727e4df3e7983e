@@ -1,0 +1,376 @@
+I"nY<p><br /></p>
+
+<p>JPA 를 사용하는 데 가장 중요한 일은 엔티티와 테이블을 정확히 매핑하는 것. 따라서, 매핑 어노테이션을 숙지하고 사용해야 함</p>
+
+<p><code class="language-plaintext highlighter-rouge">대표 어노테이션</code></p>
+
+<ul>
+  <li>객체와 테이블 매핑: @Entity, @Table</li>
+  <li>기본 키 매핑: @Id</li>
+  <li>필드와 컬럼 매핑: @Column</li>
+  <li>연관관계 매핑: @ManyToOne, @JoinColumn</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="entity">@Entity</h2>
+
+<hr />
+
+<p>JPA 를 사용해서 테이블과 매핑할 클래스는 @Entity 어노테이션을 필수로 붙여야함</p>
+
+<p>@Entity 가 붙은 클래스는 JPA 가 관리</p>
+
+<p><br /></p>
+
+<h2 id="table">@Table</h2>
+
+<hr />
+
+<p>엔티티와 매핑할 테이블을 지정. 생략하면 매핑한 엔티티의 이름을 테이블 이름으로 사용</p>
+
+<p><br /></p>
+
+<h2 id="다양한-매핑-사용">다양한 매핑 사용</h2>
+
+<hr />
+
+<p>다음의 요구사항을 만족하는 회원 엔티티를 생성하자</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 회원은 일반 회원과 관리자로 구분해야 한다.
+2. 회원 가입일과 수정일이 있어야 한다.
+3. 회원을  설명할 수 있는 필드가 있어야 한다. 이 필드는 길이 제한이 없다.
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Getter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Setter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER"</span><span class="o">)</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"NAME"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Integer</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="nd">@Enumerated</span><span class="o">(</span><span class="nc">EnumType</span><span class="o">.</span><span class="na">STRING</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">RoleType</span> <span class="n">roleType</span><span class="o">;</span>
+
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">TIMESTAMP</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Date</span> <span class="n">createdDate</span><span class="o">;</span>
+
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">TIMESTAMP</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Date</span> <span class="n">lastModifiedDate</span><span class="o">;</span>
+
+    <span class="nd">@Lob</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">description</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.start</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">RoleType</span> <span class="o">{</span>
+	<span class="no">ADMIN</span><span class="o">,</span> <span class="no">USER</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>roleType</p>
+
+    <p>→ 자바의 enum 타입을 사용해서 회원의 타입을 구분</p>
+
+    <p>→ 일반 회원은 USER, 관리자는 ADMIN</p>
+
+    <p>→ 자바의 enum 타입을 사용하려면 <code class="language-plaintext highlighter-rouge">@Enumerated</code> 어노테이션으로 매핑해야 함</p>
+  </li>
+  <li>
+    <p>createdDate, lastModifiedDate</p>
+
+    <p>→ 자바의 날짜 타입을 <code class="language-plaintext highlighter-rouge">@Temporal</code> 을 사용해서 매핑</p>
+  </li>
+  <li>
+    <p>description</p>
+
+    <p>→ 길이 제한 없애고 싶을 때 <code class="language-plaintext highlighter-rouge">@Lob</code> 을 사용하면 CLOB, BLOB 타입을 매핑할 수 있다</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="ddl-생성-기능">DDL 생성 기능</h2>
+
+<hr />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 회원이름은 필수로 입력
+2. 10자를 초과하면 안 된다
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Getter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Setter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER"</span><span class="o">)</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+	<span class="nd">@Id</span>
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ID"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"NAME"</span><span class="o">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>nullable 속성</li>
+  <li>length 속성</li>
+</ol>
+
+<p><br /></p>
+
+<p>유니크 제약조건 @Table uniqueConstraints 속성</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.start</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Getter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Setter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER"</span><span class="o">,</span> <span class="n">uniqueConstraints</span> <span class="o">=</span> <span class="o">{</span><span class="nd">@UniqueConstraint</span><span class="o">(</span>
+	<span class="n">name</span><span class="o">=</span><span class="s">"NAME_AGE_UNIQUE"</span><span class="o">,</span>
+	<span class="n">columnNames</span> <span class="o">=</span> <span class="o">{</span><span class="s">"NAME"</span><span class="o">,</span> <span class="s">"AGE"</span><span class="o">}</span> <span class="o">)})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+	<span class="nd">@Id</span>
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ID"</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">id</span><span class="o">;</span>
+
+	<span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"NAME"</span><span class="o">,</span> <span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>length, nullable, unique 속성들은 DDL을 자동 생성할 때만 사용되고 JPA의 실행 로직에는 영향을 주지 않는다.</p>
+
+<p><br /></p>
+
+<h2 id="필드와-컬럼-매핑-레퍼런스">필드와 컬럼 매핑: 레퍼런스</h2>
+
+<hr />
+
+<p><strong>@Column</strong></p>
+
+<p>→ 객체 필드를 테이블 컬럼에 매핑함</p>
+
+<p>→ 속성 중 name, nullable 이 주로 사용</p>
+
+<p><strong>@Enumerated</strong></p>
+
+<p><strong>@Lob</strong></p>
+
+<p><br /></p>
+
+<p><strong>책 예제 4.25</strong></p>
+
+<p>Member.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.model.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by holyeye on 2014. 3. 11..
+ */</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">street</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Order.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.model.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by holyeye on 2014. 3. 11..
+ */</span>
+<span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ORDERS"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Order</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ORDER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">memberId</span><span class="o">;</span>
+
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">TIMESTAMP</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Date</span> <span class="n">orderDate</span><span class="o">;</span>     <span class="c1">//주문시간</span>
+
+    <span class="nd">@Enumerated</span><span class="o">(</span><span class="nc">EnumType</span><span class="o">.</span><span class="na">STRING</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">OrderStatus</span> <span class="n">status</span><span class="o">;</span><span class="c1">//주문상태</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>OrderStatus.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.model.entity</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by holyeye on 2014. 3. 11..
+ */</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">OrderStatus</span> <span class="o">{</span>
+    <span class="no">ORDER</span><span class="o">,</span> <span class="no">CANCEL</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>OrderItem.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.model.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by holyeye on 2014. 3. 11..
+ */</span>
+<span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ORDER_ITEM"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderItem</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ORDER_ITEM_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ITEM_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">itemId</span><span class="o">;</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ORDER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">orderId</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">orderPrice</span><span class="o">;</span> <span class="c1">//주문 가격</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>      <span class="c1">//주문 수량</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"OrderItem{"</span> <span class="o">+</span>
+                <span class="s">"id="</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
+                <span class="s">", buyPrice="</span> <span class="o">+</span> <span class="n">orderPrice</span> <span class="o">+</span>
+                <span class="s">", count="</span> <span class="o">+</span> <span class="n">count</span> <span class="o">+</span>
+                <span class="sc">'}'</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Item.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">jpabook.model.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created by holyeye on 2014. 3. 11..
+ */</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ITEM_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>        <span class="c1">//이름</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>          <span class="c1">//가격</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">stockQuantity</span><span class="o">;</span>  <span class="c1">//재고수량</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Item{"</span> <span class="o">+</span>
+                <span class="s">"id="</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
+                <span class="s">", name='"</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", price="</span> <span class="o">+</span> <span class="n">price</span> <span class="o">+</span>
+                <span class="sc">'}'</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이 예제는 객체 설계를 테이블 설계에 맞춘 방법이다 (데이터 중심 설계)</p>
+
+<p>특히 테이블의 외래 키를 객체에 그대로 가져온 부분이 문제다. 관계형 DB 에서는 연관된 객체를 찾을 때 외래 키를 사용해서 조인하면 되지만 객체에는 조인기능이 없다.</p>
+
+<p>객체는 연관된 객체를 찾을 때 참조를 사용해야 한다.</p>
+
+<p>예를 들어,</p>
+
+<p>주문을 조회한 다음 주문과 연관된 회원을 조회하려면 다음처럼 외래 키를 사용해서 다시 조회해야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">orderId</span><span class="o">);</span>
+<span class="c1">// 외래 키로 다시 조회</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">order</span><span class="o">.</span><span class="na">getMemberId</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>객체는 참조를 사용해서 연관관계를 조회 할 수 있다. 다음처럼 참조를 사용하는 것이 객체지향적인 방법이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Order</span> <span class="n">order</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">orderId</span><span class="o">);</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="na">getMember</span><span class="o">();</span> <span class="c1">// 참조 사용</span>
+</code></pre></div></div>
+
+<p>객체는 참조를 사용해서 연관된 객체를 찾고 테이블은 외래 키를 사용해서 연관된 테이블을 찾으므로 둘 사이에는 큰 차이가 있다</p>
+
+<p>JPA 는 객체의 참조와 테이블의 외래 키를 매핑해서 객체에서는 참조를 사용하고 테이블에서는 외래 키를 사용할 수 있도록 한다.</p>
+
+<p><br />
+<br /></p>
+:ET

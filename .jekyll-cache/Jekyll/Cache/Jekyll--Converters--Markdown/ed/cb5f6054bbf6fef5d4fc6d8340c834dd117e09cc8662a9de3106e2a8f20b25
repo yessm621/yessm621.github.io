@@ -1,0 +1,184 @@
+I"3<p><br /></p>
+
+<h2 id="sql-수정update-쿼리의-문제점">SQL 수정(Update) 쿼리의 문제점</h2>
+
+<hr />
+
+<p>SQL 을 사용하면 수정 쿼리를 직접 작성</p>
+
+<p>프로젝트의 규모가 커지고 요구사항이 늘어나면 수정쿼리도 점점 추가된다.</p>
+
+<p>→ 이 방식의 문제점은 수정 쿼리가 많아지는 것과 비지니스 로직을 분석하기 위해 SQL 을 계속 확인해야함. 결국, 직접적이든 간접적이든 비지니스 로직이 SQL 에 의존하게 됨</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">초기</span>
+<span class="k">update</span> <span class="n">member</span>
+<span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="o">?</span>
+<span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span>
+
+<span class="o">//</span> <span class="err">기능추가</span>
+<span class="k">update</span> <span class="n">member</span>
+<span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">grade</span> <span class="o">=</span> <span class="o">?</span>
+<span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="변경감지와-병합">변경감지와 병합</h2>
+
+<hr />
+
+<p>JPA 는 영속성 컨텍스트에 테이블 형태의 1차 캐시를 두고 엔티티를 저장해서, Transaction commit 시 1차 캐시의 영속된 값과 현재 entity 값을 비교하여 변경이 된 것을 알아서 적용해줌</p>
+
+<p><br /></p>
+
+<h2 id="준영속-상태의-엔티티">준영속 상태의 엔티티</h2>
+
+<hr />
+
+<p>아래 코드는 form 의 id 에 해당하는 member 의 name 을 set 했다.</p>
+
+<p>이후에 transaction 이 commit 되면 알아서 변경 감지가 일어날 것이라고 생각한 잘못된 코드.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">준영속</span> <span class="err">상태를</span> <span class="err">생각하지</span> <span class="err">않은</span> <span class="err">엔티티</span> <span class="err">값</span> <span class="err">수정</span>
+
+<span class="o">@</span><span class="n">PostMapping</span><span class="p">(</span><span class="nv">"/members/{memberId}/editName"</span><span class="p">)</span>
+<span class="k">public</span> <span class="n">String</span> <span class="n">updateMemberName</span><span class="p">(</span><span class="o">@</span><span class="n">ModelAttribute</span><span class="p">(</span><span class="nv">"form"</span><span class="p">)</span> <span class="n">MemberNameEditForm</span> <span class="n">form</span><span class="p">){</span>
+<span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="p">();</span>
+
+<span class="n">member</span><span class="p">.</span><span class="n">setId</span><span class="p">(</span><span class="n">form</span><span class="p">.</span><span class="n">getId</span><span class="p">());</span>
+<span class="n">member</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="n">form</span><span class="p">.</span><span class="n">getName</span><span class="p">());</span>
+
+<span class="k">return</span> <span class="nv">"redirect:/members"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>이미 한번 DB 에 저장된 기존 식별자(id) 를 갖는 엔티티는 영속성 컨텍스트가 더 이상 관여하지 않음</p>
+
+<p>→ 이런 상태의 entity 를 준영속 상태의 엔티티라고 함</p>
+
+<p>위 코드에서 member 역시, 기존에 DB에 저장된 id를 식별자로 갖는 준영속 상태의 엔티티이기 때문에 영속성 컨텍스트에 의해 관리되지 않고, 때문에 변경 감지가 적용되지 않는 것</p>
+
+<p><br /></p>
+
+<h2 id="준영속-상태의-엔티티를-수정하는-2가지-방법">준영속 상태의 엔티티를 수정하는 2가지 방법</h2>
+
+<hr />
+
+<ol>
+  <li>변경 감지 기능 (dirty checking) 사용</li>
+  <li>merge 사용</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="변경감지-dirty-checking">변경감지 (dirty checking)</h2>
+
+<hr />
+
+<p>entity manager 로 entity 를 직접 꺼내 값을 수정</p>
+
+<p>이렇게 하면 dirty checking 이 일어남</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+
+<span class="kt">void</span> <span class="nf">updateMember</span><span class="o">(</span><span class="nc">Member</span> <span class="n">memberParam</span><span class="o">)</span>
+<span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">memberParam</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+
+<span class="n">findMember</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">memberParam</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>JPA 로 엔티티를 수정할 때는 엔티티를 조회한 후 데이터만 변경하면 된다.</p>
+
+<p>em.update()와 같은 update 메소드가 존재하지 않는데 어떻게 db 에 반영이 되었을까?</p>
+
+<p>그 이유는 <code class="language-plaintext highlighter-rouge">JPA 의 변경감지 (Dirty Checking)</code> 기능 때문</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">()</span> <span class="c1">// [트랜잭션] 시작</span>
+
+<span class="c1">// 영속 엔티티 조회</span>
+<span class="nc">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+
+<span class="c1">// 영속 엔티티 데이터 수정</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+
+<span class="c1">// em.update(member); 이런코드가 필요할 거 같지만 없다..</span>
+
+<span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// [트랜잭션] 커밋</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ol>
+  <li>트랜잭션을 커밋하면 엔티티 매니저 내부에서 flush() 가 호출</li>
+  <li>엔티티와 스냅샷을 비교해서 변경된 엔티티를 찾음</li>
+  <li>변경된 엔티티가 있으면 수정 쿼리를 생성해서 쓰기 지연 SQL 저장소에 보냄</li>
+  <li>쓰기 지연 저장소의 SQL 을 DB 에 보냄</li>
+  <li>데이터베이스 트랜잭션을 커밋</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="merge-사용">merge 사용</h2>
+
+<hr />
+
+<p>entity manager 의 merge 를 사용</p>
+
+<p>merge 가 호출되면 우선 해당 엔티티를 1차 캐시에서 먼저 조회하고, 없다면 식별자로 DB에서 엔티티를 검색해 가져와 준영속 상태의 엔티티 값을 대입 받는다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/members/{memberId}/editName"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">updateMemberName</span><span class="o">(</span><span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"form"</span><span class="o">)</span> <span class="nc">MemberNameEditForm</span> <span class="n">form</span><span class="o">){</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+
+<span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="k">return</span> <span class="s">"redirect:/members"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>아래처럼 Service 에서 Member 를 저장할 때, id 가 직접 설정하지 않았으면(새로 생성) persist 를, id 를 직접 설정한 객체가 저장된다면 이미 있는 엔티티르 수정하는 것으로 알고 merge 를 호출하는 식으로 사용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+     <span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>merge 는 엔티티로 넘어온 모든 속성으로 변경이 진행됨</p>
+
+<p>병합시 값이 없으면 null 로 업데이트 할 위험이 있다 (병합은 모든 필드를 교체함)</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">따라서, 엔티티를 변경할 때는 변경감지를 사용하는 것이 좋다</code></strong></p>
+
+<p><br /></p>
+
+<h2 id="엔티티-삭제">엔티티 삭제</h2>
+
+<hr />
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Memeber</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memeberA"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>em.remove() 에 삭제 대상 엔티티를 넘겨주면 엔티티를 삭제한다.</p>
+
+<p>물론 엔티티를 즉시 삭제 하는 것이 아니라 엔티티 등록과 비슷하게 삭제 쿼리를 쓰기 지연 SQL 저장소에 등록한다.</p>
+
+<p>이 후 트랜잭션을 커밋하게 되면 플러시가 호출되어 실제 데이터베이스에 삭제 쿼리를 전달</p>
+
+<p>em.remove(memberA) 를 호출하는 순간 memberA 는 영속성 컨텍스트에서 제거됨</p>
+
+<p><br />
+<br /></p>
+:ET

@@ -1,0 +1,198 @@
+<p><br /></p>
+
+<h2 id="준영속-이란">준영속 이란?</h2>
+
+<hr />
+
+<p>→ 영속성 컨텍스트가 관리하는 영속 상태의 엔티티가 영속성 컨텍스트에서 분리된(detached) 것을 준영속 상태라 한다</p>
+
+<p><br /></p>
+
+<h3 id="영속-상태-엔티티를-준영속-상태로-만드는-방법">영속 상태 엔티티를 준영속 상태로 만드는 방법</h3>
+
+<ol>
+  <li>em.detach(entity): 특정 엔티티만 준영속 상태로 전환</li>
+  <li>em.clear(): 영속성 컨텍스트를 완전히 초기화</li>
+  <li>em.close(): 영속성 컨텍스트를 종료</li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<h2 id="준영속-엔티티란">준영속 엔티티란?</h2>
+
+<hr />
+
+<p>영속성 컨텍스트가 더는 관리하지 않는 엔티티를 말한다</p>
+
+<p>준영속이라는 단어는 객체를 new 했거나, 안했거나를 기준으로 나누는 것이 아니다</p>
+
+<p><strong>핵심은 식별자를 기준으로 영속상태가 되어서 DB에 저장된 적이 있는가</strong> 를 기준으로 생각해야함</p>
+
+<p>그래서 식별자를 기준으로 이미 한번 영속상태가 되어버린 엔티티가 있는데, 더이상 영속성 컨텍스트가 관리하지 않으면 모두 준영속 상태</p>
+
+<p>ItemController.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+	<span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setStockQuantity</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getStockQuantity</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setAuthor</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getAuthor</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setIsbn</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getIsbn</span><span class="o">());</span>
+
+	<span class="n">itemService</span><span class="o">.</span><span class="na">saveItem</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Book 이라는 새로운 객체를 생성했지만 book 에 들어가는 데이터는 이미 DB 에 한번 저장되어서 식별자가 존재한다. 임의로 만들어낸 엔티티도 기존 식별자를 가지고 있으면 <code class="language-plaintext highlighter-rouge">준영속 엔티티</code>로 볼 수 있다.</p>
+
+<p><br />
+<br /></p>
+
+<h3 id="준영속-엔티티를-변경하는-방법">준영속 엔티티를 변경하는 방법</h3>
+
+<ol>
+  <li>변경 감지 (dirty checking 이라고도 한다)</li>
+  <li>병합 (merge)</li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<h2 id="변경-감지">변경 감지</h2>
+
+<hr />
+
+<p>영속성 컨텍스트에서 엔티티를 다시 조회한 후에 데이터를 수정하는 방법</p>
+
+<p>트랜잭션 안에서 엔티티를 다시 조회, 변경할 값 선택 트랜잭션 커밋 시점에 변경 감지(Dirty Checking)
+이 동작해서 데이터베이스에 UPDATE SQL 실행</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateItem</span><span class="o">(</span><span class="nc">Long</span> <span class="n">itemId</span><span class="o">,</span> <span class="nc">Book</span> <span class="n">param</span><span class="o">){</span>
+	<span class="c1">//findItem 은 영속상태</span>
+	<span class="nc">Item</span> <span class="n">findItem</span> <span class="o">=</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">itemId</span><span class="o">);</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setStockQuantity</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getStockQuantity</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p><br />
+<br /></p>
+
+<h2 id="병합-merge">병합 (merge)</h2>
+
+<hr />
+
+<p>준영속 상태의 엔티티를 영속 상태로 변경할 때 사용하는 기능</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="nc">Item</span> <span class="n">itemParam</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//itemParam: 파리미터로 넘어온 준영속 상태의 엔티티</span>
+ <span class="nc">Item</span> <span class="n">mergeItem</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="nc">Item</span> <span class="nf">updateItem</span><span class="o">(</span><span class="nc">Long</span> <span class="n">itemId</span><span class="o">,</span> <span class="nc">Book</span> <span class="n">param</span><span class="o">){</span>
+	<span class="c1">//findItem 은 영속상태</span>
+	<span class="nc">Item</span> <span class="n">findItem</span> <span class="o">=</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">itemId</span><span class="o">);</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setStockQuantity</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getStockQuantity</span><span class="o">());</span>
+	
+	<span class="k">return</span> <span class="n">findItem</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>첫번째 코드와 두번째 코드의 동작 방식은 똑같다.</p>
+
+<p>첫번째 코드는 JPA 를 사용하여 간단하게 작성 할 수 있다.</p>
+
+<blockquote>
+  <p>주의: 변경 감지 기능을 사용하면 원하는 속성만 선택해서 변경할 수 있지만, 병합을 사용하면 모든 속성이
+변경된다. 병합시 값이 없으면 null 로 업데이트 할 위험도 있다. (병합은 모든 필드를 교체한다.)</p>
+
+</blockquote>
+
+<p>따라서, 실무에선 병합(merge)을 쓰지 말고 <code class="language-plaintext highlighter-rouge">변경 감지</code>를 사용하자</p>
+
+<p><br />
+<br /></p>
+
+<h2 id="정리">정리</h2>
+
+<hr />
+
+<ol>
+  <li>엔티티를 변경할 때는 항상 변경 감지를 사용</li>
+  <li>컨트롤러에서 어설프게 엔티티를 생성하지 말고</li>
+  <li>트랜잭션이 있는 서비스 계층에 식별자( id )와 변경할 데이터를 명확하게 전달 (파라미터 or dto)</li>
+  <li>트랜잭션이 있는 서비스 계층에서 영속 상태의 엔티티를 조회하고, 엔티티의 데이터를 직접 변경</li>
+  <li>트랜잭션 커밋 시점에 변경 감지가 실행됨</li>
+</ol>
+
+<p><br /></p>
+
+<p>ItemController.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/items/{itemId}/edit"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">updateItem</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">itemId</span><span class="o">,</span> <span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"form"</span><span class="o">)</span> <span class="nc">BookForm</span> <span class="n">form</span><span class="o">){</span>
+
+	<span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setStockQuantity</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getStockQuantity</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setAuthor</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getAuthor</span><span class="o">());</span>
+	<span class="n">book</span><span class="o">.</span><span class="na">setIsbn</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getIsbn</span><span class="o">());</span>
+
+	<span class="n">itemService</span><span class="o">.</span><span class="na">saveItem</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+	<span class="k">return</span> <span class="s">"redirect:/items"</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>ItemController.java (파라미터를 명확하게 함)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+
+<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/items/{itemId}/edit"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">updateItem</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">itemId</span><span class="o">,</span> <span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"form"</span><span class="o">)</span> <span class="nc">BookForm</span> <span class="n">form</span><span class="o">){</span>
+
+	<span class="n">itemService</span><span class="o">.</span><span class="na">updateItem</span><span class="o">(</span><span class="n">itemId</span><span class="o">,</span> <span class="n">form</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">form</span><span class="o">.</span><span class="na">getPrice</span><span class="o">(),</span> <span class="n">form</span><span class="o">.</span><span class="na">getStockQuantity</span><span class="o">());</span>
+	<span class="k">return</span> <span class="s">"redirect:/items"</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>ItemService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateItem</span><span class="o">(</span><span class="nc">Long</span> <span class="n">itemId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">,</span> <span class="kt">int</span> <span class="n">stockQuantity</span><span class="o">)</span> <span class="o">{</span>
+	<span class="nc">Item</span> <span class="n">findItem</span> <span class="o">=</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">findOne</span><span class="o">(</span><span class="n">itemId</span><span class="o">);</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">price</span><span class="o">);</span>
+	<span class="n">findItem</span><span class="o">.</span><span class="na">setStockQuantity</span><span class="o">(</span><span class="n">stockQuantity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>첫번째 코드 처럼 사용하는 것 보다 아래 코드 처럼 파라미터를 명확하게 해주는게 훨씬 더 좋은 코드이다.</p>

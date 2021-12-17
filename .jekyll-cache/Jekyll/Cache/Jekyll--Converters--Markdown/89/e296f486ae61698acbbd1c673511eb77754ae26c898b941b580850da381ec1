@@ -1,0 +1,212 @@
+I"�4<p><br /></p>
+
+<h2 id="flex-반응형-컬럼-예제">Flex 반응형 컬럼 예제</h2>
+<hr />
+
+<p><strong>base.html</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+	<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>BB<span class="nt">&lt;/div&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"flex-item"</span><span class="nt">&gt;</span>AAAAAAAAAAAAAAA<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><strong>base.css</strong></p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.flex-container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+	<span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+	<span class="c">/* border: 10px solid red; */</span>
+<span class="p">}</span>
+<span class="nc">.flex-item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">600px</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nc">.flex-container</span> <span class="p">{</span>
+		<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">row</span><span class="p">;</span>
+		<span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="nc">.flex-item</span> <span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+		<span class="c">/* flex-grow: 0; */</span>
+		<span class="c">/* flex: 0 auto; */</span>
+		<span class="c">/* flex-basis: 50%; */</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">900px</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nc">.flex-item</span> <span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br />
+<br /></p>
+
+<h2 id="1단-컬럼">1단 컬럼</h2>
+
+<hr />
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.flex-container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+	<span class="c">/* height: 100vh; */</span>
+	<span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">10px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">height 와 min-height 의 차이점?</code></p>
+
+<p>→ 스크롤에 따라 달라짐</p>
+
+<p>→ height: 100vh; 일때, 현재 창 크기에 맞춰 border 의 height 를 측정</p>
+
+<p>→ min-height: 100vh; 일때, 현재 창 크기와 상관없이 스크롤 마지막에 맞춰 border 의 height 를 측정</p>
+
+<p>height: 100vh;</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130557212-d2de2b8d-c844-4e9d-bf8e-ec160c2de008.png" alt="Untitled" /></p>
+
+<p><br /></p>
+
+<p>min-height: 100vh;</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130557219-f57ec195-8478-41ed-a150-5f1ad2d148f0.png" alt="Untitled2" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="1단-컬럼-높이를-꽉차게">1단 컬럼: 높이를 꽉차게</h2>
+
+<hr />
+
+<p>flex-item 에 flex: 1 auto; 값을 넣어주면 화면에 꽉차게 flex-item 을 구성</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.flex-container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+	<span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+	<span class="nl">border</span><span class="p">:</span> <span class="m">10px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.flex-item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130557220-bc3df759-eebe-4387-8a19-22b1501ee6fd.png" alt="Untitled3" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="2단-컬럼">2단 컬럼</h2>
+<hr />
+
+<p>2단으로 컬럼을 구성하고 싶을 땐,</p>
+
+<p>flex-direction 을 row 로 주고 크기를 벗어나면 아래행으로 가도록 flex-wrap 을 wrap 으로 준다</p>
+
+<p>그리고 반반의 크기로 가야하니 width: 50%; 로 설정해준다.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.flex-container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+	<span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.flex-item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">600px</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nc">.flex-container</span> <span class="p">{</span>
+		<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">row</span><span class="p">;</span>
+		<span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nc">.flex-item</span> <span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130557222-9646464a-acbb-4423-80a8-f8f9d397fb8a.png" alt="Untitled4" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>
+    <p>width 와 flex-basis 의 차이점?</p>
+
+    <p>→ width 는 단순히 가로 길이를 의미한다면 flex-basis 는 기본값이 width 이다.</p>
+
+    <p>→ 즉, width 가 50% 이면 flex-basis의 기본값이 50% 이다.</p>
+  </li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h2 id="3단-컬럼">3단 컬럼</h2>
+
+<hr />
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.flex-container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+	<span class="nl">min-height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.flex-item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">600px</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nc">.flex-container</span> <span class="p">{</span>
+		<span class="nl">flex-direction</span><span class="p">:</span> <span class="n">row</span><span class="p">;</span>
+		<span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nc">.flex-item</span> <span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">900px</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nc">.flex-item</span> <span class="p">{</span>
+		<span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130557224-252e168a-f482-4450-a1a0-2fa8017aad0f.png" alt="Untitled5" /></p>
+
+<p><br />
+<br /></p>
+:ET

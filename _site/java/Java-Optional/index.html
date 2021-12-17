@@ -1,0 +1,178 @@
+<p><br /></p>
+
+<h2 id="기존의-null-처리">기존의 null 처리</h2>
+
+<hr />
+
+<p>아래 코드는 값(주소) 이 있다면 문제가 없는 코드이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">house</span><span class="o">.</span><span class="na">getAddress</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>하지만, 값(주소) 이 없다면 NPE 가 발생 한다.</p>
+
+<p>따라서, null 처리를 위해선 다음과 같이 코드를 작성하였다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">house</span><span class="o">.</span><span class="na">getAddress</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">house</span><span class="o">.</span><span class="na">getAddress</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>if 문을 사용하면 null 처리를 할 수 있다.</p>
+
+<p><br /></p>
+
+<p>위의 코드는 간단하여 보기에 좋지만 수 많은 null 처리를 진행하게 되면 코드가 지저분해진다.</p>
+
+<p>이럴때 사용하는게 Optional 클래스다. (java8 부터 지원)</p>
+
+<p><br />
+<br /></p>
+
+<h2 id="optional-클래스">Optional 클래스</h2>
+
+<hr />
+
+<p>Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 NPE(Null Point Exception) 를 방지 할 수 있다.</p>
+
+<p><br /></p>
+
+<h3 id="optional-에서-제공하는-메서드">Optional 에서 제공하는 메서드</h3>
+
+<p><strong>Optional 객체 생성</strong></p>
+
+<ol>
+  <li>
+    <p><strong>Optional.of()</strong></p>
+
+    <p>→ value 가 null 인 경우 NPE 예외 발생. 값이 반드시 있어야 할 경우에 사용</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public static &lt;T&gt; Optional&lt;T&gt; of(T value);</span>
+
+ <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Optional.ofNullable()</strong></p>
+
+    <p>→ value 가 null 인 경우 비어있는 Optional 반환. 값이 null 일 수도 있는 경우에 사용</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public static &lt;T&gt; Optional&lt;T&gt; ofNullable(T value);</span>
+
+ <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Optional.empty()</strong></p>
+
+    <p>→ 비어있는 Optional 객체 생성</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public static&lt;T&gt; Optional&lt;T&gt; empty();</span>
+
+ <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>Optional 중간 처리</strong></p>
+
+<ol>
+  <li>
+    <p><strong>filter()</strong></p>
+
+    <p>→ predicate 값이 참이면 해당 필터를 통과시키고 거짓이면 통과 되지 않습니다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public Optional&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate);</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"1"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"NO DATA"</span><span class="o">);</span> <span class="c1">// "1"</span>
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"0"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"1"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"NO DATA"</span><span class="o">);</span> <span class="c1">// "NO DATA"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>map()</strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public&lt;U&gt; Optional&lt;U&gt; map(Function&lt;? super T, ? extends U&gt; mapper);</span>
+
+ <span class="c1">// string to integer</span>
+ <span class="nc">Integer</span> <span class="n">test</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">Integer:</span><span class="o">:</span><span class="n">valueOf</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(</span><span class="nl">NoSuchElementException:</span><span class="o">:</span><span class="k">new</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>Optional 종단 처리</strong></p>
+
+<ol>
+  <li>
+    <p><strong>ifPresent()</strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public void ifPresent(Consumer&lt;? super T&gt; consumer);</span>
+
+ <span class="c1">// ex1.</span>
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"test"</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">((</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+ 	<span class="c1">// something to do</span>
+ <span class="o">});</span>
+ <span class="c1">// ex2. (ifPresent 미수행)</span>
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">((</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+ 	<span class="c1">// nothing to do</span>
+ <span class="o">});</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>isPresent()</strong></p>
+
+    <p>→ 객체가 존재하는지 여부 판별</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public boolean isPresent();</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">isPresent</span><span class="o">();</span> <span class="c1">// true</span>
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"0"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">isPresent</span><span class="o">();</span> <span class="c1">// false</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>get()</strong></p>
+
+    <p>→ 객체를 꺼냄 (비어있는 객체이면 예외 발생)</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public T get();</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"test"</span><span class="o">).</span><span class="na">get</span><span class="o">();</span> <span class="c1">// 'test'</span>
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">get</span><span class="o">();</span> <span class="c1">// Exception!!!</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Optional.orElse()</strong></p>
+
+    <p>→ 객체가 비어있다면 기본값 제공</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public T orElse(T other);</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"default"</span><span class="o">);</span> <span class="c1">// 'default'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Optional.orElseGet()</strong></p>
+
+    <p>→ 객체가 비어있다면 기본값 제공</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public T orElseGet(Supplier&lt;? extends T&gt; other);</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"input"</span><span class="o">).</span><span class="na">filter</span><span class="o">(</span><span class="s">"test"</span><span class="o">::</span><span class="n">equals</span><span class="o">).</span><span class="na">orElseGet</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"default"</span><span class="o">);</span> <span class="c1">// 'default'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Optional.orElseThrow()</strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// public &lt;X extends Throwable&gt; T orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier) throws X;</span>
+
+ <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"input"</span><span class="o">).</span><span class="na">filter</span><span class="o">(</span><span class="s">"test"</span><span class="o">::</span><span class="n">equals</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(</span><span class="nl">NoSuchElementException:</span><span class="o">:</span><span class="k">new</span><span class="o">);</span>
+</code></pre></div>    </div>
+
+    <p><br /><br /></p>
+  </li>
+</ol>

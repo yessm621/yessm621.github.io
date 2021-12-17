@@ -1,0 +1,43 @@
+I"V<p><br /></p>
+
+<h2 id="flex-란">Flex 란</h2>
+
+<hr />
+
+<p><strong>Flex 는 레이아웃 배치 전용 기능</strong></p>
+
+<p>기존에 사용하던 float 와 inline-block 을 대체할 수 있음</p>
+
+<p><br /></p>
+
+<p>Flex 레이아웃을 만들기 위한 기본적인 HTML 구조</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>helloflex<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>abc<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>helloflex<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>부모요소 (div.container) 를 Flex Container</p>
+
+<p>자식요소 (div.item) 를 Flex Item</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129135253-cf4a10ba-bc97-40a1-ac6e-cee0c2f5ffe9.png" alt="Untitled" /></p>
+
+<p>Flex 의 속성에는</p>
+
+<ul>
+  <li>컨테이너에 적용하는 속성</li>
+  <li>아이템에 적용하는 속성</li>
+</ul>
+
+<p>두가지가 있다.</p>
+
+<p><br /></p>
+
+<p>[출처] 1분코딩 - <a href="https://studiomeal.com/archives/197">https://studiomeal.com/archives/197</a></p>
+
+<p><br />
+<br /></p>
+:ET

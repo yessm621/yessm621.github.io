@@ -1,0 +1,99 @@
+<p><br /></p>
+
+<h2 id="의존성-주입-방법">의존성 주입 방법</h2>
+
+<hr />
+
+<h3 id="1-field-injection">1. field injection</h3>
+
+<p>field injection 은 의존성을 주입하고 싶은 필드에 @Autowired 를 붙여주면 의존성이 주입된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+	<span class="nd">@Autowired</span>
+	<span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2-setter-based-injection">2. setter based injection</h3>
+
+<p>setter 메서드에 @Autowired 를 붙여 의존성을 주입하는 방식</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+	<span class="nd">@Autowired</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMemberRepository</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="3-constructor-based-injection-현재-가장-권장하는-방법">3. Constructor based injection (현재 가장 권장하는 방법)</h3>
+
+<p>생성자를 사용하여 의존성을 주입하는 방식</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">MemberService</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">MemberService</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>field injection, setter based injection 은 constructor based injection 과 빈을 주입하는 순서가 다르다.</p>
+
+<ul>
+  <li>field injection, setter based injection: 런타임에서 의존성을 주입하기 때문에 의존성을 주입하지 않아도 객체가 생성됨</li>
+  <li>constructor based injection: 객체가 생성되는 시점에 빈을 주입. 의존성이 주입되지 않아 발생하는 NullPointerException 을 방지</li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h2 id="lombok-을-활용한-생성자-주입">lombok 을 활용한 생성자 주입</h2>
+
+<hr />
+
+<p>@RequiredArgsConstructor 는 final 로 선언된 필드를 가지고 생성자를 만들어줌.</p>
+
+<p>개발도중 필드가 바뀌어도 lombok 의 관리하에 생성자 코드의 파라미터를 고칠 필요가 없다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br />
+<br /></p>

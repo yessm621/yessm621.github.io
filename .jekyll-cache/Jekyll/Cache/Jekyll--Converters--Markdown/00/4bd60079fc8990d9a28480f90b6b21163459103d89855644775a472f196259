@@ -1,0 +1,284 @@
+I"�N<p><br /></p>
+
+<p><strong>ItemRepository.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.shop.shop.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.shop.shop.entity.Item</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Item</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="jparepository">JpaRepository</h2>
+<hr />
+
+<p>JpaReporitory 는 2개의 제네릭 타입을 사용하는데 첫번째에는 엔티티 타입 클래스, 두번재는 기본키 타입을 넣어줌</p>
+
+<p>JpaReporitory 는 기본적인 CRUD 및 페이징 처리를 위한 메소드가 정의돼 있음</p>
+
+<ul>
+  <li>
+    <p>JpaReporitory 에서 지원하는 메소드 예시</p>
+
+    <p><img src="https://user-images.githubusercontent.com/79130276/140668825-9087ab17-8b1b-43ae-86cd-1d09c0e49de1.png" alt="jpaRepository" /></p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>application-test.properties</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span> <span class="nc">Datasource</span> <span class="n">설정</span>
+<span class="n">spring</span><span class="o">.</span><span class="na">datasource</span><span class="o">.</span><span class="na">driver</span><span class="o">-</span><span class="kd">class</span><span class="err">-</span><span class="nc">name</span><span class="o">=</span><span class="n">org</span><span class="o">.</span><span class="na">h2</span><span class="o">.</span><span class="na">Driver</span>
+<span class="n">spring</span><span class="o">.</span><span class="na">datasource</span><span class="o">.</span><span class="na">url</span><span class="o">=</span><span class="nl">jdbc:h2:mem:</span><span class="n">test</span>
+<span class="n">spring</span><span class="o">.</span><span class="na">datasource</span><span class="o">.</span><span class="na">username</span><span class="o">=</span><span class="n">sa</span>
+<span class="n">spring</span><span class="o">.</span><span class="na">datasource</span><span class="o">.</span><span class="na">password</span><span class="o">=</span>
+
+<span class="n">spring</span><span class="o">.</span><span class="na">jpa</span><span class="o">.</span><span class="na">database</span><span class="o">-</span><span class="n">platform</span><span class="o">=</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">.</span><span class="na">dialect</span><span class="o">.</span><span class="na">H2Dialect</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>ItemRepositoryTest.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.shop.shop.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.shop.shop.entity.Item</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.shop.shop.entity.ItemSellStatus</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.DisplayName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.context.TestPropertySource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.time.LocalDateTime</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="nd">@TestPropertySource</span><span class="o">(</span><span class="n">locations</span> <span class="o">=</span> <span class="s">"classpath:application-test.properties"</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">ItemRepositoryTest</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">ItemRepository</span> <span class="n">itemRepository</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"상품 저장 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">createItemTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Item</span><span class="o">();</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setItemNm</span><span class="o">(</span><span class="s">"테스트 상품"</span><span class="o">);</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setItemDetail</span><span class="o">(</span><span class="s">"테스트 상품 상세 설명"</span><span class="o">);</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setItemSellStatus</span><span class="o">(</span><span class="nc">ItemSellStatus</span><span class="o">.</span><span class="na">SELL</span><span class="o">);</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setStockNumber</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setRegTime</span><span class="o">(</span><span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+        <span class="n">item</span><span class="o">.</span><span class="na">setUpdateTime</span><span class="o">(</span><span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+        <span class="nc">Item</span> <span class="n">savedItem</span> <span class="o">=</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">savedItem</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>@SpringBootTest</strong></p>
+
+<p>통합 테스트를 위해 스프링 부트에서 제공하는 어노테이션</p>
+
+<p>실제 애플리케이션을 구동할 때처럼 모든 Bean 을 IoC 컨테이너에 등록</p>
+
+<p>애플리케이션의 규모가 크면 속도가 느려질 수 있다.</p>
+
+<p><br /></p>
+
+<p><strong>@TestPropertySource(locations = “classpath:application-test.properties”)</strong></p>
+
+<p>테스트 코드 실행 시 application.properties 에 설정해둔 값보다 application-test.properties 에 같은 설정이 있다면 더 높은 우선순위를 부여</p>
+
+<p><br /></p>
+
+<p><strong>@Autowired</strong></p>
+
+<p>ItemRepository 를 사용하기 위해 어노테이션을 이용하여 Bean 을 주입</p>
+
+<p><br /></p>
+
+<p><strong>@Test</strong></p>
+
+<p>테스트할 메소드위에 선언하여 테스트 대상으로 지정</p>
+
+<p><br /></p>
+
+<p><strong>@DisplayName(“상품 저장 테스트”)</strong></p>
+
+<p>테스트 코드 실행 시 지정한 테스트명이 노출됨</p>
+
+<p>Spring Data JPA 는 JPA 의 구현체인 Hibernate 를 이용하기 위한 여러 API 를 제공.</p>
+
+<p>그중에서 가장 많이 사용하는 것이 <strong>JpaRepository 라는 인터페이스</strong></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="jparepository-예제">JpaRepository 예제</h2>
+
+<hr />
+
+<p>MemoRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemoRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>작성된 MemoRepository 는 인터페이스 자체, JpaRepository 인터페이스를 상속하는 것만으로 모든 작업이 끝</p>
+
+<p>JpaRepository 를 사용할 때는 엔티티의 타입 정보(Memo) 와 @Id 의 타입(Long) 을 지정.</p>
+
+<p>Spring Data JPA 는 인터페이스 선언만으로 자동으로 스프링의 빈으로 등록됨</p>
+
+<p><br /></p>
+
+<h2 id="테스트-코드를-통한-crud-연습">테스트 코드를 통한 CRUD 연습</h2>
+
+<hr />
+
+<ul>
+  <li>insert 작업: save(엔티티 객체)</li>
+  <li>select 작업: findById(키 타입), getOne(키 타입)</li>
+  <li>update 작업: save(엔티티 객체)</li>
+  <li>delete 작업: deleteById(키 타입), delete(엔티티 객체)</li>
+</ul>
+
+<p><br /></p>
+
+<p>특이하게 insert 와 update 작업에 사용하는 메서드가 동일하게 save() 를 이용하는데 이는 JPA 의 구현체가 메모리상(Entity Manager) 에서 객체를 비교하고 없다면 insert, 존재한다면 update 를 동작시키는 방식으로 동작하기 때문</p>
+
+<p>MemoRepositoryTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.DisplayName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">MemoRepositoryTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">MemoRepository</span> <span class="n">memoRepository</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testClass</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memoRepository</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"등록 작업 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsertDummies</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">IntStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">100</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">Memo</span> <span class="n">memo</span> <span class="o">=</span> <span class="nc">Memo</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">memoText</span><span class="o">(</span><span class="s">"Sample..."</span> <span class="o">+</span> <span class="n">i</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+            <span class="n">memoRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"조회 작업 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelect</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Long</span> <span class="n">mno</span> <span class="o">=</span> <span class="mi">100L</span><span class="o">;</span>
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">memoRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">mno</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====================================="</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">Memo</span> <span class="n">memo</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Transactional</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"조회 작업 테스트2"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelect2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Long</span> <span class="n">mno</span> <span class="o">=</span> <span class="mi">100L</span><span class="o">;</span>
+
+        <span class="nc">Memo</span> <span class="n">memo</span> <span class="o">=</span> <span class="n">memoRepository</span><span class="o">.</span><span class="na">getOne</span><span class="o">(</span><span class="n">mno</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"====================================="</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"수정 작업 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Memo</span> <span class="n">memo</span> <span class="o">=</span> <span class="nc">Memo</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">mno</span><span class="o">(</span><span class="mi">100L</span><span class="o">).</span><span class="na">memoText</span><span class="o">(</span><span class="s">"Update Text"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memoRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">memo</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"삭제 작업 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Long</span> <span class="n">mno</span> <span class="o">=</span> <span class="mi">100L</span><span class="o">;</span>
+
+        <span class="n">memoRepository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">mno</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>testClass</p>
+
+    <p>→ 본격적인 테스트에 앞서 실제로 MemoRepository 가 정상적으로 스프링에서 처리되고, 의존성 주입에 문제가 없는지를 먼저 확인</p>
+  </li>
+  <li>
+    <p>등록 작업 테스트</p>
+
+    <p>→ 한 번에 여러 개의 엔티티 객체를 저장하도록 작성</p>
+  </li>
+  <li>
+    <p>조회 작업 테스트</p>
+
+    <p>→ findById(): Optional 타입으로 반환</p>
+
+    <p>→ findById() 를 실행하는 순간에 이미 SQL 은 처리가 됨</p>
+  </li>
+  <li>
+    <p>조회 작업 테스트2</p>
+
+    <p>→ getOne(): Transactional 어노테이션이 추가로 필요</p>
+
+    <p>→ getOne() 의 리턴 값은 해당 객체이지만, 실제 객체가 필요한 순간까지 SQL 을 실행하지 않음</p>
+  </li>
+  <li>
+    <p>수정 작업 테스트</p>
+
+    <p>→ 내부적으로 해당 엔티티의 @Id 값이 일치하는지를 확인해서 insert or update 작업을 처리</p>
+  </li>
+  <li>
+    <p>삭제 작업 테스트</p>
+
+    <p>→ 삭제하려는 번호의 엔티티 객체가 있는지 먼저 확인하고, 이를 삭제</p>
+
+    <p>→ deleteById() 의 리턴 타입은 void, 만일 해당 데이터가 존재하지 않으면 예외를 발생</p>
+  </li>
+</ol>
+
+<p><br />
+<br /></p>
+:ET

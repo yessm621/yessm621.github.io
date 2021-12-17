@@ -1,0 +1,253 @@
+I"8><p><br /></p>
+
+<h2 id="유연한-박스의-기본-영역-flex-basis">유연한 박스의 기본 영역, flex-basis</h2>
+<hr />
+
+<p>flex-basis 는 flex 아이템의 기본 크기를 설정함</p>
+
+<p>flex-direction (오뎅꼬치) 이 row 일 때는 너비, column 일 때는 높이</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex-basis</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span> <span class="c">/* 기본값 */</span>
+	<span class="c">/* flex-basis: 0; */</span>
+	<span class="c">/* flex-basis: 50%; */</span>
+	<span class="c">/* flex-basis: 300px; */</span>
+	<span class="c">/* flex-basis: 10rem; */</span>
+	<span class="c">/* flex-basis: content; */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664649-cdc92361-357a-4593-a8b7-ba6ccb922e96.png" alt="Untitled" /></p>
+
+<p><br /></p>
+
+<p>그렇다면 width 를 설정하게 되면 어떻게 될까?</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664653-7a70f2c1-65ab-410e-bf2a-e641e1602533.png" alt="Untitled2" /></p>
+
+<p><br /></p>
+
+<p>둘 다 설정하면?</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex-basis</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664655-cd9b8fbd-058f-4054-aa76-e87fc817e517.png" alt="Untitled3" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="유연하게-늘리기-flex-grow">유연하게 늘리기, flex-grow</h2>
+<hr />
+
+<p>flex-grow 는 아이템이 flex-basis 의 값보다 커질 수 있는지를 결정하는 속성</p>
+
+<p>flex-grow 에는 숫자값이 들어감. 0보다 큰 값이 세팅이 되면 해당 아이템이 유연한 박스로 변하고 원래의 크기보다 커지며 빈 공간을 메우게 됨</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+	<span class="c">/* flex-grow: 0; */</span> <span class="c">/* 기본값 */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664656-2c89e053-3b65-4d9e-8ec4-2d0ec891b5b6.png" alt="Untitled4" />
+<img src="https://user-images.githubusercontent.com/79130276/129664657-fbad8edd-2718-4a89-b1fa-1bad011b022e.png" alt="Untitled5" /></p>
+
+<p><br /></p>
+
+<p>flex-grow 에 들어가는 숫자의 의미</p>
+
+<p>→ flex-basis 를 제외한 <strong>여백</strong> 부분을 <strong>flex-grow 에 지정된 숫자의 비율</strong>로 나누어 가진다.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* 1:2:1의 비율로 세팅할 경우 */</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="o">)</span> <span class="p">{</span> <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664658-268d11d9-c262-4e52-9ecf-a825d455d340.png" alt="Untitled6" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="유연하게-줄이기-flex-shrink">유연하게 줄이기, flex-shrink</h2>
+<hr />
+
+<p>flex-shrink 는 flex-grow 와 쌍을 이루는 속성</p>
+
+<p>아이템이 flex-basis 의 값보다 작아질 수 있는지 결정</p>
+
+<p>flex-shrink 에는 숫자값이 들어가는데, 몇이든 0보다 큰 값이 세팅이 되면 해당 아이템이 유연한 박스로 변하고 flex-basis 보다 작아짐</p>
+
+<p>기본값이 1이기 때문에 따로 세팅하지 않아도 아이템이 flex-basis 보다 작아질 수 있음</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex-basis</span><span class="p">:</span> <span class="m">150px</span><span class="p">;</span>
+	<span class="nl">flex-shrink</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="c">/* 기본값 */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>flex-shrink: 0; 이면 아이템의 크기가 flex-basis 보다 작아지지 않음</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">flex-shrink</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664659-fe31bcf2-d991-4b51-9487-cd53a567be2a.png" alt="Untitled7" />
+<img src="https://user-images.githubusercontent.com/79130276/129664660-f575100d-333d-491f-bb28-d836ad1ce77b.png" alt="Untitled8" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="flex">flex</h2>
+<hr />
+
+<p>flex-grow, flex-shrink, flex-basis 를 한 번에 쓸 수 있는 축약형 속성</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+	<span class="c">/* flex-grow: 1; flex-shrink: 1; flex-basis: 0%; */</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="m">1</span> <span class="nb">auto</span><span class="p">;</span>
+	<span class="c">/* flex-grow: 1; flex-shrink: 1; flex-basis: auto; */</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="m">500px</span><span class="p">;</span>
+	<span class="c">/* flex-grow: 1; flex-shrink: 1; flex-basis: 500px; */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>flex: 1; 이런 식으로 쓸 때 flex-basis 의 기본값이 0.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="m">1</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664662-aa4a9c26-3b19-49c3-ac09-aac7e42645f5.png" alt="Untitled9" /></p>
+
+<p><br /></p>
+
+<p>flex-basis: 0; 으로 기본 점유 크기를 0 으로 만들어버려 결국 전체 크기를 1:2:1 의 비율로 설정</p>
+
+<p>flex-wrap 과 flex-basis 를 이용해 2단 컬럼의 사각형 목록 만들기</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.container</span> <span class="p">{</span>
+	<span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+	<span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">flex</span><span class="p">:</span> <span class="m">1</span> <span class="m">1</span> <span class="m">40%</span><span class="p">;</span>
+<span class="c">/*	flex: 1 1 30%; */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"item"</span><span class="nt">&gt;</span>ITEM<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664664-f84df73b-f841-4fcc-a7c5-b6d9876ddaf8.png" alt="Untitled10" />
+<img src="https://user-images.githubusercontent.com/79130276/129664666-fa81f938-6015-4abd-be2b-b36c52e39770.png" alt="Untitled11" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="수직축으로-아이템-정렬-align-self">수직축으로 아이템 정렬, align-self</h2>
+<hr />
+
+<p>align → 수직축 정렬</p>
+
+<p>align-items 의 아이템 버전. align-items 가 전체 아이템의 수직축 방향 정렬, align-self 는 해당 아이템의 수직축 방향 정렬</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span> <span class="p">{</span>
+	<span class="nl">align-self</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+	<span class="c">/* align-self: stretch; */</span>
+	<span class="c">/* align-self: flex-start; */</span>
+	<span class="c">/* align-self: flex-end; */</span>
+	<span class="c">/* align-self: center; */</span>
+	<span class="c">/* align-self: baseline; */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>align-self 의 기본값은 auto, 기본적으로 align-items 설정을 상속 받음</p>
+
+<p>align-self 는 align-items 보다 우선권이 높다</p>
+
+<p>BBB 는 center, CCC 는 flex-start 로 설정</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664667-5e542ca7-5ec1-427d-bc99-c863c7d6d490.png" alt="Untitled12" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="배치-순서-order">배치 순서, order</h2>
+<hr />
+
+<p>각 아이템의 시각적 나열 순서를 결정</p>
+
+<p>숫자값이 들어가며, 작은 숫자일수록 먼저 배치됨</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">1</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span> <span class="p">}</span> <span class="c">/* A */</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span> <span class="p">}</span> <span class="c">/* B */</span>
+<span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">3</span><span class="o">)</span> <span class="p">{</span> <span class="nl">order</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span> <span class="p">}</span> <span class="c">/* C */</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664670-f4610faa-63ec-43e1-88ff-c28b8b4ff808.png" alt="Untitled13" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="z-index">z-index</h2>
+<hr />
+
+<p>Z축 정렬. 숫자가 클 수록 위로 올라감</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.item</span><span class="nd">:nth-child</span><span class="o">(</span><span class="err">2</span><span class="o">)</span> <span class="p">{</span>
+	<span class="nl">z-index</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+	<span class="nl">transform</span><span class="p">:</span> <span class="n">scale</span><span class="p">(</span><span class="m">2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c">/* z-index를 설정 안하면 0이므로, 1만 설정해도 나머지 아이템을 보다 위로 올라온다 */</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/129664671-4165b411-eff5-486d-8e38-65f293ade706.png" alt="Untitled14" /></p>
+
+<p><br /></p>
+
+<p>[출처] 1분코딩 - <a href="https://studiomeal.com/archives/197">https://studiomeal.com/archives/197</a></p>
+
+<p><br />
+<br /></p>
+:ET

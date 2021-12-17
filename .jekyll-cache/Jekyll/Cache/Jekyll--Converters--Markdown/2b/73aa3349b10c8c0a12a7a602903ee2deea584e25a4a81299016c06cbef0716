@@ -1,0 +1,73 @@
+I"�<p>엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정</p>
+
+<p>entity/BaseEntity.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Getter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.CreatedDate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.annotation.LastModifiedDate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.domain.support.AuditingEntityListener</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.Column</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.persistence.EntityListeners</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.persistence.MappedSuperclass</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.LocalDateTime</span><span class="o">;</span>
+
+<span class="nd">@MappedSuperclass</span>
+<span class="nd">@EntityListeners</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="nc">AuditingEntityListener</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+<span class="nd">@Getter</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseEntity</span> <span class="o">{</span>
+
+    <span class="nd">@CreatedDate</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"regdate"</span><span class="o">,</span> <span class="n">updatable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">regDate</span><span class="o">;</span>
+
+    <span class="nd">@LastModifiedDate</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"moddate"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">modDate</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>@MappedSuperclass</strong></p>
+
+<p>해당 어노테이션이 적용된 클래스는 테이블로 생성하지 않음
+실제 테이블은  BaseEntity 클래스를 상속한 엔티티의 클래스로 데이터베이스 테이블이 생성됨</p>
+
+<p>Jpa 는 고유한 메모리 공간(context) 을 이용해서 엔티티 객체를 관리함
+기존의 MyBatis 기반의 프로그램과 달리 단계가 하나 더 있음</p>
+
+<p>MyBatis 와 달리 JPA 에서 사용하는 엔티티 객체들은 영속 컨텍스트라는 곳에서 관리되는 객체
+이 객체들이 변경되면 결과적으로 데이터베이스에 이를 반영하는 방식</p>
+
+<p>엔티티 객체에 어떤 변화가 일어나는 것을 감지하는 리스너가 있다
+JPA 내부에서 엔티티 객체가 생성/변경되는 것을 감지하는 역할은 AuditingEntityListener 로 이루어짐
+이를 통해 regDate, modDate 에 적절한 값이 지정됨</p>
+
+<p>@CreatedDate 는 생성시간, @LastModifiedDate 는 최종 수정 시간을 처리
+속성으로 insertable, updateable 등이 있는데 updateable = false 로 지정하면 객체를 데이터베이스에 반영할 때 regdate 칼럼값은 변경되지 않음</p>
+
+<p>JPA 이용하면서 AuditingEntityListener 를 활성화시키기 위해 프로젝트의 <code class="language-plaintext highlighter-rouge">@EnableJpaAuditing</code> 설정을 추가</p>
+
+<p><br /></p>
+
+<p>프로젝트명Application.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.board</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.config.EnableJpaAuditing</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableJpaAuditing</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BoardApplication</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">BoardApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+:ET

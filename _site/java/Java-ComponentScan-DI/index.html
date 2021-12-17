@@ -1,0 +1,182 @@
+<p><br /></p>
+
+<h2 id="의존관계주입di-이란">의존관계주입(DI) 이란?</h2>
+<hr />
+
+<p>객체 간의 의존 관계를 만드는 것</p>
+
+<p>Spring 의 IOC 컨테이너의 구체적인 구현 방식</p>
+
+<p><br /></p>
+
+<h2 id="의존관계-설정">의존관계 설정</h2>
+<hr />
+
+<p>컨트롤러(Controller)가 서비스(Service)와 리포지토리(Repository)를 사용할 수 있게 의존관계를 준비</p>
+
+<p>→ 컨트롤러에 @Controller 만 붙인다고 service 와 repository 를 사용할 수 있는게 아니다</p>
+
+<p><br /></p>
+
+<p>controller/MemberController.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hellospring.hello.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hellospring.hello.service.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberService</span> <span class="n">memberService</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+	<span class="c1">// 생성자</span>
+    <span class="kd">public</span> <span class="nf">MemberController</span><span class="o">(</span><span class="nc">MemberService</span> <span class="n">memberService</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberService</span> <span class="o">=</span> <span class="n">memberService</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>생성자에 @Autowired 가 있으면 스프링이 연관된 객체를 스프링 컨테이너에서 찾아서 넣어준다.</p>
+
+<p>이렇게 객체 의존관계를 외부에서 넣어주는 것을 DI(Dependency Injection), <strong>의존성 주입</strong>!</p>
+
+<p>→ @Autowired 에 의해 스프링이 주입해준다</p>
+
+<ul>
+  <li>
+    <p>참고</p>
+
+    <p>DI 에는 필드 주입, setter 주입, 생성자 주입이 있고 보통은 생성자 주입을 권장</p>
+
+    <p>(위의 코드 방법도 생성자 주입)</p>
+
+    <p>컨트롤러의 경우 @Controller 가 있으면 자동 등록</p>
+  </li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="스프링-빈의-개념과-생성-원리">스프링 빈의 개념과 생성 원리</h2>
+<hr />
+
+<p>스프링 컨테이너가 관리하는 자바 객체를 빈이라는 용어로 부른다.</p>
+
+<p><br /></p>
+
+<h2 id="스프링-빈을-등록하는-방법">스프링 빈을 등록하는 방법</h2>
+<hr />
+
+<ol>
+  <li>컴포넌트 스캔과 자동 의존관계 설정</li>
+  <li>자바 코드로 직접 스프링 빈 등록</li>
+</ol>
+
+<p><br /><br /></p>
+
+<h2 id="component-scan-이란">component-scan 이란?</h2>
+<hr />
+<p>빈으로 등록 될 준비를 마친 클래스들을 스캔하여, 빈으로 등록해주는 것.</p>
+
+<p>@ComponentScan과 @Component 를 사용해서 빈으로 등록한다.</p>
+
+<p><br /></p>
+
+<p><strong>@ComponentScan</strong></p>
+
+<p>→ 어느 지점부터 컴포넌트를 찾으라고 알려주는 역할</p>
+
+<p><strong>@Component</strong></p>
+
+<p>→ 실제로 찾아서 빈으로 등록할 클래스를 의미</p>
+
+<p><br /></p>
+
+<h2 id="component-scan-원리">component-scan 원리</h2>
+<hr />
+<p>component-scan은 기본적으로 @Component 어노테이션을 빈 등록 대상으로 포함한다. (스프링 빈으로 자동 등록 됨)</p>
+
+<p><br /></p>
+
+<p>@Controller 에 @Component 가 포함되어 있다.</p>
+
+<p>따라서, 컨트롤러가 스프링 빈으로 자동 등록되는 이유는 컴포넌트 스캔때문!</p>
+
+<p><br /><br /></p>
+
+<h2 id="스프링-빈-등록하는-방법1-컴포넌트-스캔과-자동-의존관계-설정">스프링 빈 등록하는 방법1: 컴포넌트 스캔과 자동 의존관계 설정</h2>
+<hr />
+
+<p><strong>서비스 스프링 빈 등록</strong></p>
+
+<p>service/MemberService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberService</span> <span class="o">{</span>
+        
+<span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+		<span class="nd">@Autowired</span>
+    <span class="kd">public</span> <span class="nf">MemberService</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<p><strong>리포지토리 스프링 빈 등록</strong></p>
+
+<p>repository/MemoryMemberRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemoryMemberRepository</span> <span class="kd">implements</span> <span class="nc">MemberRepository</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>위와 같이 어노테이션을 붙여주면 Service 와 Repository 가 스프링 컨테이너에 스프링 빈으로 등록됨</p>
+
+<p><br /></p>
+
+<h2 id="스프링-빈-등록하는-방법2-자바코드로-직접-스프링-빈-등록">스프링 빈 등록하는 방법2: 자바코드로 직접 스프링 빈 등록</h2>
+<hr />
+
+<p>SpringConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hellospring.hello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hellospring.hello.repository.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hellospring.hello.repository.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hellospring.hello.service.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberService</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="결론">결론!!</h3>
+
+<p>스프링 빈을 등록할 때 어떤 방법을 주로 쓸까?</p>
+
+<p>실무에서는 주로 <strong>컴포넌트 스캔</strong>을 사용</p>
+
+<p>→ 간단!</p>
+
+<p>직접 스프링 빈을 등록하는 경우?</p>
+
+<p>→ 정형화 되지 않거나, 상황에 따라 구현 클래스를 변경해야할 때 사용</p>
+
+<p><br /><br /></p>
