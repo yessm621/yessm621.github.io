@@ -1,0 +1,273 @@
+I"�N<p>쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리</p>
+
+<p>Spring Data JPA 는 다양한 검색 조건을 위해 다음과 같은 방법 제공</p>
+
+<ul>
+  <li>쿼리 메서드: 메서드의 이름 자체가 쿼리의 구문으로 처리되는 기능</li>
+  <li>@Query: SQL 과 유사하게 엔티티 클래스의 정보를 이용해서 쿼리를 작성하는 기능</li>
+  <li>Querydsl 등의 동적 쿼리 처리 기능</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="쿼리-메서드query-methods">쿼리 메서드(Query Methods)</h2>
+
+<p>쿼리 메서드란? 메서드의 이름 자체가 질의(query)문</p>
+
+<p>쿼리 메서드 레퍼런스 문서</p>
+
+<p><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods">Spring Data JPA - Reference Documentation</a></p>
+
+<p><br /></p>
+
+<p>쿼리 메서드의 리턴 타입</p>
+
+<ul>
+  <li>select 를 하는 작업 → List 타입이나 배열</li>
+  <li>파라미터에 Pageable 타입을 넣는 경우 → Page<E></E></li>
+</ul>
+
+<p><br /></p>
+
+<p>MemoRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Page</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Pageable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemoRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+		<span class="c1">// 쿼리 메서드</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="nf">findByMnoBetweenOrderByMnoDesc</span><span class="o">(</span><span class="nc">Long</span> <span class="n">from</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">to</span><span class="o">);</span>
+		<span class="c1">// 쿼리 메서드 + Pageable</span>
+    <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="nf">findByMnoBetween</span><span class="o">(</span><span class="nc">Long</span> <span class="n">from</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">to</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>쿼리 메서드의 경우 이름이 길어지고 혼동하기 쉬워 이를 보완하기 위해 Pageable 파라미터를 같이 사용. 정렬에 관한 부분은 좀 더 간략한 메서드를 생성할 수 있음</p>
+
+<p><br /></p>
+
+<p>MemoRepositoryTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.DisplayName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Page</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.PageRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Pageable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Sort</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.annotation.Commit</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">MemoRepositoryTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">MemoRepository</span> <span class="n">memoRepository</span><span class="o">;</span>
+
+		<span class="o">...</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"쿼리 메서드"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testQueryMethods</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">memoRepository</span><span class="o">.</span><span class="na">findByMnoBetweenOrderByMnoDesc</span><span class="o">(</span><span class="mi">70L</span><span class="o">,</span> <span class="mi">80L</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Memo</span> <span class="n">memo</span> <span class="o">:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memo</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"쿼리 메서드와 Pageable"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testQueryMethodWithPageable</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// 정렬 조건 추가</span>
+        <span class="nc">Pageable</span> <span class="n">pageable</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="s">"mno"</span><span class="o">).</span><span class="na">descending</span><span class="o">());</span>
+
+        <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">memoRepository</span><span class="o">.</span><span class="na">findByMnoBetween</span><span class="o">(</span><span class="mi">10L</span><span class="o">,</span> <span class="mi">50L</span><span class="o">,</span> <span class="n">pageable</span><span class="o">);</span>
+
+        <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">memo</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">memo</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="deleteby-로-시작하는-삭제-처리">deleteBy 로 시작하는 삭제 처리</h2>
+
+<p>쿼리 메서드를 이용해 deleteBy 로 메서드의 이름이 시작하면 특정 조건에 맞는 데이터를 삭제하는 것도 가능</p>
+
+<p><br /></p>
+
+<p>MemoRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Page</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Pageable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemoRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+		<span class="o">...</span>
+
+    <span class="kt">void</span> <span class="nf">deleteMemoByMnoLessThan</span><span class="o">(</span><span class="nc">Long</span> <span class="n">num</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>MemoRepositoryTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">org.zerock.ex2.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.DisplayName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Page</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.PageRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Pageable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.domain.Sort</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.test.annotation.Commit</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.zerock.ex2.entity.Memo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">MemoRepositoryTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">MemoRepository</span> <span class="n">memoRepository</span><span class="o">;</span>
+
+		<span class="o">...</span>
+
+    <span class="nd">@Commit</span>
+    <span class="nd">@Transactional</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"deleteBy"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDeleteQueryMethods</span><span class="o">(){</span>
+        <span class="n">memoRepository</span><span class="o">.</span><span class="na">deleteMemoByMnoLessThan</span><span class="o">(</span><span class="mi">10L</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>@Transactional</strong></p>
+
+<p>→ select 문으로 해당 엔티티 객체들을 가져오는 작업과 각 엔티티를 삭제하는 작업이 같이 이루어지기 때문에 Transactional 어노테이션 사용해야 함</p>
+
+<p><br /></p>
+
+<p><strong>@Commit</strong></p>
+
+<p>→ 최종 결과를 커밋하기 위해 사용. 이를 적용하지 않으면 기본적으로 Rollback 처리 되어서 결과가 반영 안됨</p>
+
+<p><br /></p>
+
+<p>deleteBy 는 실제 개발에 많이 사용 안함</p>
+
+<p>→ why? 한 번에 삭제가 이루어지는 것이 아닌 각 엔티티 객체를 하나씩 삭제하기 때문</p>
+
+<p>→ 따라서 개발 시에는 deleteBy 보다 @Query 를 이용하는 것이 효율적</p>
+
+<p><br /></p>
+
+<h2 id="query-어노테이션">@Query 어노테이션</h2>
+
+<p>간단한 처리는 쿼리 메서드를 이용하고 보통은 @Query 를 사용함</p>
+
+<p>@Query 의 경우 메서드의 이름과 상관없이 메서드에 추가한 어노테이션을 통해 처리가 가능</p>
+
+<p>@Query 의 value 는 JPQL 로 작성하는데 객체지향 쿼리라고 부름</p>
+
+<ul>
+  <li>필요한 데이터만 선별적으로 추축하는 기능이 가능</li>
+  <li>데이터베이스에 맞는 순수한 SQL 을 사용하는 기능</li>
+  <li>DML 등을 처리하는 기능 (@Modifying 과 함께 사용)</li>
+</ul>
+
+<p>객체지향 쿼리는 테이블 대신 엔티티 클래스, 테이블의 칼럼 대신에 클래스에 선언된 필드를 이용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// mno의 역순으로 정렬</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"select m from Memo m order by m.mno desc"</span><span class="o">)</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="nf">getListDesc</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="query-의-파라미터-바인딩">@Query 의 파라미터 바인딩</h3>
+
+<p>파라미터 처리</p>
+
+<ul>
+  <li>?1, ?2 와 1부터 시작하는 파라미터의 순서를 이용하는 방식</li>
+  <li>:xxx 와 같이 :파라미터 이름을 활용하는 방식</li>
+  <li>:#{} 과 같이 자바 빈 스타일을 이용하는 방식</li>
+</ul>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">:파라미터</code> 사용할 경우,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="nd">@Modifying</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"update Memo m set m.memoText = :memoText where m.mno = :mno"</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">updateMemoText</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"mno"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">mno</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">"memoText"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">memoText</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>여러개의 파라미터를 전달하여 복잡해질 때는 :# 을 이용해서 객체를 사용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+<span class="nd">@Modifying</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"update Memo m set m.memoText = :#{#param.memoText} where m.mno = :#{#param.mno}"</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">updateMemoText</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"param"</span><span class="o">)</span> <span class="nc">Memo</span> <span class="n">memo</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="query-와-페이징-처리">@Query 와 페이징 처리</h3>
+
+<p>@Query 를 이용하는 경우에도 Pageable 타입의 파라미터를 적용하면 페이징 처리와 정렬에 대한 부분을 작성하지 않을 수 있음</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"select m from Memo m where m.mno &gt; :mno"</span><span class="o">,</span>
+				<span class="n">countQuery</span> <span class="o">=</span> <span class="s">"select count(m) from Memo m where m.mno &gt; :mno"</span><span class="o">)</span>
+<span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Memo</span><span class="o">&gt;</span> <span class="nf">getListWithQuery</span><span class="o">(</span><span class="nc">Long</span> <span class="n">mno</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="object-리턴">Object[] 리턴</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"select m.mno, m.memoText, CURRENT_DATE from Memo m where m.mno &gt; :mno"</span><span class="o">,</span>
+				<span class="n">countQuery</span> <span class="o">=</span> <span class="s">"select count(m) from Memo m where m.mno &gt; :mno"</span><span class="o">)</span>
+<span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">[]&gt;</span> <span class="nf">getListWithQueryObject</span><span class="o">(</span><span class="nc">Long</span> <span class="n">mno</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="native-sql-처리">Native SQL 처리</h3>
+
+<p>SQL 구문을 그대로 활용. 이는 데이터베이스에 독립적으로 구현이 가능하다는 장점은 사라짐. 하지만 경우에 따라 복잡한 구문을 처리하기 위해 사용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"select * from memo where mno &gt; 0"</span><span class="o">,</span> <span class="n">nativeQuery</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">[]&gt;</span> <span class="nf">getNativeResult</span><span class="o">();</span>
+</code></pre></div></div>
+:ET

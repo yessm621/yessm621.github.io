@@ -250,4 +250,16 @@ var store = [{
         "tags": ["JAVA","SpringBoot","JPA"],
         "url": "/jpa/Java-JPA-AutoDate/",
         "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "페이징/정렬 처리하기",
+        "excerpt":"페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요 JPA 는 내부적으로 이런 처리를 Dialect 라는 존재를 이용해서 처리. 예를 들어 JDBC 정보가 예제와 같이 MariaDB 의 경우에는 자동으로 MariaDB 를 위한 Dialect 가 설정됨...","categories": ["JPA"],
+        "tags": ["JAVA","SpringBoot","JPA"],
+        "url": "/jpa/Java-JPA-Paging/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "쿼리 메서드 (Query Methods) 기능과 @Query",
+        "excerpt":"쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리 Spring Data JPA 는 다양한 검색 조건을 위해 다음과 같은 방법 제공 쿼리 메서드: 메서드의 이름 자체가 쿼리의 구문으로 처리되는 기능 @Query: SQL 과 유사하게 엔티티 클래스의 정보를 이용해서 쿼리를 작성하는 기능 Querydsl 등의 동적 쿼리 처리 기능 쿼리 메서드(Query...","categories": ["JPA"],
+        "tags": ["JAVA","SpringBoot","JPA"],
+        "url": "/jpa/Java-JPA-QueryMethod/",
+        "teaser": "/assets/images/IMG_2153.JPG"
       }]
