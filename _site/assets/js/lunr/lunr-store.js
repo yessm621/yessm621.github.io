@@ -262,4 +262,10 @@ var store = [{
         "tags": ["JAVA","SpringBoot","JPA"],
         "url": "/jpa/Java-JPA-QueryMethod/",
         "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(객체지향언어, 클래스와 객체)",
+        "excerpt":"1. 객체지향언어 1.1 객체지향언어의 역사 80년 초 소프트웨어의 위기(c언어, fortran, cobol 등) - 빠른 변화를 못쫓아감 해결책으로 객체지향 언어를 도입(절차적 → 객체지향) 참고) c언어 + 객체지향 개념 ⇒ c++ ⇒ java 1.2 객체지향언어 코드의 재사용성이 높고 유지보수가 용이, 중복 코드 제거 객체지향 언어 = 프로그래밍 언어 + 객체지향개념(규칙) OOP (Object-Oriented...","categories": ["JAVA"],
+        "tags": ["JAVA"],
+        "url": "/java/Java-OOP/",
+        "teaser": "/assets/images/IMG_2153.JPG"
       }]

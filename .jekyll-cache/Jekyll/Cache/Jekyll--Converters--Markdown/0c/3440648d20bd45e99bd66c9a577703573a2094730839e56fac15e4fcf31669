@@ -1,0 +1,105 @@
+I"�<h1 id="1-객체지향언어">1. 객체지향언어</h1>
+<h2 id="11-객체지향언어의-역사">1.1 객체지향언어의 역사</h2>
+
+<p>80년 초 소프트웨어의 위기(c언어, fortran, cobol 등) - 빠른 변화를 못쫓아감</p>
+
+<p>해결책으로 객체지향 언어를 도입(절차적 → 객체지향)</p>
+
+<p>참고) c언어 + 객체지향 개념 ⇒ c++ ⇒ java</p>
+
+<p><br /></p>
+
+<h2 id="12-객체지향언어">1.2 객체지향언어</h2>
+
+<p>코드의 재사용성이 높고 유지보수가 용이, 중복 코드 제거</p>
+
+<p><code class="language-plaintext highlighter-rouge">객체지향 언어 = 프로그래밍 언어 + 객체지향개념(규칙)</code></p>
+
+<p>OOP (Object-Oriented Programming, 객체 지향 프로그래밍)</p>
+
+<h3 id="객체지향언어의-핵심-개념-캡상추다">객체지향언어의 핵심 개념 (캡상추다)</h3>
+
+<ol>
+  <li>캡슐화</li>
+  <li>상속</li>
+  <li>추상화</li>
+  <li>다형성 *** (가장 중요)</li>
+</ol>
+
+<p>이론서</p>
+<ul>
+  <li>디자인 패턴: 객체지향개념을 이용해서 프로그래밍을 자주할 때 사용하는 패턴을 모아놓은 것</li>
+  <li>객체지향개념</li>
+</ul>
+
+<p>객체지향언어란 결국 설계를 잘하는 것! 설계가 잘 안된다고 해서 이론서로 바로 빠지면 안된다!
+jsp, spring 을 공부한 후 이론서 공부를 하던가 해야지 바로 이론서로 가지 말 것!</p>
+
+<h1 id="2-클래스와-객체">2. 클래스와 객체</h1>
+
+<h2 id="21-클래스와-객체의-정의와-용도">2.1 클래스와 객체의 정의와 용도</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>클래스의 정의: 클래스란 객체를 정의해 놓은 것, 객체의 설계도 또는 틀
+클래스의 용도: 클래스는 객체를 생성하는데 사용
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>객체의 정의: 실제로 존재하는 것. 사물 또는 개념
+객체의 용도: 객체가 가지고 있는 기능과 속성에 따라 다름
+</code></pre></div></div>
+
+<p>클래스는 단지 객체를 생성하는데 사용될 뿐, 객체 그 자체는 아니다. 우리가 원하는 기능의 객체를 사용하기 위해서는 먼저 클래스로부터 객체를 생성하는 과정이 선행되어야 한다.</p>
+
+<p>예를들어, 우리가 TV를 보기 위해서는 TV(객체)가 필요한 것이지 TV설계도(클래스)가 필요한 것이 아니며, TV설계도(클래스)는 단지 TV라는 제품(객체)을 만드는 데만 사용될 뿐이다.</p>
+
+<p>TV설계도를 통해 TV가 만들어진 것 처럼 클래스를 작성한 다음, 클래스로부터 객체를 생성하여 사용한다.</p>
+
+<blockquote>
+  <p>객체를 사용한다는 것은 객체가 가지고 있는 속성(변수)과 기능(메서드)을 사용한다는 뜻</p>
+
+</blockquote>
+
+<h2 id="22-객체와-인스턴스">2.2 객체와 인스턴스</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>객체: 모든 인스턴스를 대표하는 일반적 용어
+인스턴스: 특정 클래스로부터 생성된 객체(예: TV 클래스로부터 생성된 객체는 Tv 인스턴스)
+인스턴스화: 클래스로부터 객체를 만드는 과정
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/146671855-aaba4ab1-f9c4-4a80-ae7d-a05e51452689.png" alt="1" /></p>
+
+<p>클래스(설계도)</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/146671854-66049428-237a-4da5-910e-4ea895d64105.png" alt="2" /></p>
+
+<p>인스턴스,객체(제품)</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/146671853-6f357af7-34be-494a-a1cf-453b2980af9f.png" alt="3" /></p>
+
+<h2 id="23-객체의-구성요소---속성과-기능">2.3 객체의 구성요소 - 속성과 기능</h2>
+
+<p>객체(사물) = 속성(변수) + 기능(메서드)</p>
+
+<p>TV 일때</p>
+
+<ul>
+  <li>속성: 크기, 길이, 높이, 색상, 볼륨, 채널등</li>
+  <li>기능: 켜기, 끄기, 볼륨 높이기, 볼륨 낮추기, 채널 변경하기 등</li>
+</ul>
+
+<p>Tv 클래스 = Tv 설계도</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Tv</span><span class="o">{</span>
+	<span class="c1">// 변수 시작</span>
+	<span class="nc">Stirng</span> <span class="n">color</span><span class="o">;</span>
+	<span class="kt">boolean</span> <span class="n">power</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">channel</span><span class="o">;</span>
+	<span class="c1">// 변수 끝</span>
+
+	<span class="c1">// 메서드 시작</span>
+	<span class="kt">void</span> <span class="nf">power</span><span class="o">()</span> <span class="o">{</span> <span class="n">power</span> <span class="o">=</span> <span class="o">!</span><span class="n">power</span><span class="o">;</span> <span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">channelUp</span><span class="o">()</span> <span class="o">{</span> <span class="n">channel</span><span class="o">++;</span> <span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">channelDown</span><span class="o">()</span> <span class="o">{</span> <span class="n">channel</span><span class="o">--;</span> <span class="o">}</span>
+	<span class="c1">// 메서드 끝</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET
