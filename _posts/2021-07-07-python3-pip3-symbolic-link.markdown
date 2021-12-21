@@ -1,14 +1,14 @@
 ---
-layout: post
 title:  "python3, pip3 Symbolic Link 설정"
-date:   2021-07-07 15:00:00 0100
-categories: Python Linux
+categories:
+  - Python
+tags:
+  - Python
+  - Linux
 ---
-<br>
 
 
 ## 현재상태
----
 
 Linux 에는 기본적으로 Python2 버전이 설치된다.
 
@@ -17,10 +17,9 @@ CentOS 에서 Python3 버전을 설치했는데 python 을 입력할 경우 2.x 
 매번 python3 으로 명령어를 입력하는게 불편하여 구글링 해보니 **Symbolic Link** 를 통해 해결할 수 있다고 한다.
 
 <br>
-<br>
 
 ## 해결방안
----
+
 python3 설정
 ```bash
 # 현재 심볼릭 링크 확인
@@ -61,8 +60,3 @@ ln -s /bin/pip3.6 /bin/pip
 <br>
 
 설정 후 python, pip 명령어를 입력하면 3 버전을 가리키는 것을 확인할 수 있다.
-
-<br>
-
-
-<br><br>

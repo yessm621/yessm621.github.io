@@ -1,0 +1,118 @@
+I"�<hr />
+<p>title:  “Transition”
+categories:</p>
+<ul>
+  <li>CSS
+tags:</li>
+  <li>CSS
+toc: true
+toc_label: “Getting Started”
+—</li>
+</ul>
+
+<h2 id="transition-이란">Transition 이란?</h2>
+
+<p>→ css 속성을 변경할 때 애니메이션 속도를 조절하는 방법을 제공</p>
+
+<p>→ 값이 있을때 그값이 변화한다면 그 중간과정을 정의한 애니메이션</p>
+
+<p><br /></p>
+
+<p><strong>transform 에 적용한 transition</strong></p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.box</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0.7</span><span class="p">);</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="m">1s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">scale</span><span class="p">(</span><span class="m">1.5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>width와 background 에 적용한 transition</strong></p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.box</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0.7</span><span class="p">);</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="m">1s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">scale</span><span class="p">(</span><span class="m">1.5</span><span class="p">);</span>
+	<span class="nl">background</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>width 를 auto 로 준다면 transition 이 적용될까?</strong></p>
+
+<p>→ No!!</p>
+
+<p>→ auto 는 수치가 아니다. 따라서, 적용이 안된다.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.box</span> <span class="p">{</span>
+	<span class="nl">width</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span><span class="m">255</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">0.7</span><span class="p">);</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="m">1s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* 위의 코드는 적용이 안됨. */</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="transition-속성">Transition 속성</h2>
+
+<p><code class="language-plaintext highlighter-rouge">transition</code> : 이 속성은 축약된 것!</p>
+
+<p>→ 개발자도구에서 해당 속성을 살펴보면 아래와 같은 속성이 나온다</p>
+
+<ul>
+  <li>
+    <p>transition-property</p>
+
+    <p>→ 트랜지션을 적용해야하는 대상</p>
+  </li>
+  <li>
+    <p>transition-duration</p>
+
+    <p>→ 애니메이션 속도</p>
+  </li>
+  <li>
+    <p>transition-timing-function</p>
+
+    <p>→ 애니메이션 진행 속도</p>
+
+    <p>→ 예를 들면, 어디부분은 빠르고 어디부분은 느리고 (0~0.3s까진 빠르고, 그이후엔 느리고..)</p>
+
+    <p>→ default: ease (가속도), linear: 등속도</p>
+  </li>
+  <li>
+    <p>transition-delay</p>
+
+    <p>→ 지연 시키는 것</p>
+
+    <p>→ 0s 후에 애니메이션 진행</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">transition</span><span class="o">:</span> <span class="err">1</span><span class="nt">s</span> <span class="err">2</span><span class="nt">s</span><span class="o">;</span>
+  <span class="c">/* 2s 후에 1s 동안 애니메이션하겠다는 뜻! */</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+:ET

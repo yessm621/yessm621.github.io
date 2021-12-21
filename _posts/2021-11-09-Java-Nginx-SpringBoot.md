@@ -1,11 +1,14 @@
 ---
-layout: post
-title:  "Nginx 를 이용하여 SpringBoot 무중단 배포하기"
-date:   2021-11-09 11:20:00 0100
-categories: Java Nginx SpringBoot
+title: "Nginx 를 이용하여 SpringBoot 무중단 배포하기"
+categories:
+  - SpringBoot
+tags:
+  - Java
+  - SpringBoot
+  - Nginx
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 참고) 스프링 부트와 AWS로 혼자 구현하는 웹서비스
 
@@ -80,8 +83,6 @@ categories: Java Nginx SpringBoot
 <br>
 
 ## 1) nginx 설치
-
----
 
 ### **1. nginx 저장소 추가**
 
@@ -180,8 +181,6 @@ location / {
 
 ## 2) github repository 연결
 
----
-
 ### 1. SSH key 파일 확인 및 public key 등록
 
 ```bash
@@ -213,8 +212,6 @@ git clone git@github.com:nnyang0110/cat.git
 <br>
 
 ## 3) 프로젝트 설정
-
----
 
 프로젝트의 기본 경로는 /usr/local/web 이다
 
@@ -308,8 +305,6 @@ server:
 <br>
 
 ## 4) 무중단 배포 설정
-
----
 
 기본 경로는 /usr/local/web/nonstop 이다
 
@@ -523,7 +518,3 @@ nginx proxy 오류 (포트 설정에 대한 부분)
 코드가 수정되고 배포를 하게 되면 set1 이 실행되게 된다.
 
 ![3](https://user-images.githubusercontent.com/79130276/140849766-7b89eefd-51e4-4a3b-bbe5-2f66c961070b.png)
-
-
-<br>
-<br>

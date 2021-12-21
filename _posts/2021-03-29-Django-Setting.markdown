@@ -1,15 +1,12 @@
 ---
-layout: post
-title:  "Django Setting"
-date:   2021-03-29 20:15:00 0100
-categories: Django Python
+title: "Django Setting"
+categories:
+  - Django
+tags:
+  - Django
+  - Python
 ---
-
-<br>
-
 ## Pipenv 를 이용하여 가상환경 Setting
-
----
 
 **pipenv 란?**
 
@@ -83,8 +80,6 @@ categories: Django Python
 
 ## Django 설치
 
----
-
 이제 장고를 설치하도록 하겠습니다.
 
 pipenv install django
@@ -106,5 +101,3 @@ python [manage.py](http://manage.py) runserver 8888
 다음과 같이 화면이 나온다면 장고 기본 셋팅은 끝났습니다
 
 ![image2](https://user-images.githubusercontent.com/79130276/112807229-9dbe3980-90b2-11eb-8b49-6afc461a2189.png)
-
-<br><br>

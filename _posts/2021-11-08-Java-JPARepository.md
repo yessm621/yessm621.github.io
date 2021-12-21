@@ -1,11 +1,14 @@
 ---
-layout: post
-title:  "JPA Repository"
-date:   2021-11-08 10:00:00 0100
-categories: Java JPA
+title: "JPA Repository"
+categories:
+  - JPA
+tags:
+  - Java
+  - SpringBoot
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 **ItemRepository.java**
 
@@ -23,7 +26,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 <br>
 
 ## JpaRepository
----
 
 JpaReporitory 는 2개의 제네릭 타입을 사용하는데 첫번째에는 엔티티 타입 클래스, 두번재는 기본키 타입을 넣어줌
 
@@ -131,8 +133,6 @@ Spring Data JPA 는 JPA 의 구현체인 Hibernate 를 이용하기 위한 여�
 
 ## JpaRepository 예제
 
----
-
 MemoRepository.java
 
 ```java
@@ -154,8 +154,6 @@ Spring Data JPA 는 인터페이스 선언만으로 자동으로 스프링의 �
 <br>
 
 ## 테스트 코드를 통한 CRUD 연습
-
----
 
 - insert 작업: save(엔티티 객체)
 - select 작업: findById(키 타입), getOne(키 타입)
@@ -276,6 +274,3 @@ class MemoRepositoryTests {
     → 삭제하려는 번호의 엔티티 객체가 있는지 먼저 확인하고, 이를 삭제
     
     → deleteById() 의 리턴 타입은 void, 만일 해당 데이터가 존재하지 않으면 예외를 발생
-
-<br>
-<br>

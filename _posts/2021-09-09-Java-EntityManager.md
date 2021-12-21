@@ -1,15 +1,15 @@
 ---
-layout: post
-title:  "EntityManager 와 영속성 컨텍스트 (PersistenceContext)"
-date:   2021-09-09 15:50:00 0100
-categories: Java
+title: "EntityManager 와 영속성 컨텍스트 (PersistenceContext)"
+categories:
+  - JPA
+tags:
+  - Java
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## 엔티티 매니저 (EntityManager)
-
----
 
 엔티티를 저장, 수정, 삭제, 조회 등 엔티티와 관련된 작업을 수행
 
@@ -36,8 +36,6 @@ public class Repository {
 <br>
 
 ## 영속성 컨텍스트 (PersistenceContext)
-
----
 
 논리적인 개념으로, 눈에 보이지 않는다.
 
@@ -154,6 +152,3 @@ public class MemberRepository {
     }
 }
 ```
-
-<br>
-<br>

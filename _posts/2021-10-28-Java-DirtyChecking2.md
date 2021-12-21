@@ -1,15 +1,16 @@
 ---
-layout: post
-title:  "변경감지와 병합 - 두번째"
-date:   2021-10-28 17:20:00 0100
-categories: Java JPA
+title: "변경감지와 병합 - 두번째"
+categories:
+  - JPA
+tags:
+  - Java
+  - SpringBoot
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## SQL 수정(Update) 쿼리의 문제점
-
----
 
 SQL 을 사용하면 수정 쿼리를 직접 작성
 
@@ -33,15 +34,11 @@ where id = ?
 
 ## 변경감지와 병합
 
----
-
 JPA 는 영속성 컨텍스트에 테이블 형태의 1차 캐시를 두고 엔티티를 저장해서, Transaction commit 시 1차 캐시의 영속된 값과 현재 entity 값을 비교하여 변경이 된 것을 알아서 적용해줌
 
 <br>
 
 ## 준영속 상태의 엔티티
-
----
 
 아래 코드는 form 의 id 에 해당하는 member 의 name 을 set 했다.
 
@@ -70,16 +67,12 @@ return "redirect:/members";
 
 ## 준영속 상태의 엔티티를 수정하는 2가지 방법
 
----
-
 1. 변경 감지 기능 (dirty checking) 사용
 2. merge 사용
 
 <br>
 
 ## 변경감지 (dirty checking)
-
----
 
 entity manager 로 entity 를 직접 꺼내 값을 수정
 
@@ -131,8 +124,6 @@ transaction.commit(); // [트랜잭션] 커밋
 
 ## merge 사용
 
----
-
 entity manager 의 merge 를 사용
 
 merge 가 호출되면 우선 해당 엔티티를 1차 캐시에서 먼저 조회하고, 없다면 식별자로 DB에서 엔티티를 검색해 가져와 준영속 상태의 엔티티 값을 대입 받는다
@@ -174,8 +165,6 @@ merge 는 엔티티로 넘어온 모든 속성으로 변경이 진행됨
 
 ## 엔티티 삭제
 
----
-
 ```java
 Memeber memberA = em.find(Member.class, "memeberA");
 em.remove(memberA);
@@ -188,6 +177,3 @@ em.remove() 에 삭제 대상 엔티티를 넘겨주면 엔티티를 삭제한�
 이 후 트랜잭션을 커밋하게 되면 플러시가 호출되어 실제 데이터베이스에 삭제 쿼리를 전달
 
 em.remove(memberA) 를 호출하는 순간 memberA 는 영속성 컨텍스트에서 제거됨
-
-<br>
-<br>

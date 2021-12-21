@@ -1,0 +1,35 @@
+I"�<h1 id="3-변수와-메서드">3. 변수와 메서드</h1>
+
+<h2 id="31-선언위치에-따른-변수의-종류">3.1 선언위치에 따른 변수의 종류</h2>
+
+<p>영역엔 두가지가 있다.</p>
+
+<ul>
+  <li>클래스 영역: 인스턴스 변수(iv), 클래스 변수(cv = static + iv)</li>
+  <li>메서드 영역: 지역 변수(lv)</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Variables</span> <span class="o">{</span>
+	<span class="c1">// 변수선언 시작</span>
+	<span class="kt">int</span> <span class="n">iv</span><span class="o">;</span>               <span class="c1">// 인스턴스 변수</span>
+	<span class="kd">static</span> <span class="kt">int</span> <span class="n">cv</span><span class="o">;</span>        <span class="c1">// 클래스 변수(static변수, 공유변수)</span>
+	<span class="c1">// 변수 선언 끝</span>
+
+	<span class="c1">// 메서드 선언 시작</span>
+	<span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">lv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>         <span class="c1">// 지역변수</span>
+	<span class="o">}</span>
+	<span class="c1">// 메서드 선언 끝</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>lv 는 변수 선언 시점부터 메서드 종료되는 시점까지 유효하다</p>
+
+<p><code class="language-plaintext highlighter-rouge">iv 의 생성시기***</code>  중요하다!</p>
+
+<p>객체는 iv 를 여러개 묶어 놓은 것(hour, minute, second 모두 iv 이다)</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/146764094-e9920099-d51d-4a64-aa08-e94f51f6728e.png" alt="1" /></p>
+
+<p>클래스가 메모리에 올라갈 때 → 클래스가 필요할 때 → 설계도가 필요할 때 → 객체를 생성하기 전에!</p>
+:ET

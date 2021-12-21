@@ -1,15 +1,16 @@
 ---
-layout: post
 title:  "Django, Nginx, Gunicorn Setting (CentOS)"
-date:   2021-04-07 20:15:00 0100
-categories: Django Nginx Gunicorn Linux
+categories:
+  - Django
+tags:
+  - Django
+  - Python
+  - Nginx
+  - Gunicorn
 ---
-<br>
 
 ## Python3 설치
 
----
-<br>
 yum 으로 python3 설치  
 ```bash
 yum install python3 -y
@@ -47,8 +48,6 @@ deactivate
 <br><br><br>
 
 ## MySQL DataBase, 사용자 생성 및 권한 부여
-
----
 
 mysql 에 접속
 
@@ -102,8 +101,6 @@ mysql> select host, user from user;
 <br><br>
 
 ## gunicorn 설정
-
----
 
 gunicorn 설치 (가상환경 상태에서)
 
@@ -190,8 +187,6 @@ systemctl enable gunicorn
 
 ## Nginx 설정
 
----
-
 /etc/nginx/conf.d 아래에 프로젝트 명에 해당하는 config 파일 생성
 
 vi /etc/nginx/conf.d/thriller.conf
@@ -222,5 +217,3 @@ nginx -s reload
 ```
 <br>
 설정 완료!😁
-
-<br><br><br>

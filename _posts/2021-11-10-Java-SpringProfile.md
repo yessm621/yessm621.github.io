@@ -1,11 +1,13 @@
 ---
-layout: post
-title:  "Spring Profile 이란?"
-date:   2021-11-10 11:00:00 0100
-categories: Java SpringBoot
+title: "Spring Profile 이란?"
+categories:
+  - SpringBoot
+tags:
+  - Java
+  - SpringBoot
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다
 
@@ -43,8 +45,6 @@ categories: Java SpringBoot
 
 ## 1. application.yml 에 profile.active 지정하기
 
----
-
 yml 이나 properties 파일에서 직접 설정 정보를 변경, profile.active 를 지정하면 된다.
 
 ```yaml
@@ -64,8 +64,6 @@ spring:
 <br>
 
 ## 2. java -jar 에 옵션을 줘서 특정 profile 로드하기
-
----
 
 java jar 파일로 빌드를 하고 jar 파일을 실행시키는 시점에 환경변수를 추가하여 profile 을 변경시킬 수 있다.
 
@@ -160,6 +158,3 @@ this is MAIN application.yml
 // java -Dspring.profiles.active=set1 -jar ProfileApplication.jar 실행시
 String profile = System.getProperty("spring.profiles.active"); // set1
 ```
-
-<br>
-<br>

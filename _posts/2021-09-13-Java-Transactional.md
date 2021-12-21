@@ -1,15 +1,16 @@
 ---
-layout: post
-title:  "Transactional 이란"
-date:   2021-09-13 10:20:00 0100
-categories: Java
+title: "Transactional 이란"
+categories:
+  - SpringBoot
+tags:
+  - Java
+  - SpringBoot
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## 트랜잭션이란?
-
----
 
 - 데이터베이스의 상태를 변경하는 작업
 - 한번에 수행되어야 하는 연산들을 의미
@@ -19,8 +20,6 @@ categories: Java
 <br>
 
 ## 트랜잭션의 4가지 성질
-
----
 
 - 원자성
 
@@ -42,8 +41,6 @@ categories: Java
 
 ## 트랜잭션 처리 방법
 
----
-
 스프링에서는 어노테이션 방식으로 사용
 
 @Transactional 을 메소드, 클래스, 인터페이스 위에 추가하여 사용 (선언적 트랜잭션)
@@ -58,8 +55,6 @@ public class MemberService { }
 <br>
 
 ## @Transactional 옵션
-
----
 
 ### 1. isolation
 
@@ -105,12 +100,6 @@ public void addMember(Member member) throws Exception { }
 
 ## @Transactional 만 붙이면 롤백이 안되는 이유?
 
----
-
 @Transactional 은 기본적으로 unchecked Exception, Error 만을 롤백한다
 
 따라서, 모든 예외에 대해 롤백을 진행하고 싶을 경우 @Transactional(rollbackFor = Exception.class) 를 써야한다.
-
-
-<br>
-<br>

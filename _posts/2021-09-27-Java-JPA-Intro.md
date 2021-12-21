@@ -1,16 +1,15 @@
 ---
-layout: post
-title:  "JPA Intro"
-date:   2021-09-27 21:00:00 0100
-categories: Java JPA
+title: "JPA Intro"
+categories:
+  - JPA
+tags:
+  - Java
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## JPA
-
----
-
 
 ```java
 package jpabook.start;
@@ -86,8 +85,6 @@ public class JpaMain {
 
 ## 엔티티 매니저 설정
 
----
-
 1. 엔티티 매니저 팩토리 생성
 
     → 애플리케이션 전체에서 딱 한 번만 생성하고 공유해서 사용
@@ -111,8 +108,6 @@ public class JpaMain {
 
 ## 트랜잭션 관리
 
----
-
 JPA 를 사용하면 항상 트랜잭션 안에서 데이터를 변경해야 한다.
 
 트랜잭션 없이 데이터를 변경하면 예외 발생
@@ -123,8 +118,6 @@ JPA 를 사용하면 항상 트랜잭션 안에서 데이터를 변경해야 한
 <br>
 
 ## 비즈니스 로직
-
----
 
 ### JPQL
 
@@ -153,7 +146,3 @@ System.out.println("members.size=" + members.size());
 ```
 
 위의 코드의 `select m from Member m` 에서 `from Member` 는 테이블이 아닌 엔티티 객체를 의미
-
-
-<br>
-<br>

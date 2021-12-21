@@ -1,0 +1,201 @@
+I"p2<h2 id="python3-설치">Python3 설치</h2>
+
+<hr />
+<p><br />
+yum 으로 python3 설치</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>python3 <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>yum 으로 python3 을 설치하면 pip3 도 같이 설치됨</p>
+
+<p>python3 를 입력. 아래와 같이 나오면 설치 완료</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113995871-999fd200-9891-11eb-8ee5-883643f88db7.png" alt="1" /></p>
+
+<p>설치하고자 하는 프로젝트 경로에 가상환경 설치</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/thriller/thriller
+pip3 <span class="nb">install </span>virtualenv
+virtualenv venv
+</code></pre></div></div>
+
+<p>가상환경에 접속</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>venv/bin/activate
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113996287-fdc29600-9891-11eb-9b04-0b634895105d.png" alt="2" /></p>
+
+<p>가상환경에서 빠져나옴</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deactivate
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113996292-fe5b2c80-9891-11eb-9299-7e50aaf1ab16.png" alt="3" />
+<br /><br /><br /></p>
+
+<h2 id="mysql-database-사용자-생성-및-권한-부여">MySQL DataBase, 사용자 생성 및 권한 부여</h2>
+
+<hr />
+
+<p>mysql 에 접속</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113996294-fe5b2c80-9891-11eb-944e-78fe7d8aaeb0.png" alt="4" /></p>
+
+<p>데이터베이스 생성</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="err">데이터베이스명</span> <span class="k">default</span> <span class="nb">CHARACTER</span> <span class="k">SET</span> <span class="n">UTF8</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>사용자 생성, 권한 부여</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">'사용자명'</span><span class="o">@</span><span class="s1">'localhost'</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">'비밀번호'</span><span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">on</span> <span class="err">데이터베이스명</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">'사용자명'</span><span class="o">@</span><span class="s1">'localhost'</span> <span class="n">identified</span> <span class="k">by</span> <span class="s1">'비밀번호'</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">on</span> <span class="err">데이터베이스명</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">'사용자명'</span><span class="o">@</span><span class="s1">'127.0.0.1'</span> <span class="n">identified</span> <span class="k">by</span> <span class="s1">'비밀번호'</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">FLUSH</span> <span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113996280-fc916900-9891-11eb-9ef4-bf5fd651e12b.png" alt="5" /></p>
+
+<p>데이터베이스, 사용자 삭제</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DROP</span> <span class="k">DATABASE</span> <span class="err">데이터베이스명</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DROP</span> <span class="k">USER</span> <span class="err">사용자명</span><span class="o">@</span><span class="n">SERVER</span><span class="err">명</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>사용자 조회</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">use</span> <span class="n">mysql</span><span class="p">;</span>
+<span class="k">Database</span> <span class="n">changed</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="k">host</span><span class="p">,</span> <span class="k">user</span> <span class="k">from</span> <span class="k">user</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">---------------+-----------+</span>
+<span class="o">|</span> <span class="k">host</span>          <span class="o">|</span> <span class="k">user</span>      <span class="o">|</span>
+<span class="o">+</span><span class="c1">---------------+-----------+</span>
+<span class="o">|</span> <span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span>     <span class="o">|</span> <span class="n">thriller</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="mi">59</span><span class="p">.</span><span class="mi">15</span><span class="p">.</span><span class="mi">244</span><span class="p">.</span><span class="mi">217</span> <span class="o">|</span> <span class="n">thriller</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="n">localhost</span>     <span class="o">|</span> <span class="n">mysql</span><span class="p">.</span><span class="n">sys</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">localhost</span>     <span class="o">|</span> <span class="n">root</span>      <span class="o">|</span>
+<span class="o">|</span> <span class="n">localhost</span>     <span class="o">|</span> <span class="n">thriller</span>  <span class="o">|</span>
+<span class="o">+</span><span class="c1">---------------+-----------+</span>
+<span class="mi">5</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>다음 과정부터는 프로젝트 경로에 git으로 프로젝트를 받아왔다고 가정하고 진행합니다.</p>
+
+<p><br /><br /></p>
+
+<h2 id="gunicorn-설정">gunicorn 설정</h2>
+
+<hr />
+
+<p>gunicorn 설치 (가상환경 상태에서)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>venv<span class="o">)</span> <span class="o">&gt;</span> pip3 <span class="nb">install </span>gunicorn
+</code></pre></div></div>
+
+<p>mysql 연결</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>mysql-devel
+
+yum <span class="nb">install </span>python3-devel
+
+<span class="o">(</span>venv<span class="o">)</span> pip <span class="nb">install </span>mysqlclient
+</code></pre></div></div>
+
+<p>테스트 구동</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> python manage.py runserver 0.0.0.0:8000
+<span class="o">&gt;</span> gunicorn <span class="nt">--bind</span> 0.0.0.0:8000 thriller.wsgi:application
+<span class="o">[</span>2021-04-06 16:27:23 +0900] <span class="o">[</span>9674] <span class="o">[</span>INFO] Starting gunicorn 20.1.0
+<span class="o">[</span>2021-04-06 16:27:23 +0900] <span class="o">[</span>9674] <span class="o">[</span>INFO] Listening at: http://0.0.0.0:8000 <span class="o">(</span>9674<span class="o">)</span>
+<span class="o">[</span>2021-04-06 16:27:23 +0900] <span class="o">[</span>9674] <span class="o">[</span>INFO] Using worker: <span class="nb">sync</span>
+<span class="o">[</span>2021-04-06 16:27:23 +0900] <span class="o">[</span>9677] <span class="o">[</span>INFO] Booting worker with pid: 9677
+</code></pre></div></div>
+
+<p>구동이 잘되면 가상환경 빠져나온다</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> deactivate
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">mkdir</span> /run/gunicorn
+
+<span class="o">&gt;</span> <span class="nb">sudo chown </span>youurUserName.yourGroup /run/gunicorn
+
+<span class="c"># youurUserName =&gt; &gt; whoami</span>
+<span class="c"># yourGroup =&gt; &gt; groups</span>
+</code></pre></div></div>
+
+<p>vi /etc/systemd/system/gunicorn.service</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Unit]
+<span class="nv">Description</span><span class="o">=</span>gunicorn daemon
+<span class="nv">After</span><span class="o">=</span>network.target
+
+<span class="o">[</span>Service]
+<span class="nv">PIDFile</span><span class="o">=</span>/run/gunicorn/pid
+<span class="nv">User</span><span class="o">=</span>root
+<span class="nv">Group</span><span class="o">=</span>root
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/usr/local/thriller/thriller
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/thriller/thriller/venv/bin/gunicorn <span class="se">\</span>
+        <span class="nt">--pid</span> /run/gunicorn/pid <span class="se">\</span>
+        <span class="nt">--workers</span> 2 <span class="se">\</span>
+        <span class="nt">--bind</span> unix:/run/gunicorn/gunicorn.sock <span class="se">\</span>
+        thriller.wsgi:application
+
+<span class="nv">ExecReload</span><span class="o">=</span>/bin/kill <span class="nt">-s</span> HUP <span class="nv">$MAINPID</span>
+<span class="nv">ExecStop</span><span class="o">=</span>/bin/kill <span class="nt">-s</span> TERM <span class="nv">$MAINPID</span>
+
+<span class="o">[</span>Install]
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></div></div>
+
+<p>수정 후 적용시 아래 명령어 입력</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> systemctl daemon-reload
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl start gunicorn
+<span class="c"># 서버 재부팅 시에도 자동으로 실행되게</span>
+systemctl <span class="nb">enable </span>gunicorn 
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/113996284-fdc29600-9891-11eb-8ad1-051b10ccd221.png" alt="6" /></p>
+
+<p><br /><br /></p>
+
+<h2 id="nginx-설정">Nginx 설정</h2>
+
+<hr />
+
+<p>/etc/nginx/conf.d 아래에 프로젝트 명에 해당하는 config 파일 생성</p>
+
+<p>vi /etc/nginx/conf.d/thriller.conf</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
+    listen 80<span class="p">;</span>
+    server_name 112.175.88.124<span class="p">;</span>
+
+    location /static <span class="o">{</span>
+        <span class="nb">alias</span> /usr/local/thriller/staticfiles<span class="p">;</span>
+    <span class="o">}</span>
+
+    location / <span class="o">{</span>
+        proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+        proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
+        proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        proxy_set_header X-Forwarded-Proto <span class="nv">$scheme</span><span class="p">;</span>
+        proxy_pass http://unix:/run/gunicorn/gunicorn.sock<span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>nginx 재시작</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nginx <span class="nt">-s</span> reload
+</code></pre></div></div>
+<p><br />
+설정 완료!😁</p>
+
+<p><br /><br /><br /></p>
+:ET

@@ -1,0 +1,38 @@
+I"�<h2 id="현재상태">현재상태</h2>
+
+<p>git blog 를 생성하면서 jekyll 테마를 fork 해서 내 repository 에 생성을 했었는데
+ 잔디밭이 안심어지는 현상을 발견! (이왕이면 심어지면 좋으니까..)</p>
+
+<p>아마 내 repository 가 아닌 다른 사람의 repository 에 push 되고 있는게 아닐까 생각..</p>
+
+<p><br /></p>
+
+<h2 id="해결방안">해결방안</h2>
+
+<ol>
+  <li>github 에 새로운 repository 를 생성 (new_blog)</li>
+  <li>
+    <p>기존에 있는 repository 를 bare clone 한다</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone <span class="nt">--bare</span> https://github.com/user/old_blog.git
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>새로운 레파지토리로 mirror-push</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">cd </span>old_blog.git
+ git push <span class="nt">--mirror</span> https://github.com/user/new_blog.git
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>git clone 옵션</strong></p>
+
+<p>–normal: commit 이력 모두 담고 있고, 기본 branch 로 설정된 소스코드가 working tree 에 존재</p>
+
+<p>–bare: commit 이력만 담고 있다</p>
+
+<p>–mirror: 일반적인 commit 이력뿐만 아니라 숨어있는 모든 이력들을 담고 있다</p>
+:ET

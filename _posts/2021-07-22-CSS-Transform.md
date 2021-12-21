@@ -1,13 +1,14 @@
 ---
-layout: post
-title:  "Transform"
-date:   2021-07-22 17:10:00 0100
-categories: CSS
+title: "Transform"
+categories:
+  - CSS
+tags:
+  - CSS
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
 
 ## CSS Transform
----
 
 → css3 부터 적용됨
 
@@ -168,6 +169,3 @@ transform 을 사용하게 되면 단순히 D 블록에만 영향을 주고 다�
 transform-origin 으로 변경이 가능한데 left, right / top, bottom 을 사용할 수도 있지만
 
 % 를 더 선호한다. → 애매한 값도 설정 가능하기 때문!
-
-<br>
-<br>

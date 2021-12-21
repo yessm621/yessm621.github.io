@@ -1,14 +1,13 @@
 ---
-layout: post
 title:  "Django User Settings"
-date:   2021-06-25 15:10:00 0100
-categories: Django Python
+categories:
+  - Django
+tags:
+  - Django
+  - Python
 ---
-<br>
 
 ## AUTH_USER_MODEL 설정
-
----
 
 장고에는 기본적으로 내장되어있는 AbstractUser 이 있다.
 
@@ -23,11 +22,8 @@ AUTH_USER_MODEL = 'users.User'
 ```
 
 <br>
-<br>
 
 ## LOGIN_URL, LOGIN_REDIRECT_URL 설정
-
----
 
 Django 의  Login, Logout 메커니즘은
 
@@ -48,10 +44,3 @@ LOGIN_REDIRECT_URL = reverse_lazy('main:index')
 next 를 사용했는데 login_redirect_url 를 설정할 필요가 있을까?
 
 → yes!! 주소창에서 직접 들어가게 되면 next 변수가 없어서 default 로 가게 됨. 따라서 오류 발생
-
-
-
-
-
-
-<br><br>

@@ -1,14 +1,14 @@
 ---
-layout: post
 title:  "Flex 반응형 컬럼"
-date:   2021-08-24 13:30:00 0100
-categories: CSS
+categories:
+  - CSS
+tags:
+  - CSS
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## Flex 반응형 컬럼 예제
----
 
 **base.html**
 
@@ -83,8 +83,6 @@ categories: CSS
 
 ## 1단 컬럼
 
----
-
 ```css
 .flex-container {
 	display: flex;
@@ -118,8 +116,6 @@ min-height: 100vh;
 
 ## 1단 컬럼: 높이를 꽉차게
 
----
-
 flex-item 에 flex: 1 auto; 값을 넣어주면 화면에 꽉차게 flex-item 을 구성
 
 ```css
@@ -141,7 +137,6 @@ flex-item 에 flex: 1 auto; 값을 넣어주면 화면에 꽉차게 flex-item �
 <br>
 
 ## 2단 컬럼
----
 
 2단으로 컬럼을 구성하고 싶을 땐, 
 
@@ -186,8 +181,6 @@ flex-direction 을 row 로 주고 크기를 벗어나면 아래행으로 가도�
 
 ## 3단 컬럼
 
----
-
 ```css
 .flex-container {
 	display: flex;
@@ -216,7 +209,3 @@ flex-direction 을 row 로 주고 크기를 벗어나면 아래행으로 가도�
 ```
 
 ![Untitled5](https://user-images.githubusercontent.com/79130276/130557224-252e168a-f482-4450-a1a0-2fa8017aad0f.png)
-
-
-<br>
-<br>

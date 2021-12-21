@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-19T19:52:03+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Seungmi Blog</title><subtitle>BackEnd Developer</subtitle><author><name>노승미</name><email>yessm621@gmail.com</email></author><entry><title type="html">객체지향개념(객체지향언어, 클래스와 객체)</title><link href="http://localhost:4000/java/Java-OOP/" rel="alternate" type="text/html" title="객체지향개념(객체지향언어, 클래스와 객체)" /><published>2021-12-19T00:00:00+09:00</published><updated>2021-12-20T04:10:00+09:00</updated><id>http://localhost:4000/java/Java-OOP</id><content type="html" xml:base="http://localhost:4000/java/Java-OOP/">&lt;h1 id=&quot;1-객체지향언어&quot;&gt;1. 객체지향언어&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-21T17:19:09+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Seungmi Blog</title><subtitle>BackEnd Developer</subtitle><author><name>노승미</name><email>yessm621@gmail.com</email></author><entry><title type="html">객체지향개념(객체지향언어, 클래스와 객체)</title><link href="http://localhost:4000/java/Java-OOP/" rel="alternate" type="text/html" title="객체지향개념(객체지향언어, 클래스와 객체)" /><published>2021-12-19T00:00:00+09:00</published><updated>2021-12-21T05:55:00+09:00</updated><id>http://localhost:4000/java/Java-OOP</id><content type="html" xml:base="http://localhost:4000/java/Java-OOP/">&lt;h1 id=&quot;1-객체지향언어&quot;&gt;1. 객체지향언어&lt;/h1&gt;
 &lt;h2 id=&quot;11-객체지향언어의-역사&quot;&gt;1.1 객체지향언어의 역사&lt;/h2&gt;
 
 &lt;p&gt;80년 초 소프트웨어의 위기(c언어, fortran, cobol 등) - 빠른 변화를 못쫓아감&lt;/p&gt;
@@ -239,7 +239,123 @@ jsp, spring 을 공부한 후 이론서 공부를 하던가 해야지 바로 이
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146672071-0e0bd570-5159-466e-9ea9-b2002a4e42ab.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 예제에서 알 수 있듯이, 참조변수에는 하나의 값(주소)만이 저장될 수 있으므로 둘 이상의 참조변수가 하나의 인스턴스를 가리키는(참조하는) 것은 가능하지만 하나의 참조변수로 여러개의 인스턴스를 가리키는 것은 불가능하다.
-&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146672372-84f5d309-33ef-45d0-b583-87722bf93f19.png&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JAVA" /><category term="JAVA" /><summary type="html">1. 객체지향언어 1.1 객체지향언어의 역사</summary></entry><entry><title type="html">페이징/정렬 처리하기</title><link href="http://localhost:4000/jpa/Java-JPA-Paging/" rel="alternate" type="text/html" title="페이징/정렬 처리하기" /><published>2021-12-18T00:00:00+09:00</published><updated>2021-12-19T06:00:04+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-Paging</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-Paging/">&lt;p&gt;페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요&lt;/p&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146672372-84f5d309-33ef-45d0-b583-87722bf93f19.png&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;25-객체배열&quot;&gt;2.5 객체배열&lt;/h2&gt;
+
+&lt;p&gt;객체도 배열로 다루는 것이 가능하다. 이를 ‘객체 배열’ 이라고 한다. 그렇다고 객체 배열 안에 객체가 저장되는 것은 아니고, 객체의 주소가 저장된다. 객체 배열은 참조변수들을 하나로 묶은 참조변수 배열인 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;객체 배열 == 참조변수 배열&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tv1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tv3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Tv 타입 참조변수 * 3&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 길이가 3인 Tv타입의 참조변수 배열&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// tvArr // 0x100&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x200&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x300&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x400&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;객체 생성&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x100&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x200&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 0x300&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763642-4831331f-7ff8-420d-a873-f10e4702bf58.png&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;객체 배열 생성&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tvArr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763640-a5defa26-db82-42c0-b4f2-5397924eef69.png&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;객체배열을 만들었다고 해서 그 안에 객체들이 자동으로 들어가는게 아니다. 따로 넣어줘야함&lt;/p&gt;
+
+&lt;p&gt;객체배열을 만드는 것과 객체를 만드는 것을 혼동하지 말 것!&lt;/p&gt;
+
+&lt;h2 id=&quot;26-클래스의-또-다른-정의&quot;&gt;2.6 클래스의 또 다른 정의&lt;/h2&gt;
+
+&lt;h3 id=&quot;클래스의-정의1---데이터와-함수의-결합&quot;&gt;클래스의 정의(1) - 데이터와 함수의 결합&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;설계도&lt;/li&gt;
+  &lt;li&gt;데이터와 함수의 결합&lt;/li&gt;
+  &lt;li&gt;사용자정의 타입&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;변수: 하나의 데이터를 저장할 수 있는 공간&lt;/li&gt;
+  &lt;li&gt;배열: 같은 종류(같은 타입)의 여러 데이터를 하나로 저장할 수 있는 공간&lt;/li&gt;
+  &lt;li&gt;구조체: 서로 관련된 여러 데이터(종류 관계x, 다른 타입도 ok)를 하나로 저장할 수 있는 공간&lt;/li&gt;
+  &lt;li&gt;클래스: 데이터와 함수의 결합(구조체(변수(데이터))+함수(메서드))&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763637-5a82b0f8-2dbd-46b6-942a-ebdb475f3389.png&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;클래스의-정의2---사용자정의-타입&quot;&gt;클래스의 정의(2) - 사용자정의 타입&lt;/h3&gt;
+
+&lt;p&gt;사용자 정의 타입 - 원하는 타입을 직접 만들 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763634-1d3385d8-2032-4657-9af8-a13f40f26b46.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;왼쪽은 비객체지향적 코드, 오른쪽은 객체지향적 코드&lt;/p&gt;
+
+&lt;p&gt;객체지향적 코드는 서로 관련된 값을 강하게 묶을 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763633-5f8fe25d-d7ab-467a-945a-1044c1d5a7cb.png&quot; alt=&quot;5&quot; /&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146763629-2b9dbeac-f798-41b9-afc3-717e18579793.png&quot; alt=&quot;6&quot; /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="Java" /><summary type="html">1. 객체지향언어 1.1 객체지향언어의 역사</summary></entry><entry><title type="html">객체지향개념(변수와 메서드)</title><link href="http://localhost:4000/java/Java-OOP2/" rel="alternate" type="text/html" title="객체지향개념(변수와 메서드)" /><published>2021-12-19T00:00:00+09:00</published><updated>2021-12-21T06:10:00+09:00</updated><id>http://localhost:4000/java/Java-OOP2</id><content type="html" xml:base="http://localhost:4000/java/Java-OOP2/">&lt;h1 id=&quot;3-변수와-메서드&quot;&gt;3. 변수와 메서드&lt;/h1&gt;
+
+&lt;h2 id=&quot;31-선언위치에-따른-변수의-종류&quot;&gt;3.1 선언위치에 따른 변수의 종류&lt;/h2&gt;
+
+&lt;p&gt;영역엔 두가지가 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;클래스 영역: 인스턴스 변수(iv), 클래스 변수(cv = static + iv)&lt;/li&gt;
+  &lt;li&gt;메서드 영역: 지역 변수(lv)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Variables&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 변수선언 시작&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;// 인스턴스 변수&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// 클래스 변수(static변수, 공유변수)&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 변수 선언 끝&lt;/span&gt;
+
+	&lt;span class=&quot;c1&quot;&gt;// 메서드 선언 시작&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// 지역변수&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// 메서드 선언 끝&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;lv 는 변수 선언 시점부터 메서드 종료되는 시점까지 유효하다&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iv 의 생성시기***&lt;/code&gt;  중요하다!&lt;/p&gt;
+
+&lt;p&gt;객체는 iv 를 여러개 묶어 놓은 것(hour, minute, second 모두 iv 이다)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/146764094-e9920099-d51d-4a64-aa08-e94f51f6728e.png&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;클래스가 메모리에 올라갈 때 → 클래스가 필요할 때 → 설계도가 필요할 때 → 객체를 생성하기 전에!&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="Java" /><summary type="html">3. 변수와 메서드</summary></entry><entry><title type="html">페이징/정렬 처리하기</title><link href="http://localhost:4000/jpa/Java-JPA-Paging/" rel="alternate" type="text/html" title="페이징/정렬 처리하기" /><published>2021-12-18T00:00:00+09:00</published><updated>2021-12-19T06:00:04+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-Paging</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-Paging/">&lt;p&gt;페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요&lt;/p&gt;
 
 &lt;p&gt;JPA 는 내부적으로 이런 처리를 Dialect 라는 존재를 이용해서 처리. 예를 들어 JDBC 정보가 예제와 같이 MariaDB 의 경우에는 자동으로 MariaDB 를 위한 Dialect 가 설정됨 (프로젝트의 로딩 시점에 출력되는 로그를 통해 확인 가능)&lt;/p&gt;
 
@@ -260,8 +376,6 @@ jsp, spring 을 공부한 후 이론서 공부를 하던가 해야지 바로 이
 
 &lt;h2 id=&quot;pageable-인터페이스&quot;&gt;Pageable 인터페이스&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;페이지 처리에 필요한 정보를 전달하는 용도의 타입&lt;/p&gt;
 
 &lt;p&gt;PageRequest 클래스의 생성자는 protected 로 선언되어 new 를 사용할 수 없음. 객체를 생성하기 위해 static 한 of() 를 이용. PageRequest 생성자를 보면 page, size, Sort 라는 정보를 이용해서 객체를 생성&lt;/p&gt;
@@ -273,8 +387,6 @@ jsp, spring 을 공부한 후 이론서 공부를 하던가 해야지 바로 이
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;페이징-처리&quot;&gt;페이징 처리&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;Spring Data JPA 를 이용할 때 페이지 처리는 반드시 0 부터 시작!&lt;/p&gt;
 
@@ -397,8 +509,6 @@ Memo(mno=10, memoText=Sample...10)
 
 &lt;h2 id=&quot;정렬-조건-추가하기&quot;&gt;정렬 조건 추가하기&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;페이징 처리를 담당하는 PageRequest 에는 정렬과 관련된 Sort 타입을 파라미터로 전달할 수 있음.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.zerock.ex2.repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -443,7 +553,7 @@ Memo(mno=10, memoText=Sample...10)
         &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="JAVA" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요</summary></entry><entry><title type="html">쿼리 메서드 (Query Methods) 기능과 @Query</title><link href="http://localhost:4000/jpa/Java-JPA-QueryMethod/" rel="alternate" type="text/html" title="쿼리 메서드 (Query Methods) 기능과 @Query" /><published>2021-12-18T00:00:00+09:00</published><updated>2021-12-19T05:05:00+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-QueryMethod</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-QueryMethod/">&lt;p&gt;쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요</summary></entry><entry><title type="html">쿼리 메서드 (Query Methods) 기능과 @Query</title><link href="http://localhost:4000/jpa/Java-JPA-QueryMethod/" rel="alternate" type="text/html" title="쿼리 메서드 (Query Methods) 기능과 @Query" /><published>2021-12-18T00:00:00+09:00</published><updated>2021-12-19T05:05:00+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-QueryMethod</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-QueryMethod/">&lt;p&gt;쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리&lt;/p&gt;
 
 &lt;p&gt;Spring Data JPA 는 다양한 검색 조건을 위해 다음과 같은 방법 제공&lt;/p&gt;
 
@@ -714,7 +824,7 @@ Memo(mno=10, memoText=Sample...10)
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;select * from memo where mno &amp;gt; 0&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nativeQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getNativeResult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="JAVA" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리</summary></entry><entry><title type="html">JPA 자동으로 처리되는 날짜/시간 설정</title><link href="http://localhost:4000/jpa/Java-JPA-AutoDate/" rel="alternate" type="text/html" title="JPA 자동으로 처리되는 날짜/시간 설정" /><published>2021-12-17T00:00:00+09:00</published><updated>2021-12-18T10:00:04+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-AutoDate</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-AutoDate/">&lt;p&gt;엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리</summary></entry><entry><title type="html">JPA 자동으로 처리되는 날짜/시간 설정</title><link href="http://localhost:4000/jpa/Java-JPA-AutoDate/" rel="alternate" type="text/html" title="JPA 자동으로 처리되는 날짜/시간 설정" /><published>2021-12-17T00:00:00+09:00</published><updated>2021-12-18T10:00:04+09:00</updated><id>http://localhost:4000/jpa/Java-JPA-AutoDate</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPA-AutoDate/">&lt;p&gt;엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정&lt;/p&gt;
 
 &lt;p&gt;entity/BaseEntity.java&lt;/p&gt;
 
@@ -784,9 +894,7 @@ JPA 내부에서 엔티티 객체가 생성/변경되는 것을 감지하는 역
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="JAVA" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정</summary></entry><entry><title type="html">Spring Profile 이란?</title><link href="http://localhost:4000/java/springboot/Java-SpringProfile/" rel="alternate" type="text/html" title="Spring Profile 이란?" /><published>2021-11-10T11:00:00+09:00</published><updated>2021-11-10T11:00:00+09:00</updated><id>http://localhost:4000/java/springboot/Java-SpringProfile</id><content type="html" xml:base="http://localhost:4000/java/springboot/Java-SpringProfile/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정</summary></entry><entry><title type="html">Spring Profile 이란?</title><link href="http://localhost:4000/springboot/Java-SpringProfile/" rel="alternate" type="text/html" title="Spring Profile 이란?" /><published>2021-11-10T00:00:00+09:00</published><updated>2021-11-10T00:00:00+09:00</updated><id>http://localhost:4000/springboot/Java-SpringProfile</id><content type="html" xml:base="http://localhost:4000/springboot/Java-SpringProfile/">&lt;p&gt;개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다&lt;/p&gt;
 
 &lt;p&gt;이처럼 Profile 은 &lt;strong&gt;어떤 특정 환경의 설정 값을 다르게 하고 싶을 때&lt;/strong&gt; 사용&lt;/p&gt;
 
@@ -834,8 +942,6 @@ JPA 내부에서 엔티티 객체가 생성/변경되는 것을 감지하는 역
 
 &lt;h2 id=&quot;1-applicationyml-에-profileactive-지정하기&quot;&gt;1. application.yml 에 profile.active 지정하기&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;yml 이나 properties 파일에서 직접 설정 정보를 변경, profile.active 를 지정하면 된다.&lt;/p&gt;
 
 &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
@@ -854,8 +960,6 @@ JPA 내부에서 엔티티 객체가 생성/변경되는 것을 감지하는 역
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2-java--jar-에-옵션을-줘서-특정-profile-로드하기&quot;&gt;2. java -jar 에 옵션을 줘서 특정 profile 로드하기&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;java jar 파일로 빌드를 하고 jar 파일을 실행시키는 시점에 환경변수를 추가하여 profile 을 변경시킬 수 있다.&lt;/p&gt;
 
@@ -940,12 +1044,7 @@ java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; &lt;span class=&quot;nt&
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// java -Dspring.profiles.active=set1 -jar ProfileApplication.jar 실행시&lt;/span&gt;
 &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;spring.profiles.active&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// set1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="SpringBoot" /><summary type="html"></summary></entry><entry><title type="html">Nginx 를 이용하여 SpringBoot 무중단 배포하기</title><link href="http://localhost:4000/java/nginx/springboot/Java-Nginx-SpringBoot/" rel="alternate" type="text/html" title="Nginx 를 이용하여 SpringBoot 무중단 배포하기" /><published>2021-11-09T11:20:00+09:00</published><updated>2021-11-09T11:20:00+09:00</updated><id>http://localhost:4000/java/nginx/springboot/Java-Nginx-SpringBoot</id><content type="html" xml:base="http://localhost:4000/java/nginx/springboot/Java-Nginx-SpringBoot/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;참고) 스프링 부트와 AWS로 혼자 구현하는 웹서비스&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="SpringBoot" /><category term="Java" /><category term="SpringBoot" /><summary type="html">개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다</summary></entry><entry><title type="html">Nginx 를 이용하여 SpringBoot 무중단 배포하기</title><link href="http://localhost:4000/springboot/Java-Nginx-SpringBoot/" rel="alternate" type="text/html" title="Nginx 를 이용하여 SpringBoot 무중단 배포하기" /><published>2021-11-09T00:00:00+09:00</published><updated>2021-11-09T00:00:00+09:00</updated><id>http://localhost:4000/springboot/Java-Nginx-SpringBoot</id><content type="html" xml:base="http://localhost:4000/springboot/Java-Nginx-SpringBoot/">&lt;p&gt;참고) 스프링 부트와 AWS로 혼자 구현하는 웹서비스&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://dev-jwblog.tistory.com/42&quot;&gt;[SpringBoot] 웹서비스 출시하기 - 5. Nginx를 활용한 무중단 배포 구축하기&lt;/a&gt;&lt;/p&gt;
 
@@ -1024,8 +1123,6 @@ java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; &lt;span class=&quot;nt&
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;1-nginx-설치&quot;&gt;1) nginx 설치&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;h3 id=&quot;1-nginx-저장소-추가&quot;&gt;&lt;strong&gt;1. nginx 저장소 추가&lt;/strong&gt;&lt;/h3&gt;
 
@@ -1116,8 +1213,6 @@ systemctl status nginx
 
 &lt;h2 id=&quot;2-github-repository-연결&quot;&gt;2) github repository 연결&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;h3 id=&quot;1-ssh-key-파일-확인-및-public-key-등록&quot;&gt;1. SSH key 파일 확인 및 public key 등록&lt;/h3&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.ssh
@@ -1147,8 +1242,6 @@ systemctl status nginx
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;3-프로젝트-설정&quot;&gt;3) 프로젝트 설정&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;프로젝트의 기본 경로는 /usr/local/web 이다&lt;/p&gt;
 
@@ -1237,8 +1330,6 @@ server:
 &lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;4-무중단-배포-설정&quot;&gt;4) 무중단 배포 설정&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;기본 경로는 /usr/local/web/nonstop 이다&lt;/p&gt;
 
@@ -1445,12 +1536,7 @@ git pull
 
 &lt;p&gt;코드가 수정되고 배포를 하게 되면 set1 이 실행되게 된다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/140849766-7b89eefd-51e4-4a3b-bbe5-2f66c961070b.png&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="Nginx" /><category term="SpringBoot" /><summary type="html"></summary></entry><entry><title type="html">JPA Repository</title><link href="http://localhost:4000/java/jpa/Java-JPARepository/" rel="alternate" type="text/html" title="JPA Repository" /><published>2021-11-08T10:00:00+09:00</published><updated>2021-11-08T10:00:00+09:00</updated><id>http://localhost:4000/java/jpa/Java-JPARepository</id><content type="html" xml:base="http://localhost:4000/java/jpa/Java-JPARepository/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ItemRepository.java&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/79130276/140849766-7b89eefd-51e4-4a3b-bbe5-2f66c961070b.png&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="SpringBoot" /><category term="Java" /><category term="SpringBoot" /><category term="Nginx" /><summary type="html">참고) 스프링 부트와 AWS로 혼자 구현하는 웹서비스</summary></entry><entry><title type="html">JPA Repository</title><link href="http://localhost:4000/jpa/Java-JPARepository/" rel="alternate" type="text/html" title="JPA Repository" /><published>2021-11-08T00:00:00+09:00</published><updated>2021-11-08T00:00:00+09:00</updated><id>http://localhost:4000/jpa/Java-JPARepository</id><content type="html" xml:base="http://localhost:4000/jpa/Java-JPARepository/">&lt;p&gt;&lt;strong&gt;ItemRepository.java&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.shop.shop.repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
@@ -1465,7 +1551,6 @@ git pull
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;jparepository&quot;&gt;JpaRepository&lt;/h2&gt;
-&lt;hr /&gt;
 
 &lt;p&gt;JpaReporitory 는 2개의 제네릭 타입을 사용하는데 첫번째에는 엔티티 타입 클래스, 두번재는 기본키 타입을 넣어줌&lt;/p&gt;
 
@@ -1575,8 +1660,6 @@ git pull
 
 &lt;h2 id=&quot;jparepository-예제&quot;&gt;JpaRepository 예제&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;MemoRepository.java&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.zerock.ex2.repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -1597,8 +1680,6 @@ git pull
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;테스트-코드를-통한-crud-연습&quot;&gt;테스트 코드를 통한 CRUD 연습&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;ul&gt;
   &lt;li&gt;insert 작업: save(엔티티 객체)&lt;/li&gt;
@@ -1727,14 +1808,7 @@ git pull
 
     &lt;p&gt;→ deleteById() 의 리턴 타입은 void, 만일 해당 데이터가 존재하지 않으면 예외를 발생&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="JPA" /><summary type="html"></summary></entry><entry><title type="html">변경감지와 병합 - 두번째</title><link href="http://localhost:4000/java/jpa/Java-DirtyChecking2/" rel="alternate" type="text/html" title="변경감지와 병합 - 두번째" /><published>2021-10-28T17:20:00+09:00</published><updated>2021-10-28T17:20:00+09:00</updated><id>http://localhost:4000/java/jpa/Java-DirtyChecking2</id><content type="html" xml:base="http://localhost:4000/java/jpa/Java-DirtyChecking2/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;sql-수정update-쿼리의-문제점&quot;&gt;SQL 수정(Update) 쿼리의 문제점&lt;/h2&gt;
-
-&lt;hr /&gt;
+&lt;/ol&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">ItemRepository.java</summary></entry><entry><title type="html">변경감지와 병합 - 두번째</title><link href="http://localhost:4000/jpa/Java-DirtyChecking2/" rel="alternate" type="text/html" title="변경감지와 병합 - 두번째" /><published>2021-10-28T00:00:00+09:00</published><updated>2021-10-28T00:00:00+09:00</updated><id>http://localhost:4000/jpa/Java-DirtyChecking2</id><content type="html" xml:base="http://localhost:4000/jpa/Java-DirtyChecking2/">&lt;h2 id=&quot;sql-수정update-쿼리의-문제점&quot;&gt;SQL 수정(Update) 쿼리의 문제점&lt;/h2&gt;
 
 &lt;p&gt;SQL 을 사용하면 수정 쿼리를 직접 작성&lt;/p&gt;
 
@@ -1757,15 +1831,11 @@ git pull
 
 &lt;h2 id=&quot;변경감지와-병합&quot;&gt;변경감지와 병합&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;JPA 는 영속성 컨텍스트에 테이블 형태의 1차 캐시를 두고 엔티티를 저장해서, Transaction commit 시 1차 캐시의 영속된 값과 현재 entity 값을 비교하여 변경이 된 것을 알아서 적용해줌&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;준영속-상태의-엔티티&quot;&gt;준영속 상태의 엔티티&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;아래 코드는 form 의 id 에 해당하는 member 의 name 을 set 했다.&lt;/p&gt;
 
@@ -1793,8 +1863,6 @@ git pull
 
 &lt;h2 id=&quot;준영속-상태의-엔티티를-수정하는-2가지-방법&quot;&gt;준영속 상태의 엔티티를 수정하는 2가지 방법&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;ol&gt;
   &lt;li&gt;변경 감지 기능 (dirty checking) 사용&lt;/li&gt;
   &lt;li&gt;merge 사용&lt;/li&gt;
@@ -1803,8 +1871,6 @@ git pull
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;변경감지-dirty-checking&quot;&gt;변경감지 (dirty checking)&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;entity manager 로 entity 를 직접 꺼내 값을 수정&lt;/p&gt;
 
@@ -1856,8 +1922,6 @@ git pull
 
 &lt;h2 id=&quot;merge-사용&quot;&gt;merge 사용&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;entity manager 의 merge 를 사용&lt;/p&gt;
 
 &lt;p&gt;merge 가 호출되면 우선 해당 엔티티를 1차 캐시에서 먼저 조회하고, 없다면 식별자로 DB에서 엔티티를 검색해 가져와 준영속 상태의 엔티티 값을 대입 받는다&lt;/p&gt;
@@ -1897,8 +1961,6 @@ git pull
 
 &lt;h2 id=&quot;엔티티-삭제&quot;&gt;엔티티 삭제&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Memeber&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memberA&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;memeberA&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memberA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -1909,12 +1971,7 @@ git pull
 
 &lt;p&gt;이 후 트랜잭션을 커밋하게 되면 플러시가 호출되어 실제 데이터베이스에 삭제 쿼리를 전달&lt;/p&gt;
 
-&lt;p&gt;em.remove(memberA) 를 호출하는 순간 memberA 는 영속성 컨텍스트에서 제거됨&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="JPA" /><summary type="html"></summary></entry><entry><title type="html">엔티티 매핑</title><link href="http://localhost:4000/java/jpa/Java-Entity-Mapping/" rel="alternate" type="text/html" title="엔티티 매핑" /><published>2021-10-20T17:20:00+09:00</published><updated>2021-10-20T17:20:00+09:00</updated><id>http://localhost:4000/java/jpa/Java-Entity-Mapping</id><content type="html" xml:base="http://localhost:4000/java/jpa/Java-Entity-Mapping/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;JPA 를 사용하는 데 가장 중요한 일은 엔티티와 테이블을 정확히 매핑하는 것. 따라서, 매핑 어노테이션을 숙지하고 사용해야 함&lt;/p&gt;
+&lt;p&gt;em.remove(memberA) 를 호출하는 순간 memberA 는 영속성 컨텍스트에서 제거됨&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">SQL 수정(Update) 쿼리의 문제점</summary></entry><entry><title type="html">엔티티 매핑</title><link href="http://localhost:4000/jpa/Java-Entity-Mapping/" rel="alternate" type="text/html" title="엔티티 매핑" /><published>2021-10-20T00:00:00+09:00</published><updated>2021-10-20T00:00:00+09:00</updated><id>http://localhost:4000/jpa/Java-Entity-Mapping</id><content type="html" xml:base="http://localhost:4000/jpa/Java-Entity-Mapping/">&lt;p&gt;JPA 를 사용하는 데 가장 중요한 일은 엔티티와 테이블을 정확히 매핑하는 것. 따라서, 매핑 어노테이션을 숙지하고 사용해야 함&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;대표 어노테이션&lt;/code&gt;&lt;/p&gt;
 
@@ -1929,8 +1986,6 @@ git pull
 
 &lt;h2 id=&quot;entity&quot;&gt;@Entity&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;JPA 를 사용해서 테이블과 매핑할 클래스는 @Entity 어노테이션을 필수로 붙여야함&lt;/p&gt;
 
 &lt;p&gt;@Entity 가 붙은 클래스는 JPA 가 관리&lt;/p&gt;
@@ -1939,15 +1994,11 @@ git pull
 
 &lt;h2 id=&quot;table&quot;&gt;@Table&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;엔티티와 매핑할 테이블을 지정. 생략하면 매핑한 엔티티의 이름을 테이블 이름으로 사용&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;다양한-매핑-사용&quot;&gt;다양한 매핑 사용&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;다음의 요구사항을 만족하는 회원 엔티티를 생성하자&lt;/p&gt;
 
@@ -2026,8 +2077,6 @@ git pull
 
 &lt;h2 id=&quot;ddl-생성-기능&quot;&gt;DDL 생성 기능&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. 회원이름은 필수로 입력
 2. 10자를 초과하면 안 된다
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -2096,8 +2145,6 @@ git pull
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;필드와-컬럼-매핑-레퍼런스&quot;&gt;필드와 컬럼 매핑: 레퍼런스&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;@Column&lt;/strong&gt;&lt;/p&gt;
 
@@ -2283,204 +2330,4 @@ git pull
 
 &lt;p&gt;객체는 참조를 사용해서 연관된 객체를 찾고 테이블은 외래 키를 사용해서 연관된 테이블을 찾으므로 둘 사이에는 큰 차이가 있다&lt;/p&gt;
 
-&lt;p&gt;JPA 는 객체의 참조와 테이블의 외래 키를 매핑해서 객체에서는 참조를 사용하고 테이블에서는 외래 키를 사용할 수 있도록 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="JPA" /><summary type="html"></summary></entry><entry><title type="html">변경 감지와 병합 - 첫번째</title><link href="http://localhost:4000/java/jpa/Java-DirtyChecking1/" rel="alternate" type="text/html" title="변경 감지와 병합 - 첫번째" /><published>2021-10-13T14:20:00+09:00</published><updated>2021-10-13T14:20:00+09:00</updated><id>http://localhost:4000/java/jpa/Java-DirtyChecking1</id><content type="html" xml:base="http://localhost:4000/java/jpa/Java-DirtyChecking1/">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;준영속-이란&quot;&gt;준영속 이란?&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;→ 영속성 컨텍스트가 관리하는 영속 상태의 엔티티가 영속성 컨텍스트에서 분리된(detached) 것을 준영속 상태라 한다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;영속-상태-엔티티를-준영속-상태로-만드는-방법&quot;&gt;영속 상태 엔티티를 준영속 상태로 만드는 방법&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;em.detach(entity): 특정 엔티티만 준영속 상태로 전환&lt;/li&gt;
-  &lt;li&gt;em.clear(): 영속성 컨텍스트를 완전히 초기화&lt;/li&gt;
-  &lt;li&gt;em.close(): 영속성 컨텍스트를 종료&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;준영속-엔티티란&quot;&gt;준영속 엔티티란?&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;영속성 컨텍스트가 더는 관리하지 않는 엔티티를 말한다&lt;/p&gt;
-
-&lt;p&gt;준영속이라는 단어는 객체를 new 했거나, 안했거나를 기준으로 나누는 것이 아니다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;핵심은 식별자를 기준으로 영속상태가 되어서 DB에 저장된 적이 있는가&lt;/strong&gt; 를 기준으로 생각해야함&lt;/p&gt;
-
-&lt;p&gt;그래서 식별자를 기준으로 이미 한번 영속상태가 되어버린 엔티티가 있는데, 더이상 영속성 컨텍스트가 관리하지 않으면 모두 준영속 상태&lt;/p&gt;
-
-&lt;p&gt;ItemController.java&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-	&lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;book&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setAuthor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAuthor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;itemService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;saveItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Book 이라는 새로운 객체를 생성했지만 book 에 들어가는 데이터는 이미 DB 에 한번 저장되어서 식별자가 존재한다. 임의로 만들어낸 엔티티도 기존 식별자를 가지고 있으면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;준영속 엔티티&lt;/code&gt;로 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;준영속-엔티티를-변경하는-방법&quot;&gt;준영속 엔티티를 변경하는 방법&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;변경 감지 (dirty checking 이라고도 한다)&lt;/li&gt;
-  &lt;li&gt;병합 (merge)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;변경-감지&quot;&gt;변경 감지&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;영속성 컨텍스트에서 엔티티를 다시 조회한 후에 데이터를 수정하는 방법&lt;/p&gt;
-
-&lt;p&gt;트랜잭션 안에서 엔티티를 다시 조회, 변경할 값 선택 트랜잭션 커밋 시점에 변경 감지(Dirty Checking)
-이 동작해서 데이터베이스에 UPDATE SQL 실행&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//findItem 은 영속상태&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;병합-merge&quot;&gt;병합 (merge)&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;준영속 상태의 엔티티를 영속 상태로 변경할 때 사용하는 기능&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//itemParam: 파리미터로 넘어온 준영속 상태의 엔티티&lt;/span&gt;
- &lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mergeItem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;em&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//findItem 은 영속상태&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;첫번째 코드와 두번째 코드의 동작 방식은 똑같다.&lt;/p&gt;
-
-&lt;p&gt;첫번째 코드는 JPA 를 사용하여 간단하게 작성 할 수 있다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;주의: 변경 감지 기능을 사용하면 원하는 속성만 선택해서 변경할 수 있지만, 병합을 사용하면 모든 속성이
-변경된다. 병합시 값이 없으면 null 로 업데이트 할 위험도 있다. (병합은 모든 필드를 교체한다.)&lt;/p&gt;
-
-&lt;/blockquote&gt;
-
-&lt;p&gt;따라서, 실무에선 병합(merge)을 쓰지 말고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;변경 감지&lt;/code&gt;를 사용하자&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;정리&quot;&gt;정리&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;엔티티를 변경할 때는 항상 변경 감지를 사용&lt;/li&gt;
-  &lt;li&gt;컨트롤러에서 어설프게 엔티티를 생성하지 말고&lt;/li&gt;
-  &lt;li&gt;트랜잭션이 있는 서비스 계층에 식별자( id )와 변경할 데이터를 명확하게 전달 (파라미터 or dto)&lt;/li&gt;
-  &lt;li&gt;트랜잭션이 있는 서비스 계층에서 영속 상태의 엔티티를 조회하고, 엔티티의 데이터를 직접 변경&lt;/li&gt;
-  &lt;li&gt;트랜잭션 커밋 시점에 변경 감지가 실행됨&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;ItemController.java&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/items/{itemId}/edit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathVariable&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@ModelAttribute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;form&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookForm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-
-	&lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;book&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setAuthor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAuthor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;itemService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;saveItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;redirect:/items&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;ItemController.java (파라미터를 명확하게 함)&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/items/{itemId}/edit&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@PathVariable&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@ModelAttribute&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;form&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookForm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;itemService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;redirect:/items&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;ItemService.java&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;itemRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;itemId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;price&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;findItem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setStockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stockQuantity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;첫번째 코드 처럼 사용하는 것 보다 아래 코드 처럼 파라미터를 명확하게 해주는게 훨씬 더 좋은 코드이다.&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="Java" /><category term="JPA" /><summary type="html"></summary></entry></feed>
+&lt;p&gt;JPA 는 객체의 참조와 테이블의 외래 키를 매핑해서 객체에서는 참조를 사용하고 테이블에서는 외래 키를 사용할 수 있도록 한다.&lt;/p&gt;</content><author><name>노승미</name><email>yessm621@gmail.com</email></author><category term="JPA" /><category term="Java" /><category term="SpringBoot" /><category term="JPA" /><summary type="html">JPA 를 사용하는 데 가장 중요한 일은 엔티티와 테이블을 정확히 매핑하는 것. 따라서, 매핑 어노테이션을 숙지하고 사용해야 함</summary></entry></feed>

@@ -4,7 +4,7 @@ last_modified_at: 2021-12-18T20:05:00
 categories: 
   - JPA
 tags:
-  - JAVA
+  - Java
   - SpringBoot
   - JPA
 toc: true

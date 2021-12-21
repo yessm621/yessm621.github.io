@@ -1,15 +1,15 @@
 ---
-layout: post
-title:  "예외처리 (Exception)"
-date:   2021-09-14 10:00:00 0100
-categories: Java
+title: "예외처리 (Exception)"
+categories:
+  - Java
+tags:
+  - Java
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
 
 
 ## 1. Checked Exception
-
----
 
 - RuntimeException 을 상속받지 않는 예외
 - 예외 발생 시 롤백을 진행하지 않음
@@ -17,8 +17,6 @@ categories: Java
 <br>
 
 ## 2. Unchecked Exception
-
----
 
 - RuntimeException 을 상속받는 예외
 - 예외 발생 시 롤백 진행
@@ -79,7 +77,3 @@ public void add() throws Exception {
 	throw new Exception("예외처리 발생!");
 }
 ```
-
-
-<br>
-<br>

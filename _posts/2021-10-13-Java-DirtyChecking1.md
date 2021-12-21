@@ -1,15 +1,16 @@
 ---
-layout: post
-title:  "변경 감지와 병합 - 첫번째"
-date:   2021-10-13 14:20:00 0100
-categories: Java JPA
+title: "변경감지와 병합 - 첫번째"
+categories:
+  - JPA
+tags:
+  - Java
+  - SpringBoot
+  - JPA
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## 준영속 이란?
-
----
 
 → 영속성 컨텍스트가 관리하는 영속 상태의 엔티티가 영속성 컨텍스트에서 분리된(detached) 것을 준영속 상태라 한다
 
@@ -25,8 +26,6 @@ categories: Java JPA
 <br>
 
 ## 준영속 엔티티란?
-
----
 
 영속성 컨텍스트가 더는 관리하지 않는 엔티티를 말한다
 
@@ -70,8 +69,6 @@ Book 이라는 새로운 객체를 생성했지만 book 에 들어가는 데이�
 
 ## 변경 감지
 
----
-
 영속성 컨텍스트에서 엔티티를 다시 조회한 후에 데이터를 수정하는 방법
 
 트랜잭션 안에서 엔티티를 다시 조회, 변경할 값 선택 트랜잭션 커밋 시점에 변경 감지(Dirty Checking)
@@ -96,8 +93,6 @@ public void updateItem(Long itemId, Book param){
 <br>
 
 ## 병합 (merge)
-
----
 
 준영속 상태의 엔티티를 영속 상태로 변경할 때 사용하는 기능
 
@@ -140,8 +135,6 @@ public Item updateItem(Long itemId, Book param){
 <br>
 
 ## 정리
-
----
 
 1. 엔티티를 변경할 때는 항상 변경 감지를 사용
 2. 컨트롤러에서 어설프게 엔티티를 생성하지 말고

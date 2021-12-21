@@ -1,0 +1,807 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>변경감지와 병합 - 두번째 - Seungmi Blog</title>
+<meta name="description" content="SQL 수정(Update) 쿼리의 문제점">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="변경감지와 병합 - 두번째">
+<meta property="og:url" content="http://localhost:4000/jpa/Java-DirtyChecking2/">
+
+
+  <meta property="og:description" content="SQL 수정(Update) 쿼리의 문제점">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2021-10-28T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/Java-DirtyChecking2/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/">연도별 포스트</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/picture.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>I am an <strong>amazing</strong> person.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:yessm621@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="yessm621@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="변경감지와 병합 - 두번째">
+    <meta itemprop="description" content="SQL 수정(Update) 쿼리의 문제점">
+    <meta itemprop="datePublished" content="2021-10-28T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/jpa/Java-DirtyChecking2/" class="u-url" itemprop="url">변경감지와 병합 - 두번째
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Getting Started</h4></header>
+              <ul class="toc__menu"><li><a href="#sql-수정update-쿼리의-문제점">SQL 수정(Update) 쿼리의 문제점</a></li><li><a href="#변경감지와-병합">변경감지와 병합</a></li><li><a href="#준영속-상태의-엔티티">준영속 상태의 엔티티</a></li><li><a href="#준영속-상태의-엔티티를-수정하는-2가지-방법">준영속 상태의 엔티티를 수정하는 2가지 방법</a></li><li><a href="#변경감지-dirty-checking">변경감지 (dirty checking)</a></li><li><a href="#merge-사용">merge 사용</a></li><li><a href="#엔티티-삭제">엔티티 삭제</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="sql-수정update-쿼리의-문제점">SQL 수정(Update) 쿼리의 문제점</h2>
+
+<p>SQL 을 사용하면 수정 쿼리를 직접 작성</p>
+
+<p>프로젝트의 규모가 커지고 요구사항이 늘어나면 수정쿼리도 점점 추가된다.</p>
+
+<p>→ 이 방식의 문제점은 수정 쿼리가 많아지는 것과 비지니스 로직을 분석하기 위해 SQL 을 계속 확인해야함. 결국, 직접적이든 간접적이든 비지니스 로직이 SQL 에 의존하게 됨</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">초기</span>
+<span class="k">update</span> <span class="n">member</span>
+<span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="o">?</span>
+<span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span>
+
+<span class="o">//</span> <span class="err">기능추가</span>
+<span class="k">update</span> <span class="n">member</span>
+<span class="k">set</span> <span class="n">name</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="n">grade</span> <span class="o">=</span> <span class="o">?</span>
+<span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="변경감지와-병합">변경감지와 병합</h2>
+
+<p>JPA 는 영속성 컨텍스트에 테이블 형태의 1차 캐시를 두고 엔티티를 저장해서, Transaction commit 시 1차 캐시의 영속된 값과 현재 entity 값을 비교하여 변경이 된 것을 알아서 적용해줌</p>
+
+<p><br /></p>
+
+<h2 id="준영속-상태의-엔티티">준영속 상태의 엔티티</h2>
+
+<p>아래 코드는 form 의 id 에 해당하는 member 의 name 을 set 했다.</p>
+
+<p>이후에 transaction 이 commit 되면 알아서 변경 감지가 일어날 것이라고 생각한 잘못된 코드.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">준영속</span> <span class="err">상태를</span> <span class="err">생각하지</span> <span class="err">않은</span> <span class="err">엔티티</span> <span class="err">값</span> <span class="err">수정</span>
+
+<span class="o">@</span><span class="n">PostMapping</span><span class="p">(</span><span class="nv">"/members/{memberId}/editName"</span><span class="p">)</span>
+<span class="k">public</span> <span class="n">String</span> <span class="n">updateMemberName</span><span class="p">(</span><span class="o">@</span><span class="n">ModelAttribute</span><span class="p">(</span><span class="nv">"form"</span><span class="p">)</span> <span class="n">MemberNameEditForm</span> <span class="n">form</span><span class="p">){</span>
+<span class="n">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Member</span><span class="p">();</span>
+
+<span class="n">member</span><span class="p">.</span><span class="n">setId</span><span class="p">(</span><span class="n">form</span><span class="p">.</span><span class="n">getId</span><span class="p">());</span>
+<span class="n">member</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="n">form</span><span class="p">.</span><span class="n">getName</span><span class="p">());</span>
+
+<span class="k">return</span> <span class="nv">"redirect:/members"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>이미 한번 DB 에 저장된 기존 식별자(id) 를 갖는 엔티티는 영속성 컨텍스트가 더 이상 관여하지 않음</p>
+
+<p>→ 이런 상태의 entity 를 준영속 상태의 엔티티라고 함</p>
+
+<p>위 코드에서 member 역시, 기존에 DB에 저장된 id를 식별자로 갖는 준영속 상태의 엔티티이기 때문에 영속성 컨텍스트에 의해 관리되지 않고, 때문에 변경 감지가 적용되지 않는 것</p>
+
+<p><br /></p>
+
+<h2 id="준영속-상태의-엔티티를-수정하는-2가지-방법">준영속 상태의 엔티티를 수정하는 2가지 방법</h2>
+
+<ol>
+  <li>변경 감지 기능 (dirty checking) 사용</li>
+  <li>merge 사용</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="변경감지-dirty-checking">변경감지 (dirty checking)</h2>
+
+<p>entity manager 로 entity 를 직접 꺼내 값을 수정</p>
+
+<p>이렇게 하면 dirty checking 이 일어남</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span>
+
+<span class="kt">void</span> <span class="nf">updateMember</span><span class="o">(</span><span class="nc">Member</span> <span class="n">memberParam</span><span class="o">)</span>
+<span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">memberParam</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+
+<span class="n">findMember</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">memberParam</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>JPA 로 엔티티를 수정할 때는 엔티티를 조회한 후 데이터만 변경하면 된다.</p>
+
+<p>em.update()와 같은 update 메소드가 존재하지 않는데 어떻게 db 에 반영이 되었을까?</p>
+
+<p>그 이유는 <code class="language-plaintext highlighter-rouge">JPA 의 변경감지 (Dirty Checking)</code> 기능 때문</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EntityManager</span> <span class="n">em</span> <span class="o">=</span> <span class="n">emf</span><span class="o">.</span><span class="na">createEntityManager</span><span class="o">();</span>
+<span class="nc">EntityTransaction</span> <span class="n">transaction</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">();</span>
+<span class="n">transaction</span><span class="o">.</span><span class="na">begin</span><span class="o">()</span> <span class="c1">// [트랜잭션] 시작</span>
+
+<span class="c1">// 영속 엔티티 조회</span>
+<span class="nc">Member</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memberA"</span><span class="o">);</span>
+
+<span class="c1">// 영속 엔티티 데이터 수정</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"hi"</span><span class="o">);</span>
+<span class="n">memberA</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+
+<span class="c1">// em.update(member); 이런코드가 필요할 거 같지만 없다..</span>
+
+<span class="n">transaction</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// [트랜잭션] 커밋</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ol>
+  <li>트랜잭션을 커밋하면 엔티티 매니저 내부에서 flush() 가 호출</li>
+  <li>엔티티와 스냅샷을 비교해서 변경된 엔티티를 찾음</li>
+  <li>변경된 엔티티가 있으면 수정 쿼리를 생성해서 쓰기 지연 SQL 저장소에 보냄</li>
+  <li>쓰기 지연 저장소의 SQL 을 DB 에 보냄</li>
+  <li>데이터베이스 트랜잭션을 커밋</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="merge-사용">merge 사용</h2>
+
+<p>entity manager 의 merge 를 사용</p>
+
+<p>merge 가 호출되면 우선 해당 엔티티를 1차 캐시에서 먼저 조회하고, 없다면 식별자로 DB에서 엔티티를 검색해 가져와 준영속 상태의 엔티티 값을 대입 받는다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/members/{memberId}/editName"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">updateMemberName</span><span class="o">(</span><span class="nd">@ModelAttribute</span><span class="o">(</span><span class="s">"form"</span><span class="o">)</span> <span class="nc">MemberNameEditForm</span> <span class="n">form</span><span class="o">){</span>
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">form</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+
+<span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="k">return</span> <span class="s">"redirect:/members"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>아래처럼 Service 에서 Member 를 저장할 때, id 가 직접 설정하지 않았으면(새로 생성) persist 를, id 를 직접 설정한 객체가 저장된다면 이미 있는 엔티티르 수정하는 것으로 알고 merge 를 호출하는 식으로 사용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+     <span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>merge 는 엔티티로 넘어온 모든 속성으로 변경이 진행됨</p>
+
+<p>병합시 값이 없으면 null 로 업데이트 할 위험이 있다 (병합은 모든 필드를 교체함)</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">따라서, 엔티티를 변경할 때는 변경감지를 사용하는 것이 좋다</code></strong></p>
+
+<p><br /></p>
+
+<h2 id="엔티티-삭제">엔티티 삭제</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Memeber</span> <span class="n">memberA</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">"memeberA"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">memberA</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>em.remove() 에 삭제 대상 엔티티를 넘겨주면 엔티티를 삭제한다.</p>
+
+<p>물론 엔티티를 즉시 삭제 하는 것이 아니라 엔티티 등록과 비슷하게 삭제 쿼리를 쓰기 지연 SQL 저장소에 등록한다.</p>
+
+<p>이 후 트랜잭션을 커밋하게 되면 플러시가 호출되어 실제 데이터베이스에 삭제 쿼리를 전달</p>
+
+<p>em.remove(memberA) 를 호출하는 순간 memberA 는 영속성 컨텍스트에서 제거됨</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a><span class="sep">, </span>
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item p-category" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-10-28T00:00:00+09:00">October 28, 2021</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EB%B3%80%EA%B2%BD%EA%B0%90%EC%A7%80%EC%99%80+%EB%B3%91%ED%95%A9+-+%EB%91%90%EB%B2%88%EC%A7%B8%20http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJava-DirtyChecking2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJava-DirtyChecking2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJava-DirtyChecking2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/jpa/Java-Entity-Mapping/" class="pagination--pager" title="엔티티 매핑
+">이전</a>
+    
+    
+      <a href="/jpa/Java-JPARepository/" class="pagination--pager" title="JPA Repository
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/Java-OOP2/" rel="permalink">객체지향개념(변수와 메서드)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">3. 변수와 메서드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/Java-OOP/" rel="permalink">객체지향개념(객체지향언어, 클래스와 객체)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">1. 객체지향언어
+1.1 객체지향언어의 역사
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/Java-JPA-QueryMethod/" rel="permalink">쿼리 메서드 (Query Methods) 기능과 @Query
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/Java-JPA-Paging/" rel="permalink">페이징/정렬 처리하기
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">페이징 처리와 정렬은 전통적으로 SQL 을 공부하는데 반드시 필요한 부분. 특히 페이지 처리는 데이터베이스의 종류에 따라서 사용되는 기법이 다른 경우가 많아서 별도의 학습이 필요
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

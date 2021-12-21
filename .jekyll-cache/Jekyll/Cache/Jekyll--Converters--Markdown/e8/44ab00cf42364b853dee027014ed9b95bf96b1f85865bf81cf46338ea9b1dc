@@ -1,0 +1,403 @@
+I"^~<h2 id="1-menu">1. Menu</h2>
+
+<p>menu.html</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+		<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"ui.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+		<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"menu-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"menu-link"</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"menu-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"menu-link"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"menu-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"menu-link"</span><span class="nt">&gt;</span>Product<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"menu-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"menu-link"</span><span class="nt">&gt;</span>Contact<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>ui.css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* menu */</span>
+<span class="nc">.menu</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* 가로에 꽉차게 설정하고 싶을 때, 그리고 마우스 오버했을때 
+선택한 메뉴가 늘어나게 하고 싶을때
+1. width 를 설정하는 방법
+2. flex-grow 를 설정하는 방법
+둘 중 하나를 택하면 되는데
+ie 를 생각했을땐 width 를 쓰는게 좋다.. */</span>
+<span class="nc">.menu-item</span> <span class="p">{</span>
+    <span class="c">/* width: 25%; */</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="m">0.5s</span><span class="p">;</span>
+    <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-item</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="c">/* width: 35%; */</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">crimson</span><span class="p">;</span>
+    <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1.5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span> <span class="p">{</span>
+    <span class="c">/* display: block; 속성을 추가하면 기존에는 link 위에 
+    마우스를 올려야만 커서가 변하는 것을 블록자체가 link 가 되게 변경 */</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+    <span class="c">/* 1em 으로 쓴 이유: font-size 을 1.2rem 으로 작성하였기 때문에 
+    1em 의 기본값이 1.2rem 이 된다. 따라서 글씨 크기에 따라 padding 이 달라진다. */</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2rem</span><span class="p">;</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#555</span><span class="p">;</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><img src="https://user-images.githubusercontent.com/79130276/130922243-d932fffc-62d9-4259-bebe-225774de6dac.png" alt="1" />
+<img src="https://user-images.githubusercontent.com/79130276/130922248-831870cd-eb91-47be-a975-151297ae3218.png" alt="2" /></p>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">작성 순서</code></p>
+
+<h3 id="1-개별-아이템의-css-를-먼저-작성">1. 개별 아이템의 css 를 먼저 작성</h3>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* menu */</span>
+<span class="nc">.menu-item</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-item</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">crimson</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2rem</span><span class="p">;</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#555</span><span class="p">;</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2-구조적인css-작성-flex">2. 구조적인css 작성 (flex)</h3>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* menu */</span>
+<span class="nc">.menu</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-item</span> <span class="p">{</span>
+    <span class="c">/* width: 25%; */</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="m">0.5s</span><span class="p">;</span>
+    <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-item</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="c">/* width: 35%; */</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">crimson</span><span class="p">;</span>
+    <span class="nl">flex-grow</span><span class="p">:</span> <span class="m">1.5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2rem</span><span class="p">;</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#555</span><span class="p">;</span>
+    <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.menu-link</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br />
+<br /></p>
+
+<h2 id="2-search">2. Search</h2>
+
+<p>search.html</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"ui.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"search-form"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"search"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"찾기"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>ui.css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* search */</span>
+<span class="nc">.search-form</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+		<span class="c">/* height 를 설정하니 align-items 의stretch 속성 때문에 자동으로 높이만큼 늘어남 */</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* search-from 의 input 두개가 높이가 동일
+1. height 이용
+2. padding
+3. align-items 의 stretch 특성 이용 (stretch 가 기본값) */</span>
+
+<span class="c">/* input search 는 늘어나야하고 input submit 은 고정
+늘어나야할 요소에 flex 를 주게 되면 해당 요소만 늘어나고 다른 요소는 고정이다. */</span>
+<span class="nc">.search-form</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">'search'</span><span class="o">]</span> <span class="p">{</span>
+    <span class="nl">flex</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">0.3em</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.search-form</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">'submit'</span><span class="o">]</span> <span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">4em</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">0.3em</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><img src="https://user-images.githubusercontent.com/79130276/130922251-57aac9b9-a98c-4aa7-be57-cd9c4a35c1b8.png" alt="3" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="3-bullet">3. Bullet</h2>
+
+<p>bullet.html</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"ui.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"info-list"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"info-list-item"</span><span class="nt">&gt;</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit autem voluptatibus et molestiae, quis officiis dolorem voluptas vitae voluptatem laboriosam?
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"info-list-item"</span><span class="nt">&gt;</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus nihil consectetur sapiente perferendis excepturi.
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"info-list-item"</span><span class="nt">&gt;</span>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error commodi possimus doloremque enim voluptate libero, cumque ipsum quam amet ipsa voluptatum architecto quae quas.
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>ui.css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* bullet list */</span>
+<span class="c">/* bullet 과 리스트를 같이 표현하되 구분을 주고 싶을 때 아래와 같이 사용 */</span>
+<span class="nc">.info-list-item</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0.5em</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* before: 가상 엘리먼트 */</span>
+<span class="nc">.info-list-item</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="nl">content</span><span class="p">:</span> <span class="s2">'➥'</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">0.5em</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130922252-d04c3e7d-8fc2-46c0-994b-3ed62e89e547.png" alt="4" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="4-message">4. Message</h2>
+
+<p>message.html</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"ui.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"user-list message-list"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item message-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"message-content"</span><span class="nt">&gt;</span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic assumenda sequi itaque voluptatibus ab sapiente dolor eos odio eligendi corrupti.
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item message-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"message-content"</span><span class="nt">&gt;</span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic assumenda sequi itaque voluptatibus ab sapiente dolor eos odio eligendi corrupti.
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item message-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"message-content"</span><span class="nt">&gt;</span>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam amet nam consequatur hic. Odio.
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>ui.css</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* message */</span>
+<span class="nc">.user-item</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="c">/* rem: root em */</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">1.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.user-photo</span> <span class="p">{</span>
+		<span class="c">/* flex-shrink 는 줄어들지 않게 하는 속성 */</span>
+    <span class="nl">flex-shrink</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">0.5em</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+    <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">no-repeat</span><span class="p">;</span>
+    <span class="nl">background-position</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">background-size</span><span class="p">:</span> <span class="m">150%</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130922255-db55f29e-07ca-417b-8350-4b3b421d1b46.png" alt="5" /></p>
+
+<p><br />
+<br /></p>
+
+<h2 id="5-user">5. User</h2>
+
+<p>user.html</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>CSS Flex<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"default.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"ui.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"user-list message-list"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item friend-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"user-name"</span><span class="nt">&gt;</span>
+                일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item friend-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"user-name"</span><span class="nt">&gt;</span>
+                일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"user-item friend-item"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;figure</span> <span class="na">class=</span><span class="s">"user-photo"</span> <span class="na">style=</span><span class="s">"background-image: url(images/ilbuni.png);"</span><span class="nt">&gt;&lt;/figure&gt;</span>
+            <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"user-name"</span><span class="nt">&gt;</span>
+                일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이 일분이
+            <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>ui.css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* message */</span>
+<span class="nc">.user-item</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="c">/* rem: root em */</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">1.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.user-photo</span> <span class="p">{</span>
+    <span class="c">/* flex-shrink 는 줄어들지 않게 하는 속성 */</span>
+    <span class="nl">flex-shrink</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">0.5em</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="m">#333</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">gold</span><span class="p">;</span>
+    <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">no-repeat</span><span class="p">;</span>
+    <span class="nl">background-position</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">background-size</span><span class="p">:</span> <span class="m">150%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.friend-item</span> <span class="p">{</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* 아래와 같이 작성하면 말줄임표가 된다. (그냥 외워라) */</span>
+<span class="nc">.user-name</span> <span class="p">{</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+    <span class="nl">text-overflow</span><span class="p">:</span> <span class="n">ellipsis</span><span class="p">;</span>
+    <span class="nl">white-space</span><span class="p">:</span> <span class="nb">nowrap</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/130922257-aaf6c627-14be-43b9-8073-a31c79311572.png" alt="6" /></p>
+:ET

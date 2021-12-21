@@ -1,15 +1,15 @@
 ---
-layout: post
-title:  "SpringBoot Settings"
-date:   2021-09-23 10:10:00 0100
-categories: Java SpringBoot
+title: "SpringBoot Settings"
+categories:
+  - SpringBoot
+tags:
+  - Java
+  - SpringBoot
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## 1. SpringBoot Settings
-
----
 
 → spring boot 기반으로 셋팅
 
@@ -39,8 +39,6 @@ categories: Java SpringBoot
 
 ## 2. IntelliJ Gradle 대신에 자바 직접 실행
 
----
-
 IntelliJ 버전은 Gradle 로 실행하는 것이 기본 설정이지만, 이렇게 하면 실행속도가 느림. 따라서, 다음과 같이 변경하면 자바로 바로 실행해서 속도가 빠르다.
 
 Preferences 에서 Gradle 을 검색하여 
@@ -57,8 +55,6 @@ Preferences 에서 Gradle 을 검색하여
 
 ## 3. Lombok 설정
 
----
-
 lombok 을 설정하고 나서 preferences 에서 annotation processors 를 설정해야 한다.
 
 enable annotation processing 에 체크!
@@ -69,8 +65,6 @@ enable annotation processing 에 체크!
 
 
 ## 4. H2 데이터베이스 생성
-
----
 
 1. h2 콘솔에 접속
 2. 콘솔에서 아래와 같이 입력 후 연결을 누르면 jpapractice 라는 데이터베이스가 생성됨
@@ -98,8 +92,6 @@ enable annotation processing 에 체크!
 
 
 ## 5. application.yml 작성
-
----
 
 기존에 있던 application.properties 대신 `application.yml` 을 사용
 
@@ -150,8 +142,6 @@ logging:
 
 ## 6. console 에 Query 파라미터 로그 남기기
 
----
-
 스프링부트에서 기본적으로 제공하는 라이브러리가 없기 때문에 외부에서 가져와 사용
 
 build.gradle 에 추가
@@ -161,7 +151,3 @@ implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 ```
 
 → 개발단계에서는 편하지만 운영시스템에 적용하려면 성능테스트가 필요!
-
-
-<br>
-<br>

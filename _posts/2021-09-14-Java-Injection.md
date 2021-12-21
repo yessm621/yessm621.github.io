@@ -1,15 +1,15 @@
 ---
-layout: post
-title:  "의존성 주입, 3가지 방법"
-date:   2021-09-14 10:30:00 0100
-categories: Java
+title: "의존성 주입, 3가지 방법"
+categories:
+  - SpringBoot
+tags:
+  - Java
+  - SpringBoot
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## 의존성 주입 방법
-
----
 
 ### 1. field injection
 
@@ -88,8 +88,6 @@ field injection, setter based injection 은 constructor based injection 과 빈�
 <br>
 
 ## lombok 을 활용한 생성자 주입
-
----
 
 @RequiredArgsConstructor 는 final 로 선언된 필드를 가지고 생성자를 만들어줌.
 

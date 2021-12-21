@@ -1,14 +1,14 @@
 ---
-layout: post
 title:  "Transition"
-date:   2021-07-27 12:35:00 0100
-categories: CSS
+categories:
+  - CSS
+tags:
+  - CSS
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
 
 ## Transition 이란?
-
----
 
 → css 속성을 변경할 때 애니메이션 속도를 조절하는 방법을 제공
 
@@ -80,8 +80,6 @@ categories: CSS
 
 ## Transition 속성
 
----
-
 `transition` : 이 속성은 축약된 것!
 
 → 개발자도구에서 해당 속성을 살펴보면 아래와 같은 속성이 나온다
@@ -112,5 +110,3 @@ categories: CSS
     transition: 1s 2s;
     /* 2s 후에 1s 동안 애니메이션하겠다는 뜻! */
     ```
-<br>
-<br>

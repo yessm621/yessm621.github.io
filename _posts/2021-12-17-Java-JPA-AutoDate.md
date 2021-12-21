@@ -4,7 +4,7 @@ last_modified_at: 2021-12-17T21:00:04-04:00
 categories: 
   - JPA
 tags:
-  - JAVA
+  - Java
   - SpringBoot
   - JPA
 # toc: true
@@ -85,4 +85,3 @@ public class BoardApplication {
 
 }
 ```
-

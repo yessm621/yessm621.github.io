@@ -1,15 +1,15 @@
 ---
-layout: post
 title:  "Optional 이란"
-date:   2021-07-14 13:50:00 0100
-categories: Java
+categories:
+  - Java
+tags:
+  - Java
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
 
 
 ## 기존의 null 처리
-
----
 
 아래 코드는 값(주소) 이 있다면 문제가 없는 코드이다.
 
@@ -41,8 +41,6 @@ if 문을 사용하면 null 처리를 할 수 있다.
 <br>
 
 ## Optional 클래스
-
----
 
 Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 NPE(Null Point Exception) 를 방지 할 수 있다.
 
@@ -174,5 +172,3 @@ Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 N
 
     Optional.ofNullable("input").filter("test"::equals).orElseThrow(NoSuchElementException::new);
     ```
-
-    <br><br>

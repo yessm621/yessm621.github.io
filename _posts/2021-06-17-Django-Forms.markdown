@@ -1,14 +1,13 @@
 ---
-layout: post
 title:  "Django Forms"
-date:   2021-06-17 14:00:00 0100
-categories: Django Python
+categories:
+  - Django
+tags:
+  - Django
+  - Python
 ---
-<br>
 
 ## Django Form
-
----
 
 장고에는 Model 클래스를 이용하여 Form 을 자동으로 생성하는 기능이 있다.
 
@@ -92,10 +91,3 @@ login.html
 {% endblock content %}
 {% endraw %}
 ```
-
-
-
-
-
-
-<br><br>

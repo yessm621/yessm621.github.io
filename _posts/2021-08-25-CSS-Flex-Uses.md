@@ -1,15 +1,14 @@
 ---
-layout: post
 title:  "Flex 유용한 기법들"
-date:   2021-08-25 17:00:00 0100
-categories: CSS
+categories:
+  - CSS
+tags:
+  - CSS
+toc: true
+toc_label: "Getting Started"
 ---
-<br>
-
 
 ## flex items 중 하나만 오른쪽 끝으로 붙이고 싶을 때
-
----
 
 ```html
 <!DOCTYPE html>
@@ -53,8 +52,6 @@ categories: CSS
 <br>
 
 ## 고정폭 컬럼과 가변폭 컬럼 혼합
-
----
 
 ```html
 <!DOCTYPE html>
@@ -115,8 +112,6 @@ categories: CSS
 <br>
 
 ## 3. footer 하단에 고정시키기
-
----
 
 ```html
 <!DOCTYPE html>
@@ -200,7 +195,3 @@ categories: CSS
 ```
 
 ![Untitled4](https://user-images.githubusercontent.com/79130276/130750108-157bad66-2243-4485-b639-87b4ae3854f4.png)
-
-
-<br>
-<br>

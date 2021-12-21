@@ -1,0 +1,99 @@
+I",<hr />
+<p>title:  “Django, Nginx, Gunicorn Setting (CentOS)”
+categories:</p>
+<ul>
+  <li>Django
+tags:</li>
+  <li>Django</li>
+  <li>Python</li>
+  <li>Nginx</li>
+  <li>
+    <h2 id="gunicorn">Gunicorn</h2>
+  </li>
+</ul>
+
+<h2 id="django-form">Django Form</h2>
+
+<hr />
+
+<p>장고에는 Model 클래스를 이용하여 Form 을 자동으로 생성하는 기능이 있다.</p>
+
+<p>장고의 폼에는 is_valid() 라는 함수가 있다</p>
+
+<p><strong>is_valid() 란?</strong></p>
+
+<p>⇒ 입력받은 폼에 대한 유효성을 검사</p>
+
+<p>views.py</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">forms</span>
+
+<span class="k">class</span> <span class="nc">LoginView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="p">.</span><span class="n">LoginForm</span><span class="p">(</span><span class="n">initial</span><span class="o">=</span><span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">""</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">"users/login.html"</span><span class="p">,</span> <span class="p">{</span><span class="s">"form"</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="p">.</span><span class="n">LoginForm</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="p">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">form</span><span class="p">.</span><span class="n">cleaned_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">"users/login.html"</span><span class="p">,</span> <span class="p">{</span><span class="s">"form"</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>cleaned_data 란?</strong></p>
+
+<p>is_valid() 라는 함수를 이용하여 유효성 검사가 끝나고 그 값이 true 일때 각 값들은 cleaned_data 에 저장된다.</p>
+
+<p>clean 으로 시작하는 메서드 들은 각각의 값들의 유효성을 검사할 수 있다.</p>
+
+<p>forms.py</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">LoginForm</span><span class="p">(</span><span class="n">forms</span><span class="p">.</span><span class="n">Form</span><span class="p">):</span>
+
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="p">.</span><span class="n">EmailField</span><span class="p">()</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">forms</span><span class="p">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="p">.</span><span class="n">PasswordInput</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clean_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">cleaned_data</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"email"</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">models</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">email</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">email</span>
+        <span class="k">except</span> <span class="n">models</span><span class="p">.</span><span class="n">User</span><span class="p">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">forms</span><span class="p">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s">"User does not exist"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clean_password</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"lalal"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>django 에서 post 로 전송 시 <strong>csrf_token</strong> 을 붙여줘야 한다</p>
+
+<p>login.html</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{% extends 'base.html' %}
+
+{% block page_title %}
+    Log In
+{% endblock page_title %}
+
+{% block search-bar %}
+{% endblock search-bar %}
+
+{% block content %}
+    <span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"{% url 'users:login' %}"</span><span class="nt">&gt;</span>
+        {% csrf_token %}
+        {{form.as_p}}
+        <span class="nt">&lt;button&gt;</span>Login<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+{% endblock content %}
+
+</code></pre></div></div>
+
+<p><br /><br /></p>
+:ET
