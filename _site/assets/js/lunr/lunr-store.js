@@ -220,4 +220,10 @@ var store = [{
         "tags": ["Java"],
         "url": "/java/Java-OOP2/",
         "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "Spring Security",
+        "excerpt":"스프링 시큐리티 → 다양한 방식으로 사용자 정보를 유지할 수 있는 방법을 제공 세션(HttpSession) 기반: 사용자 정보는 서버에서 보관, 필요시 설정을 통해서 제어 1. 스프링 시큐리티를 이용하는 프로젝트 build.gradle implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' application.yml logging: level: com: springframework: security: web: trace project: debug security 관련 부분은 로그 레벨을 낮게 설정해서 자세한 로그 확인...","categories": ["SpringBoot"],
+        "tags": ["Java","SpringBoot","JPA"],
+        "url": "/springboot/Java-SpringSecurity/",
+        "teaser": "/assets/images/IMG_2153.JPG"
       }]

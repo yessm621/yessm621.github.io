@@ -1,0 +1,451 @@
+I"�p<p>스프링 시큐리티</p>
+
+<p>→ 다양한 방식으로 사용자 정보를 유지할 수 있는 방법을 제공</p>
+
+<ul>
+  <li>세션(HttpSession) 기반: 사용자 정보는 서버에서 보관, 필요시 설정을 통해서 제어</li>
+  <li></li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="1-스프링-시큐리티를-이용하는-프로젝트">1. 스프링 시큐리티를 이용하는 프로젝트</h1>
+
+<p>build.gradle</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implementation</span> <span class="s">'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'</span>
+</code></pre></div></div>
+
+<p>application.yml</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">logging</span><span class="pi">:</span>
+  <span class="na">level</span><span class="pi">:</span>
+    <span class="na">com</span><span class="pi">:</span>
+      <span class="na">springframework</span><span class="pi">:</span>
+        <span class="na">security</span><span class="pi">:</span>
+          <span class="na">web</span><span class="pi">:</span>
+            <span class="s">trace</span>
+      <span class="na">project</span><span class="pi">:</span>
+        <span class="s">debug</span>
+</code></pre></div></div>
+
+<p>security 관련 부분은 로그 레벨을 낮게 설정해서 자세한 로그 확인</p>
+
+<p>위의 설정을 완료하면 프로젝트를 실행 시 다음과 같이 중간에 패스워드 하나가 출력됨</p>
+
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/09f9598f-f967-4fba-8a07-6b473a2c9083/Untitled.png" alt="Untitled" /></p>
+
+<p>생성된 패스워드는 user 계정의 패스워드 (임시 패스워드 역활을 함)</p>
+
+<p><a href="http://localhost:8080/login">localhost:8080/login</a> 의 경로로 접근 했을 때 아래와 같은 화면이 보인다.</p>
+
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/58b65bd0-08b2-4ad1-b44c-c09eaf5a7229/Untitled.png" alt="Untitled" /></p>
+
+<p><br /></p>
+
+<p>참고) 브라우저에서 강제로 로그아웃하고 싶을 땐, 개발자 도구의 Application탭에서 Cookies 의 <code class="language-plaintext highlighter-rouge">JSESSIONID</code> 를 강제 삭제한다</p>
+
+<p>쿠키들 중에 톰캣은 JSESSIONID 라는 이름의 쿠키를 사용</p>
+
+<p><br /></p>
+
+<h2 id="11-시큐리티-설정-클래스-작성">1.1 시큐리티 설정 클래스 작성</h2>
+
+<p>SecurityConfig 클래스 추가</p>
+
+<p>해당 클래스에는 시큐리티 관련 기능을 쉽게 설정하기 위해 <code class="language-plaintext highlighter-rouge">WebSecurityConfigurerAdapter</code> 라는 클래스를 상속으로 처리. WebSecurityConfigurerAdapter 클래스는 주로 override 를 통해서 여러 설정 조정</p>
+
+<p>config/SecurityConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Log4j2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="12-확인을-위한-samplecontroller">1.2 확인을 위한 SampleController</h2>
+
+<p>SampleController.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="nd">@Log4j2</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/sample"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SampleController</span> <span class="o">{</span>
+
+    <span class="c1">// 로그인을 하지 않은 사용자도 접근할 수 있는</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/all"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">exAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"all.............."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 로그인한 사용자만이 접근할 수 있는</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/member"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">exMember</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"member.............."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 관리자 권한이 있는 사용자만이 접근할 수 있는</span>
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/admin"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">exAdmin</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"admin.............."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>templates 도 작성</p>
+
+<p><br /></p>
+
+<h2 id="13-스프링-시큐리티-용어와-흐름">1.3 스프링 시큐리티 용어와 흐름</h2>
+
+<p>Filter1,2,3…N → Authentication Manager → AuthenticationProvider → UserDetailsService</p>
+
+<p>Authentication Manager(인증 매니저): 핵심 역할</p>
+
+<p>AuthenticationProvider: 인증 매니저가 어떻게 동작해야 하는지를 결정</p>
+
+<p>UserDetailsService: 실제 인증</p>
+
+<p>스프링 시큐리티의 핵심 개념은 <code class="language-plaintext highlighter-rouge">인증(Authentication)</code>과 <code class="language-plaintext highlighter-rouge">인가(Authorization)</code></p>
+
+<p>예시) 은행에 금고가 하나 있고, 사용자가 금고의 내용을 열어본다 가정하였을 때</p>
+
+<ol>
+  <li>사용자는 은행에 가서 자신이 어떤 사람인지 자신의 신분증으로 자신을 증명</li>
+  <li>은행에서는 사용자의 신분을 확인</li>
+  <li>은행에서 사용자가 금고를 열어 볼 수 있는 사람인지를 판단</li>
+  <li>만일 적절한 권리나 권한이 있는 사용자의 경우 금고를 열어줌</li>
+</ol>
+
+<p>1은 인증(자신을 증명), 3은 인가(사용자에게 일종의 허가를 해 주는 과정)</p>
+
+<p><br /></p>
+
+<h3 id="필터와-필터-체이닝">필터와 필터 체이닝</h3>
+
+<p>스프링 시큐리티에서 필터는 스프링의 빈과 연동할 수 있는 구조로 설계됨</p>
+
+<p>여러 개의 필터가 Filter Chain 이라는 구조로 Request 를 처리하게 됨. 개발 시에 필터를 확장하고 설정하면 스프링 시큐리티를 이용해서 다양한 형태의 로그인 처리가 가능하게 됨</p>
+
+<p><br /></p>
+
+<h3 id="인증을-위한-authenticationmanageram">인증을 위한 AuthenticationManager(AM)</h3>
+
+<p>필터의 핵심적인 동작은 AuthenticationManager을 통해서 인증이라는 타입의 객체로 작업</p>
+
+<p>AuthenticationManager가 가진 인증 처리 메서드는 파라미터,리턴 타입 모두 Authentication.</p>
+
+<p>인증: 스스로 증명하다 (= 주민등록증)</p>
+
+<p>예시) 로그인 하는 과정에서는 사용자의 아이디/패스워드로 자신이 어떤 사람인지 전달. 검증하는 행위는 AuthenticationManager를 통해 이루어짐</p>
+
+<p>스프링 시큐리티 필터의 주요 역할은 인증 관련된 정보를 토큰이라는 객체로 만들어서 전달. UsernamePasswordAuthenticationToken 의 동작</p>
+
+<ol>
+  <li>request 를 이용해 사용자의 아이디와 패스워드 받음</li>
+  <li>아이디와 패스워드로 UsernamePasswordAuthenticationToken 라는 객체 생성</li>
+  <li>객체를 AuthenticationManager 의 authenticate() 에 전달</li>
+</ol>
+
+<p>AuthenticationManager 는 다양한 방식으로 인증처리 방법을 제공</p>
+
+<ul>
+  <li>데이터베이스 이용</li>
+  <li>메모리상에 있는 정보를 활용</li>
+</ul>
+
+<p>AuthenticationProvider 는 전달되는 토큰의 타입을 처리할 수 있는 존재인지를 확인하고 authenticate() 를 수행</p>
+
+<p>AuthenticationProvider 는 내부적으로 UserDetailsService 를 이용. UserDetailsService는 실제로 인증을 위한 데이터를 가져오는 역할</p>
+
+<p><br /></p>
+
+<h3 id="인가와-권한접근-제한">인가와 권한/접근 제한</h3>
+
+<p>인증처리 단계가 끝나면 사용자의 권한이 적절한지 확인</p>
+
+<p>인증: 사용자가 스스로 자신을 증명하는 것</p>
+
+<p>인가: 허가의 의미</p>
+
+<p>AuthenticationManager 의 authenticate() 메서드의 리턴값은 Authentication(인증)</p>
+
+<p>이 인증 정보에는 Roles 라는 권한에 대한 정보가 있음. 이 정보로 사용자가 원하는 작업을 할 수 있는지 허가하게 되는데 이러한 행위를 Access-Control(접근 제한)이라고 함</p>
+
+<p>단계1. 사용자는 원하는 URL 을 입력</p>
+
+<p>단계2. 스프링 시큐리티에서는 인증/인가가 필요하다고 판단하고(필터에서 판단) 사용자가 인증하도록 로그인 화면 보여줌</p>
+
+<ol>
+  <li>올바른 사용자라고 인증되면 사용자의 정보를 Authentication 타입으로 전달(인증)</li>
+  <li>전달된 객체로 사용자가 적절한 권한이 있는지 확인(인가)</li>
+</ol>
+
+<p>단계3. 정보가 전달된다면 AuthenticationManager가 적절한 AuthenticationProvider를 찾아서 인증을 시도</p>
+
+<p><br /></p>
+
+<h1 id="2-스프링-시큐리티-커스터마이징">2. 스프링 시큐리티 커스터마이징</h1>
+
+<p><br /></p>
+
+<h2 id="21-반드시-필요한-passwordencoder">2.1 반드시 필요한 PasswordEncoder</h2>
+
+<p>패스워드를 암호화</p>
+
+<p>BCryptPasswordEncoder 는 bcrypt 라는 해시 함수를 이용해서 패스워드를 암호화하는 목적으로 설계된 클래스. BCryptPasswordEncoder 로 암호화된 패스워드는 복호화가 불가능하고 매번 암호화된 값도 다름.</p>
+
+<p>SecurityConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Log4j2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">PasswordEncoder</span> <span class="nf">passwordEncoder</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">BCryptPasswordEncoder</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="22-authenticationmanager-설정">2.2 AuthenticationManager 설정</h2>
+
+<p>SecurityConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Log4j2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="nc">PasswordEncoder</span> <span class="nf">passwordEncoder</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">BCryptPasswordEncoder</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">AuthenticationManagerBuilder</span> <span class="n">auth</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+
+        <span class="c1">// 사용자 계정은 user1</span>
+        <span class="n">auth</span><span class="o">.</span><span class="na">inMemoryAuthentication</span><span class="o">().</span><span class="na">withUser</span><span class="o">(</span><span class="s">"user1"</span><span class="o">)</span>
+                <span class="c1">// 1111 패스워드 인코딩 결과</span>
+                <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="s">"$2a$10$yfgSY/2154i6Tf9/s83PCeCB/xo1L1/7dtGv1XG2mN4l3Qwlz05Ze"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">roles</span><span class="o">(</span><span class="s">"USER"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="23-인가가-필요한-리소스-설정">2.3 인가가 필요한 리소스 설정</h2>
+
+<p>SecurityConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Log4j2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">authorizeRequests</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/sample/all"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/sample/member"</span><span class="o">).</span><span class="na">hasRole</span><span class="o">(</span><span class="s">"USER"</span><span class="o">);</span>
+
+        <span class="n">http</span><span class="o">.</span><span class="na">formLogin</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><strong>http.authorizeRequests()</strong></p>
+
+<p>인증이 필요한 자원들을 설정</p>
+
+<p><strong>antMatchers(“</strong>/*”)**</p>
+
+<p>앤트 스타일의 패턴으로 원하는 자원을 선택</p>
+
+<p><strong>permitAll()</strong></p>
+
+<p>모든 사용자에게 허락</p>
+
+<p><strong>http.formLogin();</strong></p>
+
+<p>인가/인증에 실패시 로그인 화면</p>
+
+<p><br /></p>
+
+<h2 id="24-csrf-설정">2.4 CSRF 설정</h2>
+
+<p>스프링 시큐리티는 CSRF 라는 공격을 방어하기 위해 임의의 값을 만들어 이를 GET 방식을 제외한 모든 요청 방식(POST,PUT,DELETE)에 포함시켜야만 정상적인 동작을 함</p>
+
+<p>CSRF(Cross Site Request Forgery)공격: 사이트간 요청 위조</p>
+
+<p>form 태그를 이용하는 방식에서 CSRF 토큰이 보안상으로 권장됨. REST방식에서는 매번 CSRF 토큰의 값을 알아내야 하는 불편함이 있기 때문에 경우에 따라 CSRF 토큰의 발행을 하지 않는 경우도 있음</p>
+
+<p><br /></p>
+
+<h3 id="csrf토큰-비활성화">csrf토큰 비활성화</h3>
+
+<p>SecurityConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="nd">@Log4j2</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">authorizeRequests</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/sample/all"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/sample/member"</span><span class="o">).</span><span class="na">hasRole</span><span class="o">(</span><span class="s">"USER"</span><span class="o">);</span>
+
+        <span class="n">http</span><span class="o">.</span><span class="na">formLogin</span><span class="o">();</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">csrf</span><span class="o">().</span><span class="na">disable</span><span class="o">();</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><strong>http.csrf().disable();</strong></p>
+
+<p>예제에서는 REST방식으로 이용할 수 있는 보안 설정을 다루기 위해 CSRF 토큰을 방행하지 않는 방식으로 설정</p>
+
+<p><br /></p>
+
+<h2 id="25-logout-설정">2.5 logout 설정</h2>
+
+<p><strong>http.logout();</strong></p>
+
+<p>logout() 에서 주의해야 할 점은 CSRF 토큰을 사용할 때 POST 방식으로만 로그아웃</p>
+
+<p>CSRF 토큰을 disable() 로 비활성화 시키면 GET 방식으로도 로그아웃 할 수 있음</p>
+
+<p><br /><br /></p>
+
+<h1 id="3-프로젝트를-위한-jpa-처리">3. 프로젝트를 위한 JPA 처리</h1>
+
+<p>Member.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.entity</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@Builder</span>
+<span class="nd">@Getter</span>
+<span class="nd">@ToString</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="kd">extends</span> <span class="n">baseEntity</span> <span class="o">{</span>
+
+		<span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Boolean</span> <span class="n">fromSocial</span><span class="o">;</span>
+
+    <span class="nd">@ElementCollection</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="nc">FetchType</span><span class="o">.</span><span class="na">LAZY</span><span class="o">)</span>
+    <span class="nd">@Builder</span><span class="o">.</span><span class="na">Default</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">MemberRole</span><span class="o">&gt;</span> <span class="n">roleSet</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addMemberRole</span><span class="o">(</span><span class="nc">MemberRole</span> <span class="n">memberRole</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">roleSet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">memberRole</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>MemberRole.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.entity</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">MemberRole</span> <span class="o">{</span>
+    <span class="no">USER</span><span class="o">,</span> <span class="no">MANAGER</span><span class="o">,</span> <span class="no">ADMIN</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET
