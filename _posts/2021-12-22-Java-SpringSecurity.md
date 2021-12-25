@@ -46,13 +46,13 @@ security 관련 부분은 로그 레벨을 낮게 설정해서 자세한 로그 
 
 위의 설정을 완료하면 프로젝트를 실행 시 다음과 같이 중간에 패스워드 하나가 출력됨
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/09f9598f-f967-4fba-8a07-6b473a2c9083/Untitled.png)
+![1](https://user-images.githubusercontent.com/79130276/147385202-d16fd555-33f8-4afa-a367-1b7d7497fe10.png)
 
 생성된 패스워드는 user 계정의 패스워드 (임시 패스워드 역활을 함)
 
 [localhost:8080/login](http://localhost:8080/login) 의 경로로 접근 했을 때 아래와 같은 화면이 보인다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/58b65bd0-08b2-4ad1-b44c-c09eaf5a7229/Untitled.png)
+![2](https://user-images.githubusercontent.com/79130276/147385201-bf486b31-0a1f-4b5f-b1ca-36be32a565c8.png)
 
 <br>
 
@@ -434,7 +434,7 @@ import java.util.Set;
 @ToString
 public class Member extends baseEntity {
 
-		@Id
+	@Id
     private String email;
 
     private String password;
@@ -463,3 +463,262 @@ public enum MemberRole {
     USER, MANAGER, ADMIN
 }
 ```
+
+<br>
+
+## 3.1 Repository 와 더미데이터 추가하기
+
+더미데이터 추가시 회원은 여러 개의 권한을 가질 수 있어야 함을 유의하며 작성
+
+MemberRepository.java
+
+```java
+package com.project.netflix.repository;
+
+import com.project.netflix.entity.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
+}
+```
+
+security/MemberTests.java
+
+```java
+package com.project.netflix.security;
+
+import com.project.netflix.entity.Member;
+import com.project.netflix.entity.MemberRole;
+import com.project.netflix.repository.MemberRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.stream.IntStream;
+
+@SpringBootTest
+public class MemberTests {
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Test
+    public void insertDummies() {
+
+		// 1~80: USER
+        // 81~90: USER, MANAGER
+        // 91~100: USER, MANAGER, ADMIN
+
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            Member member = Member.builder()
+                    .email("user" + i + "@gmail.com")
+                    .name("user" + i)
+                    .fromSocial(false)
+                    .password(passwordEncoder.encode("1111"))
+                    .build();
+
+            member.addMemberRole(MemberRole.USER);
+            if (i > 80) {
+                member.addMemberRole(MemberRole.MANAGER);
+            }
+            if (i > 90) {
+                member.addMemberRole(MemberRole.ADMIN);
+            }
+            memberRepository.save(member);
+        });
+    }
+}
+```
+
+<br>
+
+## 3.2 회원 데이터 조회 테스트
+
+MemberRepository.java
+
+```java
+package com.project.netflix.repository;
+
+import com.project.netflix.entity.Member;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
+
+    @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("select m from Member m where m.fromSocial = :social and m.email = :email")
+    Optional<Member> findByEmail(String email, boolean social);
+}
+```
+
+참고) `@EntityGraph`
+
+JPA 를 쓰다가 보면 LAZY 패치타입으로 relation 이 달려 있는 entity 를 `n+1 문제` 없이 한번에 가져오고 싶을 때가 있다. 평소에는 LAZY 를 쓰지만 특정 시나리오에서는 한번에 패치하는게 필요하기도 하다. 이럴때 repository 메소드에 @EntityGraph만 붙이면 손쉽게 join 해서 한 번에 패치해 옴
+
+`@EntityGraph`의 type은 EntityGraph.EntityGraphType.FETCH와 EntityGraph.EntityGraphType.LOAD 2가지가 있다.
+
+- `FETCH`: entity graph에 명시한 attribute는 EAGER로 패치하고, 나머지 attribute는 `LAZY`로 패치
+- `LOAD`: entity graph에 명시한 attribute는 EAGER로 패치하고, 나머지 attribute는 entity에 명시한 fetch type이나 디폴트 FetchType으로 패치 (e.g. @OneToMany는 LAZY, @ManyToOne은 EAGER 등이 디폴트이다.)
+
+<br>
+<br>
+
+# 4. 시큐리티를 위한 UserDetailsService
+
+일반적인 아이디/패스워드와 스프링 시큐리티의 차이점
+
+- 스프링 시큐리티에서는 회원이나 계정에 대해 User 라는 용어 사용
+- username 사용
+    - 단어 자체가 회원을 구별할 수 있는 식별 데이터를 의미
+- username 과 password 동시에 사용하지 않음
+    - 스프링 시큐리티는 UserDetailsService 를 이용해서 회원의 존재만을 우선적으로 가져오고, 이후에 password 가 틀리면 Bad Cridential(잘못된 자격증명) 이라는 결과를 만들어 냄(인증)
+- username, password 인증 과정이 끝나면 원하는 자원(URL)에 접근할 수 있는 권한이 있는지 확인하고 인가 과정을 실행(Access Denied 과 같은 결과 생성됨)
+
+위의 과정에서 가장 핵심은 `UserDetailsService`
+
+<br>
+
+## 4.1 UserDetails 인터페이스
+
+**loadUserByUsername()**
+
+→ username 이라는 회원 아이디와 같은 식별 값으로 회원 정보를 가져옴
+
+→ 리턴 타입: UserDetails 타입
+
+- getAuthorities(): 사용자가 가지는 권한에 대한 정보
+- getPassword(): 인증을 마무리하기 위한 패스워드 정보
+- getUsername(): 인증에 필요한 아이디와 같은 정보
+- 계정 만료 여부: 사용 불가능 계정인지 알 수 있는 정보
+- 계정 잠김 여부: 현재 계정의 잠김 여부
+
+Member 를 처리할 수 있는 방법
+
+1. 기존 DTO 클래스에 UserDetails 인터페이스를 구현하는 방법
+2. DTO 와 같은 개념으로 별도의 클래스를 구성하고 이를 활용하는 방법 (선호!)
+
+security/dto/AuthMemberDTO.java
+
+```java
+package com.project.netflix.security.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+import java.util.Collection;
+
+@Log4j2
+@Getter
+@Setter
+@ToString
+public class AuthMemberDTO extends User {
+
+    private String email;
+
+    private String password;
+
+    private boolean fromSocial;
+
+    public AuthMemberDTO(
+            String username,
+            String password,
+            boolean fromSocial,
+            Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+        this.email = username;
+        this.fromSocial = fromSocial;
+    }
+
+}
+```
+
+User 클래스를 상속, 부모 클래스인 User 클래스의 생성자를 호출할 수 있는 코드 생성
+
+AuthMemberDTO 는 DTO 역할도 수행하고 스프링 시큐리티에서 인가/인증 작업에 사용 (password 는 부모 클래스를 사용하므로 멤버 변수로 선언하지 않음)
+
+<br>
+
+## 4.2 UserDetailsService 구현
+
+Member 가 AuthMemberDTO 라는 타입으로 처리된 가장 큰 이유는 사용자의 정보를 가져오는 핵심적인 역할을 하는 UserDetailsService 라는 인터페이스 때문
+
+스프링 시큐리티의 구조에서 인증을 담당하는 AuthenticationManager 는 내부적으로 UserDetailsService 를 호출해서 사용자의 정보를 가져옴
+
+JPA 로 사용자의 정보를 가져오려면 UserDetailsService가 이용하는 구조로 작성
+
+SecurityUserDetailsService.java
+
+```java
+package com.project.netflix.security.service;
+
+import com.project.netflix.entity.Member;
+import com.project.netflix.repository.MemberRepository;
+import com.project.netflix.security.dto.AuthMemberDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Log4j2
+@Service
+@RequiredArgsConstructor
+public class SecurityUserDetailsService implements UserDetailsService {
+
+    private final MemberRepository memberRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        log.info("SecurityUserDetailsService loadUserByUsername: " + username);
+
+        Optional<Member> result = memberRepository.findByEmail(username, false);
+
+        if (!result.isPresent()) {
+            throw new UsernameNotFoundException("Check Email or Social");
+        }
+
+        Member member = result.get();
+
+        log.info("-------------------------");
+        log.info(member);
+
+        AuthMemberDTO authMember = new AuthMemberDTO(
+                member.getEmail(),
+                member.getPassword(),
+                member.isFromSocial(),
+                member.getRoleSet().stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
+                        .collect(Collectors.toSet())
+        );
+
+        authMember.setName(member.getName());
+
+        return authMember;
+    }
+}
+```
+
+@Service 를 사용해서 자동으로 스프링에서 빈으로 처리될 수 있게 했다.
+
+- MemberRepository 를 주입받을 수 있는 구조로 변경, @RequiredArgsConstructor 처리
+- username 이 실제로는 email 을 의미
+- 사용자가 존재하지 않으면 UsernameNotFoundException으로 처리
+- Member 를 UserDetails 타입으로 처리하기 위해 AuthMemberDTO 타입으로 변환
+- MemberRole 은 스프링 시큐리티에서 사용하는 SimpleGrantedAuthority 로 변환
