@@ -478,7 +478,7 @@ package com.project.netflix.repository;
 import com.project.netflix.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 }
 ```
 
@@ -550,7 +550,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select m from Member m where m.fromSocial = :social and m.email = :email")
@@ -626,7 +626,7 @@ public class AuthMemberDTO extends User {
 
     private String email;
 
-    private String password;
+    private String name;
 
     private boolean fromSocial;
 
