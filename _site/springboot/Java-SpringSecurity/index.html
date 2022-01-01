@@ -300,7 +300,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          4 분 소요
+          8 분 소요
         
       </span>
     
@@ -315,7 +315,7 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Getting Started</h4></header>
-              <ul class="toc__menu"><li><a href="#1-스프링-시큐리티를-이용하는-프로젝트">1. 스프링 시큐리티를 이용하는 프로젝트</a><ul><li><a href="#11-시큐리티-설정-클래스-작성">1.1 시큐리티 설정 클래스 작성</a></li><li><a href="#12-확인을-위한-samplecontroller">1.2 확인을 위한 SampleController</a></li><li><a href="#13-스프링-시큐리티-용어와-흐름">1.3 스프링 시큐리티 용어와 흐름</a><ul><li><a href="#필터와-필터-체이닝">필터와 필터 체이닝</a></li><li><a href="#인증을-위한-authenticationmanageram">인증을 위한 AuthenticationManager(AM)</a></li><li><a href="#인가와-권한접근-제한">인가와 권한/접근 제한</a></li></ul></li></ul></li><li><a href="#2-스프링-시큐리티-커스터마이징">2. 스프링 시큐리티 커스터마이징</a><ul><li><a href="#21-반드시-필요한-passwordencoder">2.1 반드시 필요한 PasswordEncoder</a></li><li><a href="#22-authenticationmanager-설정">2.2 AuthenticationManager 설정</a></li><li><a href="#23-인가가-필요한-리소스-설정">2.3 인가가 필요한 리소스 설정</a></li><li><a href="#24-csrf-설정">2.4 CSRF 설정</a><ul><li><a href="#csrf토큰-비활성화">csrf토큰 비활성화</a></li></ul></li><li><a href="#25-logout-설정">2.5 logout 설정</a></li></ul></li><li><a href="#3-프로젝트를-위한-jpa-처리">3. 프로젝트를 위한 JPA 처리</a></li></ul>
+              <ul class="toc__menu"><li><a href="#1-스프링-시큐리티를-이용하는-프로젝트">1. 스프링 시큐리티를 이용하는 프로젝트</a><ul><li><a href="#11-시큐리티-설정-클래스-작성">1.1 시큐리티 설정 클래스 작성</a></li><li><a href="#12-확인을-위한-samplecontroller">1.2 확인을 위한 SampleController</a></li><li><a href="#13-스프링-시큐리티-용어와-흐름">1.3 스프링 시큐리티 용어와 흐름</a><ul><li><a href="#필터와-필터-체이닝">필터와 필터 체이닝</a></li><li><a href="#인증을-위한-authenticationmanageram">인증을 위한 AuthenticationManager(AM)</a></li><li><a href="#인가와-권한접근-제한">인가와 권한/접근 제한</a></li></ul></li></ul></li><li><a href="#2-스프링-시큐리티-커스터마이징">2. 스프링 시큐리티 커스터마이징</a><ul><li><a href="#21-반드시-필요한-passwordencoder">2.1 반드시 필요한 PasswordEncoder</a></li><li><a href="#22-authenticationmanager-설정">2.2 AuthenticationManager 설정</a></li><li><a href="#23-인가가-필요한-리소스-설정">2.3 인가가 필요한 리소스 설정</a></li><li><a href="#24-csrf-설정">2.4 CSRF 설정</a><ul><li><a href="#csrf토큰-비활성화">csrf토큰 비활성화</a></li></ul></li><li><a href="#25-logout-설정">2.5 logout 설정</a></li></ul></li><li><a href="#3-프로젝트를-위한-jpa-처리">3. 프로젝트를 위한 JPA 처리</a><ul><li><a href="#31-repository-와-더미데이터-추가하기">3.1 Repository 와 더미데이터 추가하기</a></li><li><a href="#32-회원-데이터-조회-테스트">3.2 회원 데이터 조회 테스트</a></li></ul></li><li><a href="#4-시큐리티를-위한-userdetailsservice">4. 시큐리티를 위한 UserDetailsService</a><ul><li><a href="#41-userdetails-인터페이스">4.1 UserDetails 인터페이스</a></li><li><a href="#42-userdetailsservice-구현">4.2 UserDetailsService 구현</a></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -355,13 +355,13 @@
 
 <p>위의 설정을 완료하면 프로젝트를 실행 시 다음과 같이 중간에 패스워드 하나가 출력됨</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/09f9598f-f967-4fba-8a07-6b473a2c9083/Untitled.png" alt="Untitled" /></p>
+<p><img src="https://user-images.githubusercontent.com/79130276/147385202-d16fd555-33f8-4afa-a367-1b7d7497fe10.png" alt="1" /></p>
 
 <p>생성된 패스워드는 user 계정의 패스워드 (임시 패스워드 역활을 함)</p>
 
 <p><a href="http://localhost:8080/login">localhost:8080/login</a> 의 경로로 접근 했을 때 아래와 같은 화면이 보인다.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/58b65bd0-08b2-4ad1-b44c-c09eaf5a7229/Untitled.png" alt="Untitled" /></p>
+<p><img src="https://user-images.githubusercontent.com/79130276/147385201-bf486b31-0a1f-4b5f-b1ca-36be32a565c8.png" alt="2" /></p>
 
 <p><br /></p>
 
@@ -744,7 +744,7 @@
 <span class="nd">@ToString</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="kd">extends</span> <span class="n">baseEntity</span> <span class="o">{</span>
 
-		<span class="nd">@Id</span>
+	<span class="nd">@Id</span>
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
 
     <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
@@ -772,6 +772,276 @@
     <span class="no">USER</span><span class="o">,</span> <span class="no">MANAGER</span><span class="o">,</span> <span class="no">ADMIN</span>
 <span class="o">}</span>
 </code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="31-repository-와-더미데이터-추가하기">3.1 Repository 와 더미데이터 추가하기</h2>
+
+<p>더미데이터 추가시 회원은 여러 개의 권한을 가질 수 있어야 함을 유의하며 작성</p>
+
+<p>MemberRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.project.netflix.entity.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>security/MemberTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.security</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.project.netflix.entity.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.project.netflix.entity.MemberRole</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.project.netflix.repository.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.stream.IntStream</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">PasswordEncoder</span> <span class="n">passwordEncoder</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertDummies</span><span class="o">()</span> <span class="o">{</span>
+
+		<span class="c1">// 1~80: USER</span>
+        <span class="c1">// 81~90: USER, MANAGER</span>
+        <span class="c1">// 91~100: USER, MANAGER, ADMIN</span>
+
+        <span class="nc">IntStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">100</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="nc">Member</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="s">"user"</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"@gmail.com"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"user"</span> <span class="o">+</span> <span class="n">i</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">fromSocial</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">passwordEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="s">"1111"</span><span class="o">))</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="n">member</span><span class="o">.</span><span class="na">addMemberRole</span><span class="o">(</span><span class="nc">MemberRole</span><span class="o">.</span><span class="na">USER</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">addMemberRole</span><span class="o">(</span><span class="nc">MemberRole</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">addMemberRole</span><span class="o">(</span><span class="nc">MemberRole</span><span class="o">.</span><span class="na">ADMIN</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="32-회원-데이터-조회-테스트">3.2 회원 데이터 조회 테스트</h2>
+
+<p>MemberRepository.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.repository</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.project.netflix.entity.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.EntityGraph</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.Query</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@EntityGraph</span><span class="o">(</span><span class="n">attributePaths</span> <span class="o">=</span> <span class="o">{</span><span class="s">"roleSet"</span><span class="o">},</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">EntityGraph</span><span class="o">.</span><span class="na">EntityGraphType</span><span class="o">.</span><span class="na">LOAD</span><span class="o">)</span>
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"select m from Member m where m.fromSocial = :social and m.email = :email"</span><span class="o">)</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="nf">findByEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">social</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>참고) <code class="language-plaintext highlighter-rouge">@EntityGraph</code></p>
+
+<p>JPA 를 쓰다가 보면 LAZY 패치타입으로 relation 이 달려 있는 entity 를 <code class="language-plaintext highlighter-rouge">n+1 문제</code> 없이 한번에 가져오고 싶을 때가 있다. 평소에는 LAZY 를 쓰지만 특정 시나리오에서는 한번에 패치하는게 필요하기도 하다. 이럴때 repository 메소드에 @EntityGraph만 붙이면 손쉽게 join 해서 한 번에 패치해 옴</p>
+
+<p><code class="language-plaintext highlighter-rouge">@EntityGraph</code>의 type은 EntityGraph.EntityGraphType.FETCH와 EntityGraph.EntityGraphType.LOAD 2가지가 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">FETCH</code>: entity graph에 명시한 attribute는 EAGER로 패치하고, 나머지 attribute는 <code class="language-plaintext highlighter-rouge">LAZY</code>로 패치</li>
+  <li><code class="language-plaintext highlighter-rouge">LOAD</code>: entity graph에 명시한 attribute는 EAGER로 패치하고, 나머지 attribute는 entity에 명시한 fetch type이나 디폴트 FetchType으로 패치 (e.g. @OneToMany는 LAZY, @ManyToOne은 EAGER 등이 디폴트이다.)</li>
+</ul>
+
+<p><br />
+<br /></p>
+
+<h1 id="4-시큐리티를-위한-userdetailsservice">4. 시큐리티를 위한 UserDetailsService</h1>
+
+<p>일반적인 아이디/패스워드와 스프링 시큐리티의 차이점</p>
+
+<ul>
+  <li>스프링 시큐리티에서는 회원이나 계정에 대해 User 라는 용어 사용</li>
+  <li>username 사용
+    <ul>
+      <li>단어 자체가 회원을 구별할 수 있는 식별 데이터를 의미</li>
+    </ul>
+  </li>
+  <li>username 과 password 동시에 사용하지 않음
+    <ul>
+      <li>스프링 시큐리티는 UserDetailsService 를 이용해서 회원의 존재만을 우선적으로 가져오고, 이후에 password 가 틀리면 Bad Cridential(잘못된 자격증명) 이라는 결과를 만들어 냄(인증)</li>
+    </ul>
+  </li>
+  <li>username, password 인증 과정이 끝나면 원하는 자원(URL)에 접근할 수 있는 권한이 있는지 확인하고 인가 과정을 실행(Access Denied 과 같은 결과 생성됨)</li>
+</ul>
+
+<p>위의 과정에서 가장 핵심은 <code class="language-plaintext highlighter-rouge">UserDetailsService</code></p>
+
+<p><br /></p>
+
+<h2 id="41-userdetails-인터페이스">4.1 UserDetails 인터페이스</h2>
+
+<p><strong>loadUserByUsername()</strong></p>
+
+<p>→ username 이라는 회원 아이디와 같은 식별 값으로 회원 정보를 가져옴</p>
+
+<p>→ 리턴 타입: UserDetails 타입</p>
+
+<ul>
+  <li>getAuthorities(): 사용자가 가지는 권한에 대한 정보</li>
+  <li>getPassword(): 인증을 마무리하기 위한 패스워드 정보</li>
+  <li>getUsername(): 인증에 필요한 아이디와 같은 정보</li>
+  <li>계정 만료 여부: 사용 불가능 계정인지 알 수 있는 정보</li>
+  <li>계정 잠김 여부: 현재 계정의 잠김 여부</li>
+</ul>
+
+<p>Member 를 처리할 수 있는 방법</p>
+
+<ol>
+  <li>기존 DTO 클래스에 UserDetails 인터페이스를 구현하는 방법</li>
+  <li>DTO 와 같은 개념으로 별도의 클래스를 구성하고 이를 활용하는 방법 (선호!)</li>
+</ol>
+
+<p>security/dto/AuthMemberDTO.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.security.dto</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.Getter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Setter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.ToString</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.GrantedAuthority</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.User</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+
+<span class="nd">@Log4j2</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="nd">@ToString</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthMemberDTO</span> <span class="kd">extends</span> <span class="nc">User</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">fromSocial</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AuthMemberDTO</span><span class="o">(</span>
+            <span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
+            <span class="nc">String</span> <span class="n">password</span><span class="o">,</span>
+            <span class="kt">boolean</span> <span class="n">fromSocial</span><span class="o">,</span>
+            <span class="nc">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">GrantedAuthority</span><span class="o">&gt;</span> <span class="n">authorities</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">authorities</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">email</span> <span class="o">=</span> <span class="n">username</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fromSocial</span> <span class="o">=</span> <span class="n">fromSocial</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>User 클래스를 상속, 부모 클래스인 User 클래스의 생성자를 호출할 수 있는 코드 생성</p>
+
+<p>AuthMemberDTO 는 DTO 역할도 수행하고 스프링 시큐리티에서 인가/인증 작업에 사용 (password 는 부모 클래스를 사용하므로 멤버 변수로 선언하지 않음)</p>
+
+<p><br /></p>
+
+<h2 id="42-userdetailsservice-구현">4.2 UserDetailsService 구현</h2>
+
+<p>Member 가 AuthMemberDTO 라는 타입으로 처리된 가장 큰 이유는 사용자의 정보를 가져오는 핵심적인 역할을 하는 UserDetailsService 라는 인터페이스 때문</p>
+
+<p>스프링 시큐리티의 구조에서 인증을 담당하는 AuthenticationManager 는 내부적으로 UserDetailsService 를 호출해서 사용자의 정보를 가져옴</p>
+
+<p>JPA 로 사용자의 정보를 가져오려면 UserDetailsService가 이용하는 구조로 작성</p>
+
+<p>SecurityUserDetailsService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.project.netflix.security.service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.project.netflix.entity.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.project.netflix.repository.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.project.netflix.security.dto.AuthMemberDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.RequiredArgsConstructor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.authority.SimpleGrantedAuthority</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.UserDetails</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.UserDetailsService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.userdetails.UsernameNotFoundException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Optional</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
+
+<span class="nd">@Log4j2</span>
+<span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecurityUserDetailsService</span> <span class="kd">implements</span> <span class="nc">UserDetailsService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">UserDetails</span> <span class="nf">loadUserByUsername</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">UsernameNotFoundException</span> <span class="o">{</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"SecurityUserDetailsService loadUserByUsername: "</span> <span class="o">+</span> <span class="n">username</span><span class="o">);</span>
+
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findByEmail</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(!</span><span class="n">result</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">UsernameNotFoundException</span><span class="o">(</span><span class="s">"Check Email or Social"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"-------------------------"</span><span class="o">);</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+        <span class="nc">AuthMemberDTO</span> <span class="n">authMember</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AuthMemberDTO</span><span class="o">(</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(),</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">isFromSocial</span><span class="o">(),</span>
+                <span class="n">member</span><span class="o">.</span><span class="na">getRoleSet</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">role</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">SimpleGrantedAuthority</span><span class="o">(</span><span class="s">"ROLE_"</span><span class="o">+</span><span class="n">role</span><span class="o">.</span><span class="na">name</span><span class="o">()))</span>
+                        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">())</span>
+        <span class="o">);</span>
+
+        <span class="n">authMember</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+
+        <span class="k">return</span> <span class="n">authMember</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>@Service 를 사용해서 자동으로 스프링에서 빈으로 처리될 수 있게 했다.</p>
+
+<ul>
+  <li>MemberRepository 를 주입받을 수 있는 구조로 변경, @RequiredArgsConstructor 처리</li>
+  <li>username 이 실제로는 email 을 의미</li>
+  <li>사용자가 존재하지 않으면 UsernameNotFoundException으로 처리</li>
+  <li>Member 를 UserDetails 타입으로 처리하기 위해 AuthMemberDTO 타입으로 변환</li>
+  <li>MemberRole 은 스프링 시큐리티에서 사용하는 SimpleGrantedAuthority 로 변환</li>
+</ul>
 
         
       </section>
@@ -837,11 +1107,12 @@
       
   <nav class="pagination">
     
-      <a href="/java/Java-OOP2/" class="pagination--pager" title="객체지향개념(변수와 메서드)
+      <a href="/java/Java-OOP/" class="pagination--pager" title="객체지향개념(객체지향언어, 클래스와 객체)
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/java/Java-OOP2/" class="pagination--pager" title="객체지향개념(변수와 메서드)
+">다음</a>
     
   </nav>
 
@@ -887,7 +1158,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          최대 1 분 소요
+          6 분 소요
         
       </span>
     
@@ -1075,7 +1346,7 @@
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2022 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>

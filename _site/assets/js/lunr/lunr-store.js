@@ -215,15 +215,15 @@ var store = [{
         "url": "/java/Java-OOP/",
         "teaser": "/assets/images/IMG_2153.JPG"
       },{
-        "title": "객체지향개념(변수와 메서드)",
-        "excerpt":"3. 변수와 메서드 3.1 선언위치에 따른 변수의 종류 영역엔 두가지가 있다. 클래스 영역: 인스턴스 변수(iv), 클래스 변수(cv = static + iv) 메서드 영역: 지역 변수(lv) class Variables { // 변수선언 시작 int iv; // 인스턴스 변수 static int cv; // 클래스 변수(static변수, 공유변수) // 변수 선언 끝 // 메서드 선언...","categories": ["Java"],
-        "tags": ["Java"],
-        "url": "/java/Java-OOP2/",
-        "teaser": "/assets/images/IMG_2153.JPG"
-      },{
         "title": "Spring Security",
         "excerpt":"스프링 시큐리티 → 다양한 방식으로 사용자 정보를 유지할 수 있는 방법을 제공 세션(HttpSession) 기반: 사용자 정보는 서버에서 보관, 필요시 설정을 통해서 제어 1. 스프링 시큐리티를 이용하는 프로젝트 build.gradle implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' application.yml logging: level: com: springframework: security: web: trace project: debug security 관련 부분은 로그 레벨을 낮게 설정해서 자세한 로그 확인...","categories": ["SpringBoot"],
         "tags": ["Java","SpringBoot","JPA"],
         "url": "/springboot/Java-SpringSecurity/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(변수와 메서드)",
+        "excerpt":"3. 변수와 메서드 3.1 선언위치에 따른 변수의 종류 영역엔 두가지가 있다. 클래스 영역: 인스턴스 변수(iv), 클래스 변수(cv = static + iv) 메서드 영역: 지역 변수(lv) class Variables { // 변수선언 시작 int iv; // 인스턴스 변수 static int cv; // 클래스 변수(static변수, 공유변수) // 변수 선언 끝 // 메서드 선언...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP2/",
         "teaser": "/assets/images/IMG_2153.JPG"
       }]
