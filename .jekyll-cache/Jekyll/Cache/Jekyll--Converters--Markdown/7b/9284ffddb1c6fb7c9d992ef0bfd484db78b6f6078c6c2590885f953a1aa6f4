@@ -1,0 +1,746 @@
+I"��<h1 id="4-메서드-오버로딩">4. 메서드 오버로딩</h1>
+
+<h2 id="41-메서드-오버로딩이란">4.1 메서드 오버로딩이란?</h2>
+
+<p>한 클래스 안에 같은 이름의 메서드 여러 개 정의하는 것</p>
+
+<p><br /></p>
+
+<p>대표적인 것: println()</p>
+
+<p>파라미터(매개변수)만 다르다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">println</span><span class="o">()</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">char</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">float</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="kt">long</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="nc">Object</span> <span class="n">x</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">println</span><span class="o">(</span><span class="nc">String</span> <span class="n">x</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="42-오버로딩의-조건">4.2 오버로딩의 조건</h2>
+
+<ol>
+  <li>메서드 이름이 같아야 한다</li>
+  <li>매개변수의 개수 또는 타입이 달라야 한다</li>
+  <li>반환 타입은 영향없다(매개변수는 같고 반환타입이 다른 경우는 오버로딩이 성립되지 않는다)</li>
+</ol>
+
+<p>위의 조건을 만족시키지 못하는 메서드는 중복정의 된 것으로 간주되어 컴파일 시 에러가 발생함</p>
+
+<p><br /></p>
+
+<h2 id="43-오버로딩의-예">4.3 오버로딩의 예</h2>
+
+<p>예제1. 오버로딩 아님, 메서드 중복 정의</p>
+
+<p>→ 매개변수의 이름만 다를 뿐 매개변수의 타입이 같기 때문에 오버로딩 성립하지 않음</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+<span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">;</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>예제2. 오버로딩 아님, 중복 정의</p>
+
+<p>→ 리턴타입만 다른 경우. 매개변수의 타입과 개수가 일치하기 때문에 add(3, 3)과 같이 호출하였을 때 어던 메서드가 호출된 것인지 결정할 수 없기 때문에 오버로딩으로 간주되지 않는다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+<span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="o">(</span><span class="kt">long</span><span class="o">)(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">);</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>예제3. 오버로딩 성립, 매개변수 타입이 다름</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">long</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+<span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">long</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span> <span class="o">}</span>
+
+<span class="n">add</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">3L</span><span class="o">);</span> <span class="c1">// 실행</span>
+<span class="n">add</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span><span class="mi">3</span><span class="o">);</span> <span class="c1">// 오류 발생 (어떤 메서드를 호출하는지 모호하다)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>예제4. 오버로딩의 올바른 예 - 매개변수는 다르지만 같은 의미의 기능수행</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 메서드 이름이 같다 = 하는 작업이 같다</span>
+
+<span class="kd">class</span> <span class="nc">MyMath3</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"int add(int a, int b) - "</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">long</span> <span class="n">a</span><span class="o">,</span> <span class="kt">long</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"long add(long a, long b) - "</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"int add(int[] a) - "</span><span class="o">);</span>
+		<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">result</span> <span class="o">+=</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="44-오버로딩의-장점">4.4 오버로딩의 장점</h2>
+
+<ol>
+  <li>가독성이 증가한다.</li>
+  <li>하나의 이름만 기억하면 되므로 오류의 가능성을 많이 줄일 수 있다.</li>
+  <li>메서드의 이름만 보고 이름이 같으니, 같은 기능이라고 예측할 수 있다.</li>
+  <li>메서드 이름을 절약할 수 있다.</li>
+</ol>
+
+<p><br /></p>
+
+<h1 id="5-생성자">5. 생성자</h1>
+
+<h2 id="51-생성자란">5.1 생성자란?</h2>
+
+<ul>
+  <li>인스턴스가 생성될 때 마다 호출되는 <code class="language-plaintext highlighter-rouge">인스턴스 초기화 메서드</code></li>
+  <li>인스턴스 생성 시 수행할 작업(iv 초기화)에 사용</li>
+</ul>
+
+<p><br /></p>
+
+<p>인스턴스 = 객체(iv 묶음)</p>
+
+<p>인스턴스 초기화 = iv 초기화</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Time</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Time</span><span class="o">();</span>
+<span class="c1">// iv 초기화 시작</span>
+<span class="n">t</span><span class="o">.</span><span class="na">hour</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>
+<span class="n">t</span><span class="o">.</span><span class="na">minute</span> <span class="o">=</span> <span class="mi">34</span><span class="o">;</span>
+<span class="n">t</span><span class="o">.</span><span class="na">second</span> <span class="o">=</span> <span class="mi">56</span><span class="o">;</span>
+<span class="c1">// iv 초기화 끝</span>
+
+<span class="nc">Time</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Time</span><span class="o">(</span><span class="mi">12</span><span class="o">,</span> <span class="mi">34</span><span class="o">,</span> <span class="mi">56</span><span class="o">);</span> <span class="c1">// 생성자</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>생성자 특징</p>
+
+<ul>
+  <li>생성자의 이름이 클래스 이름과 같아야 한다.</li>
+  <li>리턴값이 없다 (void 안붙임)</li>
+  <li>모든 클래스는 반드시 생성자를 가져야 한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Card</span> <span class="o">{</span>
+	<span class="c1">// 생성자1, 오버로딩</span>
+	<span class="nc">Card</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 매개변수가 없는 생성자</span>
+		<span class="c1">// 인스턴스 초기화 작업</span>
+	<span class="o">}</span>
+
+	<span class="c1">// 생성자2, 오버로딩</span>
+	<span class="nc">Card</span><span class="o">(</span><span class="nc">String</span> <span class="n">kind</span><span class="o">,</span> <span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 매개변수가 있는 생성자</span>
+		<span class="c1">// 인스턴스 초기화 작업	</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>연산자 new 가 인스턴스를 생성하는 것이지 생성자가 인스턴스를 생성하는 것은 아니다.</p>
+
+<p>생성자는 단순히 <strong>인스턴스 변수들의 초기화에 사용되는 조금 특별한 메서드</strong>일 뿐이다</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Card</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">();</span> <span class="c1">// 생성자 호출</span>
+</code></pre></div></div>
+
+<ol>
+  <li>연산자 new 에 의해서 메모리에 Card 클래스의 인스턴스가 생성됨</li>
+  <li>생성자 Card() 가 호출되어 수행됨</li>
+  <li>연산자 new의 결과로, 생성된 Card 인스턴스의 주소가 반환되어 참조변수 c 에 저장됨</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="52-기본-생성자">5.2 기본 생성자</h2>
+
+<ul>
+  <li>매개변수가 없는 생성자</li>
+  <li><strong>생성자가 하나도 없을 때만</strong>, 컴파일러가 <code class="language-plaintext highlighter-rouge">기본 생성자</code> 자동 추가</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">클래스이름</span><span class="o">()</span> <span class="o">{}</span> <span class="c1">// 기본 생성자</span>
+<span class="nc">Point</span><span class="o">()</span> <span class="o">{}</span> <span class="c1">// Point클래스의 기본 생성자</span>
+</code></pre></div></div>
+
+<p>모든 클래스에는 반드시 하나 이상의 생성자가 정의되어야 한다. 만약, 생성자가 하나도 없다면 컴파일러가 기본 생성자를 자동으로 생성해준다. 기본 생성자는 매개변수가 없다.</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Data_1</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Data_2</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+	
+	<span class="n">Data_2</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 매개변수가 있는 생성자</span>
+		<span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Ex6_11</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+		<span class="n">Data_1</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Data_1</span><span class="o">();</span>
+						<span class="c1">// Data_2(); 기본 생성자 호출</span>
+		<span class="n">Data_2</span> <span class="n">d2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Data_2</span><span class="o">();</span> <span class="c1">// compile error 발생 </span>
+								  <span class="c1">// -&gt; 기본생성자 추가해주면 오류 발생하지 않는다.</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>클래스 Data_1 에도 생성자가 없는데 왜 클래스 Data_2 에서만 에러가 날까?</p>
+
+<p>→ 클래스 Data_1 에는 생성자가 하나도 없어서 컴파일러가 기본 생성자를 자동 추가해준다</p>
+
+<p>그러나, 클래스 Data_2 처럼 생성자가 하나라도 존재하기 때문에 기본 생성자가 없어서 오류가 난다.</p>
+
+<p><br /></p>
+
+<p>클래스 만들때 기본 생성자를 항상 추가하는 습관</p>
+
+<p><br /></p>
+
+<h2 id="53-매개변수가-있는-생성자">5.3 매개변수가 있는 생성자</h2>
+
+<p>생성자도 메서드처럼 매개변수를 선언하여 호출 시 값을 넘겨받아서 인스턴스의 초기화 작업에 사용 할 수 있다. 인스턴스마다 각기 다른 값으로 초기화되어야하는 경우가 많기 때문에 매개변수를 사용한 초기화는 매우 유용함</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="c1">// 인스턴스 변수들</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// 색상</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span> <span class="c1">// 변속기 종류 - auto(자동), manual(수동)</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span> <span class="c1">// 문의 개수</span>
+
+	<span class="nc">Car</span><span class="o">()</span> <span class="o">{}</span> <span class="c1">// 매개변수가 없는 기본 생성자</span>
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">c</span><span class="o">,</span> <span class="nc">String</span> <span class="n">g</span><span class="o">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 매개변수가 있는 생성자</span>
+		<span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Car인스턴스를 생성할 때 생성자 Car()를 사용한다면, 인스턴스 생성 후 인스턴스 변수들을 따로 초기화해주어야 함. 하지만, 매개변수가 있는 생성자 Car(매개변수들..)를 사용한다면 인스턴스를 생성하는 동시에 초기화도 가능</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Car</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">();</span>
+<span class="c1">// iv 초기화 시작</span>
+<span class="n">c</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="o">;</span>
+<span class="n">c</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="s">"auto"</span><span class="o">;</span>
+<span class="n">c</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="c1">// iv 초기화 끝</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>생성자를 쓰면 위의 코드를 아래와 같이 한줄로 간단히 쓸 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Car</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>코드를 보다 직관적이고 간결하게 만든다.</p>
+
+<p><br /></p>
+
+<ol>
+  <li>참조변수 c 가 만들어짐</li>
+  <li>new 연산자가 객체를 만듦 (color, gearType, door)</li>
+  <li>생성자가 객체 초기화하고 생성자 호출</li>
+  <li>대입(참조변수 c가 객체의 주소를 가리키게 됨)</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="54-생성자에서-다른-생성자-호출하기---this-this">5.4 생성자에서 다른 생성자 호출하기 - this(), this</h2>
+
+<p>다음 두조건을 만족하면 생성자 간에도 서로 호출이 가능하다</p>
+
+<ul>
+  <li>생성자의 이름으로 클래스이름 대신 this를 사용한다.</li>
+  <li>한 생성자에서 다른 생성자를 호출할 때는 반드시 첫 줄에서만 호출이 가능하다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="541-생성자-this">5.4.1 생성자 this()</h3>
+
+<ul>
+  <li>생성자에서 다른 생성자 호출 할 때 사용</li>
+  <li>다른 생성자 호출시 첫 줄에서만 사용가능</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car2</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span>
+
+	<span class="nc">Car2</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span> <span class="c1">// 생성자 Car2(String color, String gearType, int door) {} 호출</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car2</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span> <span class="c1">// 생성자 Car2(String color, String gearType, int door) {} 호출</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car2</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nc">String</span> <span class="n">gearType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">door</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="n">gearType</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="n">door</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>생성자가 하는일: iv 초기화</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span>
+
+	<span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="s">"auto"</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nc">String</span> <span class="n">gearType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">door</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="n">gearType</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="n">door</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">CarTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Car</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">();</span>
+		<span class="nc">Car</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(</span><span class="s">"blue"</span><span class="o">);</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c1의 color="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c2의 color="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c1의 color=white, gearType=auto, door=4
+c2의 color=blue, gearType=auto, door=4
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>두 코드는 같은 일을 하지만 아래 코드는 <code class="language-plaintext highlighter-rouge">생성자</code>를 활용하여 더 간략히 함. 유지보수 쉽다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+	<span class="n">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="o">;</span>
+	<span class="n">gearType</span> <span class="o">=</span> <span class="s">"auto"</span><span class="o">;</span>
+	<span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+	<span class="k">this</span><span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Bad Code</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span>
+
+	<span class="c1">// 위의 생성자와 아래 생성자 거의 비슷 -&gt; 코드 중복</span>
+	<span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">color</span> <span class="o">=</span> <span class="s">"white"</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="s">"auto"</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">c</span><span class="o">,</span> <span class="nc">String</span> <span class="n">g</span><span class="o">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>Good Code</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span>
+
+	<span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">c</span><span class="o">,</span> <span class="nc">String</span> <span class="n">g</span><span class="o">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">)</span> 
+		<span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="542-참조변수-this">5.4.2 참조변수 this</h3>
+
+<ul>
+  <li>인스턴스 자신을 가리키는 참조변수</li>
+  <li>인스턴스 메서드(생성자 포함)에서 사용가능</li>
+  <li>지역변수(lv)와 인스턴스변수(iv)를 구별할 때 사용</li>
+</ul>
+
+<p><br /></p>
+
+<p>참고)</p>
+
+<p>this() → 생성자</p>
+
+<p>참조변수 this 와 전혀 다름</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">c</span><span class="o">,</span> <span class="nc">String</span> <span class="n">g</span><span class="o">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">)</span> <span class="o">{</span>
+	<span class="o">(</span><span class="k">this</span><span class="o">.)</span><span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">;</span> <span class="c1">// 지역변수 c의 값을 인스턴스 변수 color에 저장</span>
+	<span class="o">(</span><span class="k">this</span><span class="o">.)</span><span class="n">gearType</span> <span class="o">=</span> <span class="n">g</span><span class="o">;</span>
+	<span class="o">(</span><span class="k">this</span><span class="o">.)</span><span class="n">door</span> <span class="o">=</span> <span class="n">d</span><span class="o">;</span>
+	<span class="c1">//(this.) 생략가능(같은 클래스내에서)</span>
+<span class="o">}</span>
+
+<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nc">String</span> <span class="n">gearType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">door</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// 지역변수 color와 인스턴스 변수 color의 변수명이 똑같아 구별이 안됨</span>
+	<span class="k">this</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="k">this</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="n">door</span><span class="o">;</span>
+	<span class="c1">//(this.) 원래는 생략가능한데 변수명이 같아 구별하기 위해 붙임</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>this.color 는 인스턴스 변수이고 color 는 생성자의 매개변수로 정의된 지역변수</p>
+
+<p><br /></p>
+
+<p>this 는 참조변수로 인스턴스 자신을 가리킴. 참조변수를 통해 인스턴스 멤버에 접근할 수 있는 것처럼 this로 인스턴스 변수에 접근 할 수 있다.</p>
+
+<p><br /></p>
+
+<p>클래스 메서드(static메서드)는 객체 생성이 없기 때문에  iv 사용 불가. 따라서, this 사용 불가 (why? this는 객체 자신이기 때문)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyMath2</span> <span class="o">{</span>
+	<span class="kt">long</span> <span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">;</span> <span class="c1">// this.a, this.b</span>
+
+	<span class="nc">MyMath2</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 생성자</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span> <span class="c1">// this 생략 불가능 (lv와 iv 를 구분하기 위해)</span>
+	<span class="o">}</span>
+
+	<span class="kt">long</span> <span class="nf">add</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 인스턴스 메서드</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span> <span class="c1">// return this.a + this.b; (생략가능)</span>
+	<span class="o">}</span>
+	<span class="kd">static</span> <span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">long</span> <span class="n">a</span><span class="o">,</span> <span class="kt">long</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 클래스 메서드(static메서드)</span>
+		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>long a, b; → iv</p>
+
+<p>this.a, this.b → iv 의 진짜 이름</p>
+
+<p>this 선언 안해도 선언 가능하다(생략이 가능)</p>
+
+<p><br /></p>
+
+<p>참고) this 와 this() 는 비슷하게 생겼을 뿐 완전히 다른 것. this는 참조변수, this()는 생성자이다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this   인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어 있다.
+       모든 인스턴스메서드에 지역변수로 숨겨진 채로 존재한다.
+this(), this(매개변수) 생성자, 같은 클래스의 다른 생성자를 호출할 때 사용한다.
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="55-생성자를-이용한-인스턴스-복사">5.5 생성자를 이용한 인스턴스 복사</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Car</span><span class="o">(</span><span class="nc">Car</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">color</span><span class="o">;</span>
+	<span class="n">gearType</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">gearType</span><span class="o">;</span>
+	<span class="n">door</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">door</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Car 클래스의 참조변수를 매개변수로 선언한 생성자.</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">gearType</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">door</span><span class="o">;</span>
+
+	<span class="nc">Car</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="s">"auto"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">Car</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 인스턴스의 복사를 위한 생성자</span>
+		<span class="n">color</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">color</span><span class="o">;</span>
+		<span class="n">gearType</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">gearType</span><span class="o">;</span>
+		<span class="n">door</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">door</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nc">String</span> <span class="n">gearType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">door</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="n">gearType</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="n">door</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">CarTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Car</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">();</span>
+		<span class="nc">Car</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(</span><span class="n">c1</span><span class="o">);</span> <span class="c1">// c1의 복사본 c2를 생성</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c1의 color="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c2의 color="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+		<span class="n">c1</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c1의 color="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c1</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"c2의 color="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">color</span><span class="o">+</span><span class="s">", gearType="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">gearType</span><span class="o">+</span><span class="s">", door="</span><span class="o">+</span><span class="n">c2</span><span class="o">.</span><span class="na">door</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c1의 color=white, gearType=auto, door=4
+c2의 color=blue, gearType=auto, door=4
+
+c1의 color=white, gearType=auto, door=100
+c2의 color=blue, gearType=auto, door=4
+</code></pre></div></div>
+
+<p>인스턴스 c2 는 c1을 복사하여 생성된 것이므로 서로 같은 상태를 갖지만, 서로 별도의 메모리공간에 독립적으로 존재하는 인스턴스이므로 c1이 변경되어도 c2는 영향을 받지 않는다</p>
+
+<p><br /></p>
+
+<h1 id="6-변수의-초기화">6. 변수의 초기화</h1>
+
+<h2 id="61-변수의-초기화">6.1 변수의 초기화</h2>
+
+<ul>
+  <li>지역변수(lv)는 수동 초기화 해야함 (직접 초기화 해야함)</li>
+  <li>멤버변수(iv, cv)는 자동 초기화 된다</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">InitTest</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>       <span class="c1">// 인스턴스 변수</span>
+	<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>   <span class="c1">// 인스턴스 변수</span>
+
+	<span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">i</span><span class="o">;</span>     <span class="c1">//지역변수</span>
+		<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 에러. 지역변수를 초기화 하지 않고 사용</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/148164708-d417459b-076a-44ee-bae7-92358674d261.png" alt="Untitled1" /></p>
+
+<p><br /></p>
+
+<p>멤버변수(클래스변수, 인스턴스 변수)와 배열의 초기화는 선택적이지만, 지역변수는 반드시 사용하기 전에 초기화 해주어야 한다.</p>
+
+<p><br /></p>
+
+<h3 id="멤버변수iv-cv의-초기화">멤버변수(iv, cv)의 초기화</h3>
+
+<ol>
+  <li>
+    <p>명시적 초기화: 대입연산자(=), 간단초기화</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+ 	<span class="kt">int</span> <span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>             <span class="c1">// 기본형 변수의 초기화</span>
+ 	<span class="nc">Engine</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Engine</span><span class="o">();</span>  <span class="c1">// 참조형 변수의 초기화</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>초기화 블럭: 복잡초기화
+    <ul>
+      <li>인스턴스 초기화 블럭: {}</li>
+      <li>클래스 초기화 블럭: static {}</li>
+    </ul>
+  </li>
+  <li>
+    <p>생성자: iv 초기화, 복잡한 초기화에 사용</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">Car</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="nc">String</span> <span class="n">gearType</span><span class="o">,</span> <span class="kt">int</span> <span class="n">door</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 매개변수 있는 생성자</span>
+ 	<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+ 	<span class="k">this</span><span class="o">.</span><span class="na">gearType</span> <span class="o">=</span> <span class="n">gearType</span><span class="o">;</span>
+ 	<span class="k">this</span><span class="o">.</span><span class="na">door</span> <span class="o">=</span> <span class="n">door</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p>cv, iv 초기화엔 3가지가 있다.</p>
+
+<ol>
+  <li>자동초기화: 0으로 초기화</li>
+  <li>간단초기화: =(대입연산자)</li>
+  <li>복잡초기화
+    <ol>
+      <li>{}: 거의 안씀</li>
+      <li>static {}: cv 초기화</li>
+      <li>생성자: iv 초기화</li>
+    </ol>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="62-명시적-초기화">6.2 명시적 초기화</h2>
+
+<p>변수 선언과 동시에 초기화하는 것</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span> <span class="c1">// 기본형 변수의 초기화</span>
+	<span class="nc">Engine</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Engine</span><span class="o">();</span> <span class="c1">// 참조형 변수의 초기화</span>
+	
+	<span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="63-초기화-블럭">6.3 초기화 블럭</h2>
+
+<ul>
+  <li>클래스 초기화 블럭: 클래스 변수의 복잡한 초기화에 사용</li>
+  <li>인스턴스 초기화 블럭: 인스턴스 변수의 복잡한 초기화에 사용</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">InitBlock</span> <span class="o">{</span>
+	<span class="kd">static</span> <span class="o">{</span> <span class="cm">/* 클래스 초기화 블럭 */</span><span class="o">}</span>
+
+	<span class="o">{</span> <span class="cm">/* 인스턴스 초기화 블럭 */</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>클래스 변수 초기화 시점: 클래스가 처음 로딩 될 때 <strong>단 한번</strong></p>
+
+<p>인스턴스 변수 초기화 시점: 인스턴스가 생성될 때 마다 실행 (생성자보다 iv 초기화가 먼저 실행됨)</p>
+
+<p>인스턴스 변수의 초기화는 주로 생성자를 사용하기 때문에 인스턴스 초기화 블럭은 잘 사용되지 않음</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BlockTest</span> <span class="o">{</span>
+	
+	<span class="kd">static</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"static { }"</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"{ }"</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">BlockTest</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"생성자"</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"BlockTest bt = new BlockTest(); "</span><span class="o">);</span>
+		<span class="nc">BlockTest</span> <span class="n">bt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BlockTest</span><span class="o">();</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"BlockTest bt2 = new BlockTest(); "</span><span class="o">);</span>
+		<span class="nc">BlockTest</span> <span class="n">bt2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BlockTest</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static { }
+BlockTest bt = new BlockTest();
+{ }
+생성자
+BlockTest bt2 = new BlockTest();
+{ }
+생성자
+</code></pre></div></div>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">StaticBolokTest</span> <span class="o">{</span>
+	<span class="c1">// cv</span>
+	<span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span> <span class="c1">// 명시적 초기화</span>
+	
+	<span class="kd">static</span> <span class="o">{</span> <span class="c1">// 클래스 초기화 블럭 - 배열 arr을 난수로 채운다</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()*</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="64-멤버변수의-초기화-시기와-순서">6.4 멤버변수의 초기화 시기와 순서</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>클래스 변수의 초기화 시점: 클래스가 처음 로딩될 때 단 한번 초기화 된다
+인스턴스 변수의 초기화 시점: 인스턴스가 생성될 때마다 각 인스턴스별로 초기화가 이루어진다.
+
+클래스 변수의 초기화 순서: 기본값 -&gt; 명시적초기화 -&gt; 클래스 초기화 블럭
+인스턴스 변수의 초기화 순서: 기본값 -&gt; 명시적초기화 -&gt; 인스턴스 초기화 블럭 -&gt; 생성자
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/148164712-dc075b04-b349-430f-888c-acd1aaba3c42.png" alt="Untitled2" /></p>
+
+<p>InitTest it = new InitTest(); 를 통해 객체를 생성하면 위의 표처럼 순서대로 실행된다.</p>
+
+<p>다시한번 객체가 생성되면 클래스초기화는 하지 않고 인스턴스 초기화만 실행함</p>
+
+<p><br /></p>
+
+<p>초기화 순서</p>
+
+<p>cv 초기화 → iv 초기화</p>
+
+<p>자동(0) → 간단(=) → 복잡(static{}, 생성자)</p>
+:ET

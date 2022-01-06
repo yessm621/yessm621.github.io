@@ -1,0 +1,214 @@
+I"�"<h3 id="사용자-정보-설정">사용자 정보 설정</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># repository 마다 사용자 정보 설정</span>
+git config <span class="nt">--local</span> user.email <span class="s2">"yessm621@gmail.com"</span>
+git config <span class="nt">--local</span> user.name <span class="s2">"yessm621"</span>
+
+<span class="c"># 전역(Global)으로 설정</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"nohsm621@coreintec.com"</span>
+git config <span class="nt">--global</span> user.name <span class="s2">"nohsm621"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="ssh-keygen">ssh-keygen</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen <span class="nt">-t</span> rsa <span class="nt">-b</span> 4096 <span class="nt">-C</span> <span class="s2">"nohsm621@coreintec.com"</span>
+</code></pre></div></div>
+
+<p><a href="https://gentlesark.tistory.com/102">ssh key 암호 없애기 및 변경하기 - git pull 할 때 암호 입력 안하기</a></p>
+
+<p><br /></p>
+
+<h3 id="저장소-연결삭제">저장소 연결/삭제</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 저장소 연결 상태</span>
+git remote <span class="nt">-v</span>
+
+<span class="c"># 저장소 연결</span>
+git remote add origin https://github.com/yessm621/yessm621.github.io
+
+<span class="c"># 저장소 삭제</span>
+git remote remove origin
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="브랜치-생성삭제">브랜치 생성/삭제</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 브랜치 생성 및 checkout</span>
+git checkout <span class="nt">-b</span> issue1
+
+<span class="c"># 브랜치 삭제</span>
+git branch <span class="nt">-d</span> issue1
+<span class="c"># 브랜치 삭제(강제)</span>
+git branch <span class="nt">-D</span> issue1
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="원격-브랜치-삭제">원격 브랜치 삭제</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin <span class="nt">--delete</span> issue1
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="commit-내용-합치기">commit 내용 합치기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> HEAD~2
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="add-취소-stage--unstage">add 취소 (stage → unstage)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset HEAD 파일명
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="commit-취소">commit 취소</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset HEAD^
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="변경내용-되돌리기위험-되도록-사용하지-말-것">변경내용 되돌리기(위험! 되도록 사용하지 말 것)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset <span class="nt">--hard</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="다른-브랜치를-master-로-최신화">다른 브랜치를 master 로 최신화</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout dev
+git rebase master
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="특정-commit-만-master-에-추가">특정 commit 만 master 에 추가</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
+git cherry-pick commit명
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="특정-branch를-master-에-merge">특정 branch를 master 에 merge</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
+git merge branch명
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="브랜치명-변경">브랜치명 변경</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch <span class="nt">-m</span> old_branch new_branch
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="commit-날짜-변경">commit 날짜 변경</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 마지막 Commit 날짜를 현재 날짜로 설정</span>
+git commit <span class="nt">--amend</span> <span class="nt">--no-edit</span> <span class="nt">--date</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span><span class="s2">"</span>
+
+<span class="c"># 마지막 Commit 날짜를 임의의 날짜로 설정</span>
+git commit <span class="nt">--amend</span> <span class="nt">--no-edit</span> <span class="nt">--date</span> <span class="s2">"Mon 20 Aug 2018 20:19:19 KST"</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="commit-명-변경">commit 명 변경</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="author-변경">author 변경</h3>
+
+<p><strong>1) commit 만 했을 때</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span> <span class="nt">--author</span><span class="o">=</span><span class="s2">"yessm621 &lt;yessm621@gmail.com&gt;"</span>
+</code></pre></div></div>
+
+<p><strong>2) push 까지 했을 경우</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/148001519-8d76fdf1-f200-4907-900e-72f237387286.png" alt="Untitled1" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> 50326f224598ca2d8ceaace15a9184a0fe953b4c
+</code></pre></div></div>
+
+<p>pick → e 로 변경 후 :wq 로 저장</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span> <span class="nt">--author</span><span class="o">=</span><span class="s2">"yessm621 &lt;yessm621@gmail.com&gt;"</span>
+
+git rebase <span class="nt">--continue</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/148001520-6807fe02-11c5-4b87-a3a7-bb80534407fd.png" alt="Untitled2" /></p>
+
+<p>강제 commit</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin <span class="nt">-f</span> master
+
+git log
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/148001523-419b87ba-9b3d-4f00-a09a-cea84affe3f0.png" alt="Untitled3" /></p>
+
+<p><br /></p>
+
+<h3 id="명령어-히스토리-조회">명령어 히스토리 조회</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reflog
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="브랜치-조회동기화">브랜치 조회/동기화</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 브랜치 조회</span>
+git branch <span class="nt">-a</span>
+
+<span class="c"># 모든 브랜치 동기화</span>
+git remote prune origin
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="rebase-안에-갇힘">rebase 안에 갇힘</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># shtmd@DESKTOP-N2JDB2I MINGW64 /c/dev/netshot/netshot-batch (master|REBASE 1/1)</span>
+
+<span class="c"># rebase 프로세스 종료</span>
+git rebase <span class="nt">--abort</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="error-logon-failed-use-ctrlc-to-cancel-basic-credential-prompt">error: Logon failed, use ctrl+c to cancel basic credential prompt.</h3>
+
+<p>계속 로그인 에러가 발생. 아래 명령어 입력하니 해결됨</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git update-git-for-windows
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="refusing-to-merge-unrelated-histories-오류">refusing to merge unrelated histories 오류</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin 브런치명 <span class="nt">--allow-unrelated-histories</span>
+</code></pre></div></div>
+
+<p>위의 명령어 입력 후 충돌 해결</p>
+:ET

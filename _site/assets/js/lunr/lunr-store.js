@@ -226,4 +226,22 @@ var store = [{
         "tags": ["Java"],
         "url": "/java/Java-OOP2/",
         "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(호출스택, 기본형/참조형 매개변수, 참조형 반환타입, 클래스/인스턴스 메서드)",
+        "excerpt":"3.7 JVM의 메모리 구조 JVM은 메모리를 용도에 따라 여러 영역으로 나누어 관리한다. 주요 3가지 영역은 메서드영역, 호출스택, 힙이 있다. 그 중 호출 스택에 대해 알아본다 스택(stack): 밑이 막힌 상자. 위에 차곡차곡 쌓인다. 호출스택(call stack)이란?(중요) 메서드 수행에 필요한 메모리가 제공되는 공간 메서드가 호출되면 호출스택에 메모리 할당, 메서드가 작업을 종료하면 할당되었던 메모리...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP3/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "Git 자주쓰는 명령어 정리",
+        "excerpt":"사용자 정보 설정 # repository 마다 사용자 정보 설정 git config --local user.email \"yessm621@gmail.com\" git config --local user.name \"yessm621\" # 전역(Global)으로 설정 git config --global user.email \"nohsm621@coreintec.com\" git config --global user.name \"nohsm621\" ssh-keygen ssh-keygen -t rsa -b 4096 -C \"nohsm621@coreintec.com\" ssh key 암호 없애기 및 변경하기 - git pull 할...","categories": ["Git"],
+        "tags": ["Git"],
+        "url": "/git/Git-Command/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(오버로딩, 생성자, 생성자 this(), 참조변수 this, 변수의 초기화)",
+        "excerpt":"4. 메서드 오버로딩 4.1 메서드 오버로딩이란? 한 클래스 안에 같은 이름의 메서드 여러 개 정의하는 것 대표적인 것: println() 파라미터(매개변수)만 다르다 void println() void println(boolean x) void println(char x) void println(char[] x) void println(double x) void println(float x) void println(int x) void println(long x) void println(Object x) void println(String x)...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP4/",
+        "teaser": "/assets/images/IMG_2153.JPG"
       }]

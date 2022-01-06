@@ -153,6 +153,18 @@
 <lastmod>2021-12-27T06:10:00+09:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/java/Java-OOP3/</loc>
+<lastmod>2022-01-02T06:20:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/git/Git-Command/</loc>
+<lastmod>2022-01-04T20:30:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/java/Java-OOP4/</loc>
+<lastmod>2022-01-05T23:30:00+09:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about/</loc>
 </url>
 <url>
@@ -175,5 +187,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page4/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page5/</loc>
 </url>
 </urlset>
