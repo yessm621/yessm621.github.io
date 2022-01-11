@@ -244,4 +244,10 @@ var store = [{
         "tags": ["Java"],
         "url": "/java/Java-OOP4/",
         "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩)",
+        "excerpt":"1. 상속 1.1 상속의 정의와 장점 상속이란, 기존의 클래스로 새로운 클래스를 작성하는 것 → 적은 양의 코드로 새로운 클래스를 작성할 수 있고 코드를 공통적으로 관리할 수 있기 때문에 코드의 추가 및 변경이 매우 용이(코드의 재사용성, 유지보수 용이) → class Child extends Parent { } 두 클래스를 부모와 자식으로 관계를 맺어주는...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP5/",
+        "teaser": "/assets/images/IMG_2153.JPG"
       }]
