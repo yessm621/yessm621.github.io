@@ -1,6 +1,6 @@
 ---
 title:  "REST API with SpringBoot(3)"
-last_modified_at: 2022-01-20T13:50:00
+last_modified_at: 2022-01-20T19:30:00
 categories: 
   - SpringBoot
 tags:
@@ -13,6 +13,16 @@ toc_label: "Getting Started"
 toc_sticky: true
 ---
 
+`백기선님 강의 정리`
+
+[REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
+
+[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
+
+[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
+
+<br>
+
 ## Event 생성 API 구현: 입력값 제한하기
 
 dto를 사용하여 입력값을 제한하고 dto ↔ entity 를 변경할 땐 modelMapper 를 사용함
@@ -24,6 +34,14 @@ dto를 사용하여 입력값을 제한하고 dto ↔ entity 를 변경할 땐 m
 어떤 Object에 있는 필드값들을 Object로 Mapping 시켜줌
 
 즉, dto to entity를 일일히 정의할 필요없음
+
+<br>
+
+**주의!**
+
+ModelMapper는 해당 클래스의 기본 생성자를 이용해 객체를 생성하고 **setter를 이용해 매핑**을 한다. 따라서, setter 어노테이션을 붙이지 않으면 json으로 null이 반환된다.
+
+<br>
 
 pom.xml 에 추가
 
