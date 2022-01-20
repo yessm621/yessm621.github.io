@@ -7,6 +7,9 @@ tags:
   - SpringBoot
   - Java
   - REST API
+toc: true
+toc_label: "Getting Started"
+toc_sticky: true
 ---
 
 
@@ -16,16 +19,18 @@ tags:
 
 [REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
 
+[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
+
 <br>
 
-### REST
+## REST
 
 - 인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나
 - 시스템 제 각각의 독립적인 진화를 보장하기 위한 방법
 
 <br>
 
-### REST의 조건
+## REST의 조건
 
 ```
 Client-Server
@@ -42,7 +47,7 @@ Code-on-Demand(optional)
 
 <br>
 
-### Uniform Interface 조건
+## Uniform Interface 조건
 
 ```
 Identification of resources

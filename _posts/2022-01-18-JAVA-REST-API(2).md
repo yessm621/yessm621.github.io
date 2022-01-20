@@ -7,6 +7,9 @@ tags:
   - SpringBoot
   - Java
   - REST API
+toc: true
+toc_label: "Getting Started"
+toc_sticky: true
 ---
 
 
@@ -15,6 +18,8 @@ tags:
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
 [REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
+
+[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
 
 <br>
 
