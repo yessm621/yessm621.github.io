@@ -1,0 +1,282 @@
+---
+title:  "REST API with SpringBoot(4)"
+last_modified_at: 2022-01-22T19:44:00
+categories: 
+  - SpringBoot
+tags:
+  - SpringBoot
+  - Java
+  - REST API
+  - TDD
+toc: true
+toc_label: "Getting Started"
+toc_sticky: true
+---
+
+`백기선님 강의 정리`
+
+[REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
+
+[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
+
+[REST API with SpringBoot(3)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
+
+[REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
+
+<br>
+
+## Event 생성 API 구현: Bad Request 응답 본문 만들기
+
+serialization: ‘객체 → json’ 으로 변환
+
+deserialization: ‘json → 객체’ 로 변환
+
+<br>
+
+body에 Bad Request에 대한 응답을 넣고 싶은데 관련 에러는 Errors에 담겨 있다
+
+그런데, body에 error를 담으려고 하면 에러가 발생한다!
+
+원인은 error를 json으로 변환할 수 없기 때문에..
+
+그렇다면 왜 event 객체는 body에 담을 수 있었을까?
+
+→ event는 objectMapper를 사용해서 객체에서 json으로 변환하는데 이때 bean serialization을 사용해서 자바빈 스팩을 준수했기 때문에 변환할수 있었던것..
+
+<br>
+
+따라서, 아래 코드와 같이 error를 serialization 해주는 코드를 작성해야한다.
+
+<br>
+
+common/ErrorsSerializer.java
+
+```java
+package me.whiteship.demoinflearnrestapi.common;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.validation.Errors;
+
+import java.io.IOException;
+
+@JsonComponent
+public class ErrorsSerializer extends JsonSerializer<Errors> {
+
+    @Override
+    public void serialize(Errors errors, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeStartArray();
+        errors.getFieldErrors().forEach(e -> {
+            try {
+                jsonGenerator.writeStartObject();
+                jsonGenerator.writeStringField("field", e.getField());
+                jsonGenerator.writeStringField("objectName", e.getObjectName());
+                jsonGenerator.writeStringField("code", e.getCode());
+                jsonGenerator.writeStringField("defaultMessage", e.getDefaultMessage());
+                Object rejectedValue = e.getRejectedValue();
+                if (rejectedValue != null) {
+                    jsonGenerator.writeStringField("rejectedValue", rejectedValue.toString());
+                }
+                jsonGenerator.writeEndObject();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        errors.getGlobalErrors().forEach(e -> {
+            try {
+                jsonGenerator.writeStartObject();
+                jsonGenerator.writeStringField("objectName", e.getObjectName());
+                jsonGenerator.writeStringField("code", e.getCode());
+                jsonGenerator.writeStringField("defaultMessage", e.getDefaultMessage());
+                jsonGenerator.writeEndObject();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        jsonGenerator.writeEndArray();
+    }
+}
+```
+
+<br>
+
+### @JsonComponent
+
+ObjectMapper 에 Custom Serializer를 등록해 주어야하는데 Spring Boot에서 제공하는 `@JsonComponent`를 사용하면 손쉽게 등록이 가능하다.
+
+[Json Parser Online](http://json.parser.online.fr/)
+
+<br>
+
+## Event 생성 API 구현: 비즈니스 로직 적용
+
+event.java
+
+```java
+...
+
+public void update() {
+    // Update free
+    if (this.basePrice == 0 && this.maxPrice == 0) {
+        this.free = true;
+    } else {
+        this.free = false;
+    }
+
+    // Update offline
+    if (this.location == null || this.location.isBlank()) {
+        this.offline = false;
+    } else {
+        this.offline = true;
+    }
+}
+
+...
+```
+
+entity test code 작성
+
+EventTest.java
+
+```java
+	...
+
+	@Test
+    public void testFree() {
+        // Given
+        Event event = Event.builder()
+                .basePrice(0)
+                .maxPrice(0)
+                .build();
+
+        // When
+        event.update();
+
+        // Then
+        assertThat(event.isFree()).isTrue();
+
+        // Given
+        event = Event.builder()
+                .basePrice(100)
+                .maxPrice(0)
+                .build();
+
+        // When
+        event.update();
+
+        // Then
+        assertThat(event.isFree()).isFalse();
+
+        // Given
+        event = Event.builder()
+                .basePrice(0)
+                .maxPrice(100)
+                .build();
+
+        // When
+        event.update();
+
+        // Then
+        assertThat(event.isFree()).isFalse();
+    }
+
+	...
+```
+
+위의 코드처럼 작성해도 되지만 중복이 발생하기 때문에 보기에 좋지 않다
+
+`JUnitParams` 를 이용하여 중복코드를 줄이고 테스트코드를 작성할 수 있다.
+
+<br>
+
+## Event 생성 API 구현: 매개변수를 이용한 테스트
+
+dependency 추가
+
+pom.xml
+
+```xml
+<dependency>
+    <groupId>pl.pragmatists</groupId>
+    <artifactId>JUnitParams</artifactId>
+    <version>1.1.1</version>
+    <scope>test</scope>
+</dependency>
+```
+
+EventTest.java
+
+```java
+package me.whiteship.demoinflearnrestapi.events;
+
+import junitparams.JUnitParamsRunner;
+
+import junitparams.Parameters;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(JUnitParamsRunner.class)
+public class EventTest {
+
+    ...
+
+    //parametersFor: 컨벤션
+    private Object[] parametersForTestFree() {
+        return new Object[]{
+                new Object[]{0, 0, true},
+                new Object[]{100, 0, false},
+                new Object[]{0, 100, false},
+                new Object[]{100, 200, false}
+        };
+    }
+
+    @Test
+    @Parameters(method = "parametersForTestFree")
+    public void testFree(int basePrice, int maxPrice, boolean isFree) {
+        // Given
+        Event event = Event.builder()
+                .basePrice(basePrice)
+                .maxPrice(maxPrice)
+                .build();
+
+        // When
+        event.update();
+
+        // Then
+        assertThat(event.isFree()).isEqualTo(isFree);
+    }
+
+    private Object[] parametersForTestOffline() {
+        return new Object[]{
+                new Object[]{"강남", true},
+                new Object[]{null, false},
+                new Object[]{"", false}
+        };
+    }
+
+    @Test
+    @Parameters
+    public void testOffline(String location, boolean isOffline) {
+        // Given
+        Event event = Event.builder()
+                .location(location)
+                .build();
+
+        // When
+        event.update();
+
+        // Then
+        assertThat(event.isOffline()).isEqualTo(isOffline);
+    }
+}
+```
+
+parametersFor테스트코드명
+
+→ 이렇게 작성하면 알아서 맵핑해준다.(코드 컨벤션, 규약)

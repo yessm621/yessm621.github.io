@@ -19,7 +19,9 @@ toc_sticky: true
 
 [REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
 
-[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
+[REST API with SpringBoot(3)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
+
+[REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
 <br>
 
