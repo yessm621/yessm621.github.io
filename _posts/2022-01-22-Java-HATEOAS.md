@@ -1,6 +1,6 @@
 ---
 title:  "스프링 HATEOAS"
-last_modified_at: 2022-01-20T19:50:00
+last_modified_at: 2022-01-22T19:50:00
 categories: 
   - SpringBoot
 tags:
