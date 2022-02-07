@@ -1,0 +1,810 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>REST API with SpringBoot(1) - Seungmi Blog</title>
+<meta name="description" content="백기선님 강의 정리">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="REST API with SpringBoot(1)">
+<meta property="og:url" content="http://localhost:4000/springboot/Java-REST-API(1)/">
+
+
+  <meta property="og:description" content="백기선님 강의 정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-01-16T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-01-17T06:17:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/springboot/Java-REST-API(1)/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/">연도별 포스트</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/picture.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:yessm621@gmail.com" rel="me" class="u-email">
+            <meta itemprop="email" content="yessm621@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REST API with SpringBoot(1)">
+    <meta itemprop="description" content="백기선님 강의 정리">
+    <meta itemprop="datePublished" content="2022-01-16T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-01-17T06:17:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/springboot/Java-REST-API(1)/" class="u-url" itemprop="url">REST API with SpringBoot(1)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Getting Started</h4></header>
+              <ul class="toc__menu"><li><a href="#rest">REST</a></li><li><a href="#rest의-조건">REST의 조건</a></li><li><a href="#uniform-interface-조건">Uniform Interface 조건</a><ul><li><a href="#1-self-descriptive-messages">1. self-descriptive messages</a></li><li><a href="#2-hateoas">2. HATEOAS</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><code class="language-plaintext highlighter-rouge">백기선님 강의 정리</code></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(1)/">REST API with SpringBoot(1)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(2)/">REST API with SpringBoot(2)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(3)/">REST API with SpringBoot(3)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(4)/">REST API with SpringBoot(4)</a></p>
+
+<p><br /></p>
+
+<h2 id="rest">REST</h2>
+
+<ul>
+  <li>인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나</li>
+  <li>시스템 제 각각의 독립적인 진화를 보장하기 위한 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="rest의-조건">REST의 조건</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client-Server
+Stateless
+Cache
+Uniform Interface
+Layered System
+Code-on-Demand(optional)
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>대개, REST API가 아닌 이유는 Uniform Interface 조건을 만족하지 못하기 때문이다.</p>
+
+<p><br /></p>
+
+<h2 id="uniform-interface-조건">Uniform Interface 조건</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Identification of resources
+Manipulation of resources through representations
+Self-descriptive messages
+Hypermedia as the engine of application state(HATEOAS)
+</code></pre></div></div>
+
+<ol>
+  <li>Identification of resources
+    <ul>
+      <li>리소스가 URI로 식별이 되는지</li>
+    </ul>
+  </li>
+  <li>Manipulation of resources through representations
+    <ul>
+      <li>
+        <p>서버가 클라이언트에서 이해할 수 있는 형식으로 응답하는지</p>
+
+        <p>→ json형식으로 정보를 표현해서 응답하는지</p>
+      </li>
+    </ul>
+  </li>
+  <li>Self-descriptive messages</li>
+  <li>Hypermedia as the engine of application state(HATEOAS)</li>
+</ol>
+
+<p><br /></p>
+
+<p>대부분 3, 4번을 만족하지 못해 REST API가 아니다.</p>
+
+<p><br /></p>
+
+<h3 id="1-self-descriptive-messages">1. self-descriptive messages</h3>
+
+<ul>
+  <li>메시지 스스로 메시지에 대한 설명이 가능해야 한다.</li>
+  <li>서버가 변해서 메시지가 변해도 클라이언트는 그 메시지를 보고 해석이 가능하다.</li>
+  <li>확장 가능한 커뮤니케이션</li>
+</ul>
+
+<p>방법1 - Media Type을 정의하는 방법 (Content-type으로 지정)</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/ecsimsw.subways+json</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - link header에 명세를 확인할 수 있는 링크를 넣음</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:</span><span class="w"> </span><span class="err">&lt;https://ecsimsw.com/docs/subway&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"profile"</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>→ 브라우저들이 아직 스팩을 지원하지 않는다. 따라서, 대안으로 HAL의 링크 데이터에 profile 링크 추가</p>
+
+<p><br /></p>
+
+<h3 id="2-hateoas">2. HATEOAS</h3>
+
+<ul>
+  <li>하이퍼미디어(링크)를 통해 애플리케이션 상태 변화가 가능해야 한다.</li>
+  <li>링크 정보를 동적으로 바꿀 수 있다.</li>
+</ul>
+
+<p>방법1 - 데이터에 링크 제공 (HAL)</p>
+
+<p>HAL: Hypertext Application Language 으로 json,xml코드 내의 외부 리소스에 대한 링크를 추가하기 위한 특별한 데이터 타입</p>
+
+<ol>
+  <li>application/hal+json</li>
+  <li>application/hal+xml</li>
+</ol>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">리소스</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"게시글 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HAL JSON을 이용한 예시 JSON"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">링크</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1000"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">현재</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/docs#query-article"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">해당</span><span class="w"> </span><span class="err">api의</span><span class="w"> </span><span class="err">문서</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1001"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article</span><span class="w"> </span><span class="err">의</span><span class="w"> </span><span class="err">다음</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/999"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article의</span><span class="w"> </span><span class="err">이전</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - 링크 헤더나 Location을 제공</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:&lt;/subways/</span><span class="mi">1</span><span class="err">/times&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"times"</span><span class="err">,</span><span class="w">
+     </span><span class="err">&lt;/subways/</span><span class="mi">1</span><span class="err">/detail&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"detail"</span><span class="w">
+
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#rest-api" class="page__taxonomy-item p-category" rel="tag">REST API</a><span class="sep">, </span>
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item p-category" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#springboot" class="page__taxonomy-item p-category" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-01-16">January 16, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=REST+API+with+SpringBoot%281%29%20http%3A%2F%2Flocalhost%3A4000%2Fspringboot%2FJava-REST-API%281%29%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspringboot%2FJava-REST-API%281%29%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspringboot%2FJava-REST-API%281%29%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/java/Java-OOP7/" class="pagination--pager" title="객체지향개념(다형성, 참조변수의 형변환, instanceof연산자, 매개변수 다형성)
+">이전</a>
+    
+    
+      <a href="/springboot/JAVA-REST-API(2)/" class="pagination--pager" title="REST API with SpringBoot(2)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/Java-OOP8/" rel="permalink">객체지향개념(추상클래스, 추상메서드, 추상클래스의 작성, 인터페이스, 인터페이스 장점, 인터페이스 이해, 디폴트 메서드)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          11 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">6. 추상 클래스(abstract class)
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/springboot/Java-Spring-REST-Docs/" rel="permalink">스프링 REST Docs
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">스프링 REST Docs란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/springboot/Java-REST-API(4)/" rel="permalink">REST API with SpringBoot(4)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/springboot/Java-HATEOAS/" rel="permalink">스프링 HATEOAS
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/springboot/Java-REST-API(1)/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/springboot/Java-REST-API(1)"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,146 @@
+I"�'<p><code class="language-plaintext highlighter-rouge">백기선님 강의 정리</code></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(1)/">REST API with SpringBoot(1)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(2)/">REST API with SpringBoot(2)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(3)/">REST API with SpringBoot(3)</a></p>
+
+<p><a href="https://yessm621.github.io/springboot/Java-REST-API(4)/">REST API with SpringBoot(4)</a></p>
+
+<p><br /></p>
+
+<h2 id="rest">REST</h2>
+
+<ul>
+  <li>인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나</li>
+  <li>시스템 제 각각의 독립적인 진화를 보장하기 위한 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="rest의-조건">REST의 조건</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client-Server
+Stateless
+Cache
+Uniform Interface
+Layered System
+Code-on-Demand(optional)
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>대개, REST API가 아닌 이유는 Uniform Interface 조건을 만족하지 못하기 때문이다.</p>
+
+<p><br /></p>
+
+<h2 id="uniform-interface-조건">Uniform Interface 조건</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Identification of resources
+Manipulation of resources through representations
+Self-descriptive messages
+Hypermedia as the engine of application state(HATEOAS)
+</code></pre></div></div>
+
+<ol>
+  <li>Identification of resources
+    <ul>
+      <li>리소스가 URI로 식별이 되는지</li>
+    </ul>
+  </li>
+  <li>Manipulation of resources through representations
+    <ul>
+      <li>
+        <p>서버가 클라이언트에서 이해할 수 있는 형식으로 응답하는지</p>
+
+        <p>→ json형식으로 정보를 표현해서 응답하는지</p>
+      </li>
+    </ul>
+  </li>
+  <li>Self-descriptive messages</li>
+  <li>Hypermedia as the engine of application state(HATEOAS)</li>
+</ol>
+
+<p><br /></p>
+
+<p>대부분 3, 4번을 만족하지 못해 REST API가 아니다.</p>
+
+<p><br /></p>
+
+<h3 id="1-self-descriptive-messages">1. self-descriptive messages</h3>
+
+<ul>
+  <li>메시지 스스로 메시지에 대한 설명이 가능해야 한다.</li>
+  <li>서버가 변해서 메시지가 변해도 클라이언트는 그 메시지를 보고 해석이 가능하다.</li>
+  <li>확장 가능한 커뮤니케이션</li>
+</ul>
+
+<p>방법1 - Media Type을 정의하는 방법 (Content-type으로 지정)</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/ecsimsw.subways+json</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - link header에 명세를 확인할 수 있는 링크를 넣음</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:</span><span class="w"> </span><span class="err">&lt;https://ecsimsw.com/docs/subway&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"profile"</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>→ 브라우저들이 아직 스팩을 지원하지 않는다. 따라서, 대안으로 HAL의 링크 데이터에 profile 링크 추가</p>
+
+<p><br /></p>
+
+<h3 id="2-hateoas">2. HATEOAS</h3>
+
+<ul>
+  <li>하이퍼미디어(링크)를 통해 애플리케이션 상태 변화가 가능해야 한다.</li>
+  <li>링크 정보를 동적으로 바꿀 수 있다.</li>
+</ul>
+
+<p>방법1 - 데이터에 링크 제공 (HAL)</p>
+
+<p>HAL: Hypertext Application Language 으로 json,xml코드 내의 외부 리소스에 대한 링크를 추가하기 위한 특별한 데이터 타입</p>
+
+<ol>
+  <li>application/hal+json</li>
+  <li>application/hal+xml</li>
+</ol>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">리소스</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"게시글 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HAL JSON을 이용한 예시 JSON"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">링크</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1000"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">현재</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/docs#query-article"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">해당</span><span class="w"> </span><span class="err">api의</span><span class="w"> </span><span class="err">문서</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1001"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article</span><span class="w"> </span><span class="err">의</span><span class="w"> </span><span class="err">다음</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/999"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article의</span><span class="w"> </span><span class="err">이전</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - 링크 헤더나 Location을 제공</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:&lt;/subways/</span><span class="mi">1</span><span class="err">/times&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"times"</span><span class="err">,</span><span class="w">
+     </span><span class="err">&lt;/subways/</span><span class="mi">1</span><span class="err">/detail&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"detail"</span><span class="w">
+
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+:ET

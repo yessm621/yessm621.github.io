@@ -245,9 +245,69 @@ var store = [{
         "url": "/java/Java-OOP4/",
         "teaser": "/assets/images/IMG_2153.JPG"
       },{
-        "title": "객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩)",
+        "title": "객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩, super)",
         "excerpt":"1. 상속 1.1 상속의 정의와 장점 상속이란, 기존의 클래스로 새로운 클래스를 작성하는 것 → 적은 양의 코드로 새로운 클래스를 작성할 수 있고 코드를 공통적으로 관리할 수 있기 때문에 코드의 추가 및 변경이 매우 용이(코드의 재사용성, 유지보수 용이) → class Child extends Parent { } 두 클래스를 부모와 자식으로 관계를 맺어주는...","categories": ["Java"],
         "tags": ["Java"],
         "url": "/java/Java-OOP5/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(package, import, 제어자, 접근제어자, 캡슐화)",
+        "excerpt":"3. package와 import 3.1 패키지(package) 서로 관련된 클래스의 묶음 클래스는 클래스 파일(*.class), 패키지는 폴더. 하위 패키지는 하위 폴더 클래스의 실제 이름은 패키지를 포함(java.lang.String) rt.jar 는 클래스들을 압축한 파일 rt: runtime, jar: class 파일을 묶어놓은 것 rt.jar 파일은 java9부터 사라짐 3.2 패키지의 선언 package 패키지명; 패키지는 소스파일의 첫 번째 문장으로 단...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP6/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(다형성, 참조변수의 형변환, instanceof연산자, 매개변수 다형성)",
+        "excerpt":"5.다형성(polymorphism) 5.1 다형성이란? 여러가지 형태를 가질 수 있는 능력 조상 타입 참조 변수로 자손 타입 객체를 다루는 것(조상클래스 타입의 참조변수로 자손클래스의 인스턴스를 참조할 수 있도록 하였다) class Tv { boolean power; int channel; void power() { power = !power; } void channelUp() { ++channel; } void channelDown() { --channel; }...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP7/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "REST API with SpringBoot(1)",
+        "excerpt":"백기선님 강의 정리 REST API with SpringBoot(1) REST API with SpringBoot(2) REST API with SpringBoot(3) REST API with SpringBoot(4) REST 인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나 시스템 제 각각의 독립적인 진화를 보장하기 위한 방법 REST의 조건 Client-Server Stateless Cache Uniform Interface Layered System Code-on-Demand(optional) 대개, REST...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API"],
+        "url": "/springboot/Java-REST-API(1)/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "REST API with SpringBoot(2)",
+        "excerpt":"백기선님 강의 정리 REST API with SpringBoot(1) REST API with SpringBoot(2) REST API with SpringBoot(3) REST API with SpringBoot(4) project dependencies Event 도메인 구현 events/Event.java package me.whiteship.demoinflearnrestapi.events; import lombok.*; import javax.persistence.*; import java.time.LocalDateTime; @Entity @Builder @AllArgsConstructor @NoArgsConstructor @Getter @Setter @EqualsAndHashCode(of = \"id\") public class Event { @Id @GeneratedValue private Integer...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API"],
+        "url": "/springboot/JAVA-REST-API(2)/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "Mock 이란?",
+        "excerpt":"Mock 이란? 가짜를 뜻한다 메소드가 return을 하기까지 어떠한 로직을 걸친다 그 로직을 전부 구현하기에는 무리가 있을 때, 메소드가 return 하는 타입의 어떤 예측한 값이 나온다고 가정해서 전체적인 흐름을 테스트 할 때, mock이 사용된다. mockito 란? Mock을 다루는 프레임워크의 종류 유닛 테스트를 위한 Java mocking framework. mockito를 사용하면 대부분의 로직을 검증...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","TDD"],
+        "url": "/springboot/Java-Mock/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "REST API with SpringBoot(3)",
+        "excerpt":"백기선님 강의 정리 REST API with SpringBoot(1) REST API with SpringBoot(2) REST API with SpringBoot(3) REST API with SpringBoot(4) Event 생성 API 구현: 입력값 제한하기 dto를 사용하여 입력값을 제한하고 dto ↔ entity 를 변경할 땐 modelMapper 를 사용함 ModelMapper란? 어떤 Object에 있는 필드값들을 Object로 Mapping 시켜줌 즉, dto to entity를...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API","TDD"],
+        "url": "/springboot/Java-REST-API(3)/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "스프링 HATEOAS",
+        "excerpt":"백기선님 강의 정리 REST API with SpringBoot(1) REST API with SpringBoot(2) REST API with SpringBoot(3) REST API with SpringBoot(4) REST가 잘 적용된 API라면 응답에 HATEOAS를 지켜야 한다 HATEOAS란? REST API에서 클라이언트에 리소스를 넘겨줄 때 특정 부가적인 리소스의 링크 정보를 넘겨줌 links 요소를 통해 href 값의 형태로 보내주면 자원 상태에 대한...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API","TDD","HATEOAS"],
+        "url": "/springboot/Java-HATEOAS/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "REST API with SpringBoot(4)",
+        "excerpt":"백기선님 강의 정리 REST API with SpringBoot(1) REST API with SpringBoot(2) REST API with SpringBoot(3) REST API with SpringBoot(4) Event 생성 API 구현: Bad Request 응답 본문 만들기 serialization: ‘객체 → json’ 으로 변환 deserialization: ‘json → 객체’ 로 변환 body에 Bad Request에 대한 응답을 넣고 싶은데 관련 에러는 Errors에...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API","TDD"],
+        "url": "/springboot/Java-REST-API(4)/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "스프링 REST Docs",
+        "excerpt":"스프링 REST Docs란? 지금까지 개발을 진행하면서 API 명세에 대한 정보 문서화 또는 Swagger 사용을 해왔습니다. 매번 API 개발을 할 때마다 명세에 대한 정보를 문서화를 하였고, Swagger 사용을 하면 매번 Controller, DTO 단에 Swagger 어노테이션을 추가해야 하니 코드가 보기가 좋지 않았습니다. 그러다가 API 명세서를 자동화해주는 것을 찾다가 Spring Rest Docs 찾게...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java","REST API","TDD"],
+        "url": "/springboot/Java-Spring-REST-Docs/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체지향개념(추상클래스, 추상메서드, 추상클래스의 작성, 인터페이스, 인터페이스 장점, 인터페이스 이해, 디폴트 메서드)",
+        "excerpt":"6. 추상 클래스(abstract class) 6.1 추상클래스란? 미완성(부족한) 설계도. 미완성 메서드를 갖고 있는 클래스 abstract class Player { // 추상클래스(미완성 클래스) abstract void play(int pos); // 추상메서드(몸통{}이 없는 미완성 메서드) abstract void stop(); // 추상메서드 } 클래스 또는 메서드 앞에 abstract 를 붙이면 추상 클래스 또는 추상 메서드인 것을 알 수...","categories": ["Java"],
+        "tags": ["Java"],
+        "url": "/java/Java-OOP8/",
         "teaser": "/assets/images/IMG_2153.JPG"
       }]

@@ -1,0 +1,199 @@
+I"sC<h2 id="mock-이란">Mock 이란?</h2>
+
+<p><strong>가짜</strong>를 뜻한다</p>
+
+<p>메소드가 return을 하기까지 어떠한 로직을 걸친다</p>
+
+<p>그 로직을 전부 구현하기에는 무리가 있을 때, 메소드가 return 하는 타입의 어떤 예측한 값이 나온다고 가정해서 <code class="language-plaintext highlighter-rouge">전체적인 흐름을 테스트 할 때</code>, mock이 사용된다.</p>
+
+<h2 id="mockito-란">mockito 란?</h2>
+
+<p>Mock을 다루는 프레임워크의 종류</p>
+
+<p>유닛 테스트를 위한 Java mocking framework. mockito를 사용하면 대부분의 로직을 검증 할 수 있다.</p>
+
+<p>아래 코드의 의미는,</p>
+
+<p>personRepository.findById의 어떤 Long값이 들어가도 결과는 미리 선언한 <strong>person</strong>!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="nc">Person</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+									<span class="o">.</span><span class="na">firstName</span><span class="o">(</span><span class="s">"doyoung"</span><span class="o">)</span>
+									<span class="o">.</span><span class="na">lastName</span><span class="o">(</span><span class="s">"kim"</span><span class="o">)</span>
+									<span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="n">when</span><span class="o">(</span><span class="n">personRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">anyLong</span><span class="o">())).</span><span class="na">thenReturn</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="dependency-추가">dependency 추가</h2>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>				...
+
+				<span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.restdocs<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-restdocs-mockmvc<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+		
+				...
+</code></pre></div></div>
+
+<h2 id="관련-메서드-정의">관련 메서드 정의</h2>
+
+<h3 id="1-mock">1. mock()</h3>
+
+<p><code class="language-plaintext highlighter-rouge">mock() 메소드</code>는 목객체를 만들어서 반환한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mock</span><span class="o">(</span><span class="nc">Event</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="2-mock">2. @Mock</h3>
+
+<p>목 객체를 만들기 위해 mock() 메소드 외에도 <code class="language-plaintext highlighter-rouge">@Mock 어노테이션</code>을 선언하는 방법도 있음</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Mock</span>
+<span class="nc">Event</span> <span class="n">event</span><span class="o">;</span>
+
+<span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">example</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nc">MockitoAnnotaions</span><span class="o">.</span><span class="na">initMocks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">MockitoAnnotaions.initMocks(this)</code> 를 이용하면 Mockito 어노테이션이 선언된 변수들은 객체를 만들어낸다.</p>
+
+<h3 id="3-when">3. when()</h3>
+
+<p>특정 목 객체를 만들었다면 이 객체로부터 특정 조건을 지정 (stub을 하는 구문)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Event</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// when(event).thenReturn();</span>
+<span class="n">when</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">name</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">"노승미"</span><span class="o">);</span>
+<span class="n">when</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">age</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+
+<span class="n">assertTrue</span><span class="o">(</span><span class="s">"노승미"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">name</span><span class="o">()));</span>
+<span class="n">assertTrue</span><span class="o">(</span><span class="mi">25</span> <span class="o">==</span> <span class="n">event</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="4-thenreturn">4. thenReturn()</h3>
+
+<p>메소드의 결과값을 임의로 정한다</p>
+
+<h3 id="5-dothrow">5. doThrow()</h3>
+
+<p>예외를 던지고 싶을때 doThrow() 메소드를 활용</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Event</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">doThrow</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">()).</span><span class="na">when</span><span class="o">(</span><span class="n">event</span><span class="o">).</span><span class="na">setName</span><span class="o">(</span><span class="n">eq</span><span class="o">(</span><span class="s">"Yes승미"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="6-donothing">6. doNothing()</h3>
+
+<h3 id="7-verify">7. verify()</h3>
+
+<p>Mock 객체를 대상으로 검증한다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">example</span><span class="o">(){</span>
+    <span class="nc">Event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="nc">Event</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"nsm"</span><span class="o">;</span>
+    <span class="n">event</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+
+    <span class="c1">// n번 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">times</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// success</span>
+
+    <span class="c1">// 호출 안했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">getName</span><span class="o">();</span> <span class="c1">// success</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">setName</span><span class="o">(</span><span class="n">eq</span><span class="o">(</span><span class="s">"etc"</span><span class="o">));</span> <span class="c1">// success</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">setName</span><span class="o">(</span><span class="n">eq</span><span class="o">(</span><span class="s">"nsm"</span><span class="o">));</span> <span class="c1">// fail</span>
+
+    <span class="c1">// 최소한 1번 이상 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">atLeastOnce</span><span class="o">()).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// success</span>
+
+    <span class="c1">// 2번 이하 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">atMost</span><span class="o">(</span><span class="mi">2</span><span class="o">)).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// success</span>
+
+    <span class="c1">// 2번 이상 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">atLeast</span><span class="o">(</span><span class="mi">2</span><span class="o">)).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// fail</span>
+
+    <span class="c1">// 지정된 시간(millis)안으로 메소드를 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">timeout</span><span class="o">(</span><span class="mi">100</span><span class="o">)).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// success</span>
+
+    <span class="c1">// 지정된 시간(millis)안으로 1번 이상 메소드를 호출 했는지 체크</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">timeout</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">atLeast</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">setName</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// success</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="mockmvc-란">MockMvc 란?</h2>
+
+<p>실제 객체와 비슷하지만 테스트에 필요한 기능만 가지는 가짜 객체를 만들어서 애플리케이션 서버에 배포하지 않고도 스프링 MVC 동작을 재현할 수 잇는 클래스를 의미</p>
+
+<p>build.gradle</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>testCompile("org.springframework.boot:spring-boot-starter-test")
+</code></pre></div></div>
+
+<p>pom.xml</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<h3 id="예제">예제</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RunWith</span><span class="o">(</span><span class="nc">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebMvcTest</span><span class="o">(</span><span class="nc">BlogController</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BlogControllerTest</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+  <span class="nd">@Test</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">테스트_GET</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+
+    <span class="nc">MultiValueMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">info</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="n">info</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"칩"</span><span class="o">);</span>
+    <span class="n">info</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="s">"chip"</span><span class="o">);</span>
+
+    <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/blog"</span><span class="o">)</span>       <span class="c1">// 1, 2</span>
+        <span class="o">.</span><span class="na">params</span><span class="o">(</span><span class="n">info</span><span class="o">))</span>              <span class="c1">// 3</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>     <span class="c1">// 4</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">content</span><span class="o">().</span><span class="na">string</span><span class="o">(</span><span class="s">"칩의 블로그입니다. chip"</span><span class="o">))</span>  
+        <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">print</span><span class="o">());</span>                <span class="c1">// 5</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="mockmvc의-메소드">mockMvc의 메소드</h2>
+
+<h3 id="1-perform">1. perform()</h3>
+
+<p>요청을 전송하는 역할. 결과로 ResultActions 객체를 받으며, ResultActions 객체는 리턴 값을 검증하고 확인 할 수 있는 andExpect() 메소드를 제공해줌.</p>
+
+<h3 id="2-get-post-put-delete">2. <strong>get(), post(), put(), delete()</strong></h3>
+
+<p>HTTP메소드를 결정할 수 있음. 인자로는 경로를 보내줌</p>
+
+<h3 id="3-andexpect">3. <strong>andExpect()</strong></h3>
+
+<p>응답을 검증하는 역할</p>
+
+<ul>
+  <li>상태코드(status())</li>
+  <li>뷰(view()): 리턴하는 뷰 이름을 검증</li>
+  <li>리다이렉트(redirect()): 리다이렉트 응답을 검증</li>
+  <li>모델 정보(model()): 컨트롤러에서 저장한 모델들의 정보 검증</li>
+  <li>응답 정보 검증(content()): 응답에 대한 정보를 검증해줌</li>
+</ul>
+
+<h3 id="4-anddoprint">4. <strong>andDo(print())</strong></h3>
+
+<p>요청/응답 전체 메세지를 확인할 수 있음</p>
+:ET
