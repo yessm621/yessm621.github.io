@@ -1,6 +1,6 @@
 ---
 title:  "객체 지향 원리 적용 - DIP, OCP 위반"
-last_modified_at: 2022-02-12T122:37:00
+last_modified_at: 2022-02-12T22:37:00
 categories: 
   - Java
 tags:
