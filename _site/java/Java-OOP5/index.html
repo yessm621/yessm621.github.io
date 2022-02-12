@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩) - Seungmi Blog</title>
+<!-- begin _includes/seo.html --><title>객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩, super) - Seungmi Blog</title>
 <meta name="description" content="1. 상속">
 
 
@@ -22,7 +22,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Seungmi Blog">
-<meta property="og:title" content="객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩)">
+<meta property="og:title" content="객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩, super)">
 <meta property="og:url" content="http://localhost:4000/java/Java-OOP5/">
 
 
@@ -170,7 +170,7 @@
     </h3>
     
       <div class="author__bio p-note" itemprop="description">
-        <p>I am an <strong>amazing</strong> person.</p>
+        <p>기록하는 개발자</p>
 
       </div>
     
@@ -276,7 +276,7 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩)">
+    <meta itemprop="headline" content="객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩, super)">
     <meta itemprop="description" content="1. 상속">
     <meta itemprop="datePublished" content="2022-01-07T00:00:00+09:00">
     <meta itemprop="dateModified" content="2022-01-11T06:48:00+09:00">
@@ -285,7 +285,7 @@
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/java/Java-OOP5/" class="u-url" itemprop="url">객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩)
+            <a href="http://localhost:4000/java/Java-OOP5/" class="u-url" itemprop="url">객체지향개념(상속, 클래스간의 관계, 포함, 단일상속, Object클래스, 오버라이딩, super)
 </a>
           </h1>
           
@@ -302,7 +302,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          5 분 소요
+          10 분 소요
         
       </span>
     
@@ -317,7 +317,7 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Getting Started</h4></header>
-              <ul class="toc__menu"><li><a href="#1-상속">1. 상속</a><ul><li><a href="#11-상속의-정의와-장점">1.1 상속의 정의와 장점</a></li><li><a href="#12-클래스간의-관계---포함관계">1.2 클래스간의 관계 - 포함관계</a></li><li><a href="#13-클래스-간의-관계-결정하기">1.3 클래스 간의 관계 결정하기</a></li><li><a href="#14-단일-상속">1.4 단일 상속</a></li><li><a href="#15-object-클래스---모든-클래스의-조상">1.5 Object 클래스 - 모든 클래스의 조상</a></li></ul></li><li><a href="#2-오버라이딩">2. 오버라이딩</a><ul><li><a href="#21-오버라이딩">2.1 오버라이딩</a></li><li><a href="#22-오버라이딩의-조건">2.2 오버라이딩의 조건</a></li><li><a href="#23-오버로딩-vs-오버라이딩">2.3 오버로딩 vs 오버라이딩</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#1-상속">1. 상속</a><ul><li><a href="#11-상속의-정의와-장점">1.1 상속의 정의와 장점</a></li><li><a href="#12-클래스간의-관계---포함관계">1.2 클래스간의 관계 - 포함관계</a></li><li><a href="#13-클래스-간의-관계-결정하기">1.3 클래스 간의 관계 결정하기</a></li><li><a href="#14-단일-상속">1.4 단일 상속</a></li><li><a href="#15-object-클래스---모든-클래스의-조상">1.5 Object 클래스 - 모든 클래스의 조상</a></li></ul></li><li><a href="#2-오버라이딩">2. 오버라이딩</a><ul><li><a href="#21-오버라이딩">2.1 오버라이딩</a></li><li><a href="#22-오버라이딩의-조건">2.2 오버라이딩의 조건</a></li><li><a href="#23-오버로딩-vs-오버라이딩">2.3 오버로딩 vs 오버라이딩</a></li><li><a href="#24-super">2.4 super</a></li><li><a href="#25-super---조상-클래스의-생성자">2.5 super() - 조상 클래스의 생성자</a></li></ul></li></ul>
 
             </nav>
           </aside>
@@ -643,7 +643,7 @@
 
 <p>상속받은 조상의 메서드를 자신에 맞게 변경하는 것</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Poing</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
 	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
 	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
 
@@ -783,6 +783,376 @@ x: 3, y: 5
 <span class="o">}</span>
 </code></pre></div></div>
 
+<p><br /></p>
+
+<h2 id="24-super">2.4 super</h2>
+
+<p>참조변수 super (this와 거의 비슷)</p>
+
+<ul>
+  <li>객체 자신을 가리키는 참조변수. 인스턴스 메서드(생성자) 내에서만 존재(static 메서드에서 사용 불가)</li>
+  <li>조상의 멤버를 자신의 멤버와 구별할 때 사용</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this     lv와 iv 구별에 사용
+super    조상멤버, 자식멤버 구별에 사용
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">SuperTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Child</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">method</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="cm">/* super.x */</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> <span class="cm">/* this.x */</span>
+
+	<span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"x="</span><span class="o">,</span> <span class="n">x</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"this.x="</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super.x="</span><span class="o">,</span> <span class="kd">super</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">=</span><span class="mi">10</span>
+<span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">20</span>
+<span class="kd">super</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">10</span>
+</code></pre></div></div>
+
+<p>자식클래스와 부모클래스에 같은 이름의 변수가 존재할 수 있다. 이 둘의 구분은 super로 한다</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">SuperTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Child</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">method</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="cm">/* super.x, this.x 둘 다 가능 */</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+	<span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"x="</span><span class="o">,</span> <span class="n">x</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"this.x="</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super.x="</span><span class="o">,</span> <span class="kd">super</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">=</span><span class="mi">10</span>
+<span class="k">this</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">10</span>
+<span class="kd">super</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">10</span>
+</code></pre></div></div>
+
+<p>자신(child)의 x가 없고 조상(parent)의 x를 상속받았기 때문에 모두 10 이 나온다</p>
+
+<p><br /></p>
+
+<p>super 와 this는 멤버를 구분할때 빼고는 거의 같다고 보면 된다(둘 다 참조변수)</p>
+
+<p><br /></p>
+
+<h2 id="25-super---조상-클래스의-생성자">2.5 super() - 조상 클래스의 생성자</h2>
+
+<p>super() ≠ super</p>
+
+<p>super()는 this() 처럼 <strong>생성자</strong>다</p>
+
+<p><br /></p>
+
+<ul>
+  <li>조상의 생성자를 호출할 때 사용</li>
+  <li>조상의 멤버는 조상의 생성자를 호출해서 초기화</li>
+</ul>
+
+<p><br /></p>
+
+<p>상속에서 <code class="language-plaintext highlighter-rouge">생성자하고 초기화블럭은 상속이 안된다</code>고 배움. 따라서, 조상의 생성자를 호출할땐 super()를 사용</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="c1">// 생성자</span>
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span> <span class="c1">// iv 초기화</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// iv 초기화</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>참고) 생성자의 정의와 조건</p>
+
+<p>iv 초기화에 사용, 생성자의 이름은 클래스 이름과 같아야하고 리턴값이 없고 모든 클래스는 반드시 생성자를 가진다.</p>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span> <span class="c1">// 조상의 멤버 초기화</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span> <span class="c1">// 조상의 멤버 초기화</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span> <span class="c1">// iv 초기화</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>여기서도 iv 를 초기화 하고 있는데 x, y 는 조상의 멤버이다. 근데 자손의 생성자가 x, y를 초기화 하고 있다. 자손의 생성자는 자기가 선언한 것만 초기화 해야한다. (에러는 안나지만 이렇게 쓰면 안된다!)</p>
+
+<p>조상의 멤버는 조상 생성자가 초기화해야한다</p>
+
+<p>위 코드는 아래와 같이 바꿔야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span> <span class="c1">// 조상의클래스의 생성자 Point(x, y)를 호출</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span> <span class="c1">// iv 초기화(자신의 멤버를 초기화)</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">**중요!** 생성자의 첫 줄에 반드시 생성자(super() 또는 this())를 호출해야 한다.</code></p>
+
+<p>그렇지 않으면 컴파일러가 생성자의 첫 줄에 super(); 를 삽입</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="nc">Point</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span> <span class="c1">// 생성자 호출함</span>
+	<span class="o">}</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">// 생성자 호출 없음! 조상의 기본생성자인 super(); 호출!</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Point</span> <span class="kd">extends</span> <span class="nc">Object</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="nc">Point</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span> <span class="c1">// 생성자 호출함</span>
+	<span class="o">}</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Object(); 호출</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>매우 중요한 예제!</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PointTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Point3D</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point3D</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="s">", z: "</span> <span class="o">+</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위의 코드를 실행시키면 <strong>Point 의 생성자가 없다</strong>는 에러 발생</p>
+
+<p>why? 모든 생성자는 첫줄에 다른 생성자를 호출해야한다. 없다면 컴파일러가 super()를 자동 추가 해준다.</p>
+
+<p><br /></p>
+
+<p>위의 코드를 컴파일러가 실행시 아래 처럼 바뀐다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PointTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Point3D</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point3D</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Object();</span>
+
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Point()를 호출</span>
+
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 오버라이딩</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="s">", z: "</span> <span class="o">+</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<ol>
+  <li>Point3D p3 = new Point3D(1, 2, 3); 를 하면</li>
+  <li>Point3D(int x, int y, int z) {} 로 가고</li>
+  <li>super()가 자동생성되기때문에</li>
+  <li>Point() 를 호출한다</li>
+  <li>근데 Point 클래스에 기본 생성자인 Point() {} 없다. (컴파일러시 자동 생성 안됨, 이미 생성자가 하나 존재하기 때문에)</li>
+  <li>그래서 에러가 발생한다</li>
+</ol>
+
+<p><br /></p>
+
+<p>따라서, 항상 <code class="language-plaintext highlighter-rouge">클래스 만들때 기본 생성자 작성은 필수</code>이다.(규칙! 규칙은 외워라)</p>
+
+<p><br /></p>
+
+<p>에러 해결방법1.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PointTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Point3D</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point3D</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="c1">// 기본생성자 작성</span>
+	<span class="nc">Point</span><span class="o">()</span> <span class="o">{}</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Object(); : Point의 조상인 Object</span>
+
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Point()를 호출</span>
+
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 오버라이딩</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="s">", z: "</span> <span class="o">+</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>해결방법2. 이 방법이 더 좋은 방법 → 조상의 멤버는 조상이 초기화하는게 좋다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PointTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Point3D</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point3D</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+	<span class="c1">// 기본생성자 작성</span>
+	<span class="nc">Point</span><span class="o">()</span> <span class="o">{}</span>
+
+	<span class="nc">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span> <span class="c1">// Object();</span>
+
+		<span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Point3D</span> <span class="kd">extends</span> <span class="nc">Point</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="nc">Point3D</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span> <span class="c1">// 조상의 생성자 Point(int x, int y)를 호출</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nc">String</span> <span class="nf">getLocation</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// 오버라이딩</span>
+		<span class="k">return</span> <span class="s">"x: "</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="s">", y: "</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="s">", z: "</span> <span class="o">+</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
         
       </section>
 
@@ -832,7 +1202,7 @@ x: 3, y: 5
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EA%B0%9C%EB%85%90%28%EC%83%81%EC%86%8D%2C+%ED%81%B4%EB%9E%98%EC%8A%A4%EA%B0%84%EC%9D%98+%EA%B4%80%EA%B3%84%2C+%ED%8F%AC%ED%95%A8%2C+%EB%8B%A8%EC%9D%BC%EC%83%81%EC%86%8D%2C+Object%ED%81%B4%EB%9E%98%EC%8A%A4%2C+%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9%29%20http%3A%2F%2Flocalhost%3A4000%2Fjava%2FJava-OOP5%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EA%B0%9C%EB%85%90%28%EC%83%81%EC%86%8D%2C+%ED%81%B4%EB%9E%98%EC%8A%A4%EA%B0%84%EC%9D%98+%EA%B4%80%EA%B3%84%2C+%ED%8F%AC%ED%95%A8%2C+%EB%8B%A8%EC%9D%BC%EC%83%81%EC%86%8D%2C+Object%ED%81%B4%EB%9E%98%EC%8A%A4%2C+%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9%2C+super%29%20http%3A%2F%2Flocalhost%3A4000%2Fjava%2FJava-OOP5%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fjava%2FJava-OOP5%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -847,7 +1217,8 @@ x: 3, y: 5
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/java/Java-OOP6/" class="pagination--pager" title="객체지향개념(package, import, 제어자, 접근제어자, 캡슐화)
+">다음</a>
     
   </nav>
 
@@ -875,7 +1246,7 @@ x: 3, y: 5
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/java/Java-OOP4/" rel="permalink">객체지향개념(오버로딩, 생성자, 생성자 this(), 참조변수 this, 변수의 초기화)
+        <a href="/java/Java-OOP8/" rel="permalink">객체지향개념(추상클래스, 추상메서드, 추상클래스의 작성, 인터페이스, 인터페이스 장점, 인터페이스 이해, 디폴트 메서드)
 </a>
       
     </h2>
@@ -893,14 +1264,14 @@ x: 3, y: 5
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 분 소요
+          11 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">4. 메서드 오버로딩
+    <p class="archive__item-excerpt" itemprop="description">6. 추상 클래스(abstract class)
 </p>
   </article>
 </div>
@@ -919,7 +1290,7 @@ x: 3, y: 5
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/git/Git-Command/" rel="permalink">Git 자주쓰는 명령어 정리
+        <a href="/springboot/Java-Spring-REST-Docs/" rel="permalink">스프링 REST Docs
 </a>
       
     </h2>
@@ -937,14 +1308,14 @@ x: 3, y: 5
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          5 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">사용자 정보 설정
+    <p class="archive__item-excerpt" itemprop="description">스프링 REST Docs란?
 </p>
   </article>
 </div>
@@ -963,7 +1334,7 @@ x: 3, y: 5
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/java/Java-OOP3/" rel="permalink">객체지향개념(호출스택, 기본형/참조형 매개변수, 참조형 반환타입, 클래스/인스턴스 메서드)
+        <a href="/springboot/Java-REST-API(4)/" rel="permalink">REST API with SpringBoot(4)
 </a>
       
     </h2>
@@ -981,14 +1352,14 @@ x: 3, y: 5
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          6 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">3.7 JVM의 메모리 구조
+    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
 </p>
   </article>
 </div>
@@ -1007,7 +1378,7 @@ x: 3, y: 5
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/java/Java-OOP2/" rel="permalink">객체지향개념(변수와 메서드)
+        <a href="/springboot/Java-HATEOAS/" rel="permalink">스프링 HATEOAS
 </a>
       
     </h2>
@@ -1025,14 +1396,14 @@ x: 3, y: 5
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          6 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">3. 변수와 메서드
+    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
 </p>
   </article>
 </div>
