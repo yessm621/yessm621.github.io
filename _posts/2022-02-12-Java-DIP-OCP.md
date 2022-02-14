@@ -1,6 +1,6 @@
 ---
 title:  "객체 지향 원리 적용 - DIP, OCP 위반"
-last_modified_at: 2022-02-12T22:37:00
+last_modified_at: 2022-02-14T18:07:00
 categories: 
   - Java
 tags:
@@ -361,3 +361,74 @@ public class OrderServiceImpl implements OrderService {
 - AppConfig는 구체 클래스를 선택한다. 애플리케이션이 어떻게 동작해야 할지 전체 구성을 책임진다.
 - 이제 각 배우들은 담당 기능을 실행하는 책임만 지면 된다.
 - OrderServiceImpl 은 기능을 실행하는 책임만 지면 된다.
+
+<br>
+
+### AppConfig 리팩토링
+
+```java
+package hello.core;
+
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.MemberService;
+import hello.core.member.MemberServiceImpl;
+import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderService;
+import hello.core.order.OrderServiceImpl;
+
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(new MemoryMemberRepository());
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+    }
+}
+```
+
+<br>
+
+위의 코드의 문제점
+
+1. 역할과 구현이 구분되지 않는다
+2. new MemoryMemberRepository가 중복된다.
+
+<br>
+
+따라서 아래코드와 같이 리팩토링 한다.
+
+```java
+package hello.core;
+
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.MemberService;
+import hello.core.member.MemberServiceImpl;
+import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderService;
+import hello.core.order.OrderServiceImpl;
+
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    private MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    public DiscountPolicy discountPolicy() {
+        return new FixDiscountPolicy();
+    }
+}
+```
+
+- new MemoryMemberRepository() 이 부분이 중복 제거되었다. 이제 MemoryMemberRepository 를 다른 구현체로 변경할 때 한 부분만 변경하면 된다.
+- AppConfig 를 보면 역할과 구현 클래스가 한눈에 들어온다. 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.
