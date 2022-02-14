@@ -1,6 +1,6 @@
 ---
 title:  "객체 지향 원리 적용 - DIP, OCP 위반"
-last_modified_at: 2022-02-14T18:07:00
+last_modified_at: 2022-02-14T18:45:00
 categories: 
   - Java
 tags:
@@ -432,3 +432,72 @@ public class AppConfig {
 
 - new MemoryMemberRepository() 이 부분이 중복 제거되었다. 이제 MemoryMemberRepository 를 다른 구현체로 변경할 때 한 부분만 변경하면 된다.
 - AppConfig 를 보면 역할과 구현 클래스가 한눈에 들어온다. 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.
+
+<br>
+
+이제 새로운 구조와 할인 정책을 적용해도 **사용 영역**의 코드는 변경할 필요 없이 **구성 영역**의 코드만 바꾸면 된다. `DIP, OCP를 만족`한다.
+
+```java
+package hello.core;
+
+import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.MemberService;
+import hello.core.member.MemberServiceImpl;
+import hello.core.member.MemoryMemberRepository;
+import hello.core.order.OrderService;
+import hello.core.order.OrderServiceImpl;
+
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    private MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    public DiscountPolicy discountPolicy() {
+        // return new FixDiscountPolicy();
+        return new RateDiscountPolicy();
+    }
+}
+```
+
+<br>
+
+객체지향설계 원칙 5가지 중 위의 코드들에서 적용된 원칙은 3가지이다.
+
+### 1. SRP 단일 책임 원칙
+
+→ 한 클래스는 `하나의 책임만` 가져야 한다
+
+- 클라이언트 객체(OrderServiceImpl)는 직접 구현 객체를 생성, 연결, 실행하는 다양한 책임을 가지고 있음
+- SRP 단일 책임 원칙을 따르면서 관심사를 분리함
+- 구현 객체를 생성하고 연결하는 책임은 AppConfig가 담당
+- 클라이언트 객체는 실행하는 책임만 담당
+
+<br>
+
+### 2. DIP 의존관계 역전 원칙
+
+→ 프로그래머는 `추상화에 의존`해야지, 구체화에 의존하면 안된다.
+
+- 새로운 할인 정책을 개발하니 클라이언트 코드의 변경이 불가피했다. OrderServiceImpl은 DiscountPolicy(추상)를 의존하는 동시에 FixDiscountPolicy(구체)도 의존했기 때문에..
+- AppConfig를 생성해서 클라이언트 코드에 의존관계를 주입했다.
+
+<br>
+
+### 3. OCP
+
+→ 소프트웨어 요소는 `확장에는 열려 있으나 변경에는 닫혀 있어야` 한다.
+
+- 다형성을 사용하고 클라이언트가 DIP를 지킴
+- 애플리케이션을 사용영역과 구성영역으로 나눔
+- `AppConfig를 통해 의존관계를 주입`하므로 새로운 정책으로 변경한다고 해서 클라이언트의 코드를 변경할 필요가 없어짐
+- 소프트웨어 요소를 `새롭게 확장해도 사용 영역의 변경은 닫혀` 있다!
