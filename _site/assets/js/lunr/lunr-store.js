@@ -42,8 +42,8 @@ var store = [{
         "teaser": "/assets/images/IMG_2153.JPG"
       },{
         "title": "테스트 코드",
-        "excerpt":"테스트 코드란 프로그램 작성 시 문제가 없는지 확인하기 위해 사용 테스트 코드를 작성하는 이유 빠른 피드백 자동검증이 가능 개발자가 만든 기능을 안전하게 보호해 준다. 테스트 코드 작성 방법 → 메서드를 작성하고 그 위에 @Test 를 작성하면 된다. → 테스트코드는 직관적으로 보기 위해 메소드를 한글로 작성하기도 한다 → 테스트코드는 빌드 시...","categories": ["SpringBoot"],
-        "tags": ["Java","SpringBoot","JPA"],
+        "excerpt":"테스트 코드 테스트 코드란 프로그램 작성 시 문제가 없는지 확인하기 위해 사용 테스트 코드를 작성하는 이유 빠른 피드백 자동검증이 가능 개발자가 만든 기능을 안전하게 보호해 준다. 테스트 코드 작성 방법 → 메서드를 작성하고 그 위에 @Test 를 작성하면 된다. → 테스트코드는 직관적으로 보기 위해 메소드를 한글로 작성하기도 한다 → 테스트코드는...","categories": ["SpringBoot"],
+        "tags": ["Java","SpringBoot","JPA","TEST CODE"],
         "url": "/springboot/Java-TESTCODE/",
         "teaser": "/assets/images/IMG_2153.JPG"
       },{
@@ -309,5 +309,35 @@ var store = [{
         "excerpt":"6. 추상 클래스(abstract class) 6.1 추상클래스란? 미완성(부족한) 설계도. 미완성 메서드를 갖고 있는 클래스 abstract class Player { // 추상클래스(미완성 클래스) abstract void play(int pos); // 추상메서드(몸통{}이 없는 미완성 메서드) abstract void stop(); // 추상메서드 } 클래스 또는 메서드 앞에 abstract 를 붙이면 추상 클래스 또는 추상 메서드인 것을 알 수...","categories": ["Java"],
         "tags": ["Java"],
         "url": "/java/Java-OOP8/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "객체 지향 원리 적용 - DIP, OCP 위반",
+        "excerpt":"링크 의존성 주입(DI), 3가지 방법 상황 회원 도메인 회원은 일반과 VIP 두가지 등급이 있다 주문 도메인 회원 등급에 따라 할인 정책을 적용한다 할인 정책은 모든 VIP는 1000원을 할인해주는 고정 금액 할인을 적용한다 (나중에 변경 될 수 있다) 할인 정책은 변경 가능성이 높다. 회사의 기본 할인 정책을 아직 정하지 못했고, 오픈...","categories": ["Spring"],
+        "tags": ["Java","Spring"],
+        "url": "/spring/Java-DIP-OCP/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "IoC, DI 그리고 컨테이너",
+        "excerpt":"제어의 역전(IoC, Inversion of Control) 기존 프로그램 클라이언트 구현 객체가 서버 구현 객체를 생성, 연결, 실행 했다. 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다. AppConfig 등장 구현 객체는 자신의 로직을 실행하는 역할만 담당. 프로그램의 제어 흐름은 AppConfig가 가져감. 예를 들어, OrderServiceImpl은 필요한 인터페이스들을 호출하지만 어떤 구현 객체들이 실행될지 모른다. 프로그램의...","categories": ["Spring"],
+        "tags": ["Java","Spring"],
+        "url": "/spring/Java-IoC-DI/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "싱글톤 컨테이너",
+        "excerpt":"1. 웹 애플리케이션과 싱글톤 웹 어플리케이션의 사용자의 요청이 기본적으로 많다. 여러 고객이 동시에 요청을 한다 package hello.core.singleton; import hello.core.AppConfig; import hello.core.member.MemberService; import org.assertj.core.api.Assertions; import org.junit.jupiter.api.DisplayName; import org.junit.jupiter.api.Test; public class SingletonTest { @Test @DisplayName(\"스프링 없는 순수한 DI 컨테이너\") void pureContainer(){ AppConfig appConfig = new AppConfig(); MemberService memberService1 = appConfig.memberService(); MemberService memberService2...","categories": ["Spring"],
+        "tags": ["Spring","Java"],
+        "url": "/spring/Java-Singleton/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "Python 기초 문법 및 알고리즘",
+        "excerpt":" ","categories": ["Python"],
+        "tags": ["Python"],
+        "url": "/python/Python-Algorithm/",
+        "teaser": "/assets/images/IMG_2153.JPG"
+      },{
+        "title": "컴포넌트 스캔",
+        "excerpt":"컴포넌트 스캔 1. 컴포넌트 스캔과 의존관계 자동 주입 스프링 빈을 설정 정보에 일일이 등록하는 것은 매우 귀찮고 누락하는 문제도 생김 따라서, 스프링은 설정 정보가 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공함 의존관계를 자동으로 주입하는 @Autowired 기능 제공 컴포넌트 스캔을 사용하려면 @ComponentScan을 설정 정보에 붙여주면 된다. 또한, 의존관계를 명시하기...","categories": ["Spring"],
+        "tags": ["Spring","Java"],
+        "url": "/spring/Java-ComponentScan/",
         "teaser": "/assets/images/IMG_2153.JPG"
       }]

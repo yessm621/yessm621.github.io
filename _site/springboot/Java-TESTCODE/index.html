@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>테스트 코드 - Seungmi Blog</title>
-<meta name="description" content="테스트 코드란">
+<meta name="description" content="테스트 코드">
 
 
   <meta name="author" content="노승미">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="http://localhost:4000/springboot/Java-TESTCODE/">
 
 
-  <meta property="og:description" content="테스트 코드란">
+  <meta property="og:description" content="테스트 코드">
 
 
 
@@ -37,6 +37,8 @@
   <meta property="article:published_time" content="2021-07-16T00:00:00+09:00">
 
 
+
+  <meta property="article:modified_time" content="2022-02-11T02:55:00+09:00">
 
 
 
@@ -206,13 +208,6 @@
       
 
       
-        <li>
-          <a href="mailto:yessm621@gmail.com" rel="me" class="u-email">
-            <meta itemprop="email" content="yessm621@gmail.com" />
-            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">이메일</span>
-          </a>
-        </li>
-      
 
       
 
@@ -275,9 +270,9 @@
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="테스트 코드">
-    <meta itemprop="description" content="테스트 코드란">
+    <meta itemprop="description" content="테스트 코드">
     <meta itemprop="datePublished" content="2021-07-16T00:00:00+09:00">
-    
+    <meta itemprop="dateModified" content="2022-02-11T02:55:00+09:00">
 
     <div class="page__inner-wrap">
       
@@ -300,7 +295,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
@@ -315,12 +310,14 @@
           <aside class="sidebar__right ">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Getting Started</h4></header>
-              <ul class="toc__menu"><li><a href="#테스트-코드란">테스트 코드란</a></li><li><a href="#테스트-코드를-작성하는-이유">테스트 코드를 작성하는 이유</a></li><li><a href="#테스트-코드-작성-방법">테스트 코드 작성 방법</a></li><li><a href="#테스트-주도-개발-tdd">테스트 주도 개발 (TDD)</a></li><li><a href="#테스트-코드-꼭-해야할까-에-대한-의문">테스트 코드 꼭 해야할까 에 대한 의문?</a></li><li><a href="#junit-과-assertj">junit 과 assertj</a></li><li><a href="#beforeeach--aftereach">@BeforeEach / @AfterEach</a><ul><li><a href="#beforeeach">@BeforeEach</a></li><li><a href="#aftereach">@AfterEach</a></li></ul></li></ul>
+              <ul class="toc__menu"><li><a href="#테스트-코드">테스트 코드</a><ul><li><a href="#테스트-코드란">테스트 코드란</a></li><li><a href="#테스트-코드를-작성하는-이유">테스트 코드를 작성하는 이유</a></li><li><a href="#테스트-코드-작성-방법">테스트 코드 작성 방법</a></li><li><a href="#테스트-주도-개발-tdd">테스트 주도 개발 (TDD)</a></li><li><a href="#테스트-코드-꼭-해야할까-에-대한-의문">테스트 코드 꼭 해야할까 에 대한 의문?</a></li></ul></li><li><a href="#junit-과-assertj">JUnit 과 AssertJ</a><ul><li><a href="#junit이란">JUnit이란?</a><ul><li><a href="#junit의-assert-메소드들">JUnit의 assert 메소드들</a></li></ul></li><li><a href="#junit의-어노테이션">JUnit의 어노테이션</a><ul><li><a href="#test">@Test</a></li><li><a href="#beforeeach">@BeforeEach</a></li><li><a href="#aftereach">@AfterEach</a></li></ul></li><li><a href="#assertj란">AssertJ란?</a><ul><li><a href="#assertj의-assert-메소드">AssertJ의 assert 메소드</a></li><li><a href="#junit-assertions-와-assertj-assertions-의-사용법-예시">junit Assertions 와 assertj Assertions 의 사용법 예시</a></li></ul></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="테스트-코드란">테스트 코드란</h2>
+        <h1 id="테스트-코드">테스트 코드</h1>
+
+<h2 id="테스트-코드란">테스트 코드란</h2>
 
 <p>프로그램 작성 시 문제가 없는지 확인하기 위해 사용</p>
 
@@ -348,18 +345,14 @@
 
 <p>테스트코드 작성 시 아래 패턴을 기반으로 하면 좋다.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
-	
-		<span class="nd">@Test</span>
-    <span class="kt">void</span> <span class="n">회원가입</span><span class="o">()</span> <span class="o">{</span>
-        <span class="c1">// given</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="n">회원가입</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// given</span>
 
-        <span class="c1">// when</span>
+    <span class="c1">// when</span>
 
-        <span class="c1">// then</span>
-    <span class="o">}</span>
-
-<span class="o">...</span>
+    <span class="c1">// then</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p><br /></p>
@@ -380,64 +373,45 @@
 
 <p><br /></p>
 
-<h2 id="junit-과-assertj">junit 과 assertj</h2>
+<h1 id="junit-과-assertj">JUnit 과 AssertJ</h1>
 
 <p>java 에서 테스트 코드 작성 시 JUnit 과 assertj 를 주로 사용</p>
 
-<ul>
-  <li>
-    <p><strong>JUnit</strong></p>
+<p><br /></p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">;</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertFalse</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNull</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertSame</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotSame</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertArrayEquals</span><span class="o">();</span>
-
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThrows</span><span class="o">();</span>
-</code></pre></div>    </div>
-    <p><br /></p>
-  </li>
-  <li>
-    <p><strong>assertj</strong></p>
-
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">;</span>
-
-  <span class="c1">// 명확한 값 비교를 위해 사용</span>
-  <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
+<h2 id="junit이란">JUnit이란?</h2>
+<p>자바를 위한 단위 테스트 라이브러리</p>
 
 <p><br /></p>
 
-<ul>
-  <li>
-    <p>junit Assertions 와 assertj Assertions 의 사용법 예시</p>
+<h3 id="junit의-assert-메소드들">JUnit의 assert 메소드들</h3>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">;</span>
-  <span class="n">assertEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">;</span>
 
-  <span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
-  <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
 
-<p><br />
-<br /></p>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertTrue</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertFalse</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
 
-<h2 id="beforeeach--aftereach">@BeforeEach / @AfterEach</h2>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNull</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertSame</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertNotSame</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertArrayEquals</span><span class="o">();</span>
+
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThrows</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="junit의-어노테이션">JUnit의 어노테이션</h2>
+
+<h3 id="test">@Test</h3>
+
+<p>→ 메소드 위에 해당 어노테이션을 선언, 테스트 대상 메서도임을 지정할 수 있음</p>
 
 <h3 id="beforeeach">@BeforeEach</h3>
 
@@ -471,6 +445,66 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
+<p><br /></p>
+
+<h2 id="assertj란">AssertJ란?</h2>
+<p>자바 JUnit의 테스트코드에 사용되어, 테스트코드의 가독성과 편의성을 높여 주는 라이브러리</p>
+
+<p><br /></p>
+
+<h3 id="assertj의-assert-메소드">AssertJ의 assert 메소드</h3>
+
+<p>AssertJ에서 모든 테스트 코드는 assertThat()으로 시작함.</p>
+
+<p>assertThat(테스트 타겟).메소드1().메소드2().메소드3()’
+이런 포맷으로 AssertJ의 여러 메소드들을 연쇄적으로 호출해 코드를 작성할 수 있다.
+(메서드 체이닝)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">;</span>
+
+<span class="c1">// 명확한 값 비교를 위해 사용</span>
+<span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>isNotEmpty(), contains(e), doesNotContain(e), startsWith(e), endsWith(e), isEqualTo(e)</p>
+
+<p><br /></p>
+
+<p><strong>예제 - 문자열 테스트</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="s">"Hello, world! Nice to meet you."</span><span class="o">)</span> <span class="c1">// 주어진 "Hello, world! Nice to meet you."라는 문자열은</span>
+    <span class="o">.</span><span class="na">isNotEmpty</span><span class="o">()</span> <span class="c1">// 비어있지 않고</span>
+    <span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Nice"</span><span class="o">)</span> <span class="c1">// "Nice"를 포함하고</span>
+    <span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"world"</span><span class="o">)</span> <span class="c1">// "world"도 포함하고</span>
+    <span class="o">.</span><span class="na">doesNotContain</span><span class="o">(</span><span class="s">"ZZZ"</span><span class="o">)</span> <span class="c1">// "ZZZ"는 포함하지 않으며</span>
+    <span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"Hell"</span><span class="o">)</span> <span class="c1">// "Hell"로 시작하고</span>
+    <span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">"u."</span><span class="o">)</span> <span class="c1">// "u."로 끝나며</span>
+    <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"Hello, world! Nice to meet you."</span><span class="o">);</span> <span class="c1">// "Hello, world! Nice to meet you."과 일치합니다.</span>
+</code></pre></div></div>
+
+<p><strong>예제 - 숫자 테스트</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertThat</span><span class="o">(</span><span class="mf">3.14d</span><span class="o">)</span> <span class="c1">// 주어진 3.14라는 숫자는</span>
+    <span class="o">.</span><span class="na">isPositive</span><span class="o">()</span> <span class="c1">// 양수이고</span>
+    <span class="o">.</span><span class="na">isGreaterThan</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span> <span class="c1">// 3보다 크며</span>
+    <span class="o">.</span><span class="na">isLessThan</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span> <span class="c1">// 4보다 작습니다</span>
+    <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">offset</span><span class="o">(</span><span class="mi">1</span><span class="n">d</span><span class="o">))</span> <span class="c1">// 오프셋 1 기준으로 3과 같고</span>
+    <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mf">3.1</span><span class="o">,</span> <span class="n">offset</span><span class="o">(</span><span class="mf">0.1d</span><span class="o">))</span> <span class="c1">// 오프셋 0.1 기준으로 3.1과 같으며</span>
+    <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mf">3.14</span><span class="o">);</span> <span class="c1">// 오프셋 없이는 3.14와 같습니다</span>
+</code></pre></div></div>
+<p><br /></p>
+
+<h3 id="junit-assertions-와-assertj-assertions-의-사용법-예시">junit Assertions 와 assertj Assertions 의 사용법 예시</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">;</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">member</span><span class="o">);</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
         
       </section>
 
@@ -490,7 +524,9 @@
     
       <a href="/tags/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a><span class="sep">, </span>
     
-      <a href="/tags/#springboot" class="page__taxonomy-item p-category" rel="tag">SpringBoot</a>
+      <a href="/tags/#springboot" class="page__taxonomy-item p-category" rel="tag">SpringBoot</a><span class="sep">, </span>
+    
+      <a href="/tags/#test-code" class="page__taxonomy-item p-category" rel="tag">TEST CODE</a>
     
     </span>
   </p>
@@ -515,7 +551,7 @@
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2021-07-16T00:00:00+09:00">July 16, 2021</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-02-10">February 10, 2022</time></p>
 
       </footer>
 
@@ -568,7 +604,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/java/Java-OOP8/" rel="permalink">객체지향개념(추상클래스, 추상메서드, 추상클래스의 작성, 인터페이스, 인터페이스 장점, 인터페이스 이해, 디폴트 메서드)
+        <a href="/spring/Java-ComponentScan/" rel="permalink">컴포넌트 스캔
 </a>
       
     </h2>
@@ -586,14 +622,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          11 분 소요
+          1 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">6. 추상 클래스(abstract class)
+    <p class="archive__item-excerpt" itemprop="description">컴포넌트 스캔
 </p>
   </article>
 </div>
@@ -612,7 +648,51 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/springboot/Java-Spring-REST-Docs/" rel="permalink">스프링 REST Docs
+        <a href="/python/Python-Algorithm/" rel="permalink">Python 기초 문법 및 알고리즘
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Java-Singleton/" rel="permalink">싱글톤 컨테이너
 </a>
       
     </h2>
@@ -637,7 +717,7 @@
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">스프링 REST Docs란?
+    <p class="archive__item-excerpt" itemprop="description">1. 웹 애플리케이션과 싱글톤
 </p>
   </article>
 </div>
@@ -656,7 +736,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/springboot/Java-REST-API(4)/" rel="permalink">REST API with SpringBoot(4)
+        <a href="/spring/Java-IoC-DI/" rel="permalink">IoC, DI 그리고 컨테이너
 </a>
       
     </h2>
@@ -681,51 +761,7 @@
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src="/assets/images/IMG_2153.JPG" alt="">
-      </div>
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/springboot/Java-HATEOAS/" rel="permalink">스프링 HATEOAS
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">백기선님 강의 정리
+    <p class="archive__item-excerpt" itemprop="description">제어의 역전(IoC, Inversion of Control)
 </p>
   </article>
 </div>

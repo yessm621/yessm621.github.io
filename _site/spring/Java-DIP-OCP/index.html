@@ -1,0 +1,1156 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>객체 지향 원리 적용 - DIP, OCP 위반 - Seungmi Blog</title>
+<meta name="description" content="링크 의존성 주입(DI), 3가지 방법">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="객체 지향 원리 적용 - DIP, OCP 위반">
+<meta property="og:url" content="http://localhost:4000/spring/Java-DIP-OCP/">
+
+
+  <meta property="og:description" content="링크 의존성 주입(DI), 3가지 방법">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-02-12T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-02-15T03:45:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring/Java-DIP-OCP/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/">연도별 포스트</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/picture.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name" class="p-locality">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="객체 지향 원리 적용 - DIP, OCP 위반">
+    <meta itemprop="description" content="링크 의존성 주입(DI), 3가지 방법">
+    <meta itemprop="datePublished" content="2022-02-12T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-02-15T03:45:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/spring/Java-DIP-OCP/" class="u-url" itemprop="url">객체 지향 원리 적용 - DIP, OCP 위반
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+        <p>링크 <a href="https://yessm621.github.io/SpringBoot/Java-Injection/">의존성 주입(DI), 3가지 방법</a></p>
+
+<p><br /></p>
+
+<p><strong>상황</strong></p>
+
+<p>회원 도메인</p>
+
+<ul>
+  <li>회원은 일반과 VIP 두가지 등급이 있다</li>
+</ul>
+
+<p>주문 도메인</p>
+
+<ul>
+  <li>회원 등급에 따라 할인 정책을 적용한다</li>
+  <li>할인 정책은 모든 VIP는 1000원을 할인해주는 고정 금액 할인을 적용한다 (나중에 변경 될 수 있다)</li>
+  <li>할인 정책은 변경 가능성이 높다. 회사의 기본 할인 정책을 아직 정하지 못했고, 오픈 직전까지 고민을 미루고 싶다. 최악의 경우 할인을 적용할지 않을 수도 있다. (미확정)</li>
+</ul>
+
+<p><br /></p>
+
+<p>DiscountPolicy.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.discount</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+    <span class="cm">/**
+     * @return 할인 대상 금액
+     */</span>
+    <span class="kt">int</span> <span class="nf">discount</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>FixDiscountPolicy.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.discount</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.member.Grade</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FixDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">discountFixAmount</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span> <span class="c1">// 1000원 할인</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">discount</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getGrade</span><span class="o">()</span> <span class="o">==</span> <span class="nc">Grade</span><span class="o">.</span><span class="na">VIP</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">discountFixAmount</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>OrderService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.order</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="nc">Order</span> <span class="nf">createOrder</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemPrice</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>OrderServiceImpl.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.order</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FixDiscountPolicy</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">createOrder</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">discountPrice</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">.</span><span class="na">discount</span><span class="o">(</span><span class="n">member</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Order</span><span class="o">(</span><span class="n">memberId</span><span class="o">,</span> <span class="n">itemName</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">,</span> <span class="n">discountPrice</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>그런데, 악덕 기획자가 주문에 대한 요구사항 변경을 요청했다.</p>
+
+<ul>
+  <li>고정 금액 할인이 아닌 정률%할인으로 변경하고 싶다</li>
+  <li>예를 들어서 기존 정책은 VIP가 10000원을 주문하든 20000원을 주문하든 항상 1000원을 할인했는데, 이번에 새로 나온 정책은 10%로 지정해두면 고객이 10000원 주문시 1000원을 할인해주고, 20000원 주문시에 2000원을 할인</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/153713444-15213186-ffe8-4846-8186-756dcf93e6c9.png" alt="1" /></p>
+
+<p><br /></p>
+
+<p>RateDiscountPolicy.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.discount</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.member.Grade</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateDiscountPolicy</span> <span class="kd">implements</span> <span class="nc">DiscountPolicy</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">discountPercent</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="c1">// 10% 할인</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">discount</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getGrade</span><span class="o">()</span> <span class="o">==</span> <span class="nc">Grade</span><span class="o">.</span><span class="na">VIP</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="n">discountPercent</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>OrderServiceImpl.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.order</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.RateDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">();</span>
+
+<span class="c1">//    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RateDiscountPolicy</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">createOrder</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">discountPrice</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">.</span><span class="na">discount</span><span class="o">(</span><span class="n">member</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Order</span><span class="o">(</span><span class="n">memberId</span><span class="o">,</span> <span class="n">itemName</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">,</span> <span class="n">discountPrice</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>위의 코드에서 <code class="language-plaintext highlighter-rouge">문제점</code></p>
+
+<h3 id="1-dip-위반">1. DIP 위반</h3>
+
+<p>OrderServiceImpl 은 DiscountPolicy에만 의존하는 것이 아닌 FixDiscountPolicy 와 RateDiscountPolicy에도 의존한다.</p>
+
+<ul>
+  <li>추상(인터페이스) 의존: DiscountPolicy</li>
+  <li>구체(구현) 클래스: FixDiscountPolicy, RateDiscountPolicy</li>
+</ul>
+
+<h3 id="2-ocp-위반">2. OCP 위반</h3>
+
+<p>고정금액할인에서 정률%할인으로 변경 시 OrderServiceImpl을 변경해야함</p>
+
+<p>따라서, 지금 코드는 기능을 확장해서 변경하면 클라이언트 코드에 영향을 준다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/153713443-dd5a0dfb-93e1-4652-8aa4-0ebd412751dd.png" alt="2" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/153713442-cf8787b2-0584-47ed-8cbf-32398f34be62.png" alt="3" /></p>
+
+<p><br /></p>
+
+<p>위의 DIP, OCP 위반 문제들을 어떻게 해결할 수 있을까?</p>
+
+<p>→ 인터페이스에만 의존하도록 설계를 변경!</p>
+
+<p><img width="589" alt="4" src="https://user-images.githubusercontent.com/79130276/153713463-ffcb1301-7bc5-4059-8042-dbb67fce7e42.png" /></p>
+
+<p>OrderServiceImpl.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.order</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">();</span>
+
+    <span class="kd">private</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">createOrder</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">discountPrice</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">.</span><span class="na">discount</span><span class="o">(</span><span class="n">member</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Order</span><span class="o">(</span><span class="n">memberId</span><span class="o">,</span> <span class="n">itemName</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">,</span> <span class="n">discountPrice</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>그러나, 실행해보면 NullPointException 발생</p>
+
+<p>→ <code class="language-plaintext highlighter-rouge">구현체가 없기 때문!</code></p>
+
+<p><br /></p>
+
+<p>이 문제를 해결하려면 <strong>누군가</strong> 클라이언트인 OrderServiceImpl에 DiscountPolicy의 <code class="language-plaintext highlighter-rouge">구현 객체를 대신 생성하고 주입</code>해주어야 한다.</p>
+
+<p><br /></p>
+
+<h3 id="여기서부터-매우-중요">여기서부터 매우 중요!!</h3>
+
+<p><strong>AppConfig 등장</strong></p>
+
+<p>구현 객체를 생성하고 연결(주입)하는 책임을 가지는 별도의 설정 클래스를 만들자</p>
+
+<p><br /></p>
+
+<p>AppConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">FixDiscountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>AppConfig에 애플리케이션의 실제 동작에 필요한 <code class="language-plaintext highlighter-rouge">구현 객체를 생성</code></p>
+
+<ul>
+  <li>MemberServiceImpl</li>
+  <li>MemoryMemberRepository</li>
+  <li>OrderServiceImpl</li>
+  <li>FixDiscountPolicy</li>
+</ul>
+
+<p>AppConfig는 생성한 객체 인스턴스의 참조를 <code class="language-plaintext highlighter-rouge">생성자를 통해서 주입(연결)</code></p>
+
+<ul>
+  <li>MemberServiceImpl → MemoryMemberRepository</li>
+  <li>OrderServiceImpl → MemoryMemberRepository, FixDiscountPolicy</li>
+</ul>
+
+<p><br /></p>
+
+<p>MemberServiceImpl.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.member</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberServiceImpl</span> <span class="kd">implements</span> <span class="nc">MemberService</span> <span class="o">{</span>
+
+		<span class="c1">// final로 선언하고 생성자 주입</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">join</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">memberRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Member</span> <span class="nf">findMember</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이제 MemberServiceImpl은 MemoryMemberRepository에 의존하지 않는다.</li>
+  <li>단지 MemberRepository 인터페이스만 의존</li>
+  <li>MemberServiceImpl의 생성자를 통해 어떤 구현 객체를 주입할지는 오직 <strong>외부(AppConfig)에서 결정</strong>된다</li>
+  <li>MemberServiceImpl은 이제부터 의존관계에 대한 고민은 외부에 맡기고 <strong>실행에만 집중</strong></li>
+  <li>DIP 만족!</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/153713438-2cca81ac-5192-42b8-a07d-74cadad60173.png" alt="5" /></p>
+
+<p>클라이언트인 memberServiceImpl 입장에서 보면 의존관계를 마치 외부에서 주입해주는 것 같다고 해서 <code class="language-plaintext highlighter-rouge">DI(Dependency Injection) 의존관계 주입</code>이라고 한다.</p>
+
+<p><br /></p>
+
+<p>OrderServiceImpl.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.order</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.Member</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberRepository</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="nc">OrderService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="nc">MemberRepository</span> <span class="n">memberRepository</span><span class="o">,</span> <span class="nc">DiscountPolicy</span> <span class="n">discountPolicy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">memberRepository</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">discountPolicy</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">Order</span> <span class="nf">createOrder</span><span class="o">(</span><span class="nc">Long</span> <span class="n">memberId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">itemName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">itemPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="n">memberRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">memberId</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">discountPrice</span> <span class="o">=</span> <span class="n">discountPolicy</span><span class="o">.</span><span class="na">discount</span><span class="o">(</span><span class="n">member</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Order</span><span class="o">(</span><span class="n">memberId</span><span class="o">,</span> <span class="n">itemName</span><span class="o">,</span> <span class="n">itemPrice</span><span class="o">,</span> <span class="n">discountPrice</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>OrderServiceImpl은 FixDiscountPolicy를 의존하지 않는다</li>
+  <li>단지 DiscountPolicy 인터페이스에만 의존</li>
+  <li>OrderServiceImpl의 생성자를 통해 어떤 구현 객체를 주입할지는 오직 외부(AppConfig)에서 결정된다</li>
+  <li>OrderServiceImpl에는 MemoryMemberRepository, FixDiscountPolicy 객체의 의존관계가 주입된다.</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>정리</strong></p>
+
+<ul>
+  <li>AppConfig를 통해서 관심사를 확실하게 분리</li>
+  <li>배역, 배우를 생각하면 AppConfig는 공연 기획자</li>
+  <li>AppConfig는 구체 클래스를 선택한다. 애플리케이션이 어떻게 동작해야 할지 전체 구성을 책임진다.</li>
+  <li>이제 각 배우들은 담당 기능을 실행하는 책임만 지면 된다.</li>
+  <li>OrderServiceImpl 은 기능을 실행하는 책임만 지면 된다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="appconfig-리팩토링">AppConfig 리팩토링</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="k">new</span> <span class="nc">MemoryMemberRepository</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">FixDiscountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>위의 코드의 문제점</p>
+
+<ol>
+  <li>역할과 구현이 구분되지 않는다</li>
+  <li>new MemoryMemberRepository가 중복된다.</li>
+</ol>
+
+<p><br /></p>
+
+<p>따라서 아래코드와 같이 리팩토링 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">MemoryMemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">(),</span> <span class="n">discountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">discountPolicy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">FixDiscountPolicy</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>new MemoryMemberRepository() 이 부분이 중복 제거되었다. 이제 MemoryMemberRepository 를 다른 구현체로 변경할 때 한 부분만 변경하면 된다.</li>
+  <li>AppConfig 를 보면 역할과 구현 클래스가 한눈에 들어온다. 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.</li>
+</ul>
+
+<p><br /></p>
+
+<p>이제 새로운 구조와 할인 정책을 적용해도 <strong>사용 영역</strong>의 코드는 변경할 필요 없이 <strong>구성 영역</strong>의 코드만 바꾸면 된다. <code class="language-plaintext highlighter-rouge">DIP, OCP를 만족</code>한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">MemoryMemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">(),</span> <span class="n">discountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">discountPolicy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// return new FixDiscountPolicy();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">RateDiscountPolicy</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>객체지향설계 원칙 5가지 중 위의 코드들에서 적용된 원칙은 3가지이다.</p>
+
+<h3 id="1-srp-단일-책임-원칙">1. SRP 단일 책임 원칙</h3>
+
+<p>→ 한 클래스는 <code class="language-plaintext highlighter-rouge">하나의 책임만</code> 가져야 한다</p>
+
+<ul>
+  <li>클라이언트 객체(OrderServiceImpl)는 직접 구현 객체를 생성, 연결, 실행하는 다양한 책임을 가지고 있음</li>
+  <li>SRP 단일 책임 원칙을 따르면서 관심사를 분리함</li>
+  <li>구현 객체를 생성하고 연결하는 책임은 AppConfig가 담당</li>
+  <li>클라이언트 객체는 실행하는 책임만 담당</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="2-dip-의존관계-역전-원칙">2. DIP 의존관계 역전 원칙</h3>
+
+<p>→ 프로그래머는 <code class="language-plaintext highlighter-rouge">추상화에 의존</code>해야지, 구체화에 의존하면 안된다.</p>
+
+<ul>
+  <li>새로운 할인 정책을 개발하니 클라이언트 코드의 변경이 불가피했다. OrderServiceImpl은 DiscountPolicy(추상)를 의존하는 동시에 FixDiscountPolicy(구체)도 의존했기 때문에..</li>
+  <li>AppConfig를 생성해서 클라이언트 코드에 의존관계를 주입했다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="3-ocp">3. OCP</h3>
+
+<p>→ 소프트웨어 요소는 <code class="language-plaintext highlighter-rouge">확장에는 열려 있으나 변경에는 닫혀 있어야</code> 한다.</p>
+
+<ul>
+  <li>다형성을 사용하고 클라이언트가 DIP를 지킴</li>
+  <li>애플리케이션을 사용영역과 구성영역으로 나눔</li>
+  <li><code class="language-plaintext highlighter-rouge">AppConfig를 통해 의존관계를 주입</code>하므로 새로운 정책으로 변경한다고 해서 클라이언트의 코드를 변경할 필요가 없어짐</li>
+  <li>소프트웨어 요소를 <code class="language-plaintext highlighter-rouge">새롭게 확장해도 사용 영역의 변경은 닫혀</code> 있다!</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-02-14">February 14, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EA%B0%9D%EC%B2%B4+%EC%A7%80%ED%96%A5+%EC%9B%90%EB%A6%AC+%EC%A0%81%EC%9A%A9+-+DIP%2C+OCP+%EC%9C%84%EB%B0%98%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2FJava-DIP-OCP%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FJava-DIP-OCP%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FJava-DIP-OCP%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/java/Java-OOP8/" class="pagination--pager" title="객체지향개념(추상클래스, 추상메서드, 추상클래스의 작성, 인터페이스, 인터페이스 장점, 인터페이스 이해, 디폴트 메서드)
+">이전</a>
+    
+    
+      <a href="/spring/Java-IoC-DI/" class="pagination--pager" title="IoC, DI 그리고 컨테이너
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Java-ComponentScan/" rel="permalink">컴포넌트 스캔
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">컴포넌트 스캔
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/python/Python-Algorithm/" rel="permalink">Python 기초 문법 및 알고리즘
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Java-Singleton/" rel="permalink">싱글톤 컨테이너
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">1. 웹 애플리케이션과 싱글톤
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/IMG_2153.JPG" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Java-IoC-DI/" rel="permalink">IoC, DI 그리고 컨테이너
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">제어의 역전(IoC, Inversion of Control)
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/spring/Java-DIP-OCP/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/Java-DIP-OCP"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,417 @@
+I"�<h2 id="1-웹-애플리케이션과-싱글톤">1. 웹 애플리케이션과 싱글톤</h2>
+
+<ul>
+  <li>웹 어플리케이션의 사용자의 요청이 기본적으로 많다.
+    <ul>
+      <li>여러 고객이 동시에 요청을 한다</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.AppConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.assertj.core.api.Assertions</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.DisplayName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingletonTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"스프링 없는 순수한 DI 컨테이너"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">pureContainer</span><span class="o">(){</span>
+        <span class="nc">AppConfig</span> <span class="n">appConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AppConfig</span><span class="o">();</span>
+
+        <span class="nc">MemberService</span> <span class="n">memberService1</span> <span class="o">=</span> <span class="n">appConfig</span><span class="o">.</span><span class="na">memberService</span><span class="o">();</span>
+
+        <span class="nc">MemberService</span> <span class="n">memberService2</span> <span class="o">=</span> <span class="n">appConfig</span><span class="o">.</span><span class="na">memberService</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService1 = "</span> <span class="o">+</span> <span class="n">memberService1</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService2 = "</span> <span class="o">+</span> <span class="n">memberService2</span><span class="o">);</span>
+
+        <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">(</span><span class="n">memberService1</span><span class="o">).</span><span class="na">isNotSameAs</span><span class="o">(</span><span class="n">memberService2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>스프링 없는 순수한 DI 컨테이너인 AppConfig는 사용자가 요청할 때 마다 다른 객체를 생성</li>
+  <li>고객 트래픽이 초당 100이 나오면 초당 100개 이상의 객체를 생성하고 소멸한다 → 메모리 낭비!</li>
+  <li>따라서, 해당 객체를 하나만 생성한 후 공유하도록 설계해야 한다 → <code class="language-plaintext highlighter-rouge">싱글톤 패턴</code></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="2-싱글톤-패턴">2. 싱글톤 패턴</h2>
+
+<ul>
+  <li>클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴</li>
+  <li>private 생성자를 사용해서 객체 인스턴스를 2개 이상 생성하지 못하도록 막아야 한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingletonService</span> <span class="o">{</span>
+
+		<span class="c1">// 1. static 영역에 객체를 딱 1개만 생성</span>
+    <span class="c1">// static으로 되있으면 클래스가 메모리에 로드될 때 단 한번만 수행. static 영역에 하나만 올라간다.</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">SingletonService</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SingletonService</span><span class="o">();</span>
+
+		<span class="c1">// 2. public 으로 열어서 객체 인스턴스가 필요하면 이 static 메서드를 통해서만 조회하도록 허용</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">SingletonService</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// private 생성자: 외부에서 new 키워드를 사용한 객체 생성을 못하게 막는다.</span>
+    <span class="kd">private</span> <span class="nf">SingletonService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">logic</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"싱글톤 객체 로직 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>static 영역에 객체 instance를 미리 하나 생성해서 올려둠</li>
+  <li>객체 인스턴스가 필요하면 getInstance()를 통해서 조회</li>
+  <li>외부에서 new 키워드로 객체 인스턴스가 생성되는 것을 막기 위해 private 사용</li>
+</ul>
+
+<p><br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		<span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"싱글톤 패턴을 적용한 객체 사용"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">singletonServiceTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">SingletonService</span> <span class="n">singletonService1</span> <span class="o">=</span> <span class="nc">SingletonService</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+        <span class="nc">SingletonService</span> <span class="n">singletonService2</span> <span class="o">=</span> <span class="nc">SingletonService</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"singletonService1 = "</span> <span class="o">+</span> <span class="n">singletonService1</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"singletonService2 = "</span> <span class="o">+</span> <span class="n">singletonService2</span><span class="o">);</span>
+
+        <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">(</span><span class="n">singletonService1</span><span class="o">).</span><span class="na">isSameAs</span><span class="o">(</span><span class="n">singletonService2</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>싱글톤 패턴을 적용하면 고객의 요청이 올 때 마다 객체를 생성하는 것이 아니라, 이미 만들어진 객체를 공유해서 효율적으로 사용할 수 있다. 하지만 싱글톤 패턴은 다음과 같은 수 많은 문제점들을 가지고 있다.</p>
+
+<p><br /></p>
+
+<p><strong>싱글톤 패턴 문제점</strong></p>
+
+<ul>
+  <li>싱글톤 패턴을 구현하는 코드 자체가 많이 들어간다.</li>
+  <li>의존관계상 클라이언트가 구체 클래스에 의존한다. DIP를 위반한다.</li>
+  <li>클라이언트가 구체 클래스에 의존해서 OCP 원칙을 위반할 가능성이 높다.</li>
+  <li>테스트하기 어렵다.</li>
+  <li>내부 속성을 변경하거나 초기화 하기 어렵다.</li>
+  <li>private 생성자로 자식 클래스를 만들기 어렵다.</li>
+  <li>결론적으로 유연성이 떨어진다.</li>
+  <li>안티패턴으로 불리기도 한다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="3-싱글톤-컨테이너">3. 싱글톤 컨테이너</h2>
+
+<p>스프링 컨테이너는 싱글톤 패턴의 문제점을 해결하면서 객체 인스턴스를 싱글톤(1개만 생성)으로 관리한다</p>
+
+<p><br /></p>
+
+<h3 id="싱글톤-컨테이너">싱글톤 컨테이너</h3>
+
+<ul>
+  <li>스트링 컨테이너는 싱글톤 패턴을 적용하지 않아도 객체 인스턴스를 싱글톤으로 관리</li>
+  <li>스프링 컨테이너는 싱글톤 컨테이너 역할을 함</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>싱글톤 컨테이너 적용 전</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/155074678-8deaa753-f289-40bb-987a-33423bde4788.png" alt="Untitled1" /></p>
+
+<p><strong>싱글톤 컨테이너 적용 후</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/155074682-9a8a742a-61fc-4fa8-8fba-4c425e2f7590.png" alt="Untitled2" /></p>
+
+<p><br /></p>
+
+<h2 id="4-싱글톤-방식의-주의점매우-중요함">4. 싱글톤 방식의 주의점(매우 중요함!)</h2>
+
+<ul>
+  <li>객체 인스턴스를 하나만 생성해서 공유하는 싱글톤 방식은 상태를 유지(stateful)하게 설계하면 안됨</li>
+  <li><code class="language-plaintext highlighter-rouge">무상태(stateless)</code>로 설계</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>stateful하게 설계했을 때 문제점</strong></p>
+
+<p>StatefulService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatefulService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"name = "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" price = "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span> <span class="c1">//여기가 문제!</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>StatefulServiceTest.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">AssertionsForInterfaceTypes</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">StatefulServiceTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">statefulServiceSingleton</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">AnnotationConfigApplicationContext</span> <span class="n">ac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">TestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">StatefulService</span> <span class="n">statefulService1</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">StatefulService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">StatefulService</span> <span class="n">statefulService2</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">StatefulService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="c1">//ThreadA: 사용자A 10000원 주문</span>
+        <span class="n">statefulService1</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"userA"</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
+        <span class="c1">//ThreadB: 사용자B 20000원 주문</span>
+        <span class="n">statefulService1</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"userB"</span><span class="o">,</span> <span class="mi">20000</span><span class="o">);</span>
+
+        <span class="c1">//ThreadA: 사용자A 주문 금액 조회</span>
+        <span class="kt">int</span> <span class="n">price</span> <span class="o">=</span> <span class="n">statefulService1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"price = "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">statefulService1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TestConfig</span><span class="o">{</span>
+
+        <span class="nd">@Bean</span>
+        <span class="kd">public</span> <span class="nc">StatefulService</span> <span class="nf">statefulService</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">StatefulService</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>사용자A는 10000을 사용했는데 20000으로 나옴</p>
+
+<p>→ 같은 객체를 이용해서 발생하는 문제</p>
+
+<p><br /></p>
+
+<p><strong>stateless로 설계</strong></p>
+
+<p>StatefulService.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatefulService</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">order</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"name = "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" price = "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>StatefulServiceTest.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">AssertionsForInterfaceTypes</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">StatefulServiceTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">statefulServiceSingleton</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">AnnotationConfigApplicationContext</span> <span class="n">ac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">TestConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">StatefulService</span> <span class="n">statefulService1</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">StatefulService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">StatefulService</span> <span class="n">statefulService2</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">StatefulService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="c1">//ThreadA: 사용자A 10000원 주문</span>
+        <span class="kt">int</span> <span class="n">userAPrice</span> <span class="o">=</span> <span class="n">statefulService1</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"userA"</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
+        <span class="c1">//ThreadB: 사용자B 20000원 주문</span>
+        <span class="kt">int</span> <span class="n">userBPrice</span> <span class="o">=</span> <span class="n">statefulService1</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"userB"</span><span class="o">,</span> <span class="mi">20000</span><span class="o">);</span>
+
+        <span class="c1">//ThreadA: 사용자A 주문 금액 조회</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"price = "</span> <span class="o">+</span> <span class="n">userAPrice</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TestConfig</span><span class="o">{</span>
+
+        <span class="nd">@Bean</span>
+        <span class="kd">public</span> <span class="nc">StatefulService</span> <span class="nf">statefulService</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">StatefulService</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="5-configuration과-싱글톤">5. @Configuration과 싱글톤</h2>
+
+<p>@Configuration은 싱글톤을 위해 존재</p>
+
+<p><br /></p>
+
+<p>AppConfig.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.discount.DiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.discount.FixDiscountPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemoryMemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="c1">// memberService -&gt; MemoryMemberRepository</span>
+    <span class="c1">// orderService -&gt; MemoryMemberRepository</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"call AppConfig.memberService"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemoryMemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"call AppConfig.memberRepository"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"call AppConfig.orderService"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">(),</span> <span class="n">discountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">discountPolicy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">FixDiscountPolicy</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>ConfigurationSingletonTest.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">hello.core.AppConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.member.MemberServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">hello.core.order.OrderServiceImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">AssertionsForInterfaceTypes</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigurationSingletonTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">configurationTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">AnnotationConfigApplicationContext</span> <span class="n">ac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="nc">MemberServiceImpl</span> <span class="n">memberService</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"memberService"</span><span class="o">,</span> <span class="nc">MemberServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">OrderServiceImpl</span> <span class="n">orderService</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"orderService"</span><span class="o">,</span> <span class="nc">OrderServiceImpl</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">MemberRepository</span> <span class="n">memberRepository</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"memberRepository"</span><span class="o">,</span> <span class="nc">MemberRepository</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="nc">MemberRepository</span> <span class="n">memberRepository1</span> <span class="o">=</span> <span class="n">memberService</span><span class="o">.</span><span class="na">getMemberRepository</span><span class="o">();</span>
+        <span class="nc">MemberRepository</span> <span class="n">memberRepository2</span> <span class="o">=</span> <span class="n">orderService</span><span class="o">.</span><span class="na">getMemberRepository</span><span class="o">();</span>
+
+        <span class="c1">// 3개 모두 같은 인스턴스</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService -&gt; memberRepository = "</span> <span class="o">+</span> <span class="n">memberRepository1</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"orderService -&gt; memberRepository = "</span> <span class="o">+</span> <span class="n">memberRepository2</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberRepository = "</span> <span class="o">+</span> <span class="n">memberRepository</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">memberService</span><span class="o">.</span><span class="na">getMemberRepository</span><span class="o">()).</span><span class="na">isSameAs</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">orderService</span><span class="o">.</span><span class="na">getMemberRepository</span><span class="o">()).</span><span class="na">isSameAs</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>memberService 호출 → memberRepository() 호출 → new MemoryMemberRepository() 호출</p>
+
+<p>orderService 호출 → memberRepository() 호출 → new MemoryMemberRepository() 호출</p>
+
+<p><br /></p>
+
+<p>new MemoryMemberRepository()를 두번 실행하였으니 다른 인스턴스가 생성되어야 할 것 같지만 같은 인스턴스임</p>
+
+<p>→ @Configuration 이 싱글톤을 유지시켜주기 때문이다.</p>
+
+<p><br /></p>
+
+<h2 id="6-configuration과-바이트코드-조작의-마법">6. @Configuration과 바이트코드 조작의 마법</h2>
+
+<p>AppConfig 의 스프링 빈을 조회해서 클래스 정보를 출력하면 다음과 같다</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bean = "</span> <span class="o">+</span> <span class="n">bean</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+<span class="c1">//bean = class hello.core.AppConfig$$EnhancerBySpringCGLIB$$283060ad</span>
+</code></pre></div></div>
+
+<p>이것은 내가 만든 클래스가 아니라 스프링이 CGLIB라는 바이트코드 조작 라이브러리를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고, 그 다른 클래스를 스프링 빈으로 등록한 것이다!</p>
+
+<p><br /></p>
+
+<p><strong>AppConfig@CGLIB 예상 코드</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">MemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+ 
+ <span class="k">if</span> <span class="o">(</span><span class="n">memoryMemberRepository가</span> <span class="n">이미</span> <span class="n">스프링</span> <span class="n">컨테이너에</span> <span class="n">등록되어</span> <span class="n">있으면</span><span class="o">?)</span> <span class="o">{</span>
+	 <span class="k">return</span> <span class="n">스프링</span> <span class="n">컨테이너에서</span> <span class="n">찾아서</span> <span class="n">반환</span><span class="o">;</span>
+ <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">//스프링 컨테이너에 없으면</span>
+	 <span class="n">기존</span> <span class="n">로직을</span> <span class="n">호출해서</span> <span class="nc">MemoryMemberRepository를</span> <span class="n">생성하고</span> <span class="n">스프링</span> <span class="n">컨테이너에</span> <span class="n">등록</span>
+	 <span class="k">return</span> <span class="n">반환</span>
+ <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>덕분에 싱글톤이 보장됨</p>
+
+<p><br /></p>
+
+<p><strong>정리</strong></p>
+
+<ul>
+  <li>@Bean만 사용해도 스프링 빈으로 등록되지만, 싱글톤을 보장하지 않음</li>
+  <li>스프링 설정 정보는 항상 <code class="language-plaintext highlighter-rouge">@Configuration</code>을 사용하자</li>
+</ul>
+:ET
