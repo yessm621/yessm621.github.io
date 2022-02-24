@@ -2,9 +2,9 @@
 title:  "싱글톤 컨테이너"
 last_modified_at: 2022-02-22T15:26:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
-  - SpringBoot
+  - Spring
   - Java
 toc: true
 toc_label: "Getting Started"

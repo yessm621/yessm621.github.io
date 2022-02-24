@@ -2,7 +2,7 @@
 title:  "IoC, DI 그리고 컨테이너"
 last_modified_at: 2022-02-15T10:45:00
 categories: 
-  - Java
+  - Spring
 tags:
   - Java
   - Spring
