@@ -1,15 +1,17 @@
 ---
 title:  "Optional 이란"
+last_modified_at: 2022-02-24T11:00:00
 categories:
   - Java
 tags:
   - Java
 toc: true
 toc_label: "Getting Started"
+toc_sticky: true
 ---
 
 
-## 기존의 null 처리
+## 1. 기존의 null 처리
 
 아래 코드는 값(주소) 이 있다면 문제가 없는 코드이다.
 
@@ -35,20 +37,19 @@ if 문을 사용하면 null 처리를 할 수 있다.
 
 위의 코드는 간단하여 보기에 좋지만 수 많은 null 처리를 진행하게 되면 코드가 지저분해진다.
 
-이럴때 사용하는게 Optional 클래스다. (java8 부터 지원)
+이럴때 사용하는게 `Optional 클래스`다. (java8 부터 지원)
 
 <br>
-<br>
 
-## Optional 클래스
+## 2. Optional 클래스
 
 Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 NPE(Null Point Exception) 를 방지 할 수 있다.
 
 <br>
 
-### Optional 에서 제공하는 메서드
+## 3. Optional 에서 제공하는 메서드
 
-**Optional 객체 생성**
+### 3.1 Optional 객체 생성
 
 1. **Optional.of()**
 
@@ -82,7 +83,7 @@ Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 N
 
 <br>
 
-**Optional 중간 처리**
+### 3.2 Optional 중간 처리
 
 1. **filter()**
 
@@ -106,7 +107,7 @@ Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 N
 
 <br>
 
-**Optional 종단 처리**
+### 3.3 Optional 종단 처리
 
 1. **ifPresent()**
 
@@ -172,3 +173,79 @@ Optional 클래스를 사용하면 보다 나은 null 처리를 할 수 있고 N
 
     Optional.ofNullable("input").filter("test"::equals).orElseThrow(NoSuchElementException::new);
     ```
+
+<br>
+
+만약 빈 Optional 객체에 get() 메서드를 호출할 경우 NoSuchElementException 발생
+
+따라서, Optional 객체를 가져오기 전에 값이 있는지 확인 해야 함
+
+두가지 방법이 있는데 아래 방법을 권장한다.
+
+1. isPresent()-get()
+2. orElse(), orElseGet(), orElseThrow() **(권장)**
+
+<br>
+
+## 4. Optional 을 잘 사용하는 방법
+
+1. isPresent()-get() 대신 **orElse()/orElseGet()/orElseThrow()**
+    
+    ```java
+    // 안 좋음
+    Optional<Member> member = ...;
+    if (member.isPresent()) {
+        return member.get();
+    } else {
+        return null;
+    }
+    
+    // 좋음
+    Optional<Member> member = ...;
+    return member.orElse(null);
+    
+    // 안 좋음
+    Optional<Member> member = ...;
+    if (member.isPresent()) {
+        return member.get();
+    } else {
+        throw new NoSuchElementException();
+    }
+    
+    // 좋음
+    Optional<Member> member = ...;
+    return member.orElseThrow(() -> new NoSuchElementException());
+    ```
+    
+2. orElse(new ...) 대신 **orElseGet(() -> new ...)**
+    
+    ```java
+    // 안 좋음
+    Optional<Member> member = ...;
+    return member.orElse(new Member());  // member에 값이 있든 없든 new Member()는 무조건 실행됨
+    
+    // 좋음
+    Optional<Member> member = ...;
+    return member.orElseGet(Member::new);  // member에 값이 없을 때만 new Member()가 실행됨
+    
+    // 좋음
+    Member EMPTY_MEMBER = new Member();
+    ...
+    Optional<Member> member = ...;
+    return member.orElse(EMPTY_MEMBER);  // 이미 생성됐거나 계산된 값은 orElse()를 사용해도 무방
+    ```
+    
+3. 단지 값을 얻을 목적이라면 Optional 대신 null
+4. Optional 대신 비어있는 컬렉션 반환
+5. Optional 을 필드로 사용 금지
+6. Optional 을 생성자나 메서드 인자로 사용 금지
+7. Optional 을 컬렉션의 원소로 사용 금지
+    
+    ```java
+    ex. 
+    Map<String, Optional<String>> sports = new HashMap<>();
+    ```
+    
+8. Optional<T> 대신 OptionalInt, OptionalLong, OptionalDouble
+    
+    → Type 이 Int, Long, Double 이면 OptionalInt, OptionalLong, OptionalDouble 을 사용하는게 좋음
