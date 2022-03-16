@@ -134,7 +134,7 @@ UserDao 의 add() 메소드는 세 가지 관심사항이 있다.
 UserDao.java
 
 ```java
-	public void add(User user) throws SQLException, ClassNotFoundException {
+    public void add(User user) throws SQLException, ClassNotFoundException {
     	// 1. 커넥션 가져오기
         Class.forName("org.postgresql.Driver");
 
