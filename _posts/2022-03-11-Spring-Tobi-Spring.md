@@ -174,7 +174,7 @@ UserDao.java
 커넥션을 가져오는 중복 코드 분리. getConnection() 분리
 
 ```java
-		public void add(User user) throws SQLException, ClassNotFoundException {
+    public void add(User user) throws SQLException, ClassNotFoundException {
         // 1.2.2 중복 코드의 메소드 추출
         Connection c = getConnection();
 
