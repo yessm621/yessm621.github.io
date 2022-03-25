@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://yessm621.github.io/sitemap.xml
