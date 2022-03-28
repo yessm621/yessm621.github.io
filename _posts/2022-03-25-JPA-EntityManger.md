@@ -1,6 +1,7 @@
 ---
-title:  "영속성 컨텍스트"
-last_modified_at: 2022-03-25T16:44:00
+title:  "영속성 컨텍스트 - 내부 동작 방식"
+last_modified_at: 2022-03-28T10:10:00
+# last_modified_at: 2022-03-25T16:44:00
 categories: 
   - JPA
 tags:
@@ -188,6 +189,7 @@ Hibernate:
 
 - 엔티티를 조회할 때 바로 DB에 접근하는 것이 아니라 1차 캐시를 먼저 조회함
 - 이후 DB를 조회하여 데이터가 있다면 1차 캐시에 저장하고 반환함
+- 사용자가 10명 있다고 했을 때 1차 캐시를 공유하는 것이 아닌 각각 **개별의 1차 캐시**를 가지고 있다. 따라서, 성능 상 큰 장점은 없다. (매커니즘의 이점이 있는 것..)
 
 ![5](https://user-images.githubusercontent.com/79130276/160080146-438e427d-e86b-4594-8145-12c1bfbf8899.png)
 
@@ -332,3 +334,177 @@ transaction.commit(); // [트랜잭션] 커밋
 <br>
 
 1.4.5 **지연 로딩**
+
+## 3. 플러시
+
+영속성 컨텍스트의 **변경내용**을 데이터베이스에 반영, 트랜잭션 커밋 될 때 플러시가 발생
+
+<br>
+
+### 3.1 플러시 발생
+
+- 변경 감지
+- 수정된 엔티티 **쓰기 지연 SQL 저장소**에 등록
+- 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송 (등록, 수정, 삭제 쿼리)
+
+<br>
+
+### 3.2 영속성 컨텍스트를 플러시하는 방법
+
+(직접 플러시를 할일은 많이 없지만 테스트 시 사용하는 경우가 있기 때문에 알고는 있어야 한다)
+
+- em.flush() - 직접 호출
+- 트랜잭션 커밋 - 플러시 자동 호출
+- JPQL 쿼리 실행 - 플러시 자동 호출
+
+```java
+Member member = new Member(200L, "member200");
+em.persist(member);
+em.flush();
+
+System.out.println("=============================");
+
+tx.commit();
+```
+
+```
+Hibernate: 
+    /* insert hellojpa.Member
+        */ insert 
+        into
+            Member
+            (name, id) 
+        values
+            (?, ?)
+=============================
+```
+
+<br>
+
+> **flush()를 하게 되면 1차 캐시가 지워질까?**
+→ No! flush()는 단순히 쓰기 지연 SQL 저장소의 쿼리를 DB에 반영하는 역할
+> 
+
+<br>
+
+### 3.3 JPQL 쿼리 실행 시 플러시가 자동으로 호출되는 이유
+
+```java
+em.persist(memberA);
+em.persist(memberB);
+em.persist(memberC);
+
+// 중간에 JPQL 실행
+query = em.createQuery("select m from Member m", Member.class);
+List<Member> members= query.getResultList();
+```
+
+persist()를 해도 데이터베이스에 insert 되는 시점은 트랜잭션 커밋 시점이므로 원래 같으면 JPQL로 조회 시 데이터가 조회되지 않음. 이를 방지하기 위해 **JPA에서 JPQL 실행 시 자동으로 flush()** 후 데이터를 가져오게 되어있음
+
+<br>
+
+### 3.4 플러시 모드 옵션
+
+```java
+em.setFlushMode(FlushModeType.COMMIT);
+```
+
+- FlushModeType.AUTO: 커밋이나 쿼리를 실행할 때 플러시 (기본값)
+- FlushModeType.COMMIT: 커밋할 때만 플러시
+
+<br>
+
+### 3.5 정리
+
+- 영속성 컨텍스트를 비우지 않음
+- 영속성 컨텍스트의 변경내용을 데이터베이스에 동기화
+- 트랜잭션이라는 작업 단위가 중요 → 커밋 직전에만 동기화 하면 됨
+
+<br>
+
+## 4. 준영속 상태
+
+- 영속 → 준영속
+- 영속 상태의 엔티티가 **영속성 컨텍스트에서 분리** (detached)
+- 영속성 컨텍스트가 제공하는 기능을 사용 못함 (update, dirty check 등)
+
+<br>
+
+> **영속 상태가 되는 경우**
+1. em.persist() 할 경우
+2. em.find()를 했는데 1차 캐시에 데이터가 없어 DB에서 조회했을 때
+> 
+
+<br>
+
+### 4.1 준영속 상태로 만드는 방법
+
+- em.detach(entity): 특정 엔티티만 준영속 상태로 전환
+
+```java
+// 영속 상태
+Member member = em.find(Member.class, 200L);
+member.setName("AAAA");
+
+// 준영속 상태로 변경
+em.detach(member);
+
+System.out.println("=============================");
+
+tx.commit();
+```
+
+```
+Hibernate: 
+    select
+        member0_.id as id1_0_0_,
+        member0_.name as name2_0_0_ 
+    from
+        Member member0_ 
+    where
+        member0_.id=?
+=============================
+```
+
+<br>
+
+- em.clear(): 영속성 컨텍스트를 완전히 초기화
+
+```java
+Member member = em.find(Member.class, 200L);
+member.setName("AAAA");
+
+// 1차 캐시 초기화
+em.clear();
+
+// 1차 캐시에 없으니 다시 select문 실행
+Member member2 = em.find(Member.class, 200L);
+
+System.out.println("=============================");
+
+tx.commit();
+```
+
+```
+Hibernate: 
+    select
+        member0_.id as id1_0_0_,
+        member0_.name as name2_0_0_ 
+    from
+        Member member0_ 
+    where
+        member0_.id=?
+Hibernate: 
+    select
+        member0_.id as id1_0_0_,
+        member0_.name as name2_0_0_ 
+    from
+        Member member0_ 
+    where
+        member0_.id=?
+=============================
+```
+
+<br>
+
+- em.close(): 영속성 컨텍스트를 종료
