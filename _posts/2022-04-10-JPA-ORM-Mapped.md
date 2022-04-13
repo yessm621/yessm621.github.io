@@ -1,6 +1,7 @@
 ---
 title:  "연관관계 매핑 기초"
-last_modified_at: 2022-04-10T14:40:00
+# last_modified_at: 2022-04-10T14:40:00
+last_modified_at: 2022-04-13T16:30:00
 categories: 
   - JPA
 tags:
@@ -155,7 +156,8 @@ int memberSize = findTeam.getMembers().size();
 - 테이블 연관관계 = 1개
     - 회원 ↔ 팀의 연관관계 1개 (양방향)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de2c1249-b397-4f91-bf67-cb355fcef6ad/Untitled.png)
+![1](https://user-images.githubusercontent.com/79130276/163115700-28dc9f2e-f8d5-422f-8da6-f344e18747fe.png)
+
 
 <br>
 
@@ -340,15 +342,266 @@ em.persist(member);
     - API를 만들때 entity는 반드시 dto로 변경해서 반환해야 함
     - 실제 실무에서는 가급적 controller에서 entity를 사용하지 말자
 
-<br>    
+<br>
 
 ### 2.9 양방향 매핑 정리
 
 - 단방향 매핑만으로도 이미 연관관계 매핑은 완료
 - 양방향 매핑은 반대 방향으로 조회(객체 그래프 탐색) 기능이 추가된 것 뿐
 - JPQL에서 역방향으로 탐색할 일이 많음
-- 단방향 매핑을 잘 하고 양방향은 필요할 때 추가해도 됨 (테이블에 영향을 주지 않음)
+- `단방향 매핑`을 잘 하고 양방향은 필요할 때 추가해도 됨 (테이블에 영향을 주지 않음)
 
 → 일단 단방향으로 설계 후 양방향은 개발하면서 필요할 때 추가한다
 
 - 연관관계의 주인은 외래키의 위치를 기준으로 정함
+
+<br>
+
+## 3. 실전예제
+
+<br>
+
+### 3.1 양방향 연관관계로 설계
+
+**Order.java**
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="ORDERS")
+@Getter
+@Setter
+public class Order {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDER_ID")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    private LocalDateTime orderDate;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    // 연관관계 편의 메소드
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+}
+```
+
+**OrderItem.java**
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+public class OrderItem {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDER_ITEM_ID")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
+
+    private int orderPrice;
+    private int count;
+}
+```
+
+**JpaMain.java**
+
+```java
+package jpabook.jpashop;
+
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class JpaMain {
+
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        try {
+
+            Order order = new Order();
+            order.addOrderItem(new OrderItem());
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
+}
+
+```
+
+<br>
+
+### 3.2 단방향 연관관계로 설계
+
+**Order.java**
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="ORDERS")
+@Getter
+@Setter
+public class Order {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDER_ID")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    private LocalDateTime orderDate;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+}
+```
+
+**OrderItem.java**
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+public class OrderItem {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDER_ITEM_ID")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
+
+    private int orderPrice;
+    private int count;
+}
+```
+
+**JpaMain.java**
+
+```java
+package jpabook.jpashop;
+
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+public class JpaMain {
+
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        try {
+
+            Order order = new Order();
+            em.persist(order);
+//            order.addOrderItem(new OrderItem());
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+
+            em.persist(orderItem);
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        emf.close();
+    }
+}
+
+```
+
+<br>
+
+양방향 연관관계를 제거하고 단방향으로 구성해도 아무 문제가 없다
+
+요점은 설계 시 최대한 `단방향으로 설계`하고 필요할때 양방향 연관관계로 수정하자
