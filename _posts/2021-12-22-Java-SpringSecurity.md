@@ -16,7 +16,6 @@ toc_label: "Getting Started"
 → 다양한 방식으로 사용자 정보를 유지할 수 있는 방법을 제공
 
 - 세션(HttpSession) 기반: 사용자 정보는 서버에서 보관, 필요시 설정을 통해서 제어
-- 
 
 <br>
 
