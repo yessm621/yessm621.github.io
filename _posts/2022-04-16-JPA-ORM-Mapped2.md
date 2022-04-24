@@ -212,3 +212,19 @@ private Product product;
 ```
 
 Product.java
+
+```java
+@OneToMany(mappedBy = "product")
+private List<MemberProduct> memberProducts = new ArrayList<>();
+```
+
+<br>
+
+### 5.5 실전 예제 3 - 다양한 연관관계 매핑
+
+**N:M 관계는 1:N, N:1 로**
+
+- 테이블의 N:M 관계는 중간 테이블을 이용해서 1:N, N:1
+- 실전에서는 중간 테이블이 단순하지 않다.
+- @ManyToMany 는 제약: 필드 추가X, 엔티티 테이블 불일치
+- 실전에서는 `@ManyToMany 사용X`
