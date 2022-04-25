@@ -902,7 +902,29 @@ public class UserController {
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    ...
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        try {
+            User user = User.builder()
+                    .email(userDTO.getEmail())
+                    .username(userDTO.getUsername())
+                    .password(passwordEncoder.encode(userDTO.getPassword()))
+                    .build();
+
+            User registeredUser = userService.create(user);
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .email(registeredUser.getEmail())
+                    .id(registeredUser.getId())
+                    .username(registeredUser.getUsername())
+                    .build();
+
+            return ResponseEntity.ok().body(responseUserDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
