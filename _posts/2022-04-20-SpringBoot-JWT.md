@@ -1,7 +1,8 @@
 ---
 title:  "JWT(Json Web Token) 인증"
 # last_modified_at: 2022-04-20T17:20:00
-last_modified_at: 2022-04-21T16:30:00
+# last_modified_at: 2022-04-21T16:30:00
+last_modified_at: 2022-04-25T15:55:00
 categories: 
   - SpringBoot
 tags:
@@ -10,6 +11,7 @@ tags:
   - JPA
 toc: true
 toc_label: "Getting Started"
+toc_sticky: true
 ---
 
 # 인증
@@ -372,7 +374,7 @@ public class UserController {
 
 사용자 정보를 바탕으로 헤더와 페이로드를 작성학고 전자 서명한 후 토큰을 리턴
 
-![1st.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9f0e7bc7-6671-4bfe-a3ef-9497e8cda113/1st.jpg)
+![1st](https://user-images.githubusercontent.com/79130276/165035377-bf150b8d-9076-4ad8-aa7c-58d68dbe282b.png)
 
 <br>
 
@@ -470,9 +472,9 @@ validateAndGetUserId(): 토큰을 **디코딩** 및 파싱하고 토큰의 위�
 
 **4. 테스트**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9e9a39c3-3047-4e31-ad15-e2b825bd9288/Untitled.png)
+![Untitled1](https://user-images.githubusercontent.com/79130276/165035696-197d4e9f-3571-4796-aa79-6672d902d0b2.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f68fb3e7-94ba-457d-b557-92537621a982/Untitled.png)
+![Untitled2](https://user-images.githubusercontent.com/79130276/165035700-793c4d71-4713-472d-a86b-2fc5a8976d29.png)
 
 **인코딩된 JWT 토큰**
 
@@ -490,7 +492,7 @@ validateAndGetUserId(): 토큰을 **디코딩** 및 파싱하고 토큰의 위�
 
 ### 2.3 스프링 시큐리티와 서블릿 필터
 
-![2nd.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bf4f131d-afbb-49a3-9008-a389513b5dbe/2nd.jpg)
+![2nd](https://user-images.githubusercontent.com/79130276/165035383-af82a211-0dca-45a5-921a-8c2819fa434b.png)
 
 <br>
 
@@ -693,13 +695,13 @@ addFilterAfter() 메서드를 통해 CorsFilter 이후에  jwtAuthenticationFilt
 **테스팅**
 1. 회원가입 후 다시 로그인을 하면 아래 그림과 같이 응답과 함께 토큰이 온다
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1228bad0-2d7d-42f6-9479-d377313f401d/Untitled.png)
+![Untitled3](https://user-images.githubusercontent.com/79130276/165035702-f6a1c8bd-73bd-4d77-81d6-bf0007dc4601.png)
 
 <br>
 
 2. Authorization 에 Bearer Token 을 선택하고 토큰을 복사하여 붙여넣기 한다
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a8acbf1-eac7-4139-820b-f38bcbe78e8d/Untitled.png)
+![Untitled4](https://user-images.githubusercontent.com/79130276/165035709-7407c498-ec58-49db-8815-56bd03471330.png)
 
 <br>
 
