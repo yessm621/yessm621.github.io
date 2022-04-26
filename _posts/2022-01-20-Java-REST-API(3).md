@@ -45,6 +45,34 @@ ModelMapper는 해당 클래스의 기본 생성자를 이용해 객체를 생�
 
 <br>
 
+**[참고]**
+
+**ModelMapper를 사용**하면서 **setter를 사용하고 싶지 않다**면 다음과 같이 `빈으로 등록`해주면 된다
+
+→ Access level 이 **public**인데 이를 `Private level`로 바꾸면 setter 없이도 필드명이 같을 때 자동 매핑 처리 할 수 있음
+
+```java
+package me.yessm.airbnbjava.config;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class Config {
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration()
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+                .setFieldMatchingEnabled(true);
+        return modelMapper;
+    }
+}
+```
+
+<br>
+
 pom.xml 에 추가
 
 ```xml
