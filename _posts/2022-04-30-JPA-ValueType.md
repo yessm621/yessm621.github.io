@@ -301,3 +301,135 @@ private Period workPeriod = null;
 
 // Period 에 있는 컬럼들도 null 로 초기화됨
 ```
+
+<br>
+
+## 3. 값 타입과 불변 객체
+
+값 타입은 복잡한 객체 세상을 조금이라도 단순화하려고 만든 개념이다. 따라서, 값 타입은 단순하고 안전하게 다룰 수 있어야 한다
+
+<br>
+
+### 3.1 값 타입 공유 참조
+
+- 임베디드 타입 같은 값 타입을 여러 엔티티에서 공유하면 위험함
+- 부작용(side effect) 발생
+
+![스크린샷 2022-05-01 오후 6 12 46](https://user-images.githubusercontent.com/79130276/166142572-59b3c74d-7e45-48c3-b932-d3914c11a477.png)
+
+JpaMain.java
+
+```java
+Address address = new Address("city", "street", "10000");
+
+Member member = new Member();
+member.setUsername("member1");
+member.setHomeAddress(address);
+em.persist(member);
+
+Member member2 = new Member();
+member2.setUsername("member2");
+member2.setHomeAddress(address);
+em.persist(member2);
+
+member.getHomeAddress().setCity("newCity");
+```
+
+member에 대한 주소값을 변경하려고 했지만 실제론 member2에 있는 주소값까지 변경이 된다
+
+이런 버그는 잡기 매우 힘들다
+
+<br>
+
+### 3.2 값 타입 복사
+
+- 값 타입의 실제 인스턴스인 값을 공유하는 것은 위험
+- 대신 값(인스턴스)를 복사해서 사용
+
+![스크린샷 2022-05-01 오후 6 13 01](https://user-images.githubusercontent.com/79130276/166142571-e5321ffc-8217-400c-b032-9b0d3a43ea38.png)
+
+JpaMain.java
+
+```java
+Address address = new Address("city", "street", "10000");
+
+Member member = new Member();
+member.setUsername("member1");
+member.setHomeAddress(address);
+em.persist(member);
+
+Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+
+Member member2 = new Member();
+member2.setUsername("member2");
+member2.setHomeAddress(copyAddress);
+em.persist(member2);
+
+member.getHomeAddress().setCity("newCity");
+```
+
+<br>
+
+### 3.3 객체 타입의 한계
+
+- 항상 값을 복사해서 사용하면 공유 참조로 인해 발생하는 부작용을 피할 수 있다.
+- 문제는 임베디드 타입처럼 **직접 정의한 값 타입은 자바의 기본 타입이 아니라 객체 타입**이다
+- 자바 기본 타입에 값을 대입하면 값을 복사한다
+- **객체 타입은 참조 값을 직접 대입하는 것을 막을 방법이 없다**
+- **객체의 공유 참조는 피할 수 없다**
+
+![스크린샷 2022-05-01 오후 6 15 05](https://user-images.githubusercontent.com/79130276/166142568-8928ea35-c33b-4802-a991-c846a5d5ae53.png)
+
+<br>
+
+### 3.4 불변 객체
+
+- 객체 타입을 수정할 수 없게 만들면 **부작용을 원천 차단**
+- **값 타입은 불변 객체(immutable object)로 설계해야 함**
+- **불변 객체: 생성 시점 이후 절대 값을 변경할 수 없는 객체**
+- 생성자로만 값을 설정하고 수정자(Setter)를 만들지 않으면 됨
+- 참고: Integer, String은 자바가 제공하는 대표적인 불변 객체
+- 즉, setter를 없애거나 setter를 public → private로 만들기
+
+<br>
+
+불변이라는 작은 제약으로 부작용이라는 큰 재앙을 막을 수 있다
+
+<br>
+
+## 4. 값 타입의 비교
+
+- 값 타입: 인스턴스가 달라도 그 안에 값이 같으면 같은 것으로 봐야 함
+    
+    ```java
+    // a==b : true
+    int a = 10;
+    int b = 10;
+    
+    // a==b : false
+    Address a = new Address("서울시");
+    Address b = new Address("서울시");
+    
+    System.out.println("a == b: " + (a == b)); // false
+    System.out.println("a equals b: " + (a.equals(b))); // false
+    // equals의 기본 비교는 == 이기 때문에 false가 나온다
+    
+    // equals 를 오버라이드 해서 사용해야 true가 나옴
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(city, address.city) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(zipcode, address.zipcode);
+    }
+    System.out.println("a equals b: " + (a.equals(b))); // true
+    ```
+    
+- **동일성(identity) 비교**: 인스턴스의 참조값을 비교, == 사용
+- **동등성(equivalence) 비교**: 인스턴스의 값을 비교, equals() 사용
+- 값 타입은 a.equals(b)를 사용해서 동등성 비교를 해야 함
+- 값 타입의 equals() 메소드를 적절하게 재정의(주로 모든 필드 사용)
+
+<br>
