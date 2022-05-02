@@ -24,7 +24,7 @@ description              : "BackEnd Developer"
 url                      : "https://yessm621.github.io/" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "yessm621/yessm621.github.com" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser                   : "/assets/images/IMG_2153.JPG" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser                   : "/assets/images/uja.jpg" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "기록하는 개발자 Blog" # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
@@ -103,7 +103,7 @@ analytics:
 # Site Author
 author:
   name             : "노승미"
-  avatar           : "/assets/images/picture.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/uja.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "기록하는 개발자"
   location         : "Republic of Korea"
   # email            : "yessm621@gmail.com"

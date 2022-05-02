@@ -1,6 +1,6 @@
 ---
 title:  "값 타입"
-last_modified_at: 2022-04-30T14:35:00
+# last_modified_at: 2022-04-30T14:35:00
 last_modified_at: 2022-05-02T13:35:00
 categories: 
   - JPA
