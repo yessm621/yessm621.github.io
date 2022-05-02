@@ -1,6 +1,7 @@
 ---
 title:  "값 타입"
 last_modified_at: 2022-04-30T14:35:00
+last_modified_at: 2022-05-02T13:35:00
 categories: 
   - JPA
 tags:
@@ -433,3 +434,682 @@ member.getHomeAddress().setCity("newCity");
 - 값 타입의 equals() 메소드를 적절하게 재정의(주로 모든 필드 사용)
 
 <br>
+
+## 5. 값 타입 컬렉션
+
+- 값 타입을 하나 이상 저장할 때 사용
+- @ElementCollection, @CollectionTable 사용
+- 데이터베이스는 컬렉션을 같은 테이블에 저장할 수 없다.
+- 컬렉션을 저장하기 위한 별도의 테이블이 필요함
+
+![Untitled1](https://user-images.githubusercontent.com/79130276/166185011-9ef125d9-9d9e-4d85-977e-3fad7f19f68b.png)
+
+**Member.java**
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+public class Member extends BaseEntity {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private Long id;
+    private String username;
+
+    @Embedded
+    private Address homeAddress;
+
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+		// 결론적으로 사용하면 안된다
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<>();
+}
+```
+
+**JpaMain.java**
+
+```java
+Member member = new Member();
+member.setUsername("member1");
+member.setHomeAddress(new Address("homeCity", "street", "10000"));
+
+member.getFavoriteFoods().add("치킨");
+member.getFavoriteFoods().add("족발");
+member.getFavoriteFoods().add("피자");
+
+member.getAddressHistory().add(new Address("old1", "street", "10000"));
+member.getAddressHistory().add(new Address("old2", "street", "10000"));
+
+em.persist(member);
+```
+
+**결과**
+
+```
+Hibernate: 
+    /* insert jpabook.jpashop.domain.Member
+        */ insert 
+        into
+            Member
+            (city, street, zipcode, username, MEMBER_ID) 
+        values
+            (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.addressHistory */ insert 
+        into
+            ADDRESS
+            (MEMBER_ID, city, street, zipcode) 
+        values
+            (?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.addressHistory */ insert 
+        into
+            ADDRESS
+            (MEMBER_ID, city, street, zipcode) 
+        values
+            (?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+5월 02, 2022 10:20:42 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+
+Process finished with exit code 0
+```
+
+<br>
+
+### 5.1 값 타입 컬렉션 사용
+
+- 값 타입 저장 예제
+- 값 타입 조회 예제
+    - 값 타입 컬렉션도 **지연 로딩** 전략 사용
+    
+    ```java
+    Member member = new Member();
+    member.setUsername("member1");
+    member.setHomeAddress(new Address("homeCity", "street", "10000"));
+    
+    member.getFavoriteFoods().add("치킨");
+    member.getFavoriteFoods().add("족발");
+    member.getFavoriteFoods().add("피자");
+    
+    member.getAddressHistory().add(new Address("old1", "street", "10000"));
+    member.getAddressHistory().add(new Address("old2", "street", "10000"));
+    
+    em.persist(member);
+    
+    em.flush();
+    em.clear();
+    
+    System.out.println("=============== START ==============");
+    Member findMember = em.find(Member.class, member.getId());
+    
+    List<Address> addressHistory = findMember.getAddressHistory();
+    for (Address address : addressHistory) {
+        System.out.println("address = " + address.getCity());
+    }
+    
+    Set<String> favoriteFoods = findMember.getFavoriteFoods();
+    for (String favoriteFood : favoriteFoods) {
+        System.out.println("favoriteFood = " + favoriteFood);
+    }
+    
+    tx.commit();
+    ```
+    
+    ```
+    Hibernate: 
+        /* insert jpabook.jpashop.domain.Member
+            */ insert 
+            into
+                Member
+                (city, street, zipcode, username, MEMBER_ID) 
+            values
+                (?, ?, ?, ?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.addressHistory */ insert 
+            into
+                ADDRESS
+                (MEMBER_ID, city, street, zipcode) 
+            values
+                (?, ?, ?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.addressHistory */ insert 
+            into
+                ADDRESS
+                (MEMBER_ID, city, street, zipcode) 
+            values
+                (?, ?, ?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+            into
+                FAVORITE_FOOD
+                (MEMBER_ID, FOOD_NAME) 
+            values
+                (?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+            into
+                FAVORITE_FOOD
+                (MEMBER_ID, FOOD_NAME) 
+            values
+                (?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+            into
+                FAVORITE_FOOD
+                (MEMBER_ID, FOOD_NAME) 
+            values
+                (?, ?)
+    =============== START ==============
+    Hibernate: 
+        select
+            member0_.MEMBER_ID as member_i1_7_0_,
+            member0_.city as city2_7_0_,
+            member0_.street as street3_7_0_,
+            member0_.zipcode as zipcode4_7_0_,
+            member0_.username as username5_7_0_ 
+        from
+            Member member0_ 
+        where
+            member0_.MEMBER_ID=?
+    Hibernate: 
+        select
+            addresshis0_.MEMBER_ID as member_i1_0_0_,
+            addresshis0_.city as city2_0_0_,
+            addresshis0_.street as street3_0_0_,
+            addresshis0_.zipcode as zipcode4_0_0_ 
+        from
+            ADDRESS addresshis0_ 
+        where
+            addresshis0_.MEMBER_ID=?
+    address = old1
+    address = old2
+    Hibernate: 
+        select
+            favoritefo0_.MEMBER_ID as member_i1_5_0_,
+            favoritefo0_.FOOD_NAME as food_nam2_5_0_ 
+        from
+            FAVORITE_FOOD favoritefo0_ 
+        where
+            favoritefo0_.MEMBER_ID=?
+    favoriteFood = 족발
+    favoriteFood = 치킨
+    favoriteFood = 피자
+    5월 02, 2022 10:48:36 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+    INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+    Process finished with exit code 0
+    ```
+    
+- 값 타입 수정 예제
+    
+    **[예제1] Set<기본값 타입> 수정**
+    
+    ```java
+    System.out.println("=============== START ==============");
+    Member findMember = em.find(Member.class, member.getId());
+    
+    // homeCity -> newCity
+    // findMember.getHomeAddress().setCity("newCity");
+    
+    // 위의 코드처럼 setter를 사용해서 값을 변경하면 부작용(side effect) 발생
+    // side effect 와 같은 버그는 매우 잡기 힘들다.
+    // 따라서, 아래와 같이 아예 새로 넣어줘야 한다.
+    Address a = findMember.getHomeAddress();
+    findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
+    
+    //치킨 -> 한식
+    findMember.getFavoriteFoods().remove("치킨");
+    findMember.getFavoriteFoods().add("한식");
+    ```
+    
+    ```
+    =============== START ==============
+    Hibernate: 
+        select
+            member0_.MEMBER_ID as member_i1_7_0_,
+            member0_.city as city2_7_0_,
+            member0_.street as street3_7_0_,
+            member0_.zipcode as zipcode4_7_0_,
+            member0_.username as username5_7_0_ 
+        from
+            Member member0_ 
+        where
+            member0_.MEMBER_ID=?
+    Hibernate: 
+        select
+            favoritefo0_.MEMBER_ID as member_i1_5_0_,
+            favoritefo0_.FOOD_NAME as food_nam2_5_0_ 
+        from
+            FAVORITE_FOOD favoritefo0_ 
+        where
+            favoritefo0_.MEMBER_ID=?
+    Hibernate: 
+        /* update
+            jpabook.jpashop.domain.Member */ update
+                Member 
+            set
+                city=?,
+                street=?,
+                zipcode=?,
+                username=? 
+            where
+                MEMBER_ID=?
+    Hibernate: 
+        /* delete collection row jpabook.jpashop.domain.Member.favoriteFoods */ delete 
+            from
+                FAVORITE_FOOD 
+            where
+                MEMBER_ID=? 
+                and FOOD_NAME=?
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+            into
+                FAVORITE_FOOD
+                (MEMBER_ID, FOOD_NAME) 
+            values
+                (?, ?)
+    5월 02, 2022 11:16:33 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+    INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+    Process finished with exit code 0
+    ```
+    
+    **[예제2] List<임베디드 타입> 수정**
+    
+    Set<기본값 타입>처럼 삭제 후 수정이 잘 될 것 같지만 그렇지 않다.
+    
+    해당되는 값을 모두 삭제 후 모든 값을 다시 넣어준다
+    
+    ```java
+    //remove 는 equals()로 비교함. 따라서, equals()와 hashcode()를 잘 정의해야 함
+    findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
+    findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
+    ```
+    
+    ```
+    =============== START ==============
+    Hibernate: 
+        select
+            member0_.MEMBER_ID as member_i1_7_0_,
+            member0_.city as city2_7_0_,
+            member0_.street as street3_7_0_,
+            member0_.zipcode as zipcode4_7_0_,
+            member0_.username as username5_7_0_ 
+        from
+            Member member0_ 
+        where
+            member0_.MEMBER_ID=?
+    Hibernate: 
+        select
+            addresshis0_.MEMBER_ID as member_i1_0_0_,
+            addresshis0_.city as city2_0_0_,
+            addresshis0_.street as street3_0_0_,
+            addresshis0_.zipcode as zipcode4_0_0_ 
+        from
+            ADDRESS addresshis0_ 
+        where
+            addresshis0_.MEMBER_ID=?
+    Hibernate: 
+        /* delete collection jpabook.jpashop.domain.Member.addressHistory */ delete 
+            from
+                ADDRESS 
+            where
+                MEMBER_ID=?
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.addressHistory */ insert 
+            into
+                ADDRESS
+                (MEMBER_ID, city, street, zipcode) 
+            values
+                (?, ?, ?, ?)
+    Hibernate: 
+        /* insert collection
+            row jpabook.jpashop.domain.Member.addressHistory */ insert 
+            into
+                ADDRESS
+                (MEMBER_ID, city, street, zipcode) 
+            values
+                (?, ?, ?, ?)
+    5월 02, 2022 11:16:56 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+    INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+    Process finished with exit code 0
+    ```
+    
+- 참고: 값 타입 컬렉션은 영속성 전에(Cascade) + 고아 객체 제거 기능을 필수로 가진다고 볼 수 있다.
+
+<br>
+
+### 5.2 값 타입 컬렉션의 제약사항
+
+- 값 타입은 엔티티와 다르게 식별자 개념이 없다.
+- 값은 변경하면 추적이 어렵다.
+- 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다.
+- 값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본키를 구성해야 함: **null 입력X, 중복 저장X**
+
+<br>
+
+### 5.3 값 타입 컬렉션 대안
+
+- 실무에서는 상황에 따라 **값 타입 컬렉션 대신에 일대다 관계를 고려**
+- 일대다 관계를 위한 엔티티를 만들고, 여기에서 값 타입을 사용
+- 영속성 전이(Cascade) + 고아 객체 제거를 사용해서 값 타입 컬렉션 처럼 사용
+- EX) AddressEntity
+
+<br>
+
+**[전] 값 타입 컬렉션**
+
+Member.java
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private Long id;
+    private String username;
+
+    @Embedded
+    private Address homeAddress;
+
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<>();
+}
+```
+
+Address.java
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
+import java.util.Objects;
+
+@Embeddable
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Address {
+
+    private String city;
+    private String street;
+    private String zipcode;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(city, address.city) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(zipcode, address.zipcode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, street, zipcode);
+    }
+}
+```
+
+<br>
+
+**[후] 일대다로 변경 (실무에서 많이 사용)**
+
+Member.java
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+public class Member {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
+    private Long id;
+    private String username;
+
+    @Embedded
+    private Address homeAddress;
+
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
+}
+```
+
+Address.java
+
+```java
+package jpabook.jpashop.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Table(name = "ADDRESS")
+public class AddressEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private Address address;
+
+    public AddressEntity(String city, String street, String zipcode) {
+        this.address = new Address(city, street, zipcode);
+    }
+}
+```
+
+<br>
+
+### 5.4 정리
+
+- 엔티티 타입의 특징
+    - 식별자O
+    - 생명 주기 관리
+    - 공유
+- 값 타입의 특징
+    - 식별자X
+    - 생명 주기를 엔티티에 의존
+    - 공유하지 않는 것이 안전(복사해서 사용)
+    - 불변 객체로 만드는 것이 안전
+    
+<br>
+
+값 타입은 정말 값 타입이라 판단될 때만 사용
+
+엔티티와 값 타입을 혼동해서 엔티티를 값 타입으로 만들면 안됨
+
+식별자가 필요하고, 지속해서 값을 추적, 변경해야 한다면 그것은 값 타입이 아닌 엔티티
+
+<br>
+
+## 6. 실전 예제 - 값 타입 매핑
+
+값 타입 만들때
+
+1. @Embeddable 정의
+2. @Getter 설정
+3. Setter 는 정의하지 않거나 private 로 정의
+4. equals()와 hashCode() 정의 (Use getters during code generation에 체크, 프록시로 접근할 때)
+
+```java
+package jpabook.jpashop2.domain;
+
+import lombok.Getter;
+
+import javax.persistence.Embeddable;
+import java.util.Objects;
+
+@Embeddable
+@Getter
+public class Address {
+
+    private String city;
+    private String street;
+    private String zipcode;
+
+    private void setCity(String city) {
+        this.city = city;
+    }
+
+    private void setStreet(String street) {
+        this.street = street;
+    }
+
+    private void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(getCity(), address.getCity()) &&
+                Objects.equals(getStreet(), address.getStreet()) &&
+                Objects.equals(getZipcode(), address.getZipcode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCity(), getStreet(), getZipcode());
+    }
+}
+```
+
+<br>
+
+**[참고] 값 타입 만들때 장점**
+
+- validation rule
+- 비즈니스 로직
+
+```java
+@Embeddable
+@Getter
+public class Address {
+
+    @Column(length = 10)
+    private String city;
+    @Column(length = 20)
+    private String street;
+    @Column(length = 5)
+    private String zipcode;
+
+    // 비즈니스 로직
+    private String fullAddress() {
+        return getCity() + " " + getStreet() + " " + getZipcode();
+    }
+
+...
+
+}
+```
