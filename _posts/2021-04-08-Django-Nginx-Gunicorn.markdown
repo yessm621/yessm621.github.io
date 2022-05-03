@@ -7,6 +7,7 @@ tags:
   - Python
   - Nginx
   - Gunicorn
+  - CentOS
 ---
 
 ## Python3 설치

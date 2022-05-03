@@ -9,6 +9,7 @@ tags:
 toc: true
 toc_label: "Getting Started"
 toc_sticky: true
+page_hidden: true
 ---
 
 # 1장 오브젝트와 의존관계

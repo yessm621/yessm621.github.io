@@ -2,9 +2,9 @@
 title:  "컴포넌트 스캔"
 last_modified_at: 2022-02-24T11:00:00
 categories: 
-  - Spring
+  - SpringBoot
 tags:
-  - Spring
+  - SpringBoot
   - Java
 toc: true
 toc_label: "Getting Started"

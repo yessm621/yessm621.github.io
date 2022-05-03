@@ -1,11 +1,11 @@
 ---
 title:  "jekyll 로 fork 해온 git blog 테마, 잔디밭 안심어질 때"
 categories:
-  - Github
+  - Git
 tags:
   - Git
-  - Gitblog
-  - Github
+  - GitBlog
+  - GitHub
 ---
 
 ## 현재상태

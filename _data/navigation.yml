@@ -1,9 +1,9 @@
 main:
-  - title: "Categories"
+  - title: "카테고리"
     url: /categories/
-  - title: "Tags"
+  - title: "태그"
     url: /tags/
-  - title: "About"
+  - title: "About Me"
     url: /about/
   - title: "연도별 포스트"
     url: /posts/

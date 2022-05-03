@@ -6,6 +6,7 @@ categories:
 tags:
   - Java
   - Spring
+page_hidden: true
 ---
 
 ### 제어의 역전(IoC, Inversion of Control)

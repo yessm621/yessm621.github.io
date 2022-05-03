@@ -2,11 +2,9 @@
 title:  "테스트 코드"
 last_modified_at: 2022-02-10T17:55:00
 categories:
-  - SpringBoot
+  - Java
 tags:
   - Java
-  - SpringBoot
-  - JPA
   - TEST CODE
 toc: true
 toc_label: "Getting Started"

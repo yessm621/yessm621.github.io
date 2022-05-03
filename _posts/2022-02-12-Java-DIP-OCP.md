@@ -6,6 +6,7 @@ categories:
 tags:
   - Java
   - Spring
+page_hidden: true
 ---
 
 링크 [의존성 주입(DI), 3가지 방법](https://yessm621.github.io/SpringBoot/Java-Injection/)
