@@ -14,8 +14,6 @@ toc_label: "Getting Started"
 toc_sticky: true
 ---
 
-# 인증
-
 ## 1. REST API 인증 기법
 
 - Basic 인증

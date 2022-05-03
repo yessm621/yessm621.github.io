@@ -14,12 +14,25 @@ toc_sticky: true
 
 ## 자바 ORM 표준 JPA 프로그래밍
 
-[1. JPA 시작](https://yessm621.github.io/jpa/JPA-Jpa-Start/)
+[1. JPA 시작](https://yessm621.github.io/jpa/JPA-Jpa-Start)
 
-[2. 영속성 컨텍스트](https://yessm621.github.io/jpa/JPA-EntityManager/)
+[2. 영속성 컨텍스트 - 내부 동작 방식](https://yessm621.github.io/jpa/JPA-EntityManager/)
+
+[3. 엔티티 매핑](https://yessm621.github.io/jpa/JPA-Entity/)
+
+[4. 연관관계 매핑 기초](https://yessm621.github.io/jpa/JPA-ORM-Mapped/)
+
+[5. 다양한 연관관계 매핑](https://yessm621.github.io/jpa/JPA-ORM-Mapped2/)
+
+[6. 고급 매핑](https://yessm621.github.io/jpa/JPA-ORM-Mapped3/)
+
+[7. 프록시와 연관관계 관리](https://yessm621.github.io/jpa/JPA-ProxyMapped/)
+
+[8. 값 타입](https://yessm621.github.io/jpa/JPA-ValueType/)
 
 <br>
 <br>
+
 
 # 영속성 관리
 
