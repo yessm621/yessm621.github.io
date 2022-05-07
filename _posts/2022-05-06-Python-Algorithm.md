@@ -1,6 +1,7 @@
 ---
 title:  "파이썬 알고리즘"
-last_modified_at: 2022-05-06T17:11:00
+# last_modified_at: 2022-05-06T17:11:00
+last_modified_at: 2022-05-07T18:30:00
 categories: 
   - Algorithm
 tags:
@@ -601,4 +602,79 @@ print(list(map(lambda x: x+1, a)))
 3        
 [2, 3, 4]
 [2, 3, 4]
+```
+
+---
+
+### 숫자, 문자열 역순
+```python
+# 숫자 역순 할 때 사용
+def reverse(x):
+    res = 0
+    while x > 0:
+        t = x % 10
+        res = res * 10 + t
+        x = x//10
+    return res
+
+# 숫자와 문자열 역순 할 때 사용
+def reverse(x):
+    x = list(str(x))
+    x.reverse()
+    x = ''.join(x)
+
+    return int(x)
+```
+
+---
+
+## 소수 관련
+
+### 소수를 구하는 방법 (에라토스테네스의 체)
+```python
+# 소수를 구하는 방법은 다양하게 있으나 가장 빠른 방법은 에라토스테네스 체
+
+# 받은 입력만큼의 크기를 가진 리스트를 만든다
+ch=[0]*(n+1)
+
+# 소수인 경우 카운트를 할 변수 초기화
+cnt=0
+
+# 소수의 갯수를 구하기 위해 2부터 n까지 for문을 실행
+for i in range(2, n+1):
+		# ch[i]가 0이면 소수
+    if ch[i] == 0:
+        cnt += 1
+				# ch[j]의 배수를 모두 1로 초기화
+        for j in range(i, n+1, i):
+            ch[j] = 1
+```
+
+![Untitled](https://user-images.githubusercontent.com/79130276/167248339-a45d976f-d833-4a3c-ad01-51a7d6acc363.png)
+
+[에라토스테네스의 체]
+
+1. 1은 제거
+
+2. 지워지지 않은 수 중 제일 작은 2를 소수로 채택하고, 나머지 2의 배수를 모두 지운다.
+
+3. 지워지지 않은 수 중 제일 작은 3을 소수로 채택하고, 나머지 3의 배수를 모두 지운다.
+
+4. 지워지지 않은 수 중 제일 작은 5를 소수로 채택하고, 나머지 5의 배수를 모두 지운다.
+
+5. (반복)
+
+<br>
+
+### 소수 판별
+
+```python
+def isPrime(x):
+    if x == 1:
+        return False
+    for i in range(2, x//2+1):
+        if x%i == 0:
+            return False
+    else:
+        return True
 ```
