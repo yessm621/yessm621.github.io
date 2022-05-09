@@ -678,3 +678,51 @@ def isPrime(x):
     else:
         return True
 ```
+
+---
+
+## 내장 함수
+
+### itertools (순열, 조합)
+
+```python
+from itertools import combinations, combinations_with_replacement
+
+arr = [1,2,3]
+
+for a in combinations(arr, 2):
+    print(a)
+
+print("=========")
+
+for a in combinations_with_replacement(arr, 2):
+    print(a)
+
+# (1, 2)
+# (1, 3)
+# (2, 3)
+# =========
+# (1, 1)
+# (1, 2)
+# (1, 3)
+# (2, 2)
+# (2, 3)
+# (3, 3)
+```
+
+### collections
+
+```python
+from collections import Counter
+
+# 가장 흔한 값
+arr = [1,4,5,6,3,2,4,5,6,1,1,4,5]
+counts = Counter(arr)
+res = counts.most_common(2)
+print(res)
+print(res[0][0], res[0][1])
+print(res[1][0], res[1][1],)
+# [(1, 3), (4, 3)]
+# 1 3
+# 4 3
+```
