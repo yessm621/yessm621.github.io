@@ -6,6 +6,7 @@ tags:
   - CSS
 toc: true
 toc_label: "Getting Started"
+page_hidden: true
 ---
 
 ## Transition 이란?

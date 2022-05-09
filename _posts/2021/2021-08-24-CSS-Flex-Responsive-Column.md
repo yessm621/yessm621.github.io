@@ -6,6 +6,7 @@ tags:
   - CSS
 toc: true
 toc_label: "Getting Started"
+page_hidden: true
 ---
 
 ## Flex 반응형 컬럼 예제
