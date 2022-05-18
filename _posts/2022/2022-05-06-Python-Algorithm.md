@@ -752,3 +752,48 @@ print(res[1][0], res[1][1],)
 보통의 그리디 문제는 다 `정렬`이다. 정렬 후 순서대로 선택해 나가면 됨
 
 <br>
+
+## 자료구조
+
+### 리스트(List)
+
+* 정의
+
+    리스트는 자료를 뒤에서 부터 넣을 수 있고 만약 처음 데이터를 삭제한다면 자료가 하나씩 앞당겨 지는 것
+
+    → 비효율적이다
+
+* 평균 시간복잡도: O(n)
+
+<br>
+
+### 덱(Double-ended Queue, Double-linked list)
+
+* 정의
+
+    **양 끝**에 elements 추가/삭제 가능
+
+    데크는 리스트와 달리 앞에서도 넣을 수 있고 뒤에서도 넣을 수 있다
+
+    만약 처음 데이터를 삭제하더라도 자료가 이동하지 않는다 (포인터가 변경되는 것이라 생각)
+
+    → 즉, 효율적이다!
+
+* 평균 시간복잡도: O(1)
+
+* deque 주요 함수
+    * append()
+    * appendleft()
+    * pop()
+    * popleft()
+
+참고) deque의 appendleft() 대신 List는 insert()가 있는데 O(n)의 시간 복잡도이다.
+
+<br>
+
+### 큐(Queue): FIFO
+
+<br>
+
+![Untitled](https://user-images.githubusercontent.com/79130276/168561151-6f71781a-2fe4-45af-aa0e-b38a761416c0.png)
+![Untitled2](https://user-images.githubusercontent.com/79130276/168561157-76aee83b-b4b2-4f34-a616-6db0b8b5504b.png)
