@@ -3,7 +3,8 @@ title:  "파이썬 알고리즘"
 # last_modified_at: 2022-05-06T17:11:00
 # last_modified_at: 2022-05-07T18:30:00
 # last_modified_at: 2022-05-09T11:15:00
-last_modified_at: 2022-05-16T15:50:00
+# last_modified_at: 2022-05-16T15:50:00
+last_modified_at: 2022-05-19T16:30:00
 categories: 
   - Algorithm
 tags:
@@ -85,6 +86,9 @@ print(type(c))
 print(c)
 # <class 'float'> # 실수형과 정수형을 더하면 실수형으로 나옴, 범위: 실수형>정수형
 # 9.3
+
+# 숫자면 true, 아니면 false
+isdecimal()
 ```
 
 ---
@@ -107,9 +111,11 @@ list(range(10, 0, -1))
 list(range(10, 0, -2))
 # [10, 8, 6, 4, 2]
 
+# 한 숫자의 모든 배수에 접근할 때는 range(start, end, start)
+
 # (i=i+1) == (i+=1)
 
-# for ~ else 구문
+# for ~ else 구문: for문이 모두 실행된 후 else 실행
 for i in range(1, 11):
 	print(i)
 	if i==5:
@@ -444,10 +450,13 @@ else:
     print("NO")
 
 # a를 for문으로 돌면서 조건에 하나라도 참이면 true 반환
-if any(15>x for x in a):
+if any(15 > x for x in a):
     print("YES")
 else:
     print("NO")
+
+# Q: 리스트안에 튜플이 있는 형태
+any(cur[1] < x[1] for x in Q)
 ```
 
 ```
@@ -479,6 +488,27 @@ else:
 ============================
 YES
 YES
+```
+
+### 리스트와 튜플
+
+```python
+
+a = [(0, 1), (1, 4), (5, 9), (3, 8), (4, 3)]
+
+# 정렬방법
+# 튜플의 첫번째 값을 기준으로 정렬
+a.sort()
+# [(0, 1), (1, 4), (3, 8), (4, 3), (5, 9)]
+
+# 튜플의 두번째 값을 기준으로 정렬
+a.sort(key=lambda x: (x[1], x[0]))
+# [(0, 1), (4, 3), (1, 4), (3, 8), (5, 9)]
+
+# 리스트를 받아오는 동시에 튜플의 첫번째는 인덱스, 두번째는 값을 가져오는 법
+# input(): 60 50 70 80 90
+Q = [(pos, val) for pos, val in enumerate(list(map(int, input().split())))]
+# [(0, 60), (1, 50), (2, 70), (3, 80), (4, 90)]
 ```
 
 ---
@@ -767,6 +797,23 @@ print(res[1][0], res[1][1],)
 
 <br>
 
+### 스택(Stack)
+
+* 리스트와 같다 (FILO)
+
+* append(), pop() 활용
+
+* 활용: 후위표기식 등
+
+* 후위표기식
+
+    1. '(': 나오면 바로 스택에 push한다.
+    2. ')': 우선순위가 가장 높은 괄호연산자가 끝난다는 뜻이므로, 괄호 안에 남아있는 연산자를 전부 pop하고 '('도 pop해줌. ')'는 처음부터 스택에 넣지 않는다.
+    3. '\*', '/': 스택에 '\*', '/'가 있다면 그것들을 먼저 없어질 때까지 pop해주고 끝나면 push한다. ('+','-'은 우선순위가 낮으므로 pop안함)
+    4. '+', '-': 스택에 다른 사칙연산자가 있다면 그것들을 먼저 없어질 때까지 (괄호연산자 직전가지)pop해주고 끝나면 push한다.
+
+<br>
+
 ### 덱(Double-ended Queue, Double-linked list)
 
 * 정의
@@ -793,7 +840,15 @@ print(res[1][0], res[1][1],)
 
 ### 큐(Queue): FIFO
 
+큐를 앞뒤로 활용한 것이 deque(덱)
+
+deque를 사용해서 풀이: popleft(), append() 사용
+
+원형 큐는 원형인 점을 고려하여 popleft() 후 마지막에 다시 append() 해줌...
+
 <br>
+
+참고) 아래 그림은 덱과 리스트의 차이를 보여줌
 
 ![Untitled](https://user-images.githubusercontent.com/79130276/168561151-6f71781a-2fe4-45af-aa0e-b38a761416c0.png)
 ![Untitled2](https://user-images.githubusercontent.com/79130276/168561157-76aee83b-b4b2-4f34-a616-6db0b8b5504b.png)
