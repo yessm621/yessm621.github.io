@@ -4,7 +4,8 @@ title:  "파이썬 알고리즘"
 # last_modified_at: 2022-05-07T18:30:00
 # last_modified_at: 2022-05-09T11:15:00
 # last_modified_at: 2022-05-16T15:50:00
-last_modified_at: 2022-05-19T16:30:00
+# last_modified_at: 2022-05-19T16:30:00
+last_modified_at: 2022-05-22T20:00:00
 categories: 
   - Algorithm
 tags:
@@ -780,19 +781,6 @@ print(res[1][0], res[1][1],)
 
 ## 알고리즘 종류
 
-### 이분/이진 탐색 (binary search)
-
-* 이진 탐색을 하기 위한 전제 조건: 리스트가 정렬되어 있어야 함
-* 이진 탐색 순서
-	1. 탐색 리스트를 정렬
-	2. left(0), right(len(list)), mid((left + right) // 2) 설정
-	3. mid 값과 찾고자 하는 값 비교
-	4. mid 값이 더 크면 right = mid - 1, mid 값이 더 작으면 left = mid + 1
-	5. left <= right 조건이 만족할 때까지 반복
-* 이진 탐색 시간복잡도: 탐색 사이즈가 계속 1/2씩 줄어들기 때문에 시간복잡도가 O(logN)
-
-<br>
-
 ### 그리디 알고리즘
 
 문제를 풀어나가는 과정(단계)에 있어서 그 순간에 최적이라고 생각되는 것을 선택해 나가는 방식으로 진행하여 최종적인 해답에 도달하는 것
@@ -869,3 +857,51 @@ deque를 사용해서 풀이: popleft(), append() 사용
 
 ![Untitled](https://user-images.githubusercontent.com/79130276/168561151-6f71781a-2fe4-45af-aa0e-b38a761416c0.png)
 ![Untitled2](https://user-images.githubusercontent.com/79130276/168561157-76aee83b-b4b2-4f34-a616-6db0b8b5504b.png)
+
+<br>
+
+### 이분/이진 탐색 (binary search)
+
+* 이진 탐색을 하기 위한 전제 조건: 리스트가 정렬되어 있어야 함
+* 이진 탐색 순서
+	1. 탐색 리스트를 정렬
+	2. left(0), right(len(list)), mid((left + right) // 2) 설정
+	3. mid 값과 찾고자 하는 값 비교
+	4. mid 값이 더 크면 right = mid - 1, mid 값이 더 작으면 left = mid + 1
+	5. left <= right 조건이 만족할 때까지 반복
+* 이진 탐색 시간복잡도: 탐색 사이즈가 계속 1/2씩 줄어들기 때문에 시간복잡도가 O(logN)
+
+<br>
+
+### 이진트리순회(깊이우선탐색)
+
+1. 전위순회: 부모-왼쪽-오른쪽
+2. 중위순회: 왼쪽-부모-오른쪽
+3. 후위순회: 왼쪽-오른쪽-부모
+
+대부분의 문제는 전위순회가 대부분. 후위순회는 병합정렬이 대표적, 중위순회를 사용하는 경우는 많지 않다.
+
+코드를 작성할 때 부모가 D(i)이라 한다면, 왼쪽 자식은 D(i*2), 오른쪽 자식은 D(i*2+1)
+
+```python
+import sys
+sys.stdin=open("input.txt", "r")
+
+def DFS(v):
+    if v > 7:
+        return
+    else:
+        # 전위순회방식
+        print(v)
+        DFS(v * 2)
+        # 중위순회방식
+        print(v)
+        DFS(v * 2 + 1)
+        # 후위순회방식
+        print(v)
+
+if __name__=="__main__":
+    DFS(1)
+```
+
+<br>
