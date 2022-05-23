@@ -1,6 +1,7 @@
 ---
 title:  "Java, 테스트 코드 작성 - Mockito"
-last_modified_at: 2022-03-15T14:05:00
+# last_modified_at: 2022-03-15T14:05:00
+last_modified_at: 2022-05-23T18:00:00
 categories: 
   - Java
 tags:
@@ -84,8 +85,7 @@ import static org.mockito.Mockito.mock;
 
 class StudyServiceTest {
 
-    @Mock
-    MemberService memberService = mock(MemberService.class);;
+    MemberService memberService = mock(MemberService.class);
 
     StudyRepository studyRepository = mock(StudyRepository.class);
 
@@ -136,3 +136,197 @@ class StudyServiceTest {
 
 - StudyService안에 MemberService 와 StudyRepository가 구현체는 없고 인터페이스만 있을 경우
 - 또는 구현체는 있더라도 StudyService에 있는 코드만 테스트를 하고 싶은 경우
+
+<br>
+
+## 4. Mock 객체 Stubbing (조작)
+
+**모든 Mock 객체의 행동**
+
+- Null을 리턴한다. (Optional 타입은 Optional.empty 리턴)
+- Primitive 타입은 기본 Primitive 값.
+- 콜렉션은 비어있는 콜렉션.
+- Void 메소드는 예외를 던지지 않고 아무런 일도 발생하지 않는다.
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    // 리턴값이 Optional.Empty이다
+    Optional<Member> optional = memberService.findById(1L);
+
+    // validate를 void로 정의했기 때문에 아무일도 일어나지 않는다.
+    memberService.validate(2L);
+}
+```
+
+<br>
+
+**Mock 객체 조작**
+
+1. 특정한 매개변수를 받은 경우 특정한 값을 리턴하거나 예외를 던지도록 만들 수 있다.
+
+[예제1] 기본 예제
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    // 아래코드는 stubbing을 한 것
+    when(memberService.findById(1L)).thenReturn(Optional.of(member));
+
+    Study study = new Study(10, "java");
+
+    Optional<Member> findMember = memberService.findById(1L);
+    assertEquals("yessm621@gmail.com", findMember.get().getEmail());
+}
+```
+
+<br>
+
+[예제2] 에러발생
+
+→ stubbing에서 2L을 했는데 비교는 1L과 했기 때문
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    // 아래코드는 stubbing을 한 것
+    when(memberService.findById(2L)).thenReturn(Optional.of(member));
+
+    Study study = new Study(10, "java");
+
+    Optional<Member> findMember = memberService.findById(1L);
+    assertEquals("yessm621@gmail.com", findMember.get().getEmail());
+}
+```
+
+<br>
+
+이런 오류를 방지하기위해 argument matchers의 any()를 사용한다
+
+any → 아무값이나 넣는 것
+
+<br>
+
+[예제3] argument matchers의 any() 사용 
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    // 아래코드는 stubbing을 한 것
+    when(memberService.findById(any())).thenReturn(Optional.of(member));
+
+    assertEquals("yessm621@gmail.com", memberService.findById(1L).get().getEmail());
+    assertEquals("yessm621@gmail.com", memberService.findById(2L).get().getEmail());
+}
+```
+
+argument matchers → ([관련 링크](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#4))
+
+<br>
+
+[예제4] stubbing해서 예외를 던지는 방법
+
+```java
+when(memberService.findById(1L)).thenThrow(new RuntimeException());
+```
+
+<br>
+
+2. Void 메소드 특정 매개변수를 받거나 호출된 경우 예외를 발생 시킬 수 있다.
+
+```java
+// memberService의 validate()를 호출하면 new IllegalArgumentException()을 던지라는 뜻
+doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
+```
+
+<br>
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    // 아래코드는 stubbing을 한 것
+    when(memberService.findById(any())).thenReturn(Optional.of(member));
+
+    assertEquals("yessm621@gmail.com", memberService.findById(1L).get().getEmail());
+    assertEquals("yessm621@gmail.com", memberService.findById(2L).get().getEmail());
+
+    doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
+
+    // 예외가 정상적으로 발생하는지 확인
+    assertThrows(IllegalArgumentException.class, () -> {
+        memberService.validate(1L);
+    });
+
+    memberService.validate(2L);
+}
+```
+
+<br>
+
+3. 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동하도록 조작할 수도 있다
+
+```java
+@Test
+void createNewStudy(@Mock MemberService memberService,
+                    @Mock StudyRepository studyRepository) {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    when(memberService.findById(any()))
+            .thenReturn(Optional.of(member))
+            .thenThrow(new RuntimeException())
+            .thenReturn(Optional.empty());
+
+    // #1
+    Optional<Member> byId = memberService.findById(1L);
+    assertEquals("yessm621@gmail.com", byId.get().getEmail());
+
+    // #2
+    assertThrows(RuntimeException.class, () -> {
+        memberService.findById(1L);
+    });
+
+    // #3
+    assertEquals(Optional.empty(), memberService.findById(3L));
+}
+```
