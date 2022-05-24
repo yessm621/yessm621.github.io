@@ -139,14 +139,23 @@ class StudyServiceTest {
 
 <br>
 
-## 4. Mock 객체 Stubbing (조작)
+## 4. Mock 객체 Stubbing
 
-**모든 Mock 객체의 행동**
+**Stubbing**이란 `Mock` 객체의 행동을 **조작**하는 것을 의미 
 
-- Null을 리턴한다. (Optional 타입은 Optional.empty 리턴)
-- Primitive 타입은 기본 Primitive 값.
-- 콜렉션은 비어있는 콜렉션.
-- Void 메소드는 예외를 던지지 않고 아무런 일도 발생하지 않는다.
+<br>
+
+**Mock 객체 메서드의 반환 값**
+
+- 래퍼런스 타입: Null
+- Optional 타입: Optional.empty
+- Primitive 타입: Primitive 타입의 기본 값 (0, false 등)
+- Collection 타입: 비어있는 Collection
+- void 타입: 예외를 던지지 않고 아무런 일도 발생하지 않는다.
+
+<br>
+
+Stubbing 작업 전
 
 ```java
 @Test
@@ -163,13 +172,23 @@ void createNewStudy(@Mock MemberService memberService,
 }
 ```
 
+Mock 객체 메서드의 Optional 리턴값은 Optional.empty이다. 따라서, 값을 받아와도 값이 없기 때문에 테스트는 더 이상 진행하기 어렵다.
+
+이 같은 상황에서 Mock 인스턴스에게 실제 메서드를 호출한 것과 같은 **가짜 동작**을 넣어줄 수 있다. 이러한 작업을 **Stubbing**이라 함
+
 <br>
 
-**Mock 객체 조작**
+**Mock 객체 조작 (Stubbing)**
 
 1. 특정한 매개변수를 받은 경우 특정한 값을 리턴하거나 예외를 던지도록 만들 수 있다.
+2. void 메소드 특정 매개변수를 받거나 호출된 경우 예외를 발생 시킬 수 있다.
+3. 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동하도록 조작할 수도 있다
 
-[예제1] 기본 예제
+<br>
+
+**when()**
+
+when() 메서드는 Mock 객체를 래핑한 OngoingStubbing 래퍼 클래스를 반환
 
 ```java
 @Test
@@ -194,9 +213,9 @@ void createNewStudy(@Mock MemberService memberService,
 
 <br>
 
-[예제2] 에러발생
+**any()**
 
-→ stubbing에서 2L을 했는데 비교는 1L과 했기 때문
+특정 파라미터에 대한 stubbing을 하고 해당 파라미터를 일치하지 않으면 오류가 발생한다.
 
 ```java
 @Test
@@ -219,15 +238,11 @@ void createNewStudy(@Mock MemberService memberService,
 }
 ```
 
-<br>
+위의 코드와 같이 다른 파라미터를 넣었을 경우 Stubbing이 되지 않고 오류가 발생한다.
 
-이런 오류를 방지하기위해 argument matchers의 any()를 사용한다
+이때 사용할 수 있는게 **any 타입 메서드**
 
-any → 아무값이나 넣는 것
-
-<br>
-
-[예제3] argument matchers의 any() 사용 
+any 타입 메서드는 매개변수의 범위를 대신해주며 아무값이나 들어와도  stubbing을 할 수 있게 만들어준다
 
 ```java
 @Test
@@ -248,24 +263,26 @@ void createNewStudy(@Mock MemberService memberService,
 }
 ```
 
-argument matchers → ([관련 링크](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#4))
+any()와 같이 이러한 작업을 하는 요소를 Argument matchers 라 함 ([링크](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#4))
 
 <br>
 
-[예제4] stubbing해서 예외를 던지는 방법
+**thenThrow(), doThrow()**
 
-```java
-when(memberService.findById(1L)).thenThrow(new RuntimeException());
-```
+stubbing해서 예외를 던지는 작업
 
-<br>
-
-2. Void 메소드 특정 매개변수를 받거나 호출된 경우 예외를 발생 시킬 수 있다.
-
-```java
-// memberService의 validate()를 호출하면 new IllegalArgumentException()을 던지라는 뜻
-doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
-```
+1. 반환형이 있는 경우에 사용
+    
+    ```java
+    when(memberService.findById(1L)).thenThrow(new RuntimeException());
+    ```
+    
+2. 반환형이 void 인 경우 사용
+    
+    ```java
+    // memberService의 validate()를 호출하면 new IllegalArgumentException()을 던지라는 뜻
+    doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
+    ```
 
 <br>
 
@@ -299,7 +316,9 @@ void createNewStudy(@Mock MemberService memberService,
 
 <br>
 
-3. 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동하도록 조작할 수도 있다
+**체이닝 기법을 이용하기**
+
+호출되는 순서가 지정되어 있어 같은 매개변수라도 매번 다른 값을 행동하도록 조작할 수 있음
 
 ```java
 @Test
