@@ -1,7 +1,8 @@
 ---
 title:  "Java, 테스트 코드 작성 - Mockito"
 # last_modified_at: 2022-03-15T14:05:00
-last_modified_at: 2022-05-23T18:00:00
+# last_modified_at: 2022-05-23T18:00:00
+last_modified_at: 2022-05-25T13:45:00
 categories: 
   - Java
 tags:
@@ -349,3 +350,127 @@ void createNewStudy(@Mock MemberService memberService,
     assertEquals(Optional.empty(), memberService.findById(3L));
 }
 ```
+
+<br>
+
+## 4. Mock 객체 확인
+
+`Mock 객체 확인`은 테스트 코드에서 Mock 객체를 **어떻게 활용하는지**에 대해서 파악하는 것
+
+- Mock 객체의 메서드가 어떤 파라미터를 가지고 실행하는지
+- Mock 객체의 메서드가 어떤 순서로 실행되는지
+- Mock 객체의 메서드가 특정 시간내에 수행하는지
+
+<br>
+
+### verify()
+
+`verify() 메소드`는 Mock 객체의 메서드 **호출에 대해서 확인 및 검증** 할 수 있는 메서드
+
+<br>
+
+StudyService 에 memberService.notify(newStudy) 기능 추가
+
+```java
+public Study createNewStudy(Long memberId, Study study) {
+    Optional<Member> member = memberService.findById(memberId);
+    if (member.isPresent()) {
+        study.setOwnerId(memberId);
+    } else {
+        throw new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'");
+    }
+
+    Study newStudy = repository.save(study);
+    memberService.notify(newStudy);
+
+    return newStudy;
+}
+```
+
+MemberService 는 Mock 객체이기 때문에 아무동작도 하지 않음
+
+따라서, verify()를 통해 notify(newStudy)가 호출되었는지 검증
+
+```java
+// verify(Mock 인스턴스, times(카운트)).Mock_인스턴스_메서드(특정매개변수);
+verify(memberService, times(1)).notify(study);
+```
+
+`times()`는 지정한 메서드가 **몇 번 호출되었는지** 정의
+
+verify()도 any(), some() 같은 Argument matchers 사용가능
+
+<br>
+
+단, 미리 stubbing 을 정의하는 when() 과 다르게 verify() 를 실행하기 전에 했었는지에 대한 경험에 대해 묻는다. 
+
+따라서, verify()를 사용할 때 로직이 실행된 후에 기술해주는 것이 좋다.
+
+그리고 정확히 몇 번 호출 되었는지를 검증하는 것이기에 이보다 적거나 많게 실행하면 에러가 발생
+
+<br>
+
+`never()`
+
+times()와 반대로 뒤에 따라오는 메서드를 실행하지 않아야 하는 경우를 테스트하는 메서드
+
+```java
+verify(memberService, never()).validate(any());
+```
+
+<br>
+
+timeout()
+
+특정 시간내에 메서드가 실행되었는지를 테스트. 실무에서 사용할 일이 거의 없다.
+
+```java
+verify(mock, timeout(100).times(1)).someMethod();
+```
+
+<br>
+
+### verifyNoMoreInteractions
+
+모든 verify() 검증이 끝났다면 안정성을 위해 verifyNoMoreInteractions()을 호출할 수 있다.
+
+verifyNoMoreInteractions() 는 Mock 인스턴스의 메서드를 더 이상 verify() 검증할 필요가 없다는 뜻 (더 이상 **검증할 것이 남아있지 않을 때** 성공을 리턴) 
+
+검증할 내용이 있다면 테스트에 실패하게 된다
+
+<br>
+
+### InOrder()
+
+verify()는 횟수에 대해서만 검증. 어떤 로직으로 실행 되었는지까지는 검증하지 못한다.
+
+예를들어 1번 메서드 호출 후 2번 메서드를 호출한다고 가정한다. `verify()` 메서드를 통해 1번 메서드와 2번 메서드의 사용횟수를 검증을 한다. 그런데 갑작스런 요구사항 변화로 2번 메서드 다음, 1번 메서드를 호출하는 것으로 바뀌었다. 하지만, 개발자는 이 요구사항을 통해 코드 수정을 깜빡하고 테스트를 진행했지만 테스트는 성공적으로 나왔다. 왜냐하면 `verify()`메서드는 횟수만 검증하기 때문이다.
+
+이런 경우 우리는 `Mock`객체가 메서드를 실행하는 **순서에 대해서도 검증**을 할 필요가 있다.
+
+`inOrder() 메서드`를 통해 검증 가능
+
+참고) InOrder 인스턴스의 verify()는 Mockito.verify()와 별개
+
+<br>
+
+```java
+// inOrder(Mock 인스턴스)
+InOrder inOrder = inOrder(memberService);
+
+// InOrder 인스턴스. verify(Mock 인스턴스).검증할 Mock 인스턴스의 메서드(특정 파라미터)
+inOrder.verify(memberService).notify(study);
+inOrder.verify(memberService).notify(member);
+```
+
+`InOrder 인스턴스`의 verify() 메서드를 통해 **실행 순서를 검증**할 수 있다.
+
+<br>
+
+꼭 Mock 인스턴스가 호출하는 모든 메서드를 기술할 필요가 없으며 단순히 **내가 사용하고자 하는 메서드만을 기술**해주면 된다.
+
+예를 들어, 다음과 같은 순서로 메서드를 호출한다고 가정한다.
+
+A 메서드 → B 메서드 → C 메서드
+
+이때 A, B, C 메서드 모두 호출할 필요없이 A, C를 지정해줘도 되고, B, C 를 지정해줘도 정상동작 함
