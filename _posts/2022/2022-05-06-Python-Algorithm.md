@@ -741,6 +741,23 @@ for a in combinations_with_replacement(arr, 2):
 # (2, 2)
 # (2, 3)
 # (3, 3)
+
+from itertools import product
+a = ['A', 'B']
+for i in product(a, repeat=3):
+	print(i)
+
+'''
+출력결과:
+('A', 'A', 'A')
+('A', 'A', 'B')
+('A', 'B', 'A')
+('A', 'B', 'B')
+('B', 'A', 'A')
+('B', 'A', 'B')
+('B', 'B', 'A')
+('B', 'B', 'B')
+'''
 ```
 
 ### collections
