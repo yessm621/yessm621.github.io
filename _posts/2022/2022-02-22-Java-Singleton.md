@@ -9,7 +9,6 @@ tags:
 toc: true
 toc_label: "Getting Started"
 toc_sticky: true
-page_hidden: true
 ---
 
 ## 1. 웹 애플리케이션과 싱글톤

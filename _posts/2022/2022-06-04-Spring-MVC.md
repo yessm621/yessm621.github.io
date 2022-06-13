@@ -2,7 +2,8 @@
 title:  "스프링 MVC"
 # last_modified_at: 2022-06-04T19:25:00
 # last_modified_at: 2022-06-05T19:00:00
-last_modified_at: 2022-06-09T18:00:00
+# last_modified_at: 2022-06-09T18:00:00
+last_modified_at: 2022-06-13T19:00:00
 categories: 
   - Spring
 tags:
@@ -1067,4 +1068,366 @@ HTML form 데이터도 메시지 바디를 통해 전송되므로 직접 읽을 
 
 ## 6. HttpServletResponse - 기본 사용법
 
-6.1 HttpServletResponse 역할
+### 6.1 HttpServletResponse 역할
+
+- HTTP 응답 메시지 생성
+    - HTTP 응답코드 지정
+    - 헤더 생성
+    - 바디 생성
+- 편의 기능 제공
+    - Content-Type, 쿠키, Redirect
+
+<br>
+
+```java
+package hello.servlet.basic.response;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet(name = "responseHeaderServlet", urlPatterns = "/response-header")
+public class ResponseHeaderServlet extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // [status-line]
+        response.setStatus(HttpServletResponse.SC_OK);
+//        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+        // [response-header]
+//        response.setHeader("Content-Type", "text/plain;charset=utf-8");
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("my-header", "hello");
+
+        // [Header 편의 메서드]
+//        content(response);
+//        cookie(response);
+        redirect(response);
+
+        //[message body]
+        PrintWriter writer = response.getWriter();
+        writer.println("ok");
+
+    }
+
+    private void content(HttpServletResponse response) {
+        //Content-Type: text/plain;charset=utf-8
+        //Content-Length: 2
+        //response.setHeader("Content-Type", "text/plain;charset=utf-8");
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        //response.setContentLength(2); //(생략시 자동 생성)
+    }
+
+    private void cookie(HttpServletResponse response) {
+        //Set-Cookie: myCookie=good; Max-Age=600;
+        //response.setHeader("Set-Cookie", "myCookie=good; Max-Age=600");
+        Cookie cookie = new Cookie("myCookie", "good");
+        cookie.setMaxAge(600); //600초
+        response.addCookie(cookie);
+    }
+
+    private void redirect(HttpServletResponse response) throws IOException {
+        //Status Code 302
+        //Location: /basic/hello-form.html
+        //response.setStatus(HttpServletResponse.SC_FOUND); //302
+        //response.setHeader("Location", "/basic/hello-form.html");
+        response.sendRedirect("/basic/hello-form.html");
+    }
+}
+```
+
+<br>
+
+### 6.2 HTTP 응답 데이터 - 단순 텍스트, HTML
+
+HTTP 응답 메시지는 주로 다음 내용을 담아서 전달
+
+- 단순 텍스트 응답 (writer.println(”ok”);)
+- HTML 응답
+- HTTP API - MessageBody JSON 응답
+
+<br>
+
+**HTML 응답**
+
+Content-Type: `text/html`
+
+```java
+package hello.servlet.basic.response;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet(name = "responseHtmlServlet", urlPatterns = "/response-html")
+public class ResponseHtmlServelt extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Content-Type: text/html;charset=utf-8
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
+
+        PrintWriter writer = response.getWriter();
+        writer.println("<html>");
+        writer.println("<body>");
+        writer.println("    <div>안녕?</div>");
+        writer.println("</body>");
+        writer.println("</html>");
+    }
+}
+```
+
+<br>
+
+**API JSON 응답**
+
+Content-Type: `application/json`
+
+**Jackson 라이브러리**가 제공하는 **objectMapper.writeValueAsString()**를 사용하면 객체를 JSON 문자로 변경 가능
+
+```java
+package hello.servlet.basic.response;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hello.servlet.basic.HelloData;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet(name = "responseJsonServlet", urlPatterns = "/response-json")
+public class ResponseJsonServlet extends HttpServlet {
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Content-Type: application/json
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+
+        HelloData helloData = new HelloData();
+        helloData.setUsername("kim");
+        helloData.setAge(20);
+
+        // {"username": "kim", "age": 20}
+        String result = objectMapper.writeValueAsString(helloData);
+        response.getWriter().write(result);
+    }
+}
+```
+
+<br>
+
+> **참고**
+application/json은 utf-8 형식을 사용하도록 정의되어 있음
+따라서, application/json 사용 (application/json;charset=utf-8 이라고 전달하는 것은 의미 없는 파라미터를 추가한 것)
+response.getWriter()를 사용하면 추가 파라미터를 자동으로 추가해버린다. 이때는 response.getOutputStream()으로 출력하면 그런 문제가 없다.
+>
+
+<br>
+
+# 서블릿, JSP, MVC 패턴
+
+## 1. 서블릿, JSP로 회원관리 웹 애플리케이션 작성 예제
+
+회원 정보: username, age
+
+기능 요구사항: 회원 저장, 회원 목록 조회
+
+Member.java
+
+```java
+package hello.servlet.domain.member;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Member {
+
+    private Long id;
+    private String username;
+    private int age;
+
+    public Member() {
+
+    }
+
+    public Member(String username, int age) {
+        this.username = username;
+        this.age = age;
+    }
+}
+```
+
+MemberRepository.java
+
+```java
+package hello.servlet.domain.member;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 동시성 문제가 고려되어 있지 않음, 실무에서는 ConcurrentHashMap, AtomicLong 사용 고려
+ */
+public class MemberRepository {
+
+    private static Map<Long, Member> store = new HashMap<>();
+    private static long sequence = 0L;
+
+    private static final MemberRepository instance = new MemberRepository();
+
+    public static MemberRepository getInstance() {
+        return instance;
+    }
+
+    private MemberRepository() {
+    }
+
+    public Member save(Member member) {
+        member.setId(++sequence);
+        store.put(member.getId(), member);
+        return member;
+    }
+
+    public Member findById(Long id) {
+        return store.get(id);
+    }
+
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public void clearStore() {
+        store.clear();
+    }
+}
+```
+
+**싱글톤 패턴** 사용
+
+싱글톤으로 만들때는 `private`을 정의하여 아무나 만들지 못하게 해줘야 함
+
+싱글톤 관련 내용 ([클릭](https://yessm621.github.io/spring/Java-Singleton/))
+
+```java
+private static final MemberRepository instance = new MemberRepository();
+
+public static MemberRepository getInstance() {
+    return instance;
+}
+
+private MemberRepository() {
+}
+```
+
+MemberRepositoryTest.java
+
+```java
+package hello.servlet.domain.member;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MemberRepositoryTest {
+
+    MemberRepository memberRepository = MemberRepository.getInstance();
+
+    @AfterEach
+    void afterEach() {
+        memberRepository.clearStore();
+    }
+
+    @Test
+    void save() {
+        // given
+        Member member = new Member("hello", 20);
+
+        // when
+        Member savedMember = memberRepository.save(member);
+
+        // then
+        Member findMember = memberRepository.findById(savedMember.getId());
+        assertThat(findMember).isEqualTo(savedMember);
+    }
+
+    @Test
+    void findAll() {
+        // given
+        Member member1 = new Member("member1", 20);
+        Member member2 = new Member("member2", 30);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        // when
+        List<Member> result = memberRepository.findAll();
+
+        // then
+        assertThat(result.size()).isEqualTo(2);
+        // result에 member1, member2가 있는지 확인
+        assertThat(result).contains(member1, member2);
+    }
+
+}
+```
+
+각 테스트가 끝날 때 다음 테스트에 영향을 주지 않기 위해 **@AfterEach**을 이용하여 clearStore() 호출
+
+**JSP 작성법**
+
+```html
+// 가장 윗줄에 아래 코드를 입력하면 jsp 문서라는 것을 의미한다
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+// 자바의 import문과 같음
+<%@ page import="hello.servlet.domain.member.MemberRepository" %>
+
+// 자바 코드를 입력할 수 있음
+<% ~~ %>
+
+// 자바 코드를 출력할 수 있음
+<%= ~~ %>
+```
+
+**서블릿과 JSP의 한계**
+
+서블릿으로 개발을 하면 뷰 화면을 위해 HTML을 만드는 작업이 자바 코드에 섞여서 지저분하고 복잡하다
+
+JSP를 사용하면서 HTML 작업이 깔끔해졌지만 자바 코드, 데이터를 조회하는 리포지토리 등이 JSP에 노출된다는 단점이 있다 (JSP가 너무 많은 역할을 한다) → 유지보수 지옥
+
+**MVC 패턴의 등장**
+
+비즈니스 로직은 서블릿 처럼 다른곳에서 처리하고, JSP는 목적에 맞게 HTML로 화면(View)을 그리는
+일에 집중하기 위해 MVC 패턴이 등장함
+
+<!-- ## 2. MVC 패턴
+
+### 2.1 MVC 패턴 - 개요 -->
