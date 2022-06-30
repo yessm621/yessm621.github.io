@@ -12,9 +12,8 @@ tags:
   - Algorithm
   - Python
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
 toc_sticky: true
-#page_hidden: true
 ---
 
 ## 파이썬 기초 문법

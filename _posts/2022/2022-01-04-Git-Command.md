@@ -6,7 +6,8 @@ categories:
 tags:
   - Git
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ### 사용자 정보 설정

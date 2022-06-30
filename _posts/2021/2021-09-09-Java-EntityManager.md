@@ -6,7 +6,8 @@ tags:
   - Java
   - JPA
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ## 엔티티 매니저 (EntityManager)

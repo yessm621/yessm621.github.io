@@ -7,7 +7,8 @@ tags:
   - SpringBoot
   - JPA
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ## SQL 수정(Update) 쿼리의 문제점

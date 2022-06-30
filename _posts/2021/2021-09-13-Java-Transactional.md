@@ -7,7 +7,8 @@ tags:
   - SpringBoot
   - JPA
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ## 트랜잭션이란?

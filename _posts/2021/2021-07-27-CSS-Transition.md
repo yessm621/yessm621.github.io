@@ -5,8 +5,7 @@ categories:
 tags:
   - CSS
 toc: true
-toc_label: "Getting Started"
-page_hidden: true
+published : false
 ---
 
 ## Transition 이란?

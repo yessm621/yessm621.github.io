@@ -7,8 +7,6 @@ tags:
   - Java
   - SpringBoot
   - JPA
-# toc: true
-# toc_label: "Getting Started"
 ---
 
 엔티티와 관련된 작업을 하다 보면, 데이터의 등록/수정 시간을 자동으로 처리할 수 있도록 어노테이션을 이용해서 설정

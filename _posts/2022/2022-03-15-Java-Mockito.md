@@ -10,7 +10,7 @@ tags:
   - Java
   - JUnit5
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
 toc_sticky: true
 ---
 

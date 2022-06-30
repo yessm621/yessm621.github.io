@@ -7,7 +7,7 @@ tags:
   - SpringBoot
   - Java
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
 toc_sticky: true
 ---
 

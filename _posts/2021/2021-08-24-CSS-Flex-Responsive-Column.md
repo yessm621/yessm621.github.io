@@ -5,8 +5,8 @@ categories:
 tags:
   - CSS
 toc: true
-toc_label: "Getting Started"
-page_hidden: true
+toc_label: "Index"
+published : false
 ---
 
 ## Flex 반응형 컬럼 예제

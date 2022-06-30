@@ -5,8 +5,8 @@ categories:
 tags:
   - CSS
 toc: true
-toc_label: "Getting Started"
-page_hidden: true
+toc_label: "Index"
+published : false
 ---
 
 ## flex items 중 하나만 오른쪽 끝으로 붙이고 싶을 때

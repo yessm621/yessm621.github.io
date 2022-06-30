@@ -6,7 +6,9 @@ categories:
 tags:
   - Java
   - Spring
-page_hidden: true
+toc: true
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ### 제어의 역전(IoC, Inversion of Control)

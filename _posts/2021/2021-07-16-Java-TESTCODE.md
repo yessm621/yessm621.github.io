@@ -7,7 +7,8 @@ tags:
   - Java
   - TEST CODE
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 # 테스트 코드

@@ -8,7 +8,8 @@ tags:
   - SpringBoot
   - JPA
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 스프링 시큐리티

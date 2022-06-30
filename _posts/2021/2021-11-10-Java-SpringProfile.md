@@ -6,7 +6,8 @@ tags:
   - Java
   - SpringBoot
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다

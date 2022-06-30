@@ -8,7 +8,7 @@ tags:
   - Java
   - REST API
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
 toc_sticky: true
 ---
 

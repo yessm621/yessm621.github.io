@@ -7,7 +7,8 @@ tags:
   - SpringBoot
   - JPA
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 JPA 를 사용하는 데 가장 중요한 일은 엔티티와 테이블을 정확히 매핑하는 것. 따라서, 매핑 어노테이션을 숙지하고 사용해야 함

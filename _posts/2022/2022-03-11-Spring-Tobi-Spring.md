@@ -7,9 +7,9 @@ tags:
   - Spring
   - Java
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
 toc_sticky: true
-page_hidden: true
+published : false
 ---
 
 # 1장 오브젝트와 의존관계

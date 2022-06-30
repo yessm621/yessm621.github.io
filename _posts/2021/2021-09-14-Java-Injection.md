@@ -6,7 +6,8 @@ tags:
   - Java
   - SpringBoot
 toc: true
-toc_label: "Getting Started"
+toc_label: "Index"
+toc_sticky: true
 ---
 
 ## 의존성 주입 방법
