@@ -89,6 +89,16 @@ print(c)
 
 # 숫자면 true, 아니면 false
 isdecimal()
+
+# 값 비교하여 더 큰 값을 return
+largest = 20
+tmp = 30
+largest = max(largest, tmp)
+# largest = 30
+
+tmp = 10
+largest = max(largest, tmp)
+# largest = 30
 ```
 
 ---
