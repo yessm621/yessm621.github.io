@@ -1,6 +1,7 @@
 ---
 title:  "HTTP API"
-last_modified_at: 2022-07-08T23:50:00
+# last_modified_at: 2022-07-08T23:50:00
+last_modified_at: 2022-07-10T20:00:00
 categories: 
   - HTTP
 tags:
@@ -216,3 +217,53 @@ URI를 리소스만 가지고 설계하기 힘들 때 URI에 동사를 넣어 �
 - 리소스 제거
 
 <br>
+
+## 3. HTTP API 설계 개념
+
+### 3.1 컬렉션(collection)
+- 서버가 관리하는 리소스 디렉터리
+- `서버가 리소스의 URI를 생성하고 관리`
+    - HTTP/1.1 201 Created
+    - Location: /members/100
+- 예) /members
+
+<br>
+
+### 3.2 스토어(store)
+- 클라이언트가 관리하는 자원 저장소
+- `클라이언트가 리소스의 URI를 알고 관리`
+    - 파일 등록 /files/{filename} -> PUT
+    - PUT **/files/star.jpg**
+- 예) /files
+
+<br>
+
+API를 설계할때 크게 두가지로 분류할 수 있다. 첫번째가 POST 기반의 등록을 하는 것이고 컬렉션이라 한다. 두번째는 PUT 기반의 등록을 하는 것이고 이것을 스토어라 한다.
+
+<br>
+
+대부분 컬렉션을 사용하고 파일 업로드 같은 경우엔 스토어를 사용하기도 함.
+
+<br>
+
+### 3.3 컨트롤러(controller), 컨트롤 URI
+- 문서, 컬렉션, 스토어로 해결하기 어려운 추가 프로세스 실행
+- 동사를 직접 사용
+- /new, /edit, /delete가 컨트롤 URI
+- 예) /members/{id}/delete
+
+<br>
+
+> **참고** 컨트롤 URI란?
+URI를 리소스만 가지고 설계하기 힘들 때 URI에 동사를 넣어 설계하는 것을 컨트롤 URI라 한다
+> 
+
+<br>
+
+### 3.4 문서(document)
+- 단일 개념(파일 하나, 객체 인스턴스, 데이터베이스 row)
+- 예) /members/100, /files/star.jpg
+
+<br>
+
+정리하면, HTTP API 설계할 때 최대한 리소스라는 개념을 가지고 URI를 설계하고 그게 안될 때 대체제로 컨트롤 URI를 사용
