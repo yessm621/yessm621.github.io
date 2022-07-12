@@ -103,7 +103,7 @@ analytics:
 # Site Author
 author:
   name             : "노승미"
-  avatar           : "/assets/images/uja.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/yessm.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "기록하는 개발자"
   # location         : "Republic of Korea"
   # email            : "yessm621@gmail.com"
