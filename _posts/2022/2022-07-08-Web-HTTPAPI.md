@@ -4,9 +4,9 @@ title:  "HTTP API"
 # last_modified_at: 2022-07-10T20:00:00
 last_modified_at: 2022-07-11T10:50:00
 categories: 
-  - HTTP
+  - web
 tags:
-  - HTTP
+  - web
 toc: true
 toc_label: "Index"
 toc_sticky: true

@@ -2,9 +2,9 @@
 title:  "IP, TCP, Port, DNS"
 last_modified_at: 2022-07-06T17:50:00
 categories: 
-  - HTTP
+  - web
 tags:
-  - HTTP
+  - web
 toc: true
 toc_label: "Index"
 toc_sticky: true
