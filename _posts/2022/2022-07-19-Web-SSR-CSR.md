@@ -1,6 +1,6 @@
 ---
 title:  "SSR, CSR"
-last_modified_at: 2022-07-16T23:15:00
+last_modified_at: 2022-07-19T13:40:00
 categories: 
   - web
 tags:
