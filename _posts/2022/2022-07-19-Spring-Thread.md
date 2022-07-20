@@ -2,9 +2,8 @@
 title:  "쓰레드와 쓰레드 풀"
 last_modified_at: 2022-07-19T13:45:00
 categories: 
-  - web
+  - Spring
 tags:
-  - web
   - Spring
 toc: true
 toc_label: "Index"
