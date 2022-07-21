@@ -1,5 +1,5 @@
 ---
-title:  "MVC 패턴"
+title:  "어댑터 패턴"
 last_modified_at: 2022-07-20T17:40:00
 categories: 
   - Spring
