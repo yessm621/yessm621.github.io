@@ -5,9 +5,6 @@ categories:
   - Spring
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
 ---
 
 `RedirectAttributes`를 사용하면 URL **인코딩**도 해주고, **pathVarible**, **쿼리 파라미터**까지 처리해준다.
