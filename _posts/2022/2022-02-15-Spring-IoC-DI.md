@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
 `정적인 클래스 의존관계`는 클래스가 사용하는 import를 보고 의존관계를 쉽게 판단할 수 있다. 따라서, 애플리케이션을 실행하지 않아도 코드만 보고 분석할 수 있다. OrderServiceImpl은 MemberRepository, DiscountPolicy에 의존한다는 것을 파악할 수 있지만 실제 어떤 객체가 OrderServiceImpl에 주입 될지 알 수 없다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1351bd2c-ab43-4bd6-98e4-ff6db4f56b4e/Untitled.png)
+![1](https://user-images.githubusercontent.com/79130276/180967417-6c366a2f-101c-4067-b26c-a479966ee57c.png)
 
 <br>
 
