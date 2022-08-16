@@ -1,6 +1,6 @@
 ---
 title: "JPA 조회 성능 최적화"
-last_modified_at: 2022-08-13T15:55:00
+last_modified_at: 2022-08-16T11:00:00
 categories:
   - JPA
 tags:
