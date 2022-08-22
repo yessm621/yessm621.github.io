@@ -1,5 +1,5 @@
 ---
-title: "EntityManager 와 영속성 컨텍스트 (PersistenceContext)"
+title: "EntityManager와 영속성 컨텍스트(PersistenceContext)"
 categories:
   - JPA
 tags:
@@ -8,6 +8,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 ## 엔티티 매니저 (EntityManager)
