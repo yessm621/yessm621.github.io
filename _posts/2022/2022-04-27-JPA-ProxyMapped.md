@@ -9,6 +9,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 ## 자바 ORM 표준 JPA 프로그래밍
