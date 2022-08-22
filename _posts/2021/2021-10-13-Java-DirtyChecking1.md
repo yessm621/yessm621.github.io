@@ -9,6 +9,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 ## 준영속 이란?

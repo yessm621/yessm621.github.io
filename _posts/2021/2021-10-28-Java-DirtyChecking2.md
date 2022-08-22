@@ -9,6 +9,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 ## SQL 수정(Update) 쿼리의 문제점
