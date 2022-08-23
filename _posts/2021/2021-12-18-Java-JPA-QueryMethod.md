@@ -10,6 +10,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리
