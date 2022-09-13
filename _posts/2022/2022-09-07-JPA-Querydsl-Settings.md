@@ -1,11 +1,13 @@
 ---
 title: "Querydsl 설정"
-last_modified_at: 2022-09-07T17:15:00
+# last_modified_at: 2022-09-07T17:15:00
+last_modified_at: 2022-09-13T16:50:00
 categories:
   - JPA
 tags:
   - JPA
   - Querydsl
+  - 환경설정
 toc: true
 toc_label: "Index"
 toc_sticky: true
@@ -146,3 +148,71 @@ class QuerydslApplicationTests {
 
 - querydsl-apt: Querydsl 관련 코드 생성 기능 제공, Q타입 생성해준다.
 - querydsl-jpa: querydsl 라이브러리, 애플리케이션 코드 작성을 도와준다.
+
+## Querydsl 작성
+
+### 기본 설정
+
+```java
+@SpringBootTest
+@Transactional
+@Commit
+public class QuerydslTests {
+
+    @Autowired
+    EntityManager em;
+
+    JPAQueryFactory queryFactory;
+
+    @BeforeEach
+    void before() {
+        queryFactory = new JPAQueryFactory(em);
+    }
+
+}
+```
+
+### 기본 Q-클래스 사용 방법
+
+**별칭 직접 지정**
+
+```java
+@Test
+void startQuerydsl1() {
+    QMember m = new QMember("m");
+
+    queryFactory
+            .selectFrom(m)
+            .where(m.username.eq("username1"));
+}
+```
+
+**기본 인스턴스 사용**
+
+```java
+@Test
+void startQuerydsl2() {
+
+    queryFactory
+            .selectFrom(QMember.member)
+            .where(QMember.member.username.eq("username1"));
+}
+```
+
+**기본 인스턴스를 static import와 함께 사용**
+
+```java
+import static study.querydsl.entity.QMember.*;
+
+@Test
+void startQuerydsl3() {
+
+    queryFactory
+            .selectFrom(member)
+            .where(member.username.eq("username1"));
+}
+```
+
+> **참고.**
+같은 테이블을 조인해야 하는 경우가 아니면 기본 인스턴스를 사용하자.
+>
