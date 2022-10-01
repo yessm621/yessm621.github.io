@@ -2,8 +2,9 @@
 title:  "테스트 코드"
 last_modified_at: 2022-02-10T17:55:00
 categories:
-  - Java
+  - Spring
 tags:
+  - Spring
   - Java
   - TEST CODE
 toc: true

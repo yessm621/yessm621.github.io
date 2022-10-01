@@ -5,7 +5,7 @@ categories:
   - JPA
 tags:
   - JPA
-  - SpringBoot
+  - Spring
 toc: true
 toc_label: "Index"
 toc_sticky: true

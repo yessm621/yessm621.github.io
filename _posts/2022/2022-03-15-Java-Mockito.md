@@ -4,7 +4,7 @@ title:  "Java, 테스트 코드 작성 - Mockito"
 # last_modified_at: 2022-05-23T18:00:00
 last_modified_at: 2022-05-25T13:45:00
 categories: 
-  - Java
+  - Spring
 tags:
   - Spring
   - Java

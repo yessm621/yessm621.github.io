@@ -2,12 +2,12 @@
 title:  "스프링 REST Docs"
 last_modified_at: 2022-01-25T14:15:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
-  - SpringBoot
+  - Spring
   - Java
   - REST API
-  - TDD
+  - TEST CODE
 toc: true
 toc_label: "Index"
 toc_sticky: true

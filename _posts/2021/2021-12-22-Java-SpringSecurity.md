@@ -2,10 +2,10 @@
 title:  "Spring Security"
 last_modified_at: 2021-12-22T16:10:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
   - JPA
 toc: true
 toc_label: "Index"

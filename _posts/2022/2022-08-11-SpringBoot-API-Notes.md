@@ -2,9 +2,9 @@
 title: "API 개발 시 주의할 점 - 기본"
 last_modified_at: 2022-08-11T16:50:00
 categories:
-  - SpringBoot
+  - Spring
 tags:
-  - SpringBoot
+  - Spring
   - JPA
 toc: true
 toc_label: "Index"

@@ -2,12 +2,12 @@
 title:  "REST API with SpringBoot(4)"
 last_modified_at: 2022-01-22T19:44:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
-  - SpringBoot
+  - Spring
   - Java
   - REST API
-  - TDD
+  - TEST CODE
 toc: true
 toc_label: "Index"
 toc_sticky: true

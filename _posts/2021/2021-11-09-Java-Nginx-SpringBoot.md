@@ -1,10 +1,10 @@
 ---
 title: "Nginx 를 이용하여 SpringBoot 무중단 배포하기"
 categories:
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
   - Nginx
 toc: true
 toc_label: "Index"

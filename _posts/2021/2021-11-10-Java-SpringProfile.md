@@ -1,10 +1,10 @@
 ---
 title: "Spring Profile 이란?"
 categories:
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
 toc: true
 toc_label: "Index"
 toc_sticky: true

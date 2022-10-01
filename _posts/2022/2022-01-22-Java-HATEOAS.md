@@ -2,12 +2,12 @@
 title:  "스프링 HATEOAS"
 last_modified_at: 2022-01-22T19:50:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
-  - SpringBoot
+  - Spring
   - Java
   - REST API
-  - TDD
+  - TEST CODE
   - HATEOAS
 toc: true
 toc_label: "Index"

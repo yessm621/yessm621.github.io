@@ -1,10 +1,10 @@
 ---
 title: "Transactional 이란"
 categories:
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
   - JPA
 toc: true
 toc_label: "Index"

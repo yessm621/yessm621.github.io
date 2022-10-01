@@ -1,10 +1,10 @@
 ---
 title: "SpringBoot Settings"
 categories:
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
 toc: true
 toc_label: "Index"
 toc_sticky: true

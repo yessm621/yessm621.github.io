@@ -1,10 +1,10 @@
 ---
 title:  "컴포넌트 스캔과 자동 의존관계"
 categories:
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
 toc: true
 toc_label: "Index"
 toc_sticky: true

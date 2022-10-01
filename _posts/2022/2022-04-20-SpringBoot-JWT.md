@@ -4,10 +4,10 @@ title:  "JWT(Json Web Token) 인증"
 # last_modified_at: 2022-04-21T16:30:00
 last_modified_at: 2022-04-25T15:55:00
 categories: 
-  - SpringBoot
+  - Spring
 tags:
   - Java
-  - SpringBoot
+  - Spring
   - JPA
 toc: true
 toc_label: "Index"
