@@ -1,7 +1,8 @@
 ---
 title:  "DIP, OCP와 의존관계 주입(DI)"
 # last_modified_at: 2022-02-14T18:45:00
-last_modified_at: 2022-07-26T09:30:00
+# last_modified_at: 2022-07-26T09:30:00
+last_modified_at: 2022-09-26T16:55:00
 categories: 
   - Spring
 tags:
@@ -274,6 +275,10 @@ OrderServiceImpl 은 DiscountPolicy에만 의존하는 것이 아닌 FixDiscount
 **2. OCP 위반**
 
 고정금액할인에서 정률%할인으로 변경 시 OrderServiceImpl을 변경해야 한다. 따라서, 지금 코드는 기능을 확장해서 변경하면 클라이언트 코드에 영향을 준다.
+
+![1](https://user-images.githubusercontent.com/79130276/192218716-0a501208-fe83-4b53-b922-5b33711f0645.png)
+
+![2](https://user-images.githubusercontent.com/79130276/192218726-1183ee16-d215-4c82-bd5f-daffa668442f.png)
 
 > **참고**
 <br>
@@ -581,6 +586,18 @@ AppConfig에서 할인 정책 역할을 담당하는 구현을 Fix → Rate 객�
 책임
 - 이제부터 클라이언트 객체는 자신의 역할을 실행하는 것만 집중, 권한이 줄어듬(책임이 명확해짐)
 
+```java
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(new MemoryMemberRepository());
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+    }
+}
+```
 <br>
 
 **AppConfig 리팩터링**
@@ -588,6 +605,27 @@ AppConfig에서 할인 정책 역할을 담당하는 구현을 Fix → Rate 객�
 - 구성 정보에서 역할과 구현을 명확하게 분리
 - 역할이 잘 드러남
 - 중복 제거
+
+```java
+public class AppConfig {
+
+    public MemberService memberService() {
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    private MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+    public DiscountPolicy discountPolicy() {
+        return new FixDiscountPolicy();
+    }
+}
+```
 
 <br>
 
