@@ -442,7 +442,7 @@ src>main>asciidoc>index.adoc 생성
 | 기존 리소스의 일부를 수정할 때 사용
 
 | `DELETE`
-| 기존 리소스를 삭제할 떄 사용
+| 기존 리소스를 삭제할 때 사용
 |===
 
 [[overview-http-status-codes]]
