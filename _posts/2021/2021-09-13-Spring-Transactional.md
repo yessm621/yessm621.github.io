@@ -1,11 +1,12 @@
 ---
 title: "Transactional 이란"
+last_modified_at: 2021-09-13T14:00:00
 categories:
   - Spring
 tags:
   - Java
   - Spring
-  - JPA
+  - DB
 toc: true
 toc_label: "Index"
 toc_sticky: true
