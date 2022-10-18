@@ -5,6 +5,7 @@ categories:
   - Java
 tags:
   - Java
+  - Spring
 toc: true
 toc_label: "Index"
 toc_sticky: true
