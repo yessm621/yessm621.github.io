@@ -1,0 +1,65 @@
+---
+title: "JDBC"
+last_modified_at: 2022-10-24T22:40:00
+categories:
+  - Spring
+tags:
+  - Spring
+  - DB
+toc: true
+toc_label: "Index"
+toc_sticky: true
+---
+
+## JDBC 등장배경
+
+애플리케이션 서버는 커넥션 연결, SQL 전달, 결과 응답을 통해 데이터베이스를 사용한다. 
+
+![1](https://user-images.githubusercontent.com/79130276/197539654-d56ae85a-4395-43ed-871d-b43fc2de1ace.png)
+
+1. 커넥션 연결: 주로 **TCP/IP**를 사용해서 커넥션을 연결
+
+2. SQL 전달: 애플리케이션 서버는 DB가 이해할 수 있는 SQL을 연결된 커넥션을 통해 DB에 전달
+
+3. 결과 응답: DB는 전달된 SQL을 수행하고 그 결과를 응답하고 애플리케이션 서버는 응답 결과를 활용함
+
+이때 **문제점**은 각각의 데이터베이스마다 커넥션을 연결하는 방법, SQL을 전달하는 방법, 결과를 응답 받는 방법이 모두 다르다는 점이다. 만약, DB를 다른 종류의 DB로 변경하게 되면 애플리케이션 서버에 개발된 DB 사용 코드도 변경해야 한다. 또한, 개발자가 각각의 DB마다 커넥션 연결, SQL 전달, 결과를 응답 받는 방법을 새로 학습해야 한다. 
+
+이런 문제들을 해결하기 위해 `JDBC`라는 자바 표준이 등장했다.
+
+## JDBC란?
+
+JDBC(Java Database Connectivity)는 자바에서 DB에 접속할 수 있도록 하는 자바 API이다. (자바 표준)
+
+![2](https://user-images.githubusercontent.com/79130276/197539663-5ed04142-9634-456a-a2dd-263f5594b2f9.png)
+
+`JDBC 표준 인터페이스`는 대표적으로 다음 3가지 기능을 **표준 인터페이스**로 정의하여 제공한다.
+
+- java.sql.Connection: 연결
+- java.sql.Statement: SQL을 담은 내용
+- java.sql.ResultSet: SQL 요청 응답
+
+### JDBC 드라이버
+
+JDBC 인터페이스를 각각의 DB 벤더(회사)에서 자신의 DB에 맞게 구현해서 라이브러리로 제공하는데 이것을 `JDBC 드라이버`라 한다.
+
+이제 JDBC의 등장으로 위에서 언급했던 DB 변경 시 애플리케이션 서버의 DB 사용 코드도 변경해야 하는 문제를 해결하였다. 
+
+다른 종류의 DB로 변경하고 싶으면 **JDBC 구현 라이브러리**만 변경하면 된다. 또한, 개발자가 DB마다 학습해야하는 문제를 해결하였다. 개발자는 이제 **JDBC 표준 인터페이스** 사용법만 학습하면 된다.
+
+### JDBC 사용방법
+
+DB에 연결하려면 JDBC가 제공하는 `DriverManager.getConnection()`를 사용한다.
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+```
+
+### JDBC DriverManager 연결 이해
+
+JDBC가 제공하는 DriverManager는 라이브러리에 등록된 DB 드라이버들을 관리하고 커넥션을 획득하는 기능을 제공한다.
+
+![3](https://user-images.githubusercontent.com/79130276/197539665-93dd53f0-4589-4ebd-8491-fcc72a7158eb.png)
