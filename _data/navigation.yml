@@ -25,6 +25,9 @@ docs:
       - title: "Django"
         url: /Django
         category: "Django"
+      - title: "DB"
+        url: /DB
+        category: "DB"
       - title: "HTTP"
         url: /HTTP
         category: "HTTP"
