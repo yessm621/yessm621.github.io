@@ -5,5 +5,35 @@ main:
     url: /tags/
   - title: "About Me"
     url: /about/
-  - title: "연도별 포스트"
-    url: /posts/
+
+
+docs:
+  - title: 카테고리
+    children:
+      - title: "Java"
+        url: /Java
+        category: "Java"
+      - title: "Spring"
+        url: /Spring
+        category: "Spring"
+      - title: "JPA"
+        url: /JPA
+        category: "JPA"
+      - title: "Python"
+        url: /Python
+        category: "Python"
+      - title: "Django"
+        url: /Django
+        category: "Django"
+      - title: "HTTP"
+        url: /HTTP
+        category: "HTTP"
+      - title: "Web"
+        url: /Web
+        category: "Web"
+      - title: "Git"
+        url: /Git
+        category: "Git"
+      - title: "알고리즘"
+        url: /Algorithm
+        category: "Algorithm"
