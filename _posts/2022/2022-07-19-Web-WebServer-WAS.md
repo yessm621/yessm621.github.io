@@ -2,8 +2,9 @@
 title:  "웹 서버와 WAS"
 last_modified_at: 2022-07-19T13:50:00
 categories: 
-  - web
+  - HTTP
 tags:
+  - HTTP
   - web
 toc: true
 toc_label: "Index"

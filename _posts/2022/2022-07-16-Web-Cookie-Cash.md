@@ -2,8 +2,9 @@
 title:  "쿠키와 캐시"
 last_modified_at: 2022-07-16T23:15:00
 categories: 
-  - web
+  - HTTP
 tags:
+  - HTTP
   - web
 toc: true
 toc_label: "Index"

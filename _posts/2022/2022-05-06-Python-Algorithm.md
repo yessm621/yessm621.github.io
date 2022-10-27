@@ -7,6 +7,7 @@ title:  "파이썬 알고리즘"
 # last_modified_at: 2022-05-19T16:30:00
 last_modified_at: 2022-05-22T20:00:00
 categories: 
+  - Python
   - Algorithm
 tags:
   - Algorithm

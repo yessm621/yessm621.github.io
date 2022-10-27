@@ -2,6 +2,7 @@
 title:  "시간 복잡도와 공간 복잡도"
 last_modified_at: 2022-07-12T16:30:00
 categories: 
+  - Python
   - Algorithm
 tags:
   - Algorithm
