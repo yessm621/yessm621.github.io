@@ -1,5 +1,5 @@
 ---
-title: "트랜잭션 추상화"
+title: "트랜잭션 매니저"
 # last_modified_at: 2022-10-29T01:00:00
 last_modified_at: 2022-10-29T18:20:00
 categories:
