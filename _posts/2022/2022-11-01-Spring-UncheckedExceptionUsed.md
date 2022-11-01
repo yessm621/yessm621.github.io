@@ -1,6 +1,6 @@
 ---
-title: "언체크 예외를 사용해야 하는 이유"
-last_modified_at: 2022-11-01T09:05:00
+title: "언체크 예외 사용과 예외 사용 시 주의점"
+last_modified_at: 2022-11-01T10:25:00
 categories:
   - Spring
 tags:
@@ -10,6 +10,8 @@ toc: true
 toc_label: "Index"
 toc_sticky: true
 ---
+
+## 언체크 예외를 사용해야 하는 이유
 
 현재 트렌드는 `언체크 예외를 사용`하고 체크 예외는 거의 사용하지 않는다.
 
@@ -81,4 +83,94 @@ static class Service {
         networkClient.call();
     }
 }
+```
+
+## 예외 포함과 스택 트레이스
+
+중요한 내용! 실무에서 많이 하는 실수이다.
+
+예외를 전환할 때 **기존 예외**를 반드시 **포함**해야 한다. (예를 들면 체크 예외를 언체크 예외로 전환할 때) 그렇지 않으면 스택 트레이스를 확인할 때 심각한 문제가 발생한다.
+
+```java
+@Test
+void printEx() {
+    Controller controller = new Controller();
+    try {
+        controller.request();
+    } catch (Exception e) {
+//        e.printStackTrace();
+        log.info("ex", e);
+    }
+}
+```
+
+로그를 출력할 때 마지막 파라미터에 예외를 넣어주면 로그에 스택 트레이스를 출력할 수 있다. System.out으로도 출력 가능하다. 하지만 실무에선 로그를 사용하는게 좋다.
+
+```java
+// 로그 출력
+// 마지막 파라미터에 ex를 전달.
+log.info("message={}", "message", ex)
+log.info("ex", ex)
+
+// System.out으로 출력
+e.printStackTrace()
+```
+
+> **참고** 스택 트레이스란?
+<br>
+프로그램이 시작된 시점부터 현재 위치까지의 메서드 호출 목록이다. 이는 예외가 어디서 발생했는지 알려주기 위해 JVM이 자동으로 생성한다.
+> 
+
+### 기존 예외를 포함하는 경우
+
+```java
+public void call() {
+    try {
+        runSQL();
+    } catch (SQLException e) {
+        throw new RuntimeSQLException(e); //기존 예외(e) 포함 
+    }
+}
+```
+
+```
+23:35:32.280 [main] INFO hello.jdbc.exception.basic.UnCheckedAppTest - ex
+hello.jdbc.exception.basic.UnCheckedAppTest$RuntimeSQLException: java.sql.SQLException: ex
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Repository.call(UnCheckedAppTest.java:59)
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Service.logic(UnCheckedAppTest.java:43)
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Controller.request(UnCheckedAppTest.java:34)
+	at hello.jdbc.exception.basic.UnCheckedAppTest.printEx(UnCheckedAppTest.java:24)
+	Caused by: java.sql.SQLException: ex
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Repository.runSQL(UnCheckedAppTest.java:64)
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Repository.call(UnCheckedAppTest.java:57)
+	... 72 common frames omitted
+```
+
+기존 예외를 포함하면 RuntimeSQLException 뿐만 아니라 기존에 발생한 java.sql.SQLException과 스택 트레이스를 확인할 수 있다.
+
+### 기존 예외를 포함하지 않는 경우
+
+```java
+public void call() {
+    try {
+        runSQL();
+    } catch (SQLException e) {
+        throw new RuntimeSQLException(); //기존 예외(e) 제외 
+    }
+}
+```
+
+```
+23:52:52.921 [main] INFO hello.jdbc.exception.basic.UnCheckedAppTest - ex
+hello.jdbc.exception.basic.UnCheckedAppTest$RuntimeSQLException: null
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Repository.call(UnCheckedAppTest.java:60)
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Service.logic(UnCheckedAppTest.java:44)
+	at hello.jdbc.exception.basic.UnCheckedAppTest$Controller.request(UnCheckedAppTest.java:35)
+	at hello.jdbc.exception.basic.UnCheckedAppTest.printEx(UnCheckedAppTest.java:24)
+```
+
+기존 예외를 포함하지 않으면 기존에 발생한 java.sql.SQLException과 스택 트레이스를 확인할 수 없고 변환한 RuntimeSQLException부터 예외를 확인할 수 있다. 만약, 실제 DB에 연동했다면 DB에서 발생한 예외를 확인할 수 없는 심각한 문제가 발생한다.
+
+```
+💡 예외를 전환할 때는 꼭 기존 예외를 포함하자.
 ```
