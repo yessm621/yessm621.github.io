@@ -29,6 +29,13 @@ toc_sticky: true
 ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 ```
 
+컨테이너 생성 시 AppConfig를 전달하면 AppConfig가 빈으로 등록되고 내부에 @Bean이 붙은 메서드들이 스프링 빈으로 등록된다.
+
+> **참고**
+<br>
+ApplicationContext는 직접 생성할 일이 거의 없다. 스프링 부트 프로젝트의 최상위 폴더에 있는 XxxApplication.java 파일의 SpringApplication.run(XxxApplication.class, args)를 통해 내부에서 컨테이너가 자동으로 생성된다.
+>
+
 ### 스프링 컨테이너의 생성과정
 
 1. 스프링 컨테이너 생성
