@@ -37,6 +37,9 @@ docs:
       - title: "Git"
         url: /Git
         category: "Git"
+      - title: "Linux"
+        url: /Linux
+        category: "Linux"
       - title: "알고리즘"
         url: /Algorithm
         category: "Algorithm"
