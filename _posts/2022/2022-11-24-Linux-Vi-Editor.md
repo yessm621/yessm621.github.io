@@ -45,6 +45,12 @@ source ~/.bashrc
  cd /usr/share/vim/vim74/colors/
 ```
 
+> **참고**
+<br>
+mac에서 적용할 때는 ~/.vim/colors 폴더에 테마를 넣으면 된다.
+>
+
+
 그리고 root 경로에 있는 .vimrc 파일을 수정한다. (없으면 새로 만들어도 된다.)
 
 ```bash
