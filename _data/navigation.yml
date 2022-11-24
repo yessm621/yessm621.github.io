@@ -40,6 +40,9 @@ docs:
       - title: "Linux"
         url: /Linux
         category: "Linux"
+      - title: "Mac"
+        url: /Mac
+        category: "Mac"
       - title: "알고리즘"
         url: /Algorithm
         category: "Algorithm"
