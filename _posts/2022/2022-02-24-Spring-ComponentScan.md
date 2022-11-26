@@ -2,7 +2,8 @@
 title:  "컴포넌트 스캔"
 # last_modified_at: 2022-02-24T11:00:00
 # last_modified_at: 2022-07-28T16:50:00
-last_modified_at: 2022-11-21T15:50:00
+# last_modified_at: 2022-11-21T15:50:00
+last_modified_at: 2022-11-26T23:00:00
 categories: 
   - Spring
 tags:
@@ -33,7 +34,12 @@ public class AutoAppConfig {
 > **참고**
 <br>
 excludeFilters를 사용한 이유는 기존의 설정 정보인 AppConfig를 컴포넌트 스캔 대상에서 제외해야 하기 때문이다. AppConfig에는 @Configuration가 붙어있는데, 이러면 설정 정보도 자동으로 컴포넌트 스캔의 대상이 되므로 충돌이 발생한다.
-> 
+>
+
+> **참고**
+<br>
+excludeFilters를 사용하면 @Configuration이 붙은 클래스를 제외한다고 했는데 AutoAppConfig도 @Configuration 붙어있다. 하지만 제외대상이 아니다. 그 이유는 @ComponentScan이 붙어 있기 때문이다.
+>
 
 > **참고**
 <br>
@@ -142,7 +148,7 @@ void basicScan() {
 
 예시) com.hello, com.hello.service, com.hello.repository 와 같은 프로젝트 구조를 가지고 있다면, com.hello (시작 루트)에 메인 설정 정보를 두고 basePackages는 생략한다.
 
-참고로, 스프링 부트의 경우에도 대표 시작 정보인 **@SpringBootApplication**을 프로젝트 시작 루트 위치에 두는 것이 관례이다. (그리고 이 설정 안에 @ComponentScan이 들어있다.)
+참고로, 스프링 부트의 경우에도 대표 시작 정보인 **@SpringBootApplication**을 프로젝트 시작 루트 위치에 두는 것이 관례이다. (또한, @SpringBootApplication 안에 @ComponentScan이 들어있다.)
 
 ### 컴포넌트 스캔 기본 대상
 
