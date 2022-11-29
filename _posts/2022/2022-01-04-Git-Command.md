@@ -10,6 +10,8 @@ toc_label: "Index"
 toc_sticky: true
 ---
 
+## git config
+
 ### 사용자 정보 설정
 
 ```bash
@@ -18,21 +20,19 @@ git config --local user.email "yessm621@gmail.com"
 git config --local user.name "yessm621"
 
 # 전역(Global)으로 설정
-git config --global user.email "nohsm621@coreintec.com"
-git config --global user.name "nohsm621"
+git config --global user.email "yessm621@gmail.com"
+git config --global user.name "yessm621"
 ```
-
-<br>
 
 ### ssh-keygen
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "nohsm621@coreintec.com"
+ssh-keygen -t rsa -b 4096 -C "yessm621@gmail.com"
 ```
 
 [ssh key 암호 없애기 및 변경하기 - git pull 할 때 암호 입력 안하기](https://gentlesark.tistory.com/102)
 
-<br>
+## git local
 
 ### 저장소 연결/삭제
 

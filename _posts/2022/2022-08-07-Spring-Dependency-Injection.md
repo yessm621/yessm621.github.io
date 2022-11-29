@@ -139,3 +139,8 @@ public class OrderServiceImpl implements OrderService {
 위의 코드는 생성자 주입 코드와 완전히 동일하다. 롬복이 자바의 애노테이션 프로세서라는 기능을 이용해서 컴파일 시점에 생성자 코드를 자동으로 생성해준다.
 
 최근에는 생성자를 딱 1개 두고, @Autowired 를 생략하는 방법을 주로 사용한다. 여기에 Lombok 라이브러리의 @RequiredArgsConstructor 함께 사용하면 기능은 다 제공하면서, 코드는 깔끔하게 사용할 수 있다.
+
+> **참고**
+<br>
+@RequiredArgsConstructor는 단순히 생성자 코드만 만들어준다. 생성자가 하나만 있어서 @Autowired를 생략해도 되는 것이지 @RequiredArgsConstructor가 @Autowired 까지 생성해주는 것이 아니다.
+>
