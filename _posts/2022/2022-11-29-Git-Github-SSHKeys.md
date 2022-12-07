@@ -1,6 +1,7 @@
 ---
 title:  "Github 접속을 위한 SSH 키 생성 및 등록"
-last_modified_at: 2022-11-29T16:15:00
+# last_modified_at: 2022-11-29T16:15:00
+last_modified_at: 2022-12-07T16:45:00
 categories: 
   - Git
 tags:
@@ -9,6 +10,11 @@ toc: true
 toc_label: "Index"
 toc_sticky: true
 ---
+
+> **참고**
+<br>
+MAC m1 부터는 이 방법이 아닌 token 인증 방식으로 진행해야 한다고 한다..
+> 
 
 ## SSH 키
 
