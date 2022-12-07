@@ -25,6 +25,9 @@ docs:
       - title: "Django"
         url: /Django
         category: "Django"
+      - title: "TailwindCSS"
+        url: /TailwindCSS
+        category: "TailwindCSS"
       - title: "DB"
         url: /DB
         category: "DB"
