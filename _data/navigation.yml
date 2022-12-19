@@ -8,7 +8,7 @@ main:
 
 
 docs:
-  - title: 카테고리
+  - title: Develop
     children:
       - title: "Java"
         url: /Java
@@ -28,6 +28,8 @@ docs:
       - title: "TailwindCSS"
         url: /TailwindCSS
         category: "TailwindCSS"
+  - title: DevOps
+    children:
       - title: "DB"
         url: /DB
         category: "DB"
@@ -43,9 +45,11 @@ docs:
       - title: "Linux"
         url: /Linux
         category: "Linux"
-      - title: "Mac"
-        url: /Mac
-        category: "Mac"
       - title: "알고리즘"
         url: /Algorithm
         category: "Algorithm"
+  - title: ETC
+    children:
+      - title: "Mac"
+        url: /Mac
+        category: "Mac"
