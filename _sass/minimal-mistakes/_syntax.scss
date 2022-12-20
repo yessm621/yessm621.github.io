@@ -53,11 +53,15 @@ figure.highlight {
 }
 
 .language-plaintext{
+  font-size: 0.9em;
+  font-weight: bold;
   color: #df6161;
 }
 
 strong {
   font-size: 1.05em;
+  color: #dd9191;
+  // color: #88bbbd;
 }
 
 .highlight pre {
