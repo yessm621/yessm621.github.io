@@ -48,6 +48,9 @@ docs:
       - title: "알고리즘"
         url: /Algorithm
         category: "Algorithm"
+      - title: "CS 지식"
+        url: /CS
+        category: "CS"
   - title: ETC
     children:
       - title: "Mac"
