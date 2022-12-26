@@ -11,6 +11,7 @@ tags:
 toc: true
 toc_label: "Index"
 toc_sticky: true
+published : false
 ---
 
 ## 1. API URI 설계 시 포인트
