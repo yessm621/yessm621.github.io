@@ -6,7 +6,6 @@ categories:
 tags:
   - TESTCODE
   - JAVA
-  - JUNIT5
 toc: true
 toc_label: "Index"
 toc_sticky: true
