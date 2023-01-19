@@ -21,6 +21,10 @@ toc_sticky: true
 5. [MVC 패턴](https://yessm621.github.io/spring/Spring-MVCPattern/)
 6. [구 MVC 패턴과 프론트 컨트롤러](https://yessm621.github.io/spring/Spring-MVCPattern-FrontController/)
 7. [디스패처 서블릿](https://yessm621.github.io/spring/Spring-DispatcherServlet/)
+8. [로깅](https://yessm621.github.io/web/Spring-Logging/)
+9. [HTTP 메시지 컨버터](https://yessm621.github.io/spring/Spring-HTTPMessageConverter/)
+10. [요청 매핑 핸들러 어댑터 구조](https://yessm621.github.io/spring/Spring-RequestMappingHandlerAdapter/)
+11. [PRG Post/Redirect/Get](https://yessm621.github.io/spring/Spring-PRG/)
 
 서버 사이드 렌더링, 클라이언트 사이드 렌더링은 각각 서버와 클라이언트가 웹 페이지를 렌더링하는 기술을 의미한다.
 
