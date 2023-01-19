@@ -2,9 +2,9 @@
 title: "@BeforeEach, @BeforeAll 차이"
 last_modified_at: 2023-01-12T11:15:00
 categories:
-  - TESTCODE
+  - TestCode
 tags:
-  - TESTCODE
+  - TestCode
   - JAVA
 toc: true
 toc_label: "Index"
