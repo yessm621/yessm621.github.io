@@ -1,6 +1,6 @@
 ---
 title:  "Mock 이란?"
-last_modified_at: 2023-01-15T17:00:00
+last_modified_at: 2023-01-24T03:00:00
 categories: 
   - TESTCODE
 tags:
