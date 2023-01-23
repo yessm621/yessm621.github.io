@@ -1,0 +1,552 @@
+---
+title:  "Mock 이란?"
+last_modified_at: 2023-01-15T17:00:00
+categories: 
+  - TESTCODE
+tags:
+  - TESTCODE
+  - JAVA
+toc: true
+toc_label: "Index"
+toc_sticky: true
+---
+
+## Mock 이란?
+
+`가짜`를 뜻한다. 진짜 객체와 비슷하게 동작하지만 프로그래머가 직접 그 **객체의 행동을 관리**하는 객체이다.
+
+메소드가 return을 하기까지 어떠한 로직을 걸치는데 그 로직을 전부 구현하기에는 무리가 있을 때, 메소드가 return 하는 타입의 어떤 예측한 값이 나온다고 가정해서 전체적인 흐름을 테스트 할 때, mock이 사용된다.
+
+## Mockito 란?
+
+Mock을 다루는 프레임워크의 종류로 Mock 객체를 쉽게 만들고 검증할 수 있는 방법을 제공한다.
+
+유닛 테스트를 위한 Java Mocking Framework. Mockito를 사용하면 대부분의 로직을 검증 할 수 있다.
+
+> **참고** Unit 테스트를 해야하는가?
+controller 테스트를 하기 위해 나머지 service 와 repository 를 목(mock)으로 만들고 유닛테스트를 진행해야하는가에 대해 의견이 서로 다르다. 그냥 같이 일하는 팀에 맞추면 된다.
+> 
+
+### dependency 추가
+
+스프링부트는 프로젝트 생성 시 `spring-boot-starter-test`에서 자동으로 mockito를 추가해 준다. 만약, 스프링부트를 쓰지 않으면 의존성 직접 추가하자.
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>3.12.4</version>
+    <scope>test</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-junit-jupiter</artifactId>
+    <version>3.12.4</version>
+    <scope>test</scope>
+</dependency>
+```
+
+## Mock을 사용하는 이유
+
+Mock을 사용하는 이유를 설명하기 위해 StudyService를 테스트하는 테스트 코드를 작성한다고 가정하자.
+
+- StudyService에는 MemberService와 StudyRepository가 주입되어 있다.
+- MemberService와 StudyRepository는 `인터페이스`이고 구현체가 정의되어 있지 않다.
+
+```java
+public interface MemberService {
+
+    Optional<Member> findById(Long memberId);
+}
+```
+
+```java
+public interface StudyRepository extends JpaRepository<Study, Long> {
+}
+```
+
+```java
+public class StudyService {
+
+    private final MemberService memberService;
+
+    private final StudyRepository repository;
+
+    public StudyService(MemberService memberService, StudyRepository repository) {
+        assert memberService != null;
+        assert repository != null;
+        this.memberService = memberService;
+        this.repository = repository;
+    }
+
+    public Study createNewStudy(Long memberId, Study study) {
+        Optional<Member> member = memberService.findById(memberId);
+        study.setOwner(member.orElseThrow(()
+                -> new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'")));
+        return repository.save(study);
+    }
+}
+```
+
+이제 StudyService에 대한 테스트 코드를 작성하겠다. 그런데, StudyService를 정의하는 순간부터 막힌다. StudyService는 MemberService, StudyRepository가 있어야 만들 수 있다.
+
+하지만, MemberService, StudyRepository는 인터페이스이기 때문에 Mock 없이 테스트 코드를 작성한다면 오버라이드된 모든 메서드들을 정의하여 사용해야 한다.
+
+**Mock 없이 테스트 코드를 작성**
+
+```java
+@Test
+void createStudyService() {
+    MemberService memberService = new MemberService() {
+        @Override
+        public Optional<Member> findById(Long memberId) {
+            return Optional.empty();
+        }
+    };
+        
+    StudyRepository studyRepository = new StudyRepository() {
+        @Override
+        public List<Study> findAll() {
+            return null;
+        }
+
+        @Override
+        public List<Study> findAll(Sort sort) {
+            return null;
+        }
+
+        ... // 이하 생략.
+    };
+        
+    StudyService studyService = new StudyService(memberService, studyRepository);
+}
+```
+
+Mock을 사용하면 구현체가 없어도 목 객체를 주입하여 사용할 수 있다.
+
+**Mock을 사용하여 테스트 코드 작성**
+
+```java
+@ExtendWith(MockitoExtension.class)
+class StudyServiceTest {
+
+    @Mock
+    MemberService memberService;
+
+    @Mock
+    StudyRepository studyRepository;
+
+    @Test
+    void createStudyService() {
+        // 생성자 주입
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+    }
+}
+```
+
+## Mock 객체 만들기
+
+구현체는 없지만 **인터페이스**는 있을때 `목(Mock)`을 작성하기 매우 좋다. 코드가 제대로 동작하는지 확인하려면 `목킹`을 하면 된다.
+
+**[방법1] Mockito.mock() 메소드 사용**
+
+```java
+class StudyServiceTest {
+
+    MemberService memberService = mock(MemberService.class);
+    StudyRepository studyRepository = mock(StudyRepository.class);
+
+    ...
+}
+```
+
+**[방법2] 목 애노테이션 사용**
+
+- JUnit5 extension으로 `MockitoExtension`을 사용한다.
+
+```java
+@ExtendWith(MockitoExtension.class)
+class StudyServiceTest {
+
+    @Mock
+    MemberService memberService;
+
+    @Mock
+    StudyRepository studyRepository;
+
+    ...
+}
+```
+
+## Mock 객체 Stubbing
+
+`Stubbing`이란 **행동을 조작**하는 것을 말한다. Mock 인스턴스에게 실제 메서드를 호출한 것과 같은 **가짜 동작**을 넣어줄  수 있다.
+
+### Mock 객체 조작 (Stubbing)
+
+1. 특정한 매개변수를 받은 경우 특정한 값을 리턴하거나 예외를 던지도록 만들 수 있다.
+2. void 메소드 특정 매개변수를 받거나 호출된 경우 예외를 발생 시킬 수 있다.
+3. 메소드가 동일한 매개변수로 여러번 호출될 때 각기 다르게 행동하도록 조작할 수도 있다.
+
+### when().thenReturn()
+
+**A를 호출하면 B를 반환하겠다**고 행동을 조작한 것이다.
+
+```java
+@ExtendWith(MockitoExtension.class)
+class StudyServiceTest {
+
+    @Mock
+    MemberService memberService;
+
+    @Mock
+    StudyRepository studyRepository;
+
+    @Test
+    void createNewStudy() {
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("yessm621@gmail.com");
+
+        // stubbing (조작)
+        when(memberService.findById(1L)).thenReturn(Optional.of(member));
+//        when(memberService.findById(2L)).thenReturn(Optional.of(member));
+
+        Optional<Member> findById = memberService.findById(1L);
+        assertEquals("yessm621@gmail.com", findById.get().getEmail());
+    }
+}
+```
+
+when(memberService.findById(**1L**)).thenReturn(Optional.of(member)); 이 코드는 1L에 대해서만 유효하다. 만약 다른 파라미터 값을 넣으면 오류가 발생할 것이다. 이때 사용할 수 있는게 any() 이다.
+
+### any()
+
+`any()`는 어떠한 값을 파라미터로 넣어도 무조건 Optional.of(member)를 반환 받는다. 즉, any()로 정의하면 파라미터 1L으로 호출하던, 2L으로 호출하던 같은 객체를 받게 된다.
+
+```java
+@Test
+void createNewStudy() {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    when(memberService.findById(any())).thenReturn(Optional.of(member));
+
+    assertEquals("yessm621@gmail.com", memberService.findById(1L).get().getEmail());
+    assertEquals("yessm621@gmail.com", memberService.findById(2L).get().getEmail());
+}
+```
+
+any()와 같이 이러한 작업을 하는 요소를 Argument matchers라 한다.
+
+
+### doThrow().when()
+
+예외를 던지고 싶을때 doThrow() 메소드를 활용한다.
+
+1. 반환형이 있는 경우
+    
+    ```java
+    when(memberService.findById(1L)).thenThrow(new RuntimeException());
+    ```
+    
+2. 반환형이 void 인 경우
+    
+    ```java
+    // memberService의 validate()가 호출되면 IllegalArgumentException 예외를 던지겠다.
+    doThrow(new IllegalArgumentException()).when(memberService).validate(1L);
+    assertThrows(IllegalArgumentException.class, () -> {
+        memberService.validate(1L);
+    });
+    ```
+    
+
+### 여러번 stubbing 할 때, 다르게 조작
+
+호출되는 순서가 지정되어 있어 같은 매개변수라도 매번 다른 값을 행동하도록 조작할 수 있다. 체이닝 기법을 이용한다.
+
+```java
+@Test
+void createNewStudyException2() {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    when(memberService.findById(any()))
+            .thenReturn(Optional.of(member)) // 첫번째 조작
+            .thenThrow(new RuntimeException()) // 두번째 조작
+            .thenReturn(Optional.empty()); // 세번째 조작
+
+    // 첫번째 조작에 대한 테스트
+    Optional<Member> byId = memberService.findById(1L);
+    assertEquals("yessm621@gmail.com", byId.get().getEmail());
+
+    // 두번째 조작에 대한 테스트
+    assertThrows(RuntimeException.class, () -> {
+        memberService.findById(1L);
+    });
+
+    // 세번째 조작에 대한 테스트
+    assertEquals(Optional.empty(), memberService.findById(1L));
+}
+```
+
+## Mock 객체 검증
+
+createNewStudy에서 study가 저장되면 memberService.notify()를 호출한다고 가정하자.
+
+```java
+public interface MemberService {
+    Optional<Member> findById(Long memberId);
+    void validate(Long memberId);
+    void notify(Study newStudy);
+}
+```
+
+```java
+public class StudyService {
+
+    private final MemberService memberService;
+    private final StudyRepository repository;
+
+    ...
+
+    public Study createNewStudy(Long memberId, Study study) {
+        Optional<Member> member = memberService.findById(memberId);
+
+        study.setOwner(member.orElseThrow(()
+                -> new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'")));
+
+        Study newStudy = repository.save(study);
+
+        // study가 저장되면 알림이 오도록 설정
+        memberService.notify(newStudy);
+
+        return newStudy;
+    }
+}
+```
+
+사실 notify에 대한 테스트 코드를 작성하기 애매하다. 이럴 때 verify()를 사용한다.
+
+### verify()
+
+`verify()`는 Mock 객체의 메서드 **호출에 대해서 확인 및 검증** 할 수 있는 메서드이다.
+
+```java
+@Test
+void createNewStudyTest() {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    Study study = new Study(10, "테스트");
+
+    when(memberService.findById(1L)).thenReturn(Optional.of(member));
+    when(studyRepository.save(study)).thenReturn(study);
+
+    studyService.createNewStudy(1L, study);
+
+    assertEquals(member, study.getOwner());
+
+    // memberService의 notify가 1번 호출되어야 한다.
+    verify(memberService, times(1)).notify(any());
+    // memberService의 validate가 호출되면 안된다.
+    verify(memberService, never()).validate(any());
+}
+```
+
+### InOrder
+
+순서대로 호출되는지 확인하고 싶을 때 사용한다.
+
+```java
+public interface MemberService {
+    Optional<Member> findById(Long memberId);
+    void validate(Long memberId);
+    void notify(Study newStudy);
+    void notify(Member member);
+}
+```
+
+```java
+public class StudyService {
+
+    private final MemberService memberService;
+    private final StudyRepository repository;
+
+    ...
+
+    public Study createNewStudy(Long memberId, Study study) {
+        Optional<Member> member = memberService.findById(memberId);
+
+        study.setOwner(member.orElseThrow(()
+                -> new IllegalArgumentException("Member doesn't exist for id: '" + memberId + "'")));
+
+        Study newStudy = repository.save(study);
+
+        // study가 저장되면 알림이 오도록 설정
+        memberService.notify(newStudy);
+        memberService.notify(member.get());
+
+        return newStudy;
+    }
+}
+```
+
+```java
+@Test
+void createNewStudyTest() {
+    StudyService studyService = new StudyService(memberService, studyRepository);
+    assertNotNull(studyService);
+
+    Member member = new Member();
+    member.setId(1L);
+    member.setEmail("yessm621@gmail.com");
+
+    Study study = new Study(10, "테스트");
+
+    when(memberService.findById(1L)).thenReturn(Optional.of(member));
+    when(studyRepository.save(study)).thenReturn(study);
+
+    studyService.createNewStudy(1L, study);
+
+    assertEquals(member, study.getOwner());
+
+    verify(memberService, times(1)).notify(study);
+    verify(memberService, times(1)).notify(member);
+    verify(memberService, never()).validate(any());
+
+    // 순서 확인
+    InOrder inOrder = inOrder(memberService);
+    inOrder.verify(memberService).notify(study);
+    inOrder.verify(memberService).notify(member);
+}
+```
+
+memberService.notify(study)가 먼저 호출된 후, memberService.notify(member)가 호출되는 지 확인하는 테스트 코드이다.
+
+### 특정 시간 이내에 호출됐는지
+
+거의 사용하지 않음..
+
+100s안에 memberService의 notify()가 1번 호출되어야 한다.
+
+```java
+verify(memberService, timeout(100).times(1)).notify();
+```
+
+### verifyNoMoreInteractions
+
+모든 verify() 검증이 끝났다면 안정성을 위해 verifyNoMoreInteractions()을 호출할 수 있다.
+
+verifyNoMoreInteractions()는 Mock 인스턴스의 메서드를 더 이상 verify() 검증할 필요가 없다는 뜻이다. 더 이상 검증할 것이 남아있지 않을 때 성공을 리턴하고 검증할 내용이 있다면 테스트에 실패하게 된다.
+
+```java
+verifyNoMoreInteractions(memberService);
+```
+
+## BDD 스타일 Mockito API
+
+### BDD
+
+애플리케이션이 어떻게 `행동`해야 하는지에 대한 공통된 이해를 구성하는 방법으로, TDD에서 창안했다.
+
+- Given / When / Then
+
+앞서 작성했던 테스트 코드 스타일도 Given / When / Then을 사용했다. 그런데, mock을 사용하면서 약간은 애매한 부분이 있다. 
+
+```java
+@ExtendWith(MockitoExtension.class)
+class StudyServiceTest {
+
+    @Mock MemberService memberService;
+    @Mock StudyRepository studyRepository;
+
+    @Test
+    void createNewStudy() {
+        // Given
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("yessm621@gmail.com");
+
+        Study study = new Study(10, "테스트");
+
+        // 1
+        when(memberService.findById(1L)).thenReturn(Optional.of(member));
+        when(studyRepository.save(study)).thenReturn(study);
+
+        // When
+        studyService.createNewStudy(1L, study);
+
+        // Then
+        assertEquals(member, study.getOwner());
+        // 2
+        verify(memberService, times(1)).notify(study);
+        verifyNoMoreInteractions(memberService);
+    }
+}
+```
+
+1, 2 번은 메서드 이름 때문인지 given, when, then과 맞지 않아보인다. 이때 Mockito는 `BddMockito`라는 클래스를 통해 BDD 스타일의 API를 제공한다.
+
+- when().thenReturn() → given().willReturn()
+- verify() → then().should()
+
+```java
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+
+@ExtendWith(MockitoExtension.class)
+class StudyServiceTest {
+
+    @Mock MemberService memberService;
+
+    @Mock StudyRepository studyRepository;
+
+    @Test
+    void createNewStudy() {
+        // Given
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        ...
+
+        // 1
+        given(memberService.findById(1L)).willReturn(Optional.of(member));
+        given(studyRepository.save(study)).willReturn(study);
+
+        // When
+        studyService.createNewStudy(1L, study);
+
+        // Then
+        assertEquals(member, study.getOwner());
+        // 2
+        then(memberService).should(times(1)).notify(study);
+        then(memberService).shouldHaveNoMoreInteractions();
+    }
+}
+```
+
+**Mockito 레퍼런스**
+
+[Mockito - mockito-core 4.4.0 javadoc](https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html)
