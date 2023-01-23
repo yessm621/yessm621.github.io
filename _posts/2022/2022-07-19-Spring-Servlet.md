@@ -12,6 +12,21 @@ toc_label: "Index"
 toc_sticky: true
 ---
 
+## 목차
+
+1. [웹 서버와 WAS](https://yessm621.github.io/http/Web-WebServer-WAS/)
+2. [서블릿](https://yessm621.github.io/spring/Spring-Servlet/)
+3. [쓰레드와 쓰레드 풀](https://yessm621.github.io/spring/Spring-Thread/)
+4. [SSR, CSR](https://yessm621.github.io/http/Web-SSR-CSR/)
+5. [MVC 패턴](https://yessm621.github.io/spring/Spring-MVCPattern/)
+6. [구 MVC 패턴과 프론트 컨트롤러](https://yessm621.github.io/spring/Spring-MVCPattern-FrontController/)
+7. [디스패처 서블릿](https://yessm621.github.io/spring/Spring-DispatcherServlet/)
+8. [로깅](https://yessm621.github.io/web/Spring-Logging/)
+9. [HTTP 메시지 컨버터](https://yessm621.github.io/spring/Spring-HTTPMessageConverter/)
+10. [요청 매핑 핸들러 어댑터 구조](https://yessm621.github.io/spring/Spring-RequestMappingHandlerAdapter/)
+11. [PRG Post/Redirect/Get](https://yessm621.github.io/spring/Spring-PRG/)
+
+
 ## 서블릿
 
 `서블릿`이란 Dynamic Web Page를 만들 때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술이다. 웹을 만들때는 다양한 **요청(request)**과 **응답(response)**이 있고 규칙이 존재하는데 이러한 요청과 응답을 일일이 처리하기 힘들다. 서블릿은 이러한 웹 요청과 응답의 흐름을 간단한 메서드 호출만으로 체계적으로 다룰 수 있게 해주는 기술이다.

@@ -19,6 +19,12 @@ docs:
       - title: "JPA"
         url: /JPA
         category: "JPA"
+      - title: "테스트 코드"
+        url: /TestCode
+        category: "TestCode"
+      - title: "디자인 패턴"
+        url: /DesignPattern
+        category: "DesignPattern"
       - title: "Python"
         url: /Python
         category: "Python"
