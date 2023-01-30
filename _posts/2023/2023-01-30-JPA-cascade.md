@@ -1,0 +1,107 @@
+---
+title: "영속성 전이, Cascade"
+last_modified_at: 2023-01-30T18:05:00
+categories:
+  - JPA
+tags:
+  - JPA
+  - Spring
+toc: true
+toc_label: "Index"
+toc_sticky: true
+---
+
+## 영속성 전이란?
+
+`Cascade`라고도 한다. 엔티티의 상태 변화를 **전파**시키는 옵션으로 만약 엔티티에 상태 변화가 있으면 연관되어 있는 엔티티에도 **상태 변화를 전이**시키는 옵션이다.
+
+### 사용하는 이유?
+
+Cascade를 사용하는 이유를 설명하기 위해 다음과 같은 예를 들겠다. OrderItem과 Order는 다대일 양방향 연관관계이다. 
+
+Cascade를 사용하지 않으면 OrderItem을 저장할 때 모든 엔티티를 각각 persist() 해주어야 한다. 각각 엔티티마다 적용해야 하므로 번거롭고 귀찮다.
+
+```java
+//@OneToMany(mappedBy = "order")
+//private List<OrderItem> orderItems = new ArrayList<>();
+em.persist(orderItemA);
+em.persist(orderItemB);
+em.persist(orderItemC);
+em.persist(order);
+```
+
+Cascade를 사용하면 아래 코드처럼 간단해진다. order만 persist() 해주면 된다.
+
+```java
+//@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+//private List<OrderItem> orderItems = new ArrayList<>();
+em.persist(order);
+```
+
+### Cascade 옵션
+
+Cascade엔 6가지 옵션이 있다.
+
+- ALL
+- PERSIST
+- REMOVE
+- MERGE
+- REFERESH
+- DETACH
+
+주로 사용하는 옵션은 `ALL`과 `PERSIST`이다. All의 경우 **모든 영속성이 전이**되는 경우이고 Persist의 경우 **엔티티가 저장**될 때만 연쇄적으로 저장되게 하는 옵션이다.
+
+### 어디에 써야 할까?
+
+일대다 연관관계 기준으로 연관관계의 주인은 다 쪽에 있다. 그 **반대쪽 엔티티**에 사용하면 된다.
+
+### 언제 써야 할까?
+
+1. Cascade 되는 엔티티와 Cascade를 설정하는 엔티티의 **라이프사이클이 동일하거나 비슷**해야 한다.
+2. Cascade 되는 엔티티가 Cascade를 설정하는 **엔티티에서만 사용**되어야 한다.
+
+예를 들어, Post와 Image가 있다고 가정하자. Image는 Post에서만 사용되고 Post가 삭제되면 Image도 삭제되어야 한다. 결론적으로, Image와 Post가 양방향 연관관계일 경우 Post 엔티티에 정의된 List<Image> images에 Cascade.ALL 옵션을 줄 수 있다.
+
+```java
+public class Post {
+    @OneToMany(mappedBy = "post", cascade = Cascade.ALL)
+    List<Image> images = new ArrayList<>();
+}
+```
+
+```java
+public class Image {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+}
+```
+
+cascade를 사용할 수 없는 경우도 살펴보자. 예를 들어 Post, Comment, Member가 있다고 가정하자. 
+
+- Post와 Comment: 일대다 연관관계, Cascade 적용
+- Member와 Comment: 일대다 연관관계
+
+만약, 게시글이 삭제되면 해당 게시물에 달린 댓글도 삭제된다. 이제 사용자는 더 이상 자신이 작성한 댓글을 확인할 수 없다. 설계 상 올바르게 구현한 것이면 상관없지만 그렇지 않은 경우엔 큰 문제가 생긴다.
+
+결론은 모든 @OneToMany에 cascade 옵션을 걸어 버리면 안된다.
+
+## 고아 객체 (orphanRemoval)
+
+cascade와 비슷한 orphanRemoval에 대해 알아보겠다.
+
+부모와 연관관계가 끊어진 엔티티를 `고아객체`라고 하며 이러한 고아객체를 자동으로 삭제해주는 옵션을 활성화 시키는 것이 `orphanRemoval = true` 옵션을 @OneToMany에 주는 것이다.
+
+orphanRemoval=true 옵션은 라이프 사이클이 동일하고 해당 엔티티에서만 쓰이는 엔티티일 경우 사용해주면 된다. (Cascade와 동일한 맥락)
+
+## **orphanRemoval=true와 Cascade.REMOVE**
+
+### 차이점
+
+Cascade.REMOVE의 경우 일(Post)에 해당하는 엔티티를 em.remove()를 통해 직접 삭제할 때 다(Image)에 해당하는 엔티티들이 삭제되는 것이다.
+
+orphanRemoval=true는 위의 경우는 물론이고 엔티티의 리스트에서 요소를 삭제하기만 해도 해당 엔티티가 delete되는 기능까지 포함하고 있다고 이해하면 된다.
+
+### 함께 사용하면?
+
+orphanRemoval=true와 Cascade.ALL을 함께 사용하면 다(Image)에 해당하는 리스트 형태의 엔티티는 일(Post)에 해당하는 엔티티와 라이프 사이클이 완전히 똑같아진다. 또한, 다른 엔티티에서는 사용되지 않는 엔티티일 것이다. 즉, 부모 엔티티를 통해 자식의 생명주기를 관리할 수 있다.
