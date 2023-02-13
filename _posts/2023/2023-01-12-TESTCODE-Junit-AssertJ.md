@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "JUnit Assertions, AssertJ"
-last_modified_at: 2023-01-12T13:45:00
-categories:
-  - TestCode
+date: 2023-01-12 13:45:00
+categories: [TestCode]
 tags:
   - TestCode
   - JAVA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## JUnit Assertions와 AssertJ

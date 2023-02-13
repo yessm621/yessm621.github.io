@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "영속성 전이, Cascade"
-last_modified_at: 2023-01-30T18:05:00
-categories:
-  - JPA
+date: 2023-01-30 18:05:00
+categories: [JPA]
 tags:
   - JPA
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 영속성 전이란?

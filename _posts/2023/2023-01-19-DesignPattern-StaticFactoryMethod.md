@@ -1,14 +1,13 @@
 ---
+layout: post
 title: "정적 팩토리 메서드"
-last_modified_at: 2023-01-19T10:20:00
+date: 2023-01-19 10:20:00
 categories:
   - DesignPattern
 tags:
   - DesignPattern
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 정적 팩토리 메서드란?

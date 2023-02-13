@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "연관관계 편의 메서드"
-last_modified_at: 2023-01-15T17:00:00
-categories:
-  - JPA
+date: 2023-01-15 17:00:00
+categories: [JPA]
 tags:
   - JPA
-# toc: true
-# toc_label: "Index"
-# toc_sticky: true
+author: "유자"
 ---
 
 `연관관계 편의 메서드`는 **양방향 연관관계**일 경우에 해당된다.

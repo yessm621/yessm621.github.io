@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "Mock 이란?"
-last_modified_at: 2023-01-24T03:00:00
-categories: 
-  - TestCode
+date: 2023-01-24 03:00:00
+categories: [TestCode]
 tags:
   - TestCode
   - JAVA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## Mock 이란?

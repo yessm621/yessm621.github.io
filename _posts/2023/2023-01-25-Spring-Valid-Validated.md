@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "@Valid, @Validated"
-# last_modified_at: 2023-01-25T23:15:00
-last_modified_at: 2023-01-26T10:30:00
-categories:
-  - Spring
+# date: 2023-01-25 23:15:00
+date: 2023-01-26 10:30:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## @Valid

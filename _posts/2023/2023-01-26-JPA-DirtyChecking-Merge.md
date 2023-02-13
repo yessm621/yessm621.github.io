@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "변경 감지와 병합"
-last_modified_at: 2023-01-26T17:10:00
-categories:
-  - JPA
+date: 2023-01-26 17:10:00
+categories: [JPA]
 tags:
   - JPA
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 <aside>

@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "연관 관계 매핑"
-last_modified_at: 2023-01-15T16:00:00
-categories:
-  - JPA
+date: 2023-01-15 16:00:00
+categories: [JPA]
 tags:
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 연관 관계를 매핑할 때 생각해야 할 것 3가지
