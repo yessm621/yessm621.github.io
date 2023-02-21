@@ -69,10 +69,10 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-  provider               : "google-gtag" 
-  google:
-    tracking_id          : "UA-216823136-1"
-    anonymize_ip         : # true, false (default)
+  # provider               : "google-gtag" 
+  # google:
+  #   tracking_id          : "UA-216823136-1"
+  #   anonymize_ip         : # true, false (default)
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
