@@ -1,13 +1,11 @@
 ---
+layout: post
 title:  "엔티티 매니저 팩토리와 엔티티 매니저"
-last_modified_at: 2022-08-22T23:20:00
-categories: 
-  - JPA
+date: 2022-08-22 23:20:00
+categories: [JPA]
 tags:
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 엔티티 매니저 팩토리

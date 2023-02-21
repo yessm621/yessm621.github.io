@@ -1,19 +1,17 @@
 ---
+layout: post
 title:  "REST API with SpringBoot(4)"
-last_modified_at: 2022-01-22T19:44:00
-categories: 
-  - Spring
+date: 2022-01-22 19:44:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
   - TEST CODE
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
-`백기선님 강의 정리`
+**백기선님 강의 정리**
 
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
@@ -23,15 +21,11 @@ toc_sticky: true
 
 [REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
-<br>
-
 ## Event 생성 API 구현: Bad Request 응답 본문 만들기
 
 serialization: ‘객체 → json’ 으로 변환
 
 deserialization: ‘json → 객체’ 로 변환
-
-<br>
 
 body에 Bad Request에 대한 응답을 넣고 싶은데 관련 에러는 Errors에 담겨 있다
 
@@ -43,13 +37,7 @@ body에 Bad Request에 대한 응답을 넣고 싶은데 관련 에러는 Errors
 
 → event는 objectMapper를 사용해서 객체에서 json으로 변환하는데 이때 bean serialization을 사용해서 자바빈 스팩을 준수했기 때문에 변환할수 있었던것..
 
-<br>
-
 따라서, 아래 코드와 같이 error를 serialization 해주는 코드를 작성해야한다.
-
-<br>
-
-common/ErrorsSerializer.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.common;
@@ -101,19 +89,13 @@ public class ErrorsSerializer extends JsonSerializer<Errors> {
 }
 ```
 
-<br>
-
 ### @JsonComponent
 
 ObjectMapper 에 Custom Serializer를 등록해 주어야하는데 Spring Boot에서 제공하는 `@JsonComponent`를 사용하면 손쉽게 등록이 가능하다.
 
 [Json Parser Online](http://json.parser.online.fr/)
 
-<br>
-
 ## Event 생성 API 구현: 비즈니스 로직 적용
-
-event.java
 
 ```java
 ...
@@ -138,8 +120,6 @@ public void update() {
 ```
 
 entity test code 작성
-
-EventTest.java
 
 ```java
 	...
@@ -190,8 +170,6 @@ EventTest.java
 
 `JUnitParams` 를 이용하여 중복코드를 줄이고 테스트코드를 작성할 수 있다.
 
-<br>
-
 ## Event 생성 API 구현: 매개변수를 이용한 테스트
 
 dependency 추가
@@ -206,8 +184,6 @@ pom.xml
     <scope>test</scope>
 </dependency>
 ```
-
-EventTest.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;

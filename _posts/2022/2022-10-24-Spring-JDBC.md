@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "JDBC"
-last_modified_at: 2022-10-24T22:40:00
-categories:
-  - Spring
+date: 2022-10-24 22:40:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## JDBC 등장배경

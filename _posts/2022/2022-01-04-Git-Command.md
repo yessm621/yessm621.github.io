@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "Git 자주쓰는 명령어"
-# last_modified_at: 2022-01-04T11:30:00
-last_modified_at: 2022-11-29T17:10:00
-categories: 
-  - Git
+# date: 2022-01-04 11:30:00
+date: 2022-11-29 17:10:00
+categories: [Git]
 tags:
   - Git
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 설정 정보 (Config)

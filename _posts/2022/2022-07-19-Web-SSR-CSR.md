@@ -1,15 +1,13 @@
 ---
+layout: post
 title:  "SSR, CSR"
-# last_modified_at: 2022-07-19T13:40:00
-last_modified_at: 2022-12-19T18:00:00
-categories: 
-  - HTTP
+# date: 2022-07-19T13:40:00
+date: 2022-12-19T18:00:00
+categories: [HTTP]
 tags:
-  - HTTP
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - HTTP
+author: "유자"
 ---
 
 ## 목차

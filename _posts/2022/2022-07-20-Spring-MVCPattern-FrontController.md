@@ -1,14 +1,13 @@
 ---
+layout: post
 title:  "구 MVC 패턴과 프론트 컨트롤러"
-# last_modified_at: 2022-07-20T17:36:00
-last_modified_at: 2023-01-17T15:55:00
-categories: 
-  - Spring
+# date: 2022-07-20 17:36:00
+date: 2023-01-17 15:55:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - DB
+author: "유자"
 ---
 
 ## 목차

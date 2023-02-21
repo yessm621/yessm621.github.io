@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "스레드와 스레드 풀"
-# last_modified_at: 2022-07-19T13:45:00
-last_modified_at: 2022-12-21T14:25:00
-categories: 
-  - Spring
+# date: 2022-07-19 13:45:00
+date: 2022-12-21 14:25:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

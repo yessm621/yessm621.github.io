@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "타임리프(thymleaf)"
-last_modified_at: 2022-08-30T10:36:00
-categories:
-  - Spring
+date: 2022-08-30 10:36:00
+categories: [Spring]
 tags:
   - Spring
   - Thymeleaf
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 **공식 사이트**

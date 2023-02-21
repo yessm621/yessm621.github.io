@@ -1,19 +1,16 @@
 ---
+layout: post
 title:  "REST API with SpringBoot(1)"
-last_modified_at: 2022-01-16T21:17:00
-categories: 
-  - Spring
+date: 2022-01-16 21:16:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
-
-`백기선님 강의 정리`
+**백기선님 강의 정리**
 
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
@@ -23,40 +20,25 @@ toc_sticky: true
 
 [REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
-<br>
 
 ## REST
 
 - 인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나
 - 시스템 제 각각의 독립적인 진화를 보장하기 위한 방법
 
-<br>
-
 ## REST의 조건
 
-```
-Client-Server
-Stateless
-Cache
-Uniform Interface
-Layered System
-Code-on-Demand(optional)
-```
+- Client-Server
+- Stateless
+- Cache
+- Uniform Interface
+- Layered System
+- Code-on-Demand(optional)
 
-<br>
 
 대개, REST API가 아닌 이유는 Uniform Interface 조건을 만족하지 못하기 때문이다.
 
-<br>
-
 ## Uniform Interface 조건
-
-```
-Identification of resources
-Manipulation of resources through representations
-Self-descriptive messages
-Hypermedia as the engine of application state(HATEOAS)
-```
 
 1. Identification of resources
     - 리소스가 URI로 식별이 되는지
@@ -68,11 +50,7 @@ Hypermedia as the engine of application state(HATEOAS)
 3. Self-descriptive messages
 4. Hypermedia as the engine of application state(HATEOAS)
 
-<br>
-
 대부분 3, 4번을 만족하지 못해 REST API가 아니다.
-
-<br>
 
 ### 1. self-descriptive messages
 
@@ -98,8 +76,6 @@ Link: <https://ecsimsw.com/docs/subway>; rel="profile"
 ```
 
 → 브라우저들이 아직 스팩을 지원하지 않는다. 따라서, 대안으로 HAL의 링크 데이터에 profile 링크 추가
-
-<br>
 
 ### 2. HATEOAS
 

@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "커넥션 풀"
-last_modified_at: 2022-10-26T13:20:00
-categories:
-  - Spring
+date: 2022-10-26 13:20:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 커넥션 풀 등장배경

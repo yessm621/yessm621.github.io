@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "지네릭스(Generics)"
-last_modified_at: 2022-12-14T14:10:00
-categories:
-  - Java
+date: 2022-12-14 14:10:00
+categories: [Java]
 tags:
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 지네릭스(Generics)

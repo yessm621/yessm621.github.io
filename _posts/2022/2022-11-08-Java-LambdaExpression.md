@@ -1,13 +1,11 @@
 ---
+layout: post
 title:  "람다식(Lambda Expression)"
-last_modified_at: 2022-11-08T11:05:00
-categories: 
-  - Java
+date: 2022-11-08 11:05:00
+categories: [Java]
 tags:
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 지네릭스(Generics)의 등장과 람다식(Lambda Expression)의 등장으로 인해 자바는 새로운 변화를 맞이했다. 그 중 람다식에 대해 알아보겠다.

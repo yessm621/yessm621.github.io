@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "DataSource (데이터 소스)"
-last_modified_at: 2022-10-26T15:40:00
-categories:
-  - Spring
+date: 2022-10-26 15:40:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## DataSource 이해

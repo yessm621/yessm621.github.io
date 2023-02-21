@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "JDBC Template"
-last_modified_at: 2022-11-02T14:30:00
-categories:
-  - Spring
+date: 2022-11-02 14:30:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 템플릿 패턴

@@ -1,13 +1,11 @@
 ---
-title:  "요청 매핑 핸들러 어뎁터 구조"
-last_modified_at: 2022-07-20T17:25:00
-categories: 
-  - Spring
+layout: post
+title: "요청 매핑 핸들러 어뎁터 구조"
+date: 2022-07-20 17:25:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

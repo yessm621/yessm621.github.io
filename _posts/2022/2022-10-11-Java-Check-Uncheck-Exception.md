@@ -1,15 +1,13 @@
 ---
+layout: post
 title: "체크 예외, 언체크 예외"
-# last_modified_at: 2022-10-11T15:00:00
-last_modified_at: 2022-10-31T16:20:00
-categories:
-  - Java
+# date: 2022-10-11T15:00:00
+date: 2022-10-31 16:20:00
+categories: [Java]
 tags:
   - Java
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 예외의 종류

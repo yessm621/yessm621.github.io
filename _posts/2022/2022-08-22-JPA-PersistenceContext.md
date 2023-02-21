@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "영속성 컨텍스트"
-last_modified_at: 2022-08-22T23:30:00
-categories:
-  - JPA
+date: 2022-08-22 23:30:00
+categories: [JPA]
 tags:
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## JPA에서 가장 중요한 2가지

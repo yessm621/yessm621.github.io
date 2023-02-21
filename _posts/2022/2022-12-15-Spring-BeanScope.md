@@ -1,14 +1,11 @@
 ---
+layout: post
 title: "빈 스코프"
-# last_modified_at: 2022-12-15T17:45:00
-last_modified_at: 2022-12-17T01:15:00
-categories:
-  - Spring
+date: 2022-12-17 01:15:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

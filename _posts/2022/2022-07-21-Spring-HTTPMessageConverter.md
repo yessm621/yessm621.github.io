@@ -1,13 +1,11 @@
 ---
-title:  "HTTP 메시지 컨버터"
-last_modified_at: 2022-07-21T15:45:00
-categories: 
-  - Spring
+layout: post
+title: "HTTP 메시지 컨버터"
+date: 2022-07-21 15:45:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

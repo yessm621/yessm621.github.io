@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "PRG, Post/Redirect/Get"
-# last_modified_at: 2022-07-22T23:45:00
-last_modified_at: 2023-01-19T17:00:00
-categories: 
-  - Spring
+# date: 2022-07-22 23:45:00
+date: 2023-01-19 17:00:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

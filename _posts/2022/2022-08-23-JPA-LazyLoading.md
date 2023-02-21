@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "즉시 로딩과 지연 로딩"
-last_modified_at: 2022-08-23T17:55:00
-categories:
-  - JPA
+date: 2022-08-23 17:55:00
+categories: [JPA]
 tags:
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 Member를 조회할 때 Team도 함께 조회해야 할까?

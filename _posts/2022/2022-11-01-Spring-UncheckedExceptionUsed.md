@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "언체크 예외 사용과 예외 사용 시 주의점"
-last_modified_at: 2022-11-01T10:25:00
-categories:
-  - Spring
+date: 2022-11-01 10:25:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 언체크 예외를 사용해야 하는 이유

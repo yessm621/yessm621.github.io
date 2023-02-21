@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "Github 접속을 위한 SSH 키 생성 및 등록"
-# last_modified_at: 2022-11-29T16:15:00
-last_modified_at: 2022-12-07T16:45:00
-categories: 
-  - Git
+# date: 2022-11-29 16:15:00
+date: 2022-12-07 16:45:00
+categories: [Git]
 tags:
   - Git
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 > **참고**

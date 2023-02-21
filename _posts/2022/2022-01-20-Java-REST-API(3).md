@@ -1,19 +1,17 @@
 ---
+layout: post
 title:  "REST API with SpringBoot(3)"
-last_modified_at: 2022-01-20T19:30:00
-categories: 
-  - Spring
+date: 2022-01-20 19:30:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
   - TEST CODE
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
-`백기선님 강의 정리`
+**백기선님 강의 정리**
 
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
@@ -23,13 +21,9 @@ toc_sticky: true
 
 [REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
-<br>
-
 ## Event 생성 API 구현: 입력값 제한하기
 
 dto를 사용하여 입력값을 제한하고 dto ↔ entity 를 변경할 땐 modelMapper 를 사용함
-
-<br>
 
 ### ModelMapper란?
 
@@ -37,13 +31,9 @@ dto를 사용하여 입력값을 제한하고 dto ↔ entity 를 변경할 땐 m
 
 즉, dto to entity를 일일히 정의할 필요없음
 
-<br>
-
 **주의!**
 
 ModelMapper는 해당 클래스의 기본 생성자를 이용해 객체를 생성하고 **setter를 이용해 매핑**을 한다. 따라서, setter 어노테이션을 붙이지 않으면 json으로 null이 반환된다.
-
-<br>
 
 **[참고]**
 
@@ -70,8 +60,6 @@ public class Config {
     }
 }
 ```
-
-<br>
 
 pom.xml 에 추가
 
@@ -103,8 +91,6 @@ private final ModelMapper modelMapper;
                 .build();*/
 ```
 
-<br>
-
 입력값을 제한하기 위해 entity 대신 DTO를 사용
 
 ### DTO 를 사용하는 이유?
@@ -114,15 +100,9 @@ private final ModelMapper modelMapper;
 3. 순환참조를 예방할 수 있다.
 4. validation 코드와 모델링 코드를 분리할 수 있다.
 
-<br>
-
 @WebMvcTest는 슬라이싱 테스트
 
 → 통합테스트를 전환함(@SpringBootTest)
-
-<br>
-
-EventController.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -159,8 +139,6 @@ public class EventController {
 }
 
 ```
-
-EventControllerTests.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -246,8 +224,6 @@ public class EventControllerTests {
 
 newEvent 객체와 test코드에서 작성한 event 객체는 다른 객체이기 때문에 save()를 호출해도 반환되는 값이 null. 따라서, 오류 발생
 
-<br>
-
 ## Event 생성 API 구현: Bad Request 처리하기
 
 ### 입력값 이외에 에러 발생, 입력값이 비어있는 경우 에러 발생
@@ -257,15 +233,11 @@ newEvent 객체와 test코드에서 작성한 event 객체는 다른 객체이�
 1. 무시하는 방법: 유연한 방법
 2. 에러를 발생시키는 방법: Bad Request 발생
 
-<br>
-
 application.properties 설정
 
 ```
 spring.jackson.deserialization.fail-on-unknown-properties=true
 ```
-
-EventControllerTests.java
 
 ```java
 	
@@ -313,8 +285,6 @@ EventControllerTests.java
 	...
 ```
 
-EventController.java
-
 ```java
 package me.whiteship.demoinflearnrestapi.events;
 
@@ -352,8 +322,6 @@ public class EventController {
 
 (요청 파라미터의 유효성 검증은 컨트롤러에서 처리하고 서비스나 리포지토리 계층에서는 유효성 검증을 하지 않는 것이 바람직함)
 
-<br>
-
 의존성 추가(gradle, maven)
 
 build.gradle
@@ -373,8 +341,6 @@ pom.xml
         </dependency>
 ```
 
-<br>
-
 컨트롤러에서 Request 객체 앞에 @Validate(@Valid) 어노테이션을 사용하고, Errors 를 통해 유효성 검사 적합 여부를 확인
 
 Errors는 반드시 Request 객체 바로 뒤에 위치해야 한다.
@@ -382,10 +348,6 @@ Errors는 반드시 Request 객체 바로 뒤에 위치해야 한다.
 (두개의 객체를 유효성 검사한다면 각각의 객체 뒤에 Errors 존재해야 함)
 
 hasErrors() 메서드를 통해 에러 return
-
-<br>
-
-EventDto.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -439,11 +401,7 @@ JSR 표준 스펙은 다양한 제약 조건 어노테이션을 제공하고 있
 - @Min: 해당 값이 주어진 값보다 작지 않은지 검증함
 - @Max: 해당 값이 주어진 값보다 크지 않은지 검증함
 
-<br>
-
 ### 입력값이 잘못된 경우 에러 발생
-
-EventValidator.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -477,8 +435,6 @@ public class EventValidator {
 
 @Component를 이용해 빈으로 등록해주고 EventController 에서 의존성 주입해서 사용
 
-EventController.java
-
 ```java
 @Controller
 @RequestMapping(value = "/api/events", produces = MediaTypes.HAL_JSON_VALUE)
@@ -504,11 +460,7 @@ public class EventController {
 }
 ```
 
-<br>
-
 ### 테스트 설명용 어노테이션 생성
-
-TestDescription.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.common;
@@ -526,8 +478,6 @@ public @interface TestDescription {
 }
 ```
 
-EventControllerTests.java
-
 ```java
 ...
 
@@ -536,8 +486,6 @@ EventControllerTests.java
 
 ...
 ```
-
-<br>
 
 **@Target**
 

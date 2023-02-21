@@ -1,13 +1,11 @@
 ---
-title: "프로세스와 스레드"
-last_modified_at: 2022-12-21T14:10:00
-categories:
-  - CS
+layout: post
+title:  "프로세스와 스레드"
+date: 2022-12-21 14:10:00
+categories: [CS]
 tags:
   - CS
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 들어가기 전에

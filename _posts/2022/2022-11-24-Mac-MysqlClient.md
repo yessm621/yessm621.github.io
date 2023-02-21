@@ -1,12 +1,13 @@
 ---
+layout: post
 title:  "[Mac] Django 프로젝트 셋팅 중 mysqlclient 오류"
-last_modified_at: 2022-11-24T13:40:00
-categories: 
-  - Mac
+date: 2022-11-24 13:40:00
+categories: [Mac]
 tags:
   - Mac
   - MySQL
   - Python
+author: "유자"
 ---
 
 Django 프로젝트를 셋팅하는 중에 mysqlclient 패키지 설치 시 오류가 발생했다.

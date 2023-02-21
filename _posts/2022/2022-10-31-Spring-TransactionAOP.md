@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "트랜잭션 AOP"
-last_modified_at: 2022-10-31T13:50:00
-categories:
-  - Spring
+date: 2022-10-31 13:50:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 트랜잭션 AOP

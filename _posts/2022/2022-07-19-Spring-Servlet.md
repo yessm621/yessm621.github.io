@@ -1,15 +1,13 @@
 ---
+layout: post
 title:  "서블릿"
-# last_modified_at: 2022-07-19T17:25:00
-last_modified_at: 2022-12-20T23:15:00
-categories: 
-  - Spring
+# date: 2022-07-19 17:25:00
+date: 2022-12-20 23:15:00
+categories: [Spring]
 tags:
   - Spring
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

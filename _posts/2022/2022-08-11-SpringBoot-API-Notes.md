@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "API 개발 시 주의할 점 - 기본"
-last_modified_at: 2022-08-11T16:50:00
-categories:
-  - Spring
+date: 2022-08-11 16:50:00
+categories: [Spring]
 tags:
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 > **참고**

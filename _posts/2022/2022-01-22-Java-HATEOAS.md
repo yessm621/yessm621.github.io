@@ -1,20 +1,16 @@
 ---
+layout: post
 title:  "스프링 HATEOAS"
-last_modified_at: 2022-01-22T19:50:00
-categories: 
-  - Spring
+date: 2022-01-22 19:50:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
-  - TEST CODE
-  - HATEOAS
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
-`백기선님 강의 정리`
+**백기선님 강의 정리**
 
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
@@ -24,19 +20,13 @@ toc_sticky: true
 
 [REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
-<br>
-
 REST가 잘 적용된 API라면 응답에 HATEOAS를 지켜야 한다
-
-<br>
 
 ## HATEOAS란?
 
 REST API에서 클라이언트에 리소스를 넘겨줄 때 특정 부가적인 리소스의 링크 정보를 넘겨줌
 
 links 요소를 통해 href 값의 형태로 보내주면 자원 상태에 대한 처리를 링크에 있는 URL을 통해 처리할 수 있게 된다.
-
-<br>
 
 HATEOAS 링크에 들어가는 정보는 현재 Resource의 관계이자 링크의 레퍼런스 정보인 REL과 하이퍼링크인 HREF 두 정보가 들어간다.
 
@@ -55,8 +45,6 @@ HATEOAS 링크에 들어가는 정보는 현재 Resource의 관계이자 링크�
 }
 ```
 
-<br>
-
 1. 링크를 만드는 기능
     - 문자열을 가지고 만들기
     - 컨트롤러와 메소드로 만들기
@@ -74,16 +62,12 @@ HATEOAS 링크에 들어가는 정보는 현재 Resource의 관계이자 링크�
         - query-events
         - ...
 
-<br>        
-
 참고)
 
 - `ResourceSupport` is now `RepresentationModel`
 - `Resource` is now `EntityModel`
 - `Resources` is now `CollectionModel`
 - `PagedResources` is now `PagedModel`
-
-<br>
 
 ### 테스트 코드
 
@@ -115,8 +99,6 @@ HATEOAS 링크에 들어가는 정보는 현재 Resource의 관계이자 링크�
                 .andExpect(jsonPath("_links.query-events").exists())
                 .andExpect(jsonPath("_links.update-event").exists());
 ```
-
-<br>
 
 ### EventResource
 
@@ -195,9 +177,6 @@ T에 해당하는 데이터가 content로 매핑 되는데 getContent() 메소�
 
 따라서, 위의 코드처럼 두번째 방법을 사용해도 된다.
 
-<br>
-
-EventController.java
 
 ```java
 @PostMapping

@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "페치 조인 (fetch join)"
-last_modified_at: 2022-08-13T15:55:00
-categories:
-  - JPA
+date: 2022-08-13 15:55:00
+categories: [JPA]
 tags:
-  - JPA
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - JPA
+author: "유자"
 ---
 
 

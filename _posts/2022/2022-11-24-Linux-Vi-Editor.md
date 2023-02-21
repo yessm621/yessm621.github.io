@@ -1,10 +1,11 @@
 ---
+layout: post
 title:  "[CentOS] vi 편집기 꾸미기"
-last_modified_at: 2022-11-24T13:40:00
-categories: 
-  - Linux
+date: 2022-11-24 13:40:00
+categories: [Linux]
 tags:
   - Linux
+author: "유자"
 ---
 
 vi 편집기를 이쁘게 꾸며보겠다.

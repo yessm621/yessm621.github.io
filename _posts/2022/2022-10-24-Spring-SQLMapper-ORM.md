@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "JDBC와 최신 데이터 접근 기술(SQL Mapper, ORM)"
-last_modified_at: 2022-10-24T22:40:00
-categories:
-  - Spring
+date: 2022-10-24 22:40:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 최근에는 JDBC를 직접 사용하기 보다 `SQL Mapper`, `ORM`을 통해 JDBC를 편리하게 사용할 수 있다.

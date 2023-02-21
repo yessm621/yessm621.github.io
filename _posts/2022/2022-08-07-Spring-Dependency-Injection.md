@@ -1,16 +1,14 @@
 ---
+layout: post
 title: "의존관계 주입 방법"
-# last_modified_at: 2022-08-07T22:50:00
-# last_modified_at: 2022-11-26T23:25:00
-last_modified_at: 2022-11-30T16:15:00
-categories:
-  - Spring
+# date: 2022-08-07 22:50:00
+# date: 2022-11-26 23:25:00
+date: 2022-11-30 16:15:00
+categories: [Spring]
 tags:
   - Spring
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

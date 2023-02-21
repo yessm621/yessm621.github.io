@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "JPA 조회 성능 최적화"
-last_modified_at: 2022-08-16T11:00:00
-categories:
-  - JPA
+date: 2022-08-16 11:00:00
+categories: [JPA]
 tags:
-  - JPA
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - JPA
+author: "유자"
 ---
 
 조회 성능 최적화 부분은 매우 중요하다. 실무에서 JPA를 사용하려면 100% 이해해야 한다.

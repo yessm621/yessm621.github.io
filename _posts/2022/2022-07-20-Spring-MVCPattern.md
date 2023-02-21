@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "MVC 패턴"
-# last_modified_at: 2022-07-20T17:32:00
-last_modified_at: 2023-01-17T16:20:00
-categories: 
-  - Spring
+# date: 2022-07-20 17:32:00
+date: 2023-01-17 16:20:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

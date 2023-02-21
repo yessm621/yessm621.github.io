@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "빈 생명주기 콜백"
-last_modified_at: 2022-12-04T22:30:00
-categories:
-  - Spring
+date: 2022-12-04 22:30:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

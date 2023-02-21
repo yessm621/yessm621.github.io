@@ -1,15 +1,13 @@
 ---
+layout: post
 title:  "웹 서버와 WAS"
-# last_modified_at: 2022-07-19T13:50:00
-last_modified_at: 2022-12-19T15:30:00
-categories: 
-  - HTTP
+# date: 2022-07-19T13:50:00
+date: 2022-12-19 15:30:00
+categories: [HTTP]
 tags:
   - Spring
   - HTTP
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

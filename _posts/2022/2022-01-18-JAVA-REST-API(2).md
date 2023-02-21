@@ -1,19 +1,17 @@
 ---
+layout: post
 title:  "REST API with SpringBoot(2)"
-last_modified_at: 2022-01-16T21:17:00
-categories: 
-  - Spring
+date: 2022-01-16 21:17:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 
-`백기선님 강의 정리`
+**백기선님 강의 정리**
 
 [REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
 
@@ -23,17 +21,11 @@ toc_sticky: true
 
 [REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
 
-<br>
-
 ## project dependencies
 
 ![Untitled1](https://user-images.githubusercontent.com/79130276/149884411-1e9be2c0-404a-4a77-a53f-d079b3200227.png)
 
-<br>
-
 ## Event 도메인 구현
-
-events/Event.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -73,8 +65,6 @@ public class Event {
 }
 ```
 
-events/EventStatus.java
-
 ```java
 package me.whiteship.demoinflearnrestapi.events;
 
@@ -84,15 +74,11 @@ public enum EventStatus {
 }
 ```
 
-<br>
-
 ### 생성자를 자동 생성해주는 Lombok 어노테이션
 
 - @NoArgsConstructor: 파라미터가 없는 기본 생성자
 - @AllArgsConstructor: 모든 필드 값을 파라미터로 받는 생성자
 - @RequiredArgsConstructor: final이나 @NonNull 인 필드 값만 파라미터로 받는 생성자
-
-<br>
 
 ### @EqualsAndHashCode
 
@@ -105,25 +91,17 @@ exclude: toString의 exclude와 마찬가지로 포함시키지 않으려면 ‘
 
 of: 연관관계가 복잡해질 때, stack overflow가 발생할 수 있기 때문에 id 값만 주로 사용
 
-<br>
-
 ### @Data를 사용할 때 주의할 점
 
 하나의 어노테이션으로 많은 메소드를 자동으로 생성하면 편리한 것이 사실이지만, ORM(Object Relational Mapping)에서 주의해야 함
 
 서로 무한 반복 호출이 진행되면서 stack overflow를 유발할 수 있으므로 몇라인 길어지더라도 @Getter, @Setter, @ToString 등 따로 사용하는게 좋음
 
-<br>
-
 ### @Builder를 사용할 때 @AllArgsConstructor가 필요한 이유?
 
 빌더는 필드의 초기화 작업을 도와주는 역할을 하는데 @NoArgsConstructor 와 같이 생성자에 멤버변수가 존재하지 않으면 의미가 없다. 따라서 @Builder를 사용할 때 @AllArgsConstructor를 정의하거나 전체 멤버변수를 갖는 생성자를 만들어야한다.
 
-<br>
-
 ## Event 테스트 구현
-
-events/EventControllerTests.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -193,8 +171,6 @@ public class EventControllerTests {
 
 ```
 
-<br>
-
 ### @WebMvcTest
 
 - MVC를 위한 테스트, 컨트롤러가 예상대로 동작하는 테스트하는데 사용
@@ -202,14 +178,10 @@ public class EventControllerTests {
 - MockBean, MockMVC를 자동 구성하여 테스트 가능하도록 함
 - 스프링 부트 슬라이스 테스트
 
-<br>
-
 ### @Autowired MockMvc mockMvc;
 
 - 스프링 MVC 테스트 핵심 클래스
 - 웹 서버를 띄우지 않고도 스프링 MVC (DispatcherServlet)가 요청을 처리하는 과정을 확인할 수 있기 때문에 컨트롤러 테스트용으로 자주 쓰임
-
-<br>
 
 ### mockMvc의 메소드
 
@@ -234,15 +206,11 @@ public class EventControllerTests {
     
     요청/응답 전체 메세지를 확인할 수 있음
 
-<br>    
-
 ### ObjectMapper
 
 Object → Serialize(직렬화) → JSON
 
 JSON → Deserialize(역직렬화) → Object
-
-<br>
 
 ### Mockito 란?
 
@@ -259,10 +227,6 @@ when(mockedList.get(0)).thenReturn("first");
 // get(1)이 호출되면 RuntimeException 에러를 발생합니다.
 when(mockedList.get(1)).thenThrow(new RuntimeException());
 ```
-
-<br>
-
-events/EventController.java
 
 ```java
 package me.whiteship.demoinflearnrestapi.events;
@@ -295,8 +259,6 @@ public class EventController {
     }
 }
 ```
-
-<br>
 
 ### HATEOAS 란?
 
@@ -364,8 +326,6 @@ POST /api/member 요청 시 **HAL_JSON 방식**으로 리소스를 반환 (**HAL
 반환 정보는 생성된 Member 정보와 Member와 관련된 링크 정보로 구성됨
 
 링크 정보는 **list, self, update 정보**를 담고 있음
-
-<br>
 
 **결과**
 

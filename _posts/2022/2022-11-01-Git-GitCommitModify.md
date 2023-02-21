@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "Git commit 로그 수정"
-last_modified_at: 2022-11-01T09:05:00
-categories:
-  - Git
+date: 2022-11-01 09:05:00
+categories: [Git]
 tags:
   - Git
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ### 직전에 작성한 commit 변경

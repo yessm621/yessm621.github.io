@@ -1,14 +1,12 @@
 ---
+layout: post
 title:  "디스패처 서블릿"
-# last_modified_at: 2022-07-21T10:15:00
-last_modified_at: 2023-01-17T16:00:00
-categories: 
-  - Spring
+# date: 2022-07-21 10:15:00
+date: 2023-01-17 16:00:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

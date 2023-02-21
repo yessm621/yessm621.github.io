@@ -1,13 +1,11 @@
 ---
+layout: post
 title:  "equals와 hashCode"
-last_modified_at: 2022-10-03T01:10:00
-categories: 
-  - Java
+date: 2022-10-03 01:10:00
+categories: [Java]
 tags:
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## equals와 hashCode란?

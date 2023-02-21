@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "TailwindCSS 설정"
-last_modified_at: 2022-12-07T14:50:00
-categories:
-  - TailwindCSS
+date: 2022-12-07 14:50:00
+categories: [TailwindCSS]
 tags:
   - TailwindCSS
   - CSS
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 tailwindCSS를 사용하기 위해서는 node를 먼저 설치해야 한다.

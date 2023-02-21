@@ -9,6 +9,15 @@ toc: true
 toc_label: "Index"
 toc_sticky: true
 ---
+---
+layout: post
+title: "트랜잭션"
+date: 2022-10-27 10:20:00
+categories: [DB]
+tags:
+  - DB
+author: "유자"
+---
 
 ## 트랜잭션이란
 

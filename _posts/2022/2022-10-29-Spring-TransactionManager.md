@@ -1,15 +1,13 @@
 ---
+layout: post
 title: "트랜잭션 매니저(추상화, 동기화)"
-# last_modified_at: 2022-10-29T01:00:00
-last_modified_at: 2022-10-29T18:20:00
-categories:
-  - Spring
+# date: 2022-10-29 01:00:00
+date: 2022-10-29 18:20:00
+categories: [Spring]
 tags:
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 트랜잭션 추상화

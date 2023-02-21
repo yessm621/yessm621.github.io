@@ -1,16 +1,14 @@
 ---
+layout: post
 title: "Querydsl 설정"
-# last_modified_at: 2022-09-07T17:15:00
-last_modified_at: 2022-09-13T16:50:00
-categories:
-  - JPA
+# date: 2022-09-07 17:15:00
+date: 2022-09-13 16:50:00
+categories: [JPA]
 tags:
   - JPA
   - Querydsl
   - 환경설정
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## Querydsl 설정

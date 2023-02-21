@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "컬렉션 조회 최적화"
-last_modified_at: 2022-08-16T13:30:00
-categories:
-  - JPA
+date: 2022-08-16 13:30:00
+categories: [JPA]
 tags:
-  - JPA
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - JPA
+author: "유자"
 ---
 
 컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자. (*ToOne 보다 신경 쓸게 많다.)

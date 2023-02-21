@@ -1,13 +1,11 @@
 ---
+layout: post
 title:  "내부 클래스"
-last_modified_at: 2022-12-12T13:30:00
-categories: 
-  - Java
+date: 2022-12-12 13:30:00
+categories: [Java]
 tags:
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 내부 클래스란?

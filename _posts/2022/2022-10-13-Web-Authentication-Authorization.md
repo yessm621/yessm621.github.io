@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "인증과 인가"
-last_modified_at: 2022-10-13T17:00:00
-categories:
-  - Web
+date: 2022-10-13 17:00:00
+categories: [Web]
 tags:
   - Web
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 인증과 인가란?

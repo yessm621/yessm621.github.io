@@ -1,14 +1,12 @@
 ---
+layout: post
 title: "프로젝션(Projection), DTO로 조회하는 방법"
-last_modified_at: 2022-09-21T10:50:00
-categories:
-  - JPA
+date: 2022-09-21 10:50:00
+categories: [JPA]
 tags:
   - JPA
   - Querydsl
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 프로젝션

@@ -1,13 +1,11 @@
 ---
+layout: post
 title: "연관관계의 주인과 mappedBy"
-last_modified_at: 2022-08-22T23:45:00
-categories:
-  - JPA
+date: 2022-08-22 23:45:00
+categories: [JPA]
 tags:
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 양방향 연관관계

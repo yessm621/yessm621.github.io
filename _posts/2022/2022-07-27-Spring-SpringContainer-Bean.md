@@ -1,14 +1,12 @@
 ---
-title:  "스프링 컨테이너와 스프링 빈"
-# last_modified_at: 2022-07-27T11:10:00
-last_modified_at: 2022-11-17T12:57:00
-categories: 
-  - Spring
+layout: post
+title: "스프링 컨테이너와 스프링 빈"
+# date: 2022-07-27 11:10:00
+date: 2022-11-17 12:57:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

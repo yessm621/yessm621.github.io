@@ -1,13 +1,11 @@
 ---
-title:  "좋은 객체 지향 설계의 원칙: SOLID"
-last_modified_at: 2022-07-24T15:30:00
-categories: 
-  - Spring
+layout: post
+title: "좋은 객체 지향 설계의 원칙: SOLID"
+date: 2022-07-24 15:30:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

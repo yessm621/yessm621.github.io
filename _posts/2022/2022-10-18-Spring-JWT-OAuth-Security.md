@@ -1,15 +1,13 @@
 ---
+layout: post
 title: "JWT, OAuth2.0, Security"
-last_modified_at: 2022-10-18T10:40:00
-categories:
-  - Spring
+date: 2022-10-18T10:40:00
+categories: [Spring]
 tags:
   - Spring
   - JWT
   - OAuth
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 <br>
