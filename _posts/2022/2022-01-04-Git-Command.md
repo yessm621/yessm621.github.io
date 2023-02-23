@@ -188,3 +188,25 @@ git merge branch명
 ```bash
 git reflog
 ```
+
+### git commit 히스토리, commit 변경사항 확인하기
+```bash
+git log
+# 변경된 내용까지 보여준다.
+git log -p
+```
+
+### 변경사항을 임시로 저장하기
+
+commit을 하기 부담스러울때 사용하면 좋다.
+```bash
+# 변경사항을 stash로 임시 저장한다.
+git stash
+# stash 목록을 확인한다.
+git stash list
+
+# 가장 최근의 stash를 가져온다.
+git stash apply
+# stash 이름을 지정해서 가져온다.
+git stash apply stash@{2}
+```
