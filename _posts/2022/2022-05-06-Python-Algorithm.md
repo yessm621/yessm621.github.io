@@ -1,20 +1,12 @@
 ---
-title:  "파이썬 알고리즘"
-# last_modified_at: 2022-05-06T17:11:00
-# last_modified_at: 2022-05-07T18:30:00
-# last_modified_at: 2022-05-09T11:15:00
-# last_modified_at: 2022-05-16T15:50:00
-# last_modified_at: 2022-05-19T16:30:00
-last_modified_at: 2022-05-22T20:00:00
-categories: 
-  - Python
-  - Algorithm
+layout: post
+title: "파이썬 알고리즘"
+date: 2022-05-22 20:00:00
+categories: [Algorithm]
 tags:
-  - Algorithm
   - Python
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Algorithm
+author: "유자"
 ---
 
 ## 파이썬 기초 문법

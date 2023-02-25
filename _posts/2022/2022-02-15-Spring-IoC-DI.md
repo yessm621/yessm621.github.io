@@ -1,15 +1,12 @@
 ---
-title:  "IoC(제어의 역전)와 DI(의존관계 주입)"
-# last_modified_at: 2022-02-15T10:45:00
-last_modified_at: 2022-07-26T10:00:00
-categories: 
-  - Spring
+layout: post
+title: "IoC(제어의 역전)와 DI(의존관계 주입)"
+date: 2022-07-26 10:00:00
+categories: [Spring]
 tags:
   - Spring
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차

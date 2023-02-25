@@ -1,15 +1,12 @@
 ---
-title:  "쿠키와 캐시"
-last_modified_at: 2022-07-16T23:15:00
-categories: 
-  - HTTP
+layout: post
+title: "쿠키와 캐시"
+date: 2022-07-16 23:15:00
+categories: [HTTP]
 tags:
   - HTTP
-  - web
-toc: true
-toc_label: "Index"
-toc_sticky: true
-published : false
+  - Web
+author: "유자"
 ---
 
 ## 1. 쿠키

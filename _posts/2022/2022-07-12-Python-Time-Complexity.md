@@ -1,15 +1,12 @@
 ---
-title:  "시간 복잡도와 공간 복잡도"
-last_modified_at: 2022-07-12T16:30:00
-categories: 
-  - Python
-  - Algorithm
+layout: post
+title: "시간 복잡도와 공간 복잡도"
+date: 2022-07-12 16:30:00
+categories: [Algorithm]
 tags:
-  - Algorithm
   - Python
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Algorithm
+author: "유자"
 ---
 
 알고리즘 평가할 때 시간 복잡도와 공간 복잡도를 사용함

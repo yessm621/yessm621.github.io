@@ -1,13 +1,11 @@
 ---
-title:  "자바: 예외처리"
-last_modified_at: 2022-05-31T18:10:00
-categories: 
-  - Java
+layout: post
+title: "자바: 예외처리"
+date: 2022-05-31 18:10:00
+categories: [Java]
 tags:
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 # 예외처리(excetpion handling)

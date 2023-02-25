@@ -1,17 +1,13 @@
 ---
-title:  "JWT(Json Web Token) 인증"
-# last_modified_at: 2022-04-20T17:20:00
-# last_modified_at: 2022-04-21T16:30:00
-last_modified_at: 2022-04-25T15:55:00
-categories: 
-  - Spring
+layout: post
+title: "JWT(Json Web Token) 인증"
+date: 2022-04-25 15:55:00
+categories: [Spring]
 tags:
   - Java
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 1. REST API 인증 기법

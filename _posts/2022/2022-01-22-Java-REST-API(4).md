@@ -7,7 +7,7 @@ tags:
   - Spring
   - Java
   - REST API
-  - TEST CODE
+  - TestCode
 author: "유자"
 ---
 

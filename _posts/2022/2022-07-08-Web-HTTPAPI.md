@@ -1,17 +1,12 @@
 ---
-title:  "HTTP API"
-# last_modified_at: 2022-07-08T23:50:00
-# last_modified_at: 2022-07-10T20:00:00
-# last_modified_at: 2022-07-11T10:50:00
-last_modified_at: 2022-12-31T00:50:00
-categories: 
-  - HTTP
+layout: post
+title: "HTTP API"
+date: 2022-12-31 00:50:00
+categories: [HTTP]
 tags:
   - HTTP
-  - web
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Web
+author: "유자"
 ---
 
 # HTTP API

@@ -1,16 +1,13 @@
 ---
+layout: post
 title:  "스프링 REST Docs"
-last_modified_at: 2022-01-25T14:15:00
-categories: 
-  - Spring
+date: 2022-01-25 14:15:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - REST API
-  - TEST CODE
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 스프링 REST Docs란?

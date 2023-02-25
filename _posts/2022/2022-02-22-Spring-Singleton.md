@@ -1,15 +1,12 @@
 ---
+layout: post
 title: "싱글톤 컨테이너"
-# last_modified_at: 2022-02-22T15:26:00
-# last_modified_at: 2022-07-27T17:40:00
-last_modified_at: 2022-11-17T15:15:00
-categories: 
-  - Spring
+date: 2022-11-17 15:15:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Java
+author: "유자"
 ---
 
 ## 목차

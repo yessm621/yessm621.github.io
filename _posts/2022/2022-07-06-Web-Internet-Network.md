@@ -1,15 +1,12 @@
 ---
-title:  "IP와 TCP"
-# last_modified_at: 2022-07-06T17:50:00
-last_modified_at: 2022-12-27T14:30:00
-categories: 
-  - HTTP
+layout: post
+title: "IP와 TCP"
+date: 2022-12-27 14:30:00
+categories: [HTTP]
 tags:
   - HTTP
-  - web
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Web
+author: "유자"
 ---
 
 ## IP

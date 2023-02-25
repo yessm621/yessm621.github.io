@@ -1,16 +1,12 @@
 ---
-title:  "컴포넌트 스캔"
-# last_modified_at: 2022-02-24T11:00:00
-# last_modified_at: 2022-07-28T16:50:00
-# last_modified_at: 2022-11-21T15:50:00
-last_modified_at: 2022-11-26T23:00:00
-categories: 
-  - Spring
+layout: post
+title: "컴포넌트 스캔"
+date: 2022-11-26 23:00:00
+categories: [Spring]
 tags:
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+  - Java
+author: "유자"
 ---
 
 ## 목차

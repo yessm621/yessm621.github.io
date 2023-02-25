@@ -2,10 +2,10 @@
 layout: post
 title: "로깅"
 date: 2022-07-21 10:15:00
-categories: [web]
+categories: [Web]
 tags:
   - Spring
-  - web
+  - Web
 author: "유자"
 ---
 

@@ -1,16 +1,12 @@
 ---
+layout: post
 title:  "DIP, OCP와 의존관계 주입(DI)"
-# last_modified_at: 2022-02-14T18:45:00
-# last_modified_at: 2022-07-26T09:30:00
-last_modified_at: 2022-09-26T16:55:00
-categories: 
-  - Spring
+date: 2022-09-26 16:55:00
+categories: [Spring]
 tags:
   - Spring
   - Java
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 목차
