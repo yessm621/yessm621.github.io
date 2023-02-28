@@ -1,15 +1,13 @@
 ---
-title:  "테스트 코드"
-last_modified_at: 2022-02-10T17:55:00
-categories:
-  - Spring
+layout: post
+title: "테스트 코드"
+date: 2022-02-10 17:55:00
+categories: [Spring]
 tags:
   - Spring
   - Java
   - TestCode
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 # 테스트 코드

@@ -1,13 +1,12 @@
 ---
+layout: post
 title: "SpringBoot Settings"
-categories:
-  - Spring
+date: 2021-09-23 17:00:00
+categories: [Spring]
 tags:
   - Java
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 1. SpringBoot Settings
@@ -34,10 +33,6 @@ toc_sticky: true
 
 → build.gradle 파일을 Open
 
-<br>
-<br>
-
-
 ## 2. IntelliJ Gradle 대신에 자바 직접 실행
 
 IntelliJ 버전은 Gradle 로 실행하는 것이 기본 설정이지만, 이렇게 하면 실행속도가 느림. 따라서, 다음과 같이 변경하면 자바로 바로 실행해서 속도가 빠르다.
@@ -49,21 +44,11 @@ Preferences 에서 Gradle 을 검색하여
 
 을 IntelliJ IDEA 로 바꿔준다
 
-
-<br>
-<br>
-
-
 ## 3. Lombok 설정
 
 lombok 을 설정하고 나서 preferences 에서 annotation processors 를 설정해야 한다.
 
 enable annotation processing 에 체크!
-
-
-<br>
-<br>
-
 
 ## 4. H2 데이터베이스 생성
 
@@ -86,11 +71,6 @@ enable annotation processing 에 체크!
 <br>
 
 참고) [H2 Database 설치, 서버 실행, 접속 방법 (Windows, MacOS)](https://atoz-develop.tistory.com/entry/H2-Database-%EC%84%A4%EC%B9%98-%EC%84%9C%EB%B2%84-%EC%8B%A4%ED%96%89-%EC%A0%91%EC%86%8D-%EB%B0%A9%EB%B2%95)
-
-
-<br>
-<br>
-
 
 ## 5. application.yml 작성
 
@@ -135,11 +115,6 @@ logging:
 - spring.jpa.hibernate.ddl-auto: create
 
     애플리케이션 생성 시점에 테이블을 drop 하고 다시 생성!
-
-
-<br>
-<br>
-
 
 ## 6. console 에 Query 파라미터 로그 남기기
 

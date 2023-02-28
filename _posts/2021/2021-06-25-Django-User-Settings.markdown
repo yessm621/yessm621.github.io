@@ -1,10 +1,12 @@
 ---
+layout: post
 title:  "Django User Settings"
-categories:
-  - Django
+date: 2021-06-25 00:00:00
+categories: [Django]
 tags:
   - Django
   - Python
+author: "유자"
 ---
 
 ## AUTH_USER_MODEL 설정

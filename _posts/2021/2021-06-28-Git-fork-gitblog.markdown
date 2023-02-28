@@ -1,11 +1,13 @@
 ---
-title:  "jekyll 로 fork 해온 git blog 테마, 잔디밭 안심어질 때"
-categories:
-  - Git
+layout: post
+title: "jekyll로 fork 해온 git blog 테마, 잔디밭 안심어질 때"
+date: 2021-06-28 00:00:00
+categories: [Git]
 tags:
   - Git
   - GitBlog
   - GitHub
+author: "유자"
 ---
 
 ## 현재상태
