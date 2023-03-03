@@ -1,13 +1,15 @@
 ---
+layout: post
 title:  "Django, Nginx, Gunicorn Setting (CentOS)"
-categories:
-  - Django
+date: 2021-04-08 00:00:00
+categories: [Django]
 tags:
   - Django
   - Python
   - Nginx
   - Gunicorn
   - CentOS
+author: "유자"
 ---
 
 ## Python3 설치

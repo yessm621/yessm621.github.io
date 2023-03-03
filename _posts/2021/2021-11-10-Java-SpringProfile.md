@@ -1,13 +1,12 @@
 ---
+layout: post
 title: "Spring Profile 이란?"
-categories:
-  - Spring
+date: 2021-11-10 00:00:00
+categories: [Spring]
 tags:
   - Java
   - Spring
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다

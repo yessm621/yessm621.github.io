@@ -1,15 +1,13 @@
 ---
+layout: post
 title: "Transactional 이란"
-last_modified_at: 2021-09-13T14:00:00
-categories:
-  - Spring
+date: 2021-09-13 14:00:00
+categories: [Spring]
 tags:
   - Java
   - Spring
   - DB
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## 트랜잭션이란?

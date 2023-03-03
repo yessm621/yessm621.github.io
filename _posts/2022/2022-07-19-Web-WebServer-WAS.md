@@ -12,17 +12,17 @@ author: "유자"
 
 ## 목차
 
-1. [웹 서버와 WAS](https://yessm621.github.io/http/Web-WebServer-WAS/)
-2. [서블릿](https://yessm621.github.io/spring/Spring-Servlet/)
-3. [쓰레드와 쓰레드 풀](https://yessm621.github.io/spring/Spring-Thread/)
-4. [SSR, CSR](https://yessm621.github.io/http/Web-SSR-CSR/)
-5. [MVC 패턴](https://yessm621.github.io/spring/Spring-MVCPattern/)
-6. [구 MVC 패턴과 프론트 컨트롤러](https://yessm621.github.io/spring/Spring-MVCPattern-FrontController/)
-7. [디스패처 서블릿](https://yessm621.github.io/spring/Spring-DispatcherServlet/)
-8. [로깅](https://yessm621.github.io/web/Spring-Logging/)
-9. [HTTP 메시지 컨버터](https://yessm621.github.io/spring/Spring-HTTPMessageConverter/)
-10. [요청 매핑 핸들러 어댑터 구조](https://yessm621.github.io/spring/Spring-RequestMappingHandlerAdapter/)
-11. [PRG Post/Redirect/Get](https://yessm621.github.io/spring/Spring-PRG/)
+1. [웹 서버와 WAS](https://yessm621.github.io/http/2022/12/19/Web-WebServer-WAS/)
+2. [서블릿](https://yessm621.github.io/spring/2022/12/20/Spring-Servlet/)
+3. [쓰레드와 쓰레드 풀](https://yessm621.github.io/spring/2022/12/21/Spring-Thread/)
+4. [SSR, CSR](https://yessm621.github.io/http/2022/12/19/Web-SSR-CSR/)
+5. [MVC 패턴](https://yessm621.github.io/spring/2023/01/17/Spring-MVCPattern/)
+6. [구 MVC 패턴과 프론트 컨트롤러](https://yessm621.github.io/spring/2023/01/17/Spring-MVCPattern-FrontController/)
+7. [디스패처 서블릿](https://yessm621.github.io/spring/2023/01/17/Spring-DispatcherServlet/)
+8. [로깅](https://yessm621.github.io/web/2022/07/21/Spring-Logging/)
+9. [HTTP 메시지 컨버터](https://yessm621.github.io/spring/2022/07/21/Spring-HTTPMessageConverter/)
+10. [요청 매핑 핸들러 어댑터 구조](https://yessm621.github.io/spring/2022/07/20/Spring-RequestMappingHandlerAdapter/)
+11. [PRG Post/Redirect/Get](https://yessm621.github.io/spring/2023/01/19/Spring-PRG/)
 
 ## 웹 서버(Web Server, WS)
 

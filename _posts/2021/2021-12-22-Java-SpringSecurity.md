@@ -1,15 +1,13 @@
 ---
-title:  "Spring Security"
-last_modified_at: 2021-12-22T16:10:00
-categories: 
-  - Spring
+layout: post
+title: "Spring Security"
+date: 2021-12-22 16:10:00
+categories: [Spring]
 tags:
   - Java
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 스프링 시큐리티

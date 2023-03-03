@@ -1,11 +1,14 @@
 ---
+layout: post
 title: "Django Setting"
-categories:
-  - Django
+date: 2021-03-29 00:00:00
+categories: [Django]
 tags:
   - Django
   - Python
+author: "유자"
 ---
+
 ## Pipenv 를 이용하여 가상환경 Setting
 
 **pipenv 란?**

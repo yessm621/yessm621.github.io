@@ -1,13 +1,12 @@
 ---
+layout: post
 title: "JPA Intro"
-categories:
-  - JPA
+date: 2021-09-27 00:00:00
+categories: [JPA]
 tags:
   - Java
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 ## JPA
@@ -81,8 +80,6 @@ public class JpaMain {
 - 트랜잭션 관리
 - 비즈니스 로직
 
-<br>
-<br>
 
 ## 엔티티 매니저 설정
 
@@ -104,8 +101,6 @@ public class JpaMain {
 
     → 엔티티 매니저 팩토리 종료
 
-<br>
-<br>
 
 ## 트랜잭션 관리
 
@@ -115,8 +110,6 @@ JPA 를 사용하면 항상 트랜잭션 안에서 데이터를 변경해야 한
 
 트랜잭션 API 를 사용해서 비즈니스 로직이 정상동작하면 트랜잭션을 commit 하고 예외가 발생하면 rollback 한다.
 
-<br>
-<br>
 
 ## 비즈니스 로직
 

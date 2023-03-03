@@ -1,10 +1,12 @@
 ---
-title:  "python3, pip3 Symbolic Link 설정"
-categories:
-  - Python
+layout: post
+title: "python3, pip3 Symbolic Link 설정"
+date: 2021-07-07 00:00:00
+categories: [Python]
 tags:
   - Python
   - Linux
+author: "유자"
 ---
 
 

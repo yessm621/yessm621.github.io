@@ -1,16 +1,13 @@
 ---
-title:  "쿼리 메서드 (Query Methods) 기능과 @Query"
-last_modified_at: 2021-12-18T20:05:00
-categories: 
-  - JPA
+layout: post
+title: "쿼리 메서드 (Query Methods) 기능과 @Query"
+date: 2021-12-18 20:05:00
+categories: [JPA]
 tags:
   - Java
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
-published : false
+author: "유자"
 ---
 
 쿼리 메서드와 JPQL(Java Persistence Query Language) 은 객체 지향 쿼리

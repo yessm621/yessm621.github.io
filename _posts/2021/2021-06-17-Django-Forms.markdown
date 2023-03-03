@@ -1,10 +1,12 @@
 ---
-title:  "Django Forms"
-categories:
-  - Django
+layout: post
+title: "Django Forms"
+date: 2021-06-17
+categories: [Django]
 tags:
   - Django
   - Python
+author: "유자"
 ---
 
 ## Django Form

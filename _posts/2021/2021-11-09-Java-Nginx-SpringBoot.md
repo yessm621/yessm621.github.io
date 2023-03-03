@@ -1,22 +1,19 @@
 ---
+layout: post
 title: "Nginx 를 이용하여 SpringBoot 무중단 배포하기"
-categories:
-  - Spring
+date: 2021-11-09 00:00:00
+categories: [Spring]
 tags:
   - Java
   - Spring
   - Nginx
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 참고) 스프링 부트와 AWS로 혼자 구현하는 웹서비스
 
 [[SpringBoot] 웹서비스 출시하기 - 5. Nginx를 활용한 무중단 배포 구축하기](https://dev-jwblog.tistory.com/42)
 
-<br>
-<br>
 
 # 1. 구조
 
@@ -58,9 +55,6 @@ toc_sticky: true
 3. 배포 도중 문제가 생겼다면, nignx 는 그대로 스프링부트 Jar2(8082)를 바라보도록 함
 4. 배포의 문제를 확인하고 다시 배포를 진행
 
-<br>
-<br>
-
 # 2. 프로젝트 경로
 
 ```
@@ -76,12 +70,8 @@ toc_sticky: true
     └── jar                   - 배포시 실제 적용되는 jar 파일
 ```
 
-<br>
-<br>
 
 # 3. 프로젝트 settings
-
-<br>
 
 ## 1) nginx 설치
 

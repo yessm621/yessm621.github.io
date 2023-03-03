@@ -1,15 +1,13 @@
 ---
+layout: post
 title: "변경감지와 병합 - 두번째"
-categories:
-  - JPA
+date: 2021-10-28 00:00:00
+categories: [JPA]
 tags:
   - Java
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
-published : false
+author: "유자"
 ---
 
 ## SQL 수정(Update) 쿼리의 문제점

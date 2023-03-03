@@ -1,14 +1,13 @@
 ---
+layout: post
 title: "JPA Repository"
-categories:
-  - JPA
+date: 2021-11-08 00:00:00
+categories: [JPA]
 tags:
   - Java
   - Spring
   - JPA
-toc: true
-toc_label: "Index"
-toc_sticky: true
+author: "유자"
 ---
 
 **ItemRepository.java**
