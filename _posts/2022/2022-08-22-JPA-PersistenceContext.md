@@ -8,16 +8,11 @@ tags:
 author: "유자"
 ---
 
-## JPA에서 가장 중요한 2가지
-
-- 객체와 관계형 데이터베이스 매핑하기(ORM, Object Relation Mapping)
-- 영속성 컨텍스트
-
 ## 영속성 컨텍스트
 
-JPA를 이해하는데 가장 중요한 용어이다.
+JPA를 이해하는데 가장 중요한 용어가 영속성 컨텍스트이다.
 
-영속성 컨텍스트란 `엔티티를 영구 저장하는 환경`이라는 뜻이다. 애플리케이션과 DB 사이에서 객체를 보관하는 가상의 DB 같은 역할을 한다. (영속성 컨텍스트는 논리적인 개념. 눈에 보이지 않는다.) 엔티티 매니저를 통해 영속성 컨텍스트에 접근할 수 있다.
+*`영속성 컨텍스트`란 엔티티를 영구 저장하는 환경이라는 뜻이다.* 엔티티 매니저로 엔티티를 저장하거나 조회하면 엔티티 매니저는 영속성 컨텍스트에 엔티티를 보관하고 관리한다. 영속성 컨텍스트는 애플리케이션과 DB 사이에서 객체를 보관하는 가상의 DB 같은 역할을 한다.
 
 **엔티티를 영속성 컨텍스트에 저장**
 
@@ -25,271 +20,203 @@ JPA를 이해하는데 가장 중요한 용어이다.
 entityManager.persist(entity);
 ```
 
-**J2SE 환경**
-
-엔티티 매니저와 영속성 컨텍스트가 1:1
-
-![1](https://user-images.githubusercontent.com/79130276/185946817-01ac2498-5fbb-4d95-9eeb-4a2d11018875.png)
-
-**J2EE, 스프링 프레임워크 같은 컨테이너 환경**
-
-엔티티 매니저와 영속성 컨텍스트가 N:1
-
-![2](https://user-images.githubusercontent.com/79130276/185946814-6fb78587-f454-40c1-a33f-5cbe507b4adb.png)
-
-> **참고** J2SE(Standard Edition)
-<br>
-기본적인 Java의 개발/실행 환경으로 Java언어를 이용하여 어플리케이션(Application), 애플릿(Applet) 그리고 컴포넌트(Component) 등을 개발하고 실행할 수 있는 환경을 제공하는 플랫폼이다.
-> 
-
-> **참고** Java EE(Enterprise Edition)
-<br>
-자바 엔터프라이즈 에디션은 자바를 이용한 서버측 개발을 위한 플랫폼이다. Java EE는 표준 플랫폼인 Java SE를 사용하는 서버를 위한 플랫폼이다. 전사적 차원(대규모의 동시 접속과 유지가 가능한 다양한 시스템의 연동 네트워크 기반 총칭)에서 필요로 하는 도구로 EJB, JSP, Servlet, JNDI 같은 기능을 지원하며 WAS(Web Application Server)를 이용한 프로그램 개발 시 사용된다.
-> 
-
-<br>
+영속성 컨텍스트는 눈에 보이는 개념이 아니고 **논리적인 개념**이다. 영속성 컨텍스트는 엔티티 매니저를 생성할 때 하나 만들어진다. 엔티티 매니저를 통해서 영속성 컨텍스트에 접근하고 관리할 수 있다.
 
 ## 엔티티의 생명주기
 
-### 비영속(new/transient)
+엔티티의 4가지 상태는 다음과 같다.
 
-영속성 컨텍스트와 전혀 관계가 없는 새로운 상태이며 객체를 생성만 한 상태이다.
+1. 비영속(new, transient): 영속성 컨텍스트와 전혀 관계가 없는 상태
+2. 영속(managed): 영속성 컨텍스트에 저장된 상태
+3. 준영속(detached): 영속성 컨텍스트에 저장되었다가 분리된 상태
+4. 삭제(delete): 삭제된 상태
+
+![1](https://user-images.githubusercontent.com/79130276/223943030-bb3614a9-850a-4f4f-bc0b-4147172b19b6.png)
+
+### 비영속
+
+*엔티티 객체를 생성했고 **순수한 객체 상태**이며 아직 저장하지 않은 상태이다.* 영속성 컨텍스트나 DB와는 전혀 관련이 없다.
 
 ```java
-//객체를 생성한 상태(비영속) 
+// 객체를 생성한 상태(비영속)
 Member member = new Member(); 
 member.setId("member1"); 
 member.setUsername("회원1");
 ```
 
-### 영속(managed)
+### 영속
 
-영속성 컨텍스트에 저장된 상태이다. 엔티티가 영속성 컨텍스트에 의해 관리되는 상태
-
-```java
-//객체를 생성한 상태(비영속) 
-Member member = new Member(); 
-member.setId("member1"); 
-member.setUsername(“회원1”);
-
-EntityManager em = emf.createEntityManager();
-em.getTransaction().begin();
-
-//객체를 저장한 상태(영속)
-em.persist(member);
-```
+*엔티티 매니저를 통해 엔티티를 영속성 컨텍스트에 저장한 상태이다.* 영속성 컨텍스트에 의해 엔티티가 관리되는 상태를 영속 상태라 한다.
 
 영속 상태에서는 바로 DB에 저장되지 않는다. **트랜잭션의 commit 시점**에 영속성 컨텍스트에 있는 정보들이 DB에 저장된다.
 
-### 준영속(detached)
+```java
+// 객체를 생성한 상태(비영속) 
+Member member = new Member(); 
+member.setId("member1"); 
+member.setUsername("회원1");
 
-영속성 컨텍스트에 저장되었다가 분리된 상태이다.
+EntityManager em = emf.createEntityManager(); // 엔티티 매니저 생성
+em.getTransaction().begin(); // 엔티티 트랜잭션 시작
+
+// 객체를 저장한 상태(영속)
+em.persist(member);
+```
+
+### 준영속
+
+영속성 컨텍스트가 관리하던 영속 상태의 엔티티가 영속성 컨텍스트에서 분리된 상태이다.
 
 ```java
 //회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태 
 em.detach(member);
 ```
 
-### 삭제(removed)
+### 삭제
 
-삭제된 상태, 실제 DB 삭제를 요청한 상태이다.
+엔티티를 영속성 컨텍스트와 DB에서 삭제한 상태이다.
 
 ```java
 //객체를 삭제한 상태(삭제) 
 em.remove(member);
 ```
 
-![3](https://user-images.githubusercontent.com/79130276/185946812-e071cdea-ee79-444b-a780-5e8ef49e4a35.png)
+## 영속성 컨텍스트 특징
+
+영속성 컨텍스트의 특징은 다음 3가지와 같다.
+
+1. 영속성 컨텍스트와 **식별자 값**
+    - 영속성 컨텍스트는 엔티티를 식별자 값으로 구분한다. 따라서, 영속 상태는 식별자 값이 반드시 있어야 한다. 식별자 값이 없으면 예외가 발생한다.
+        - 식별자 값: @Id로 테이블의 기본 키와 매핑한 값
+2. 영속성 컨텍스트와 **데이터베이스 저장**
+    - 영속성 컨텍스트에 저장된 엔티티가 DB에 저장되는 시점은 **트랜잭션을 커밋**하는 시점이다.
+    - 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 DB에 반영한다. 이를 플러시(flush())라고 한다.
+3. 영속성 컨텍스트가 엔티티를 관리할 때 **장점**
+    - 1차 캐시
+    - 동일성 보장
+    - 트랜잭션을 지원하는 쓰기 지연
+    - 변경 감지
+    - 지연 로딩
+
+영속성 컨텍스트가 필요한 이유와 이점을 자세히 설명하기 위해 엔티티를 CRUD하며 알아보겠다.
+
+### 엔티티 조회
+
+*영속성 컨텍스트는 내부에 캐시를 가지고 있는데 이를 1차 캐시라 한다.* 모든 영속 상태의 엔티티는 1차 캐시에 저장된다. 쉽게 이야기하면 영속성 컨텍스트 내부에 Map이 하나 있는데 키는 @Id로 매핑한 식별자고 값은 엔티티 인스턴스다.
+
+1차 캐시의 키는 식별자(@Id) 값이다. 식별자 값은 데이터베이스 기본 키와 매핑되어 있다. 따라서, 영속성 컨텍스트에 데이터를 저장하고 조회하는 모든 기준은 데이터베이스 기본 키 값이다.
+
+em.find()를 호출하면 메모리에 있는 1차 캐시에서 엔티티를 찾는다. 만약 1차 캐시에 찾는 엔티티가 없으면 데이터베이스에서 조회한다.
+
+**1차 캐시에서 조회**
+
+엔티티 인스턴스가 1차 캐시에 있으면 이 엔티티들을 조회하면 메모리에 있는 1차 캐시에서 바로 불러온다. 따라서, 성능상 이점을 누릴 수 있다.
+
+![1](https://user-images.githubusercontent.com/79130276/223942577-0b05a7cf-ba3a-4d34-ac28-2f9875383519.png)
+
+**데이터베이스에서 조회**
+
+1. em.find(Member.class, “member2”)를 실행
+2. member2가 1차 캐시에 없으면 데이터베이스에서 조회
+3. 조회한 데이터로 member2 엔티티를 생성해서 1차 캐시에 저장 (영속 상태)
+4. 조회한 엔티티를 반환
+
+![2](https://user-images.githubusercontent.com/79130276/223942579-6d127db9-0534-41b1-8f01-9dd75a0f0f76.png)
+
+**영속 엔티티의 동일성 보장**
 
 ```java
-package hellojpa;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
-public class JpaMain {
-
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-
-        EntityManager em = emf.createEntityManager();
-
-        //트랜잭션
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        //code
-        try {
-            //비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
-
-            //영속
-            System.out.println("=== BEFORE ===");
-            em.persist(member);
-            System.out.println("=== AFTER ===");
-
-            tx.commit();
-        } catch (Exception e) {
-            tx.rollback();
-        } finally {
-            em.close();
-        }
-
-        emf.close();
-    }
-}
+Member a = em.find(Member.class, "member1");
+Member b = em.find(Member.class, "member1");
 ```
 
-```
-=== BEFORE ===
-=== AFTER ===
-Hibernate: 
-    /* insert hellojpa.Member
-        */ insert 
-        into
-            Member
-            (name, id) 
-        values
-            (?, ?)
-```
+여기서 ‘a == b’는 참이다. 영속성 컨텍스트는 1차 캐시에 있는 같은 엔티티 인스턴스를 반환한다. **영속성 컨텍스트는 성능상 이점과 엔티티의 동일성을 보장**한다.
 
-## 영속성 컨텍스트의 이점
+> **참고** 동일성과 동등성
+동일성(identity)은 실제 인스턴스가 같다. 따라서, 참조 값을 비교하는 == 비교의 값이 같다.
+동등성(equality)는 실제 인스턴스는 다를 수 있지만 인스턴스가 가지고 있는 값이 같다. 자바에서 동등성 비교는 equals() 메소드를 구현해야 한다.
+> 
 
-### 1차 캐시
-
-엔티티를 조회할 때 바로 DB에 접근하는 것이 아니라 1차 캐시를 먼저 조회한다. 이후 DB를 조회하여 데이터가 있다면 1차 캐시에 저장하고 반환한다. 사용자가 10명 있다고 했을 때 1차 캐시를 공유하는 것이 아닌 각각 **개별의 1차 캐시를 가지고** 있다. 따라서, 성능 상 큰 장점은 없다. (매커니즘의 이점이 있는 것..)
-
-![4](https://user-images.githubusercontent.com/79130276/185946810-9d0ae5cd-102a-41bc-93f5-00ef8990ee47.png)
-
-```java
-// 엔티티를 생성한 상태(비영속)
-Member member = new Member();
-member.setId(2L);
-member.setName("HelloJPA");
-
-System.out.println("=== BEFORE ===");
-// 엔티티를 영속
-// 1차 캐시에 저장됨
-em.persist(member);
-System.out.println("=== AFTER ===");
-
-// 1차 캐시에서 조회하기 때문에 select문이 없다
-Member findMember = em.find(Member.class, 2L);
-
-System.out.println("findMember.id = " + findMember.getId());
-System.out.println("findMember.name = " + findMember.getName());
-```
-
-```
-=== BEFORE ===
-=== AFTER ===
-findMember.id = 2
-findMember.name = HelloJPA
-Hibernate: 
-    /* insert hellojpa.Member
-        */ insert 
-        into
-            Member
-            (name, id) 
-        values
-            (?, ?)
-```
-
-### 영속 엔티티의 동일성 보장
-
-```java
-// DB에서 조회 후 1차 캐시에 저장
-Member findMember1 = em.find(Member.class, 2L);
-// 1차 캐시에서 조회
-Member findMember2 = em.find(Member.class, 2L);
-
-System.out.println("result = " + (findMember1 == findMember2));
-```
-
-```
-Hibernate: 
-    select
-        member0_.id as id1_0_0_,
-        member0_.name as name2_0_0_ 
-    from
-        Member member0_ 
-    where
-        member0_.id=?
-result = true
-```
-
-### 트랜잭션을 지원하는 쓰기 지연
+### 엔티티 저장
 
 ```java
 EntityManager em = emf.createEntityManager();
-
 EntityTransaction tx = em.getTransaction();
+
 tx.begin(); // 트랜잭션 시작
 
-Member member1 = new Member(150L, "A");
-Member member2 = new Member(160L, "B");
+em.persist(memberA);
+em.persist(memberB);
+// 여기까지는 INSERT 쿼리를 데이터베이스에 보내지 않는다.
 
-em.persist(member1);
-em.persist(member2);
-// 여기까지 Insert 쿼리를 데이터베이스에 보내지 않는다.
-// 1차 캐시에만 저장
-System.out.println("============================");
-
-// 커밋하는 순간 데이터베이스에 Insert 쿼리를 보낸다
-tx.commit();
+// 커밋하는 순간 데이터베이스에 INSERT 쿼리를 전송한다.
+tx.commit(); // 트랜잭션 커밋
 ```
 
-```
-============================
-Hibernate: 
-    /* insert hellojpa.Member
-        */ insert 
-        into
-            Member
-            (name, id) 
-        values
-            (?, ?)
-Hibernate: 
-    /* insert hellojpa.Member
-        */ insert 
-        into
-            Member
-            (name, id) 
-        values
-            (?, ?)
-```
+엔티티 매니저는 트랜잭션을 커밋하기 전까지 데이터베이스에 엔티티를 저장하지 않고 **내부 쿼리 저장소**에 INSERT SQL을 모아둔다. 그리고 트랜잭션을 커밋할 때 모아둔 쿼리를 데이터베이스에 보내는데 이를 트랜잭션을 지원하는 쓰기 지연(transactional write-behind)이라 한다.
 
-![5](https://user-images.githubusercontent.com/79130276/185946803-0b8456a6-ffab-43ee-a3a7-e7fcc16bd4f2.png)
+memberA에 대해 영속화할 때 1차 캐시에 회원 엔티티를 저장하면서 동시에 회원 엔티티 정보로 등록 쿼리를 만든다. 그리고 만들어진 등록 쿼리를 쓰기 지연 SQL 저장소에 보관한다.
 
-![6](https://user-images.githubusercontent.com/79130276/185946799-c00097bb-d574-4025-baee-f00d627abf83.png)
+![3](https://user-images.githubusercontent.com/79130276/223942584-7361a124-4906-42da-9d3d-f7d695b9747f.png)
 
-### 변경 감지(dirty check)
+이제 memberB를 영속화한다. memberA와 마찬가지로 회원 엔티티 정보로 등록 쿼리를 생성해서 쓰기 지연 SQL 저장소에 보관한다. 현재 쓰기 지연 SQL 저장소에는 등록 쿼리가 2건 저장되었다.
 
-`변경 감지`란 영속성 컨텍스트에 있는 엔티티가 **변경**될 때 이루어진다. 엔티티를 수정 후 트랜잭션이 커밋되고 flush()가 호출되면 엔티티와 스냅샷을 비교한다. 비교했을때 값이 다르다면 영속성 컨텍스트가 자동으로 update 쿼리문을 보낸다.
+![4](https://user-images.githubusercontent.com/79130276/223942587-744ea9d6-7328-43c7-ba55-f8eb90afce7b.png)
+
+이제 마지막으로 트랜잭션을 커밋했다. **트랜잭션을 커밋**하면 엔티티 매니저는 영속성 컨텍스트를 `플러시`한다. 플러시는 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화하는 작업인데 이때 등록, 수정, 삭제한 엔티티를 데이터베이스에 반영한다. 즉, **쓰기 지연 SQL 저장소에 모인 쿼리를 데이터베이스에 보내 변경 내용을 데이터베이스에 적용하고 영속성 컨텍스트와 동기화한 후에 실제 데이터베이스 트랜잭션을 커밋한다.**
+
+![5](https://user-images.githubusercontent.com/79130276/223942589-2c91ffaf-25da-436f-a699-d99b3495892b.png)
+
+**트랜잭션을 지원하는 쓰기 지연이 가능한 이유**
+
+`Case1` 데이터를 저장하는 즉시 등록 쿼리를 데이터베이스에 보낸다. 그리고 마지막에 트랜잭션을 커밋한다.
+
+`Case2` 데이터를 저장하면 등록 쿼리를 메모리에 모아두고 트랜잭션을 커밋할 때 모아둔 등록 쿼리를 데이터베이스에 보낸 후에 커밋한다.
+
+두가지 Case 모두 트랜잭션 범위 안에서 실행되므로 결과는 같다. **트랜잭션을 커밋하기 직전에만 데이터베이스에 SQL을 전달하면 된다.** 이것이 트랜잭션을 지원하는 쓰기 지연이 가능한 이유다.
+
+### 엔티티 수정
+
+**SQL 수정 쿼리의 문제점**
+
+SQL을 사용하면 수정 쿼리를 직접 작성해야 한다. 문제점은 수정 쿼리가 많아지면 비스니스 로직을 분석하기 위해 SQL을 확인해야 하므로 직/간접적으로 비즈니스 로직이 SQL에 의존하게 된다.
+
+⭐ **변경 감지**
 
 ```java
 EntityManager em = emf.createEntityManager();
-EntityTransaction transaction = em.getTransaction();
-transaction.begin(); // [트랜잭션] 시작
+EntityTransaction tx = em.getTransaction();
 
-// 영속 엔티티 조회
-Member memberA = em.find(Member.class, "memberA");
+tx.begin(); // 트랜잭션 시작
+
+Member memberA = em.find(Member.class, "memberA"); // 영속 엔티티 조회
 
 // 영속 엔티티 데이터 수정
 memberA.setUsername("hi");
 memberA.setAge(10);
 
-//em.update(member) 이런 코드가 있어야 하지 않을까?
+// update를 하기 위해 이 코드가 있어야 하지 않을까?
+// em.update(member);
 
-transaction.commit(); // [트랜잭션] 커밋
+tx.commit(); // 트랜잭션 커밋
 ```
 
-![7](https://user-images.githubusercontent.com/79130276/185946780-4b3002ee-1252-46e2-9641-f26fe892717d.png)
+JPA로 엔티티를 수정할 때 em.update()를 실행해야 할 것 같지만 이런 메소드는 없다. JPA에서는 엔티티의 데이터만 변경해도 데이터베이스에 반영된다. 그 이유는 엔티티의 변경사항을 데이터베이스에서 자동으로 반영하는 `변경 감지(Dirty Checking)` 기능을 사용하기 때문이다.
 
-> **참고** 스냅샷
-값을 읽어 올때 최초 시점의 데이터
->
+JPA는 엔티티를 영속성 컨텍스트에 보관할 때 최초 상태를 복사해서 저장해두는데 이를 스냅샷이라 한다. 그리고 플러시 시점에 스냅샷과 엔티티를 비교해서 변경된 엔티티를 찾는다. 아래 그림을 순서대로 분석해보자.
+
+![6](https://user-images.githubusercontent.com/79130276/223942591-b8dc3a59-4c78-4bda-908c-c7cd54617e4e.png)
+
+1. 트랜잭션 커밋 시 엔티티 매니저 내부에서 먼저 플러시가 호출된다.
+2. **엔티티와 스냅샷을 비교**해서 변경된 엔티티를 찾는다.
+3. **변경된 엔티티가 있으면 수정 쿼리를 생성해서 쓰기 지연 SQL 저장소에 보낸다.**
+4. 쓰기 지연 저장소의 SQL을 데이터베이스에 보낸다.
+5. 데이터베이스 트랜잭션을 커밋한다.
+
+ **변경 감지는 영속성 컨텍스트가 관리하는 영속 상태의 엔티티에만 적용된다.**
+
+JPA의 기본 전략은 엔티티의 모든 필드를 업데이트 한다. 하지만, `변경 감지`로 인해 실행된 UPDATE SQL은 **변경된 필드만 업데이트하고 변경되지 않은 필드에 대해서는 아무런 처리를 하지 않는다.**
+
+### 엔티티 삭제
+
+엔티티를 삭제하기 위해선 먼저 삭제 대상 엔티티를 조회해야 한다. 엔티티 등록과 비슷하게 바로 삭제되는 것이 아니라 삭제 쿼리를 쓰기 지연 SQL 저장소에 등록했다가 트랜잭션 커밋 시점에 플러시를 호출하면서 실제 데이터베이스에 삭제 쿼리를 전달한다. 그리고 삭제된 엔티티는 영속성 컨텍스트에서 제거된다.
