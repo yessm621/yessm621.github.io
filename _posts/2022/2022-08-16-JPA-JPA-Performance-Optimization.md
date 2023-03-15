@@ -11,7 +11,7 @@ author: "유자"
 
 조회 성능 최적화 부분은 매우 중요하다. 실무에서 JPA를 사용하려면 100% 이해해야 한다.
 
-## 페치 조인(fetch join) [(링크)](https://yessm621.github.io/jpa/JPA-Fetch-Join/)
+## 페치 조인(fetch join) [(링크)](https://yessm621.github.io/jpa/2022/08/13/JPA-Fetch-Join/)
 
 페치 조인이란 JPQL에서 성능 최적화를 위해 제공하는 기능이다. 페치 조인은 JPA에만 있는 문법으로 SQL의 조인 종류와는 다르다. 페치 조인으로 데이터를 가져오면 지연로딩으로 설정되어 있어도 무시하고 프록시 객체가 아닌 진짜 객체를 가져온다. 
 

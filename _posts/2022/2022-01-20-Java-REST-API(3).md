@@ -11,15 +11,12 @@ tags:
 author: "유자"
 ---
 
-**백기선님 강의 정리**
+## 목차
 
-[REST API with SpringBoot(1)](https://yessm621.github.io/springboot/Java-REST-API(1)/)
-
-[REST API with SpringBoot(2)](https://yessm621.github.io/springboot/Java-REST-API(2)/)
-
-[REST API with SpringBoot(3)](https://yessm621.github.io/springboot/Java-REST-API(3)/)
-
-[REST API with SpringBoot(4)](https://yessm621.github.io/springboot/Java-REST-API(4)/)
+1. [REST API with SpringBoot(1)](https://yessm621.github.io/spring/2022/01/16/Java-REST-API(1)/)
+2. [REST API with SpringBoot(2)](https://yessm621.github.io/spring/2022/01/16/JAVA-REST-API(2)/)
+3. [REST API with SpringBoot(3)](https://yessm621.github.io/spring/2022/01/20/Java-REST-API(3)/)
+4. [REST API with SpringBoot(4)](https://yessm621.github.io/spring/2022/01/22/Java-REST-API(4)/)
 
 ## Event 생성 API 구현: 입력값 제한하기
 
