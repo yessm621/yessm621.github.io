@@ -2,9 +2,10 @@
 layout: post
 title: "S3를 사용하기 위한 AWS, 스프링 부트 설정"
 date: 2023-03-20 11:00:00
-categories: [JPA]
+categories: [AWS]
 tags:
-  - JPA
+  - AWS
+  - Spring
 author: "유자"
 ---
 
