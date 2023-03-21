@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "영속성 전이, Cascade"
+title: "영속성 전이(Cascade), 고아 객체"
 date: 2023-01-30 18:05:00
 categories: [JPA]
 tags:
@@ -11,7 +11,7 @@ author: "유자"
 
 ## 영속성 전이란?
 
-`Cascade`라고도 한다. 엔티티의 상태 변화를 **전파**시키는 옵션으로 만약 엔티티에 상태 변화가 있으면 연관되어 있는 엔티티에도 **상태 변화를 전이**시키는 옵션이다.
+엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들고 싶으면 영속성 전이 기능을 사용하면 된다. 영속성 전이를 `Cascade`라고도 한다. Cascade 옵션은 엔티티의 상태 변화를 **전파**시키는 옵션으로 만약 엔티티에 상태 변화가 있으면 연관되어 있는 엔티티에도 **상태 변화를 전이**시키는 옵션이다.
 
 ### 사용하는 이유?
 
@@ -36,18 +36,22 @@ Cascade를 사용하면 아래 코드처럼 간단해진다. order만 persist() 
 em.persist(order);
 ```
 
+영속성 전이는 연관관계를 매핑하는 것과는 아무 관련이 없다. 단지, 엔티티를 영속화할 때 연관된 엔티티도 같이 영속화하는 편리함을 제공할 뿐이다.
+
 ### Cascade 옵션
 
 Cascade엔 6가지 옵션이 있다.
 
-- ALL
-- PERSIST
-- REMOVE
-- MERGE
+- ALL: 모두 적용
+- PERSIST: 영속
+- REMOVE: 삭제
+- MERGE: 병합
 - REFERESH
 - DETACH
 
 주로 사용하는 옵션은 `ALL`과 `PERSIST`이다. All의 경우 **모든 영속성이 전이**되는 경우이고 Persist의 경우 **엔티티가 저장**될 때만 연쇄적으로 저장되게 하는 옵션이다.
+
+참고로 CascadeType.PERSIST, CascadeType.REMOVE는 em.persist(), em.remove()를 실행할 때 바로 전이가 발생하지 않고 플러시를 호출할 때 전이가 발생한다.
 
 ### 어디에 써야 할까?
 
