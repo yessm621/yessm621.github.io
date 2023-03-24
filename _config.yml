@@ -13,11 +13,11 @@ future: true
 
 # SNS settings
 RSS: true
-# weibo_username: huxpro
-# zhihu_username: huxpro
+# weibo_username: yessm621
+# zhihu_username: yessm621
 github_username: yessm621
-# twitter_username: huxpro
-#facebook_username:  huxpro
+# twitter_username: yessm621
+#facebook_username:  yessm621
 #linkedin_username:  firstname-lastname-idxxxx
 
 # Build settings
@@ -32,7 +32,6 @@ exclude:
     "Gruntfile.js",
     "package.json",
     "README.md",
-    "README.zh.md",
   ]
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 # If you have timezone issue (e.g. #68) in China, uncomment to use this:
@@ -59,7 +58,7 @@ kramdown:
       start_line: 1
 
 # Disqus settings
-# disqus_username: hux
+# disqus_username: yessm621
 
 # Netease settings
 netease_comment: false
@@ -82,10 +81,7 @@ sidebar-avatar: "./img/Uja.JPG" # use absolute URL, seeing it's used in both `/`
 # Navbar
 navbar-links:
   About: "about"
-  # Projects: "projects"
-  Categories: "/categories"
   Archives: "/archive"
-  Year: "/year"
 
 # Featured Tags 
 featured-tags: true # whether or not using Feature-Tags
