@@ -4,7 +4,7 @@ SEOTitle: 기록하는 개발자 | Seungmi Blog
 header-img: img/bg0.jpg
 email: yessm621@gmail.com
 description: "공부하면서 배운 내용을 기록합니다."
-keyword: "Spring, SpringBoot, JPA, Java, Python, Git, CS"
+keyword: "Spring, JPA, Java, Django, Python, Git, CS"
 url: "https://yessm621.github.io" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -68,14 +68,11 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-  # provider               : "google-gtag" 
-  # google:
-  #   tracking_id          : "UA-216823136-1"
-  #   anonymize_ip         : # true, false (default)
+google_analytics: G-D7YTVDV156
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "Java, Spring BE 개발자"
+sidebar-about-description: "Spring/Java BackEnd 개발자"
 sidebar-avatar: "./img/Uja.JPG" # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Navbar
