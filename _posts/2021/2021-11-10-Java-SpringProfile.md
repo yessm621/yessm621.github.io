@@ -1,160 +1,70 @@
 ---
 layout: post
-title: "Spring Profile 이란?"
+title: "스프링 부트 환경분리를 위한 설정파일 작성하기 (feat. profile)"
 date: 2021-11-10 00:00:00
 categories: [Spring]
 tags:
-  - Java
   - Spring
 author: "유자"
 ---
 
-개발환경에 따라 설정파일을 다르게 로딩해야할 필요가 있다
+## 개요
 
-이처럼 Profile 은 **어떤 특정 환경의 설정 값을 다르게 하고 싶을 때** 사용
+실무에서 개발을 진행하고 운영을 할 때 로컬(local), 개발(dev), 테스트(test), 상용(prod) 등 **환경에 따라 서버나 설정 값들을 변경**해야 한다. 스프링부트는 `Profile`을 통해 간단하게 설정을 할 수 있다.
 
-예를 들어, 테스트 환경과 배포 환경을 다르게 두고 Profile 설정
+개발환경에 따라 설정 파일을 설정하는 방법에 대해 알아보자.
 
-<br>
+## Profile
 
-**기본적인 profile 정보**
-
-- application.properties
-- application.yml
-
-<br>
-
-여기서 특정 규칙에 만족하게 설정 파일을 만들면 SpringBoot 가 읽어올 수 있다.
+설정 정보는 **application.properties** 또는 **application.yml**을 통해 설정 값을 셋팅한다. 여기서 특정 규칙에 만족하게 설정 파일을 만들면 스프링부트가 읽어올 수 있다.
 
 - application-{프로필네임키워드}.properties
     - ex. application-dev.properties
 - application-{프로필네임키워드}.yml
     - ex. application-prod.yml
 
-<br>
-<br>
+SpringBoot 2.4 이전에는 spring.profiles 옵션을 활용했었지만 2.4 이후에는 해당 설정이 deprecated 되었다. 새로운 설정 방법은 매우 간단하다. properties 또는 yml 파일을 작성하고 애플리케이션을 실행할 때 환경변수만 넣어주면 된다.
 
-### 실행하기
+### 1. properties 혹은 yml 파일을 작성
 
-설정 정보를 바꿔서 실행하기 위한 방법으로 크게 2가지 방법을 사용
+각 파일에서 spring.config.activate.on-profile이라는 옵션을 설정해주고 설정 이름을 원하는대로 넣어주자.
 
-1. application.yml 에 profile.active 지정하기
-2. java -jar 에 옵션을 줘서 특정 profile 로드하기
+**application.yml**
 
-<br>
-
-## 1. application.yml 에 profile.active 지정하기
-
-yml 이나 properties 파일에서 직접 설정 정보를 변경, profile.active 를 지정하면 된다.
+실행 변수에서 설정을 넣을 때 원하는 환경변수명을 설정하는데 그것이 없을 때 local로 실행하겠다는 뜻으로 읽으면 된다.
 
 ```yaml
----
 spring:
   profiles:
-    active: set1
-
----
-spring:
-  profiles:
-    active: set2
+    default: local
 ```
 
-만약, 아무것도 지정하지 않는다면 application.yml 또는 application.properties 파일을 불러오게 된다.
+**application-local.yml**
 
-<br>
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: local
+```
 
-## 2. java -jar 에 옵션을 줘서 특정 profile 로드하기
+**application-dev.yml**
 
-java jar 파일로 빌드를 하고 jar 파일을 실행시키는 시점에 환경변수를 추가하여 profile 을 변경시킬 수 있다.
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: dev
+```
+
+### 2. 애플리케이션을 실행할 때 run-time에 사용될 환경변수를 작성
+
+**1. Intellij IDE로 실행**
+
+Intellij IDE > Edit Configuration > Active profiles 에 원하는 profile 명을 입력 후 실행한다.
+
+**2. java -jar 옵션으로 실행**
 
 ```bash
-java -jar -Dspring.profiles.active=set1 ./cat-0.0.1-SNAPSHOT.jar
-
-java -jar -Dspring.profiles.active=set2 ./cat-0.0.1-SNAPSHOT.jar
-```
-
-<br>
-
-### 테스트
-
-application.yml
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  application:
-    name: user-service
-
-  profiles:
-    active: test # 만약 application-prod.yml 파일을 로딩하고 싶다면, prod
-
-greeting:
-  message: this is MAIN application.yml
-```
-
-application-test.yml
-
-```yaml
-greeting:
-  message: this is TEST application.yml
-```
-
-application-prod.yml
-
-```yaml
-greeting:
-  message: this is PRODUCTION application.yml
-```
-
-ProfileApplication.java
-
-```java
-@SpringBootApplication
-@RestController
-public class UserServiceApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
-    }
-
-    @GetMapping
-    public String string(@Value("${greeting.message}") String message) {
-        return message;
-    }
-}
-```
-
-<br>
-
-profiles.active=test 일때, 아래 메시지 출력
-
-```
-this is TEST application.yml
-```
-
-profiles.active=prod 일때, 아래 메시지 출력
-
-```
-this is PRODUCTION application.yml
-```
-
-profiles.active 가 빈 값 일때, 아래 메시지 출력
-
-```
-this is MAIN application.yml
-```
-
-<br>
-
-참고)
-
-### java 에서 profile 옵션을 가져오고 싶을때?
-
-→ **System.getProperty** 를 이용!
-
-```java
-// java -Dspring.profiles.active=set1 -jar ProfileApplication.jar 실행시
-String profile = System.getProperty("spring.profiles.active"); // set1
+java -jar myapp.jar --spring.profiles.active=prod
 ```
