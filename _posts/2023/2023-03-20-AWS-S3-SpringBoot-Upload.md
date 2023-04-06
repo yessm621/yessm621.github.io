@@ -115,8 +115,8 @@ public class FileController {
 
 제일 위에 있는 권한은 체크 해제 후 다시 실행하니 파일이 잘 업로드 되는 것을 확인할 수 있었다.
 
-![스크린샷 2023-03-20 오후 1.46.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/85286e23-569b-45e6-bedf-6170f3b92edf/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-03-20_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.46.08.png)
+![1](https://user-images.githubusercontent.com/79130276/230241772-b505e299-be82-48ea-8fff-c5c20db61c23.png)
 
-![스크린샷 2023-03-20 오후 1.41.33.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ebbb88fd-4f43-4ce5-b53d-c90d7ee24671/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-03-20_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.41.33.png)
+![2](https://user-images.githubusercontent.com/79130276/230241784-82bb19a6-27dc-4c5f-bf88-de25a7ef421b.png)
 
-![스크린샷 2023-03-20 오후 1.42.11.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a57f06b4-4d1d-447c-b0e7-2f279d86cc29/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-03-20_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.42.11.png)
+![3](https://user-images.githubusercontent.com/79130276/230241788-51614079-8cfe-4847-a467-4b9085074701.png)
