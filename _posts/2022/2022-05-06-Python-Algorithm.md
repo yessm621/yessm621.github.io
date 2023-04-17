@@ -34,9 +34,16 @@ print(c)
 # 1 2 3
 ```
 
----
+문자열 출력 시 format(), %d 사용하기
 
-### 변수입력과 연산자
+```python
+print('{} * {} = {}'.format(4, 3, 12))
+# 4 * 3 = 12
+print('%d * %d =' %(3, 2), 6)
+# 3 * 2 = 6
+```
+
+### 변수입력
 
 ```python
 # a = 2, b = 3
@@ -72,7 +79,22 @@ print(a**b) # 제곱근
 # 0
 # 2
 # 8
+```
 
+대량의 데이터를 입력받는 상황에서는 input() 보다는 sys.stdin.readline()을 사용해야 시간초과가 발생하지 않는다.
+
+```python
+import sys
+
+T = int(input())
+for _ in range(T):
+        a,b = map(int, sys.stdin.readline().split())
+        print(a+b)
+```
+
+### 연산자
+
+```python
 a=4.3
 b=5
 print(type(c))
@@ -92,6 +114,15 @@ largest = max(largest, tmp)
 tmp = 10
 largest = max(largest, tmp)
 # largest = 30
+```
+
+### 특수문자
+
+파이썬에서 특수문자인 \, ", ' (순서대로 백슬래시, 큰따옴표, 작은따옴표)를 출력하기 위해선 해당 문자 앞에 \(백슬래시)를 붙여야 한다.
+
+```python
+print(" \\ \" \' ")
+# \ " '
 ```
 
 ---
