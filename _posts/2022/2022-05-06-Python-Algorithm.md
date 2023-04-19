@@ -131,6 +131,16 @@ largest = max(largest, tmp)
 # largest = 30
 ```
 
+**소숫점 출력**
+
+format을 이용한다. 소숫점 4번째 자리에서 반올림을 해서 3자리까지 출력을 하겠다는 뜻이다.
+
+```python
+x = 57.1434444
+print("{:.3f}%".format(x))
+# 57.143%
+```
+
 ### 문자열
 
 ```python
@@ -377,6 +387,34 @@ ItisTime
 97
 122
 A
+```
+
+---
+
+### 딕셔너리
+
+알파벳의 개수를 구하기 위해 딕셔너리를 사용했다.
+
+```python
+s = 'Mississipi'.upper()
+data = {}
+for x in s:
+    if x in data:
+        data[x] += 1
+    else:
+        data[x] = 1
+# {'M': 1, 'I': 4, 'S': 4, 'P': 1}
+```
+
+딕셔너리에서 가장 큰 값을 구할 때 (최대 값이 2개 이상일 때)
+
+```python
+data = {'M': 1, 'I': 4, 'S': 4, 'P': 1}
+
+# 리스트 컴프리핸션 사용
+tmp = [k for k,v in a.items() if max(a.values()) == v]
+print(tmp)
+# ['I', 'S']
 ```
 
 ---
