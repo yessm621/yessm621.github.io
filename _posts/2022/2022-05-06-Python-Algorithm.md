@@ -152,6 +152,12 @@ s = s.strip()
 # 문자열 공백으로 분리
 s = s.split(' ')
 # ['dsjlkdjfk', 'lsf']
+
+word = 'happy'
+word.count('p')
+# 2
+word.count('1')
+# 0
 ```
 
 ### 조건문
@@ -434,6 +440,9 @@ print(a, a[0])
 # range로 list 초기화
 b=list(range(1,11))
 print(b)
+
+# 10*10 배열
+a = [[0] * 10 for _ in range(10)]
 
 c=a+b
 print(c)
