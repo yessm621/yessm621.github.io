@@ -9,7 +9,69 @@ tags:
 author: "유자"
 ---
 
-## 파이썬 기초 문법
+## 시간복잡도
+
+[파이썬 기본함수에 대한 시간복잡도](https://wiki.python.org/moin/TimeComplexity)
+
+![pasted image 0](https://user-images.githubusercontent.com/79130276/232639109-07339104-0ea9-4454-8112-e6f4b1afe26d.png)
+
+## 변수 입/출력
+
+### 입력방식
+
+```python
+# a = 2, b = 3
+a=input("숫자를 입력하세요 : ")
+print(type(a))
+print(a)
+# <class 'str'>
+# 2
+
+a, b = input("숫자를 입력하세요 : ").split()
+a=int(a)
+b=int(b)
+print(type(a))
+print(a+b)
+# <class 'int'>
+# 5
+
+# 입력받은 값을 바로 int로 가져옴
+a, b = map(int, input("숫자를 입력하세요 : ").split())
+print(type(a))
+print(a+b, a-b, a*b)
+print(a/b) # 나누기
+print(a//b) # 나누기의 몫
+print(a%b) # 나누기의 나머지
+print(a**b) # 제곱근
+# <class 'int'>
+# 5 -1 6
+# 0.66666666666
+# 0
+# 2
+# 8
+
+# 리스트로 입력 받기
+a = list(map(int, input().split()))
+
+a = list(int(input()) for _ in range(n))
+
+# 입력받아야 하는 값이 몇개인지 모를 때
+import sys
+s = sys.stdin.readlines()
+for i in s:
+    print(i.strip())
+```
+
+대량의 데이터를 입력받는 상황에서는 input() 보다는 sys.stdin.readline()을 사용해야 시간초과가 발생하지 않는다.
+
+```python
+import sys
+
+T = int(input())
+for _ in range(T):
+        a,b = map(int, sys.stdin.readline().split())
+        print(a+b)
+```
 
 ### 출력방식
 
@@ -43,54 +105,7 @@ print('%d * %d =' %(3, 2), 6)
 # 3 * 2 = 6
 ```
 
-### 변수입력
 
-```python
-# a = 2, b = 3
-a=input("숫자를 입력하세요 : ")
-print(type(a))
-print(a)
-# <class 'str'>
-# 2
-
-a, b = input("숫자를 입력하세요 : ").split()
-a=int(a)
-b=int(b)
-print(type(a))
-print(a+b)
-# <class 'int'>
-# 5
-
-# 입력받은 값을 바로 int로 가져옴
-a, b = map(int, input("숫자를 입력하세요 : ").split())
-print(type(a))
-print(a+b)
-print(a-b)
-print(a*b)
-print(a/b) # 나누기
-print(a//b) # 나누기의 몫
-print(a%b) # 나누기의 나머지
-print(a**b) # 제곱근
-# <class 'int'>
-# 5
-# -1
-# 6
-# 0.66666666666
-# 0
-# 2
-# 8
-```
-
-대량의 데이터를 입력받는 상황에서는 input() 보다는 sys.stdin.readline()을 사용해야 시간초과가 발생하지 않는다.
-
-```python
-import sys
-
-T = int(input())
-for _ in range(T):
-        a,b = map(int, sys.stdin.readline().split())
-        print(a+b)
-```
 
 ### 연산자
 
@@ -114,6 +129,50 @@ largest = max(largest, tmp)
 tmp = 10
 largest = max(largest, tmp)
 # largest = 30
+```
+
+**소숫점 출력**
+
+format을 이용한다. 소숫점 4번째 자리에서 반올림을 해서 3자리까지 출력을 하겠다는 뜻이다.
+
+```python
+x = 57.1434444
+print("{:.3f}%".format(x))
+# 57.143%
+```
+
+### 문자열
+
+```python
+s = ' dsjlkdjfk lsf '
+# 문자열 양 옆의 공백 삭제
+s = s.strip()
+# dsjlkdjfk lsf
+
+# 문자열 공백으로 분리
+s = s.split(' ')
+# ['dsjlkdjfk', 'lsf']
+
+word = 'happy'
+word.count('p')
+# 2
+word.count('1')
+# 0
+```
+
+### 조건문
+
+if A in B 구문은 B에 값들 중에 A가 있는지 확인하는 것이다.
+```python
+data = 'UNUCIC'
+alphabet = ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ']
+
+result = 0
+for i in range(len(data)):
+    for a in alphabet:
+        if data[i] in a:
+            result += alphabet.index(a) + 3
+print(result)
 ```
 
 ### 특수문자
@@ -338,6 +397,34 @@ A
 
 ---
 
+### 딕셔너리
+
+알파벳의 개수를 구하기 위해 딕셔너리를 사용했다.
+
+```python
+s = 'Mississipi'.upper()
+data = {}
+for x in s:
+    if x in data:
+        data[x] += 1
+    else:
+        data[x] = 1
+# {'M': 1, 'I': 4, 'S': 4, 'P': 1}
+```
+
+딕셔너리에서 가장 큰 값을 구할 때 (최대 값이 2개 이상일 때)
+
+```python
+data = {'M': 1, 'I': 4, 'S': 4, 'P': 1}
+
+# 리스트 컴프리핸션 사용
+tmp = [k for k,v in a.items() if max(a.values()) == v]
+print(tmp)
+# ['I', 'S']
+```
+
+---
+
 ### 리스트와 내장함수(1)
 
 ```python
@@ -353,6 +440,9 @@ print(a, a[0])
 # range로 list 초기화
 b=list(range(1,11))
 print(b)
+
+# 10*10 배열
+a = [[0] * 10 for _ in range(10)]
 
 c=a+b
 print(c)
@@ -453,6 +543,13 @@ for x in a:
     if x%2==1:
         print(x, end=' ')
 print()
+
+# 특정 구간을 역순으로 넣고 싶을 때
+a = [1, 2, 3, 4, 5]
+temp = a[1:4]
+temp.reverse()
+a[1:4] = temp
+# a = [1, 4, 3, 2, 5]
 
 # x가 tuple로 반환됨
 for x in enumerate(a):
