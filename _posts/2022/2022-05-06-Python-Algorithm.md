@@ -775,6 +775,31 @@ def reverse(x):
     return int(x)
 ```
 
+## 진법 변환
+
+### N진법 -> 10진법 변환
+
+```python
+# int(변환할 String, N진법)
+# 'ZZZZZ' 문자를 36진법으로 변경
+int('ZZZZZ', 36)
+```
+
+### 10진법 -> N진법 변환
+
+```python
+# n: 10진법 수, b: N진법
+n = 60466175
+b = 36
+tmp = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+answer = ''
+while n != 0:
+    answer += str(tmp[n % b])
+    n = n // b
+print(answer[::-1])
+```
+
 ## 소수 관련
 
 ### 소수를 구하는 방법 (에라토스테네스의 체)
