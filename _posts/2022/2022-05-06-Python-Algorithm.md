@@ -15,6 +15,25 @@ author: "유자"
 
 ![pasted image 0](https://user-images.githubusercontent.com/79130276/232639109-07339104-0ea9-4454-8112-e6f4b1afe26d.png)
 
+### 알고리즘 수행 시간
+
+코드의 수행 횟수란 말 그대로 해당 코드가 몇 번 수행 됐는지 횟수를 나타낸다.
+
+아래 코드에서 CODE 1의 수행 횟수는 n번이다. 그리고 수행 횟수를 다항식으로 나타내었을 때 최고차항의 차수는 1이다.
+
+```python
+for _ in range(n):
+    print(n) # CODE 1
+```
+
+아래 코드에서 CODE 1의 수행 횟수는 n*n번이다. 그리고 수행 횟수를 다항식으로 나타내었을 때 최고차항의 차수는 2이다.
+
+```python
+for _ in range(n):
+    for _ in range(n):
+        print(n) # CODE 1
+```
+
 ## 변수 입/출력
 
 ### 입력방식
