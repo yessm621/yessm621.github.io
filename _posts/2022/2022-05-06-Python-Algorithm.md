@@ -15,6 +15,25 @@ author: "유자"
 
 ![pasted image 0](https://user-images.githubusercontent.com/79130276/232639109-07339104-0ea9-4454-8112-e6f4b1afe26d.png)
 
+### 알고리즘 수행 시간
+
+코드의 수행 횟수란 말 그대로 해당 코드가 몇 번 수행 됐는지 횟수를 나타낸다.
+
+아래 코드에서 CODE 1의 수행 횟수는 n번이다. 그리고 수행 횟수를 다항식으로 나타내었을 때 최고차항의 차수는 1이다.
+
+```python
+for _ in range(n):
+    print(n) # CODE 1
+```
+
+아래 코드에서 CODE 1의 수행 횟수는 n*n번이다. 그리고 수행 횟수를 다항식으로 나타내었을 때 최고차항의 차수는 2이다.
+
+```python
+for _ in range(n):
+    for _ in range(n):
+        print(n) # CODE 1
+```
+
 ## 변수 입/출력
 
 ### 입력방식
@@ -716,20 +735,6 @@ def cal(a, b):
     return c, d
 
 print(cal(3,2))
-
-print("==========================")
-
-# 소수면 true 반환
-def isPrime(x):
-    for i in range(2,x):
-        if x%i==0:
-            return False
-    return True
-
-arr=[12, 13, 7, 9, 19]
-for a in arr:
-    if isPrime(a):
-        print(a, end=' ')
 ```
 
 ```
@@ -814,7 +819,6 @@ while n != 0:
 print(answer[::-1])
 ```
 
-
 ## 소수 관련
 
 ### 소수를 구하는 방법 (에라토스테네스의 체)
@@ -855,18 +859,54 @@ for i in range(2, n+1):
 
 ### 소수 판별
 
+아래 함수를 이용하면 소수인지 판별할 수 있다. (시간 복잡도 O(n))
+
+```python
+def isPrime(x):
+    for i in range(2, x):
+        if x % i == 0:
+            return False
+    return True
+```
+
+그런데 아래와 같은 식으로도 가능하다. 위의 코드와 아래의 코드의 차이점은 for문은 x 중간값까지만 돌린다는 것이다. 이렇게 하는 이유는 약수의 특성을 이용한 것이다. 약수의 특성을 이용하여 이 연산의 횟수를 반으로 줄일 수 있다.
+
+16을 예로 들면 16의 약수는 1, 2, 4, 8, 16 이다. 중간값인 4를 기준으로 한 쪽만 검사해도 다른 쪽의 약수를 알 수 있다.
+
+따라서, for문의 범위를 2 부터 x//2+1 까지 돌린 것이다. 시간 복잡도가 짧은 아래 코드를 사용하는 것을 권장한다.
+
 ```python
 def isPrime(x):
     if x == 1:
         return False
-    for i in range(2, x//2+1):
-        if x%i == 0:
+    for i in range(2, (x // 2) + 1):
+        if x % i == 0:
             return False
     else:
         return True
 ```
 
----
+## 소인수분해
+
+소인수란 소수인 인수들을 뜻한다.
+
+소인수 분해는 1보다 큰 자연수를 소인수들만의 곱으로 나타내는 것이다.
+
+```python
+n = int(input())
+prime = []
+i = 2
+
+while i <= n:
+    if n % i == 0:
+        prime.append(i)
+        n = n // i
+    else:
+        i += 1
+
+for p in prime:
+    print(p)
+```
 
 ## 내장 함수
 
