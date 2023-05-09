@@ -819,6 +819,15 @@ while n != 0:
 print(answer[::-1])
 ```
 
+## 알파벳
+
+함수를 사용해서 알파벳을 자동 생성하는 방법
+
+```python
+from string import ascii_lowercase
+alphabet = list(ascii_lowercase)
+```
+
 ## 소수 관련
 
 ### 소수를 구하는 방법 (에라토스테네스의 체)
@@ -971,17 +980,6 @@ print(res[1][0], res[1][1],)
 # 4 3
 ```
 
-<br>
-
-## 알고리즘 종류
-
-### 그리디 알고리즘
-
-문제를 풀어나가는 과정(단계)에 있어서 그 순간에 최적이라고 생각되는 것을 선택해 나가는 방식으로 진행하여 최종적인 해답에 도달하는 것
-보통의 그리디 문제는 다 `정렬`이다. 정렬 후 순서대로 선택해 나가면 됨
-
-<br>
-
 ## 자료구조
 
 ### 리스트(List)
@@ -994,13 +992,13 @@ print(res[1][0], res[1][1],)
 
 * 평균 시간복잡도: O(n)
 
-<br>
-
 ### 스택(Stack)
 
 * 리스트와 같다 (FILO)
 
 * append(), pop() 활용
+
+* top()은 stack[-1]로 확인
 
 * 활용: 후위표기식 등
 
@@ -1011,7 +1009,6 @@ print(res[1][0], res[1][1],)
     3. '\*', '/': 스택에 '\*', '/'가 있다면 그것들을 먼저 없어질 때까지 pop해주고 끝나면 push한다. ('+','-'은 우선순위가 낮으므로 pop안함)
     4. '+', '-': 스택에 다른 사칙연산자가 있다면 그것들을 먼저 없어질 때까지 (괄호연산자 직전가지)pop해주고 끝나면 push한다.
 
-<br>
 
 ### 덱(Double-ended Queue, Double-linked list)
 
@@ -1035,8 +1032,6 @@ print(res[1][0], res[1][1],)
 
 참고) deque의 appendleft() 대신 List는 insert()가 있는데 O(n)의 시간 복잡도이다.
 
-<br>
-
 ### 큐(Queue): FIFO
 
 큐를 앞뒤로 활용한 것이 deque(덱)
@@ -1045,14 +1040,10 @@ deque를 사용해서 풀이: popleft(), append() 사용
 
 원형 큐는 원형인 점을 고려하여 popleft() 후 마지막에 다시 append() 해줌...
 
-<br>
-
 참고) 아래 그림은 덱과 리스트의 차이를 보여줌
 
 ![Untitled](https://user-images.githubusercontent.com/79130276/168561151-6f71781a-2fe4-45af-aa0e-b38a761416c0.png)
 ![Untitled2](https://user-images.githubusercontent.com/79130276/168561157-76aee83b-b4b2-4f34-a616-6db0b8b5504b.png)
-
-<br>
 
 ### 이분/이진 탐색 (binary search)
 
@@ -1064,8 +1055,6 @@ deque를 사용해서 풀이: popleft(), append() 사용
 	4. mid 값이 더 크면 right = mid - 1, mid 값이 더 작으면 left = mid + 1
 	5. left <= right 조건이 만족할 때까지 반복
 * 이진 탐색 시간복잡도: 탐색 사이즈가 계속 1/2씩 줄어들기 때문에 시간복잡도가 O(logN)
-
-<br>
 
 ### 이진트리순회(깊이우선탐색)
 
@@ -1098,4 +1087,7 @@ if __name__=="__main__":
     DFS(1)
 ```
 
-<br>
+### 그리디 알고리즘
+
+문제를 풀어나가는 과정(단계)에 있어서 그 순간에 최적이라고 생각되는 것을 선택해 나가는 방식으로 진행하여 최종적인 해답에 도달하는 것
+보통의 그리디 문제는 다 `정렬`이다. 정렬 후 순서대로 선택해 나가면 됨
