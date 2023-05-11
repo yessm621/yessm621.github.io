@@ -37,8 +37,6 @@ JSP를 포함한 다른 뷰 템플릿들은 해당 파일을 열면, 예를 들�
 
 타임리프는 스프링과 자연스럽게 통합되고, 스프링의 다양한 기능을 편리하게 사용할 수 있게 지원한다.
 
-<br>
-
 ## 라이브러리
 
 ### 타임리프 사용하기 위한 라이브러리 추가
@@ -53,8 +51,6 @@ implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 <html xmlns:th="http://www.thymeleaf.org">
 ```
 
-<br>
-
 ## 기본 표현식
 
 ```html
@@ -62,8 +58,6 @@ th:
 ```
 
 태그 안의 값을 서버에서 전달 받은 값에 따라서 표현하고자 할 때 사용
-
-<br>
 
 ## 텍스트 출력
 
@@ -147,8 +141,6 @@ HTML에서 이스케이프한다는 것은, 몇가지 특별한 문자들을 교
 </div>
 ```
 
-<br>
-
 ## 기본 객체들
 
 ```java
@@ -182,8 +174,6 @@ static class HelloBean {
   <li>spring bean = <span th:text="${@helloBean.hello('Spring!')}"></span></li>
 </ul>
 ```
-
-<br>
 
 ## 유틸리티 객체와 날짜
 
@@ -227,8 +217,6 @@ static class HelloBean {
 </ul>
 ```
 
-<br>
-
 ## URL 링크
 
 ```html
@@ -258,8 +246,6 @@ public String link(Model model) {
   <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
 </ul>
 ```
-
-<br>
 
 ## Literals
 
@@ -308,8 +294,6 @@ public String link(Model model) {
 - checked=false <input type="checkbox" name="active" checked="false"/><br/>
 ```
 
-<br>
-
 ## 반복
 
 ```html
@@ -337,8 +321,6 @@ public String link(Model model) {
 <tr th:each="user : ${users}">
 ```
 
-<br>
-
 ## 조건부 평가
 
 ### if, unless
@@ -363,8 +345,6 @@ public String link(Model model) {
   </td>
 </tr>
 ```
-
-<br>
 
 ## 주석
 
@@ -392,8 +372,6 @@ public String link(Model model) {
 
 ![2](https://user-images.githubusercontent.com/79130276/187162026-2fece25d-7a63-49fc-952c-63b180339294.png)
 
-<br>
-
 ## 블록
 
 `<th:block>` 은 HTML 태그가 아닌 타임리프의 유일한 자체 태그
@@ -406,7 +384,6 @@ public String link(Model model) {
 </th:block>
 ```
 
-<br>
 
 ## 자바스크립트 인라인
 
@@ -442,7 +419,7 @@ public String link(Model model) {
 
 ![3](https://user-images.githubusercontent.com/79130276/187162029-3e4eec5e-9fd5-4955-823f-0572262972b9.png)
 
-<br>
+
 
 ## 템플릿 조각
 

@@ -23,8 +23,6 @@ author: "유자"
 [ LEFT [OUTER] | INNER ] JOIN FETCH 조인경로
 ```
 
-<br>
-
 ### 엔티티 페치 조인 예시
 
 ```sql
@@ -43,7 +41,6 @@ select m from Member m **join fetch** m.team
 
 `페치 조인을 사용하여 1 + N 문제를 해결할 수 있다.`
 
-<br>
 
 ### 컬렉션 페치 조인
 
@@ -56,8 +53,6 @@ select t from Team t join fetch t.members;
 ```
 
 결과를 보면 중복이 된다. 이 경우 distinct를 사용하여 중복을 제거할 수 있다. JPQL에서 distinct를 사용하면 **SQL에서의 distinct 기능** 뿐만 아니라, **엔티티의 중복까지 제거**해준다.
-
-<br>
 
 ### 페치 조인 주의사항
 

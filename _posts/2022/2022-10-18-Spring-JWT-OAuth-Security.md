@@ -10,8 +10,6 @@ tags:
 author: "유자"
 ---
 
-<br>
-
 SpringBoot 환경에서 Spring Security를 이용한 인증/인가를 구현할 것, OAuth2.0 인증을 통해 JWT토큰을 발급해줄 것이다. 이후 서버에 요청할 때 발급한 토큰을 Request Header에 입력하여 요청한다.
 
 작성한 코드 구성은 다음과 같다.
