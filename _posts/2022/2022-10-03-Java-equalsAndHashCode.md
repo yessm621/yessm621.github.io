@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "equals와 hashCode"
+title:  "hashCode()와 equals()"
 date: 2022-10-03 01:10:00
 categories: [Java]
 tags:
@@ -8,9 +8,9 @@ tags:
 author: "유자"
 ---
 
-## equals와 hashCode란?
+## hashCode()와 equals()란?
 
-equals와 hashCode는 Object 클래스에 정의되어 있다. 그렇기 때문에 모든 객체는 Object 클래스에 정의된 equals와 hashCode 함수를 상속받고 있다.
+hashCode()와 equals()는 Object 클래스에 정의되어 있다. 그렇기 때문에 모든 객체는 Object 클래스에 정의된 hashCode()와 equals() 함수를 상속받고 있다.
 
 ## equals(Object obj)
 
@@ -66,7 +66,7 @@ hashCode 메서드는 해싱기법에 사용되는 해시함수를 구현한 것
 
 일반적으로 해시코드가 같은 두 객체가 존재하는 것이 가능하지만, Object 클래스에 정의된 hashCode 메서드는 객체의 주소값을 이용해서 해시코드를 만들어 반환하기 때문에 서로 다른 두 객체는 결코 같은 해시코드를 가질 수 없다.
 
-## equals와 hashCode는 왜 같이 정의해야 할까?
+## hashCode()와 equals()는 왜 같이 정의해야 할까?
 
 동일한 객체는 동일한 메모리 주소를 갖는다는 것을 의미하므로 동일한 객체는 동일한 해시코드를 가져야 한다. 따라서, equals() 메서드와 hashCode() 메서드를 같이 오버라이딩해야 한다.
 
@@ -80,4 +80,4 @@ hashCode() 메서드를 재정의하지 않으면 Object 클래스의 hashCode()
 
 Object 클래스의 hashCode() 메서드는 객체의 고유한 주소 값을 int 값으로 변환하기 때문에 객체마다 다른 값을 리턴한다. 두 개의 객체는 equals로 비교도 하기 전에 서로 다른 hashCode 메서드의 리턴 값으로 인해 다른 객체로 판단된 것이다.
 
-따라서, 객체의 정확한 동등 비교를 위해서는 equals() 메서드와 hashCode() 메서드를 같이 재정의해야 한다.
+따라서, 객체의 정확한 동등 비교를 위해서는 hashCode() 메서드와 equals() 메서드를 같이 재정의해야 한다.
