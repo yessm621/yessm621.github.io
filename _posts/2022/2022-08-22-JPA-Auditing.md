@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Auditing (공통 매핑 정보)"
+title: "JPA Auditing (공통 매핑 정보)"
 date: 2022-08-22 23:45:00
 categories: [JPA]
 tags:
@@ -44,6 +44,16 @@ public class BoardApplication {
     }
 }
 ```
+
+그런데 위와 같이 작성하는 것보단 원활한 단위 테스트를 위해 @SpringBootApplication과 @EnableJpaAuditing 어노테이션 분리하는 것이 좋다.
+
+```java
+@Configuration
+@EnableJpaAuditing
+public class JpaConfig {
+}
+```
+
 
 정리하자면, @EnableJpaAuditing 스프링 부트 설정 클래스에 적용하고 @EntityListeners(AuditingEntityListener.class)는 엔티티에 적용한다.
 
