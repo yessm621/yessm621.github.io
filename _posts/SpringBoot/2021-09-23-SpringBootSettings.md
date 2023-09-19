@@ -3,8 +3,8 @@ title: "스프링부트 Settings"
 categories: 
   - SpringBoot
 tags:
-  - Java
   - SpringBoot
+  - Java
 ---
 
 ## SpringBoot Settings
