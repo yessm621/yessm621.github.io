@@ -30,16 +30,8 @@
 
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "JAVAGrammar" %}
-                       <li><a href="/categories/JAVAGrammar" class="">문법({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-           </ul>
-
-            <ul>
-                {% for category in site.categories %}
                     {% if category[0] == "Java" %}
-                        <li><a href="/categories/Java" class="">Java({{category[1].size}})</a></li>
+                        <li><a href="/categories/Java" class="">문법({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -60,24 +52,24 @@
                 {% endfor %}
             </ul>
 
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "TestCode" %}
                         <li><a href="/categories/TestCode" class="">테스트코드({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ul> -->
         <!--------------------------------------분류 끝-------------------------------------------->
         
         <!--------------------------------------분류 시작-------------------------------------------->
-        <span class="nav__sub-title">Python</span>
+        <!-- <span class="nav__sub-title">Python</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Django" %}
                         <li><a href="/categories/Django" class="">Django({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>    
+            </ul>     -->
         <!--------------------------------------분류 끝-------------------------------------------->
 
         <!--------------------------------------분류 시작-------------------------------------------->
@@ -103,7 +95,7 @@
         <!--------------------------------------분류 끝-------------------------------------------->
         
         <!--------------------------------------분류 시작-------------------------------------------->
-        <span class="nav__sub-title">CS</span>
+        <!-- <span class="nav__sub-title">CS</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Web" %}
@@ -134,7 +126,7 @@
                         <li><a href="/categories/Mac" class="">Mac({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ul> -->
 
 
         <!--------------------------------------분류 끝-------------------------------------------->
