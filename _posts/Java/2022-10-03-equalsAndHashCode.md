@@ -4,6 +4,8 @@ categories:
   - Java
 tags:
   - Java
+toc: true
+toc_sticky: true
 ---
 
 ## hashCode()와 equals()란?

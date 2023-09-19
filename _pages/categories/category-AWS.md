@@ -1,7 +1,6 @@
 ---
 title: "AWS"
 layout: archive
-classes: wide
 permalink: categories/AWS
 author_profile: true
 sidebar_main: true

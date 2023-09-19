@@ -1,7 +1,6 @@
 ---
 title: "Mac"
 layout: archive
-classes: wide
 permalink: categories/Mac
 author_profile: true
 sidebar_main: true

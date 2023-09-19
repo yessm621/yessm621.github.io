@@ -1,7 +1,6 @@
 ---
 title: "Django"
 layout: archive
-classes: wide
 permalink: categories/Django
 author_profile: true
 sidebar_main: true

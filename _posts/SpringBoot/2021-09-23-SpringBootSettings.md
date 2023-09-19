@@ -5,6 +5,8 @@ categories:
 tags:
   - SpringBoot
   - Java
+toc: true
+toc_sticky: true
 ---
 
 ## SpringBoot Settings

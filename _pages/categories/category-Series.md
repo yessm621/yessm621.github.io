@@ -1,7 +1,7 @@
 ---
 title: "Series"
 layout: archive
-classes: wide
+classes: 
 permalink: categories/Series
 author_profile: true
 sidebar_main: true

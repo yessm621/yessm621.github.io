@@ -4,6 +4,8 @@ categories:
   - Jpa
 tags:
   - Jpa
+toc: true
+toc_sticky: true
 ---
 
 ## 영속성 컨텍스트

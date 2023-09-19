@@ -1,7 +1,6 @@
 ---
 title: "DB"
 layout: archive
-classes: wide
 permalink: categories/DB
 author_profile: true
 sidebar_main: true

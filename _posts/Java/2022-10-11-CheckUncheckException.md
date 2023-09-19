@@ -4,6 +4,8 @@ categories:
   - Java
 tags:
   - Java
+toc: true
+toc_sticky: true
 ---
 
 ## 예외의 종류

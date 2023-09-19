@@ -1,6 +1,6 @@
 ---
 layout: default
-classes: wide <!-- 본문 늘리기!!!-->
+classes:  <!-- 본문 늘리기!!!-->
 ---
 
 {% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
@@ -40,7 +40,7 @@ classes: wide <!-- 본문 늘리기!!!-->
           <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
+              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" %}
             </nav>
           </aside>
         {% endif %}

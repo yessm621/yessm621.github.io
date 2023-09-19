@@ -95,7 +95,7 @@
         <!--------------------------------------분류 끝-------------------------------------------->
         
         <!--------------------------------------분류 시작-------------------------------------------->
-        <!-- <span class="nav__sub-title">CS</span>
+        <span class="nav__sub-title">CS</span>
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Web" %}
@@ -104,7 +104,7 @@
                 {% endfor %}
             </ul>
 
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DB" %}
                         <li><a href="/categories/DB" class="">DB({{category[1].size}})</a></li>

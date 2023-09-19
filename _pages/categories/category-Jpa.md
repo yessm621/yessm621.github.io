@@ -1,7 +1,6 @@
 ---
 title: "Jpa"
 layout: archive
-classes: wide
 permalink: categories/Jpa
 author_profile: true
 sidebar_main: true
