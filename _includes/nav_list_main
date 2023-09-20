@@ -98,36 +98,19 @@
         <span class="nav__sub-title">CS</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Web" %}
-                        <li><a href="/categories/Web" class="">Web({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-
-            <!-- <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "DB" %}
-                        <li><a href="/categories/DB" class="">DB({{category[1].size}})</a></li>
+                    {% if category[0] == "Http" %}
+                        <li><a href="/categories/Http" class="">Http({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "AWS" %}
-                        <li><a href="/categories/AWS" class="">AWS({{category[1].size}})</a></li>
+                    {% if category[0] == "Auth" %}
+                        <li><a href="/categories/Auth" class="">인증/인가({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
-
-            <ul>
-                {% for category in site.categories %}
-                    {% if category[0] == "Mac" %}
-                        <li><a href="/categories/Mac" class="">Mac({{category[1].size}})</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul> -->
-
 
         <!--------------------------------------분류 끝-------------------------------------------->
 

@@ -1,0 +1,979 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>연관 관계 매핑 - yessm621.dev</title>
+<meta name="description" content="연관 관계를 매핑할 때 생각해야 할 것 3가지">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="연관 관계 매핑">
+<meta property="og:url" content="http://localhost:4000/jpa/JPAMapping/">
+
+
+  <meta property="og:description" content="연관 관계를 매핑할 때 생각해야 할 것 3가지">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-01-15T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/JPAMapping/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="연관 관계 매핑">
+    <meta itemprop="description" content="연관 관계를 매핑할 때 생각해야 할 것 3가지">
+    <meta itemprop="datePublished" content="2023-01-15T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">연관 관계 매핑
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-01-15T00:00:00+09:00">January 15, 2023</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#단방향-양방향">단방향, 양방향</a><ul><li><a href="#무조건-양방향-관계로-하면-좋을까">무조건 양방향 관계로 하면 좋을까?</a></li></ul></li><li><a href="#연관-관계의-주인링크">연관 관계의 주인(링크)</a><ul><li><a href="#왜-연관-관계의-주인을-정해야할까">왜 연관 관계의 주인을 정해야할까?</a></li><li><a href="#연관-관계의-주인만-제어하면-되나">연관 관계의 주인만 제어하면 되나?</a></li></ul></li><li><a href="#다중성">다중성</a><ul><li><a href="#다대일">다대일</a></li><li><a href="#일대다">일대다</a></li><li><a href="#일대일">일대일</a></li><li><a href="#다대다">다대다</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>연관 관계를 매핑할 때 생각해야 할 것 3가지</p>
+
+<ol>
+  <li>방향: 단방향, 양방향</li>
+  <li>연관 관계의 주인: 양방향일 때, 연관 관계에서 관리 주체</li>
+  <li>다중성: 다대일(N:1), 일대다(1:N), 일대일(1:1), 다대다(N:M)</li>
+</ol>
+
+<h2 id="단방향-양방향">단방향, 양방향</h2>
+
+<p>DB 테이블은 <strong>외래 키</strong> 하나로 양 쪽 테이블 조인이 가능하다. 따라서, DB는 단방향, 양방향을 나눌 필요가 없다.</p>
+
+<p>그러나, 객체는 <strong>참조용 필드</strong>가 있는 객체만 다른 객체를 참조하는 것이 가능하다. 따라서, 한쪽만 참조하면 <code class="language-plaintext highlighter-rouge">단방향</code> 관계, 양쪽이 서로 참조하면 <code class="language-plaintext highlighter-rouge">양방향</code> 관계이다. 엄밀하게 말하면 양방향 관계는 없고 두 객체가 단방향 참조를 각각 가져서 양방향 관계처럼 사용하고 말하는 것이다.</p>
+
+<p>JPA를 사용해서 DB와의 <strong>패러다임</strong>을 맞추기 위해서 객체는 단방향 연관 관계를 가질지, 양방향 연관 관계를 가질지 선택해야 한다.</p>
+
+<p>선택은 비즈니스 로직에서 두 객체가 참조가 필요한지 여부를 고민하면 된다. 비즈니스 로직에 맞게 선택했을 때 두 객체가 서로 단방향 참조를 했다면 양방향 연관 관계가 된다.</p>
+
+<h3 id="무조건-양방향-관계로-하면-좋을까">무조건 양방향 관계로 하면 좋을까?</h3>
+
+<p>객체 입장에서 양방향 매칭을 했을 때 오히려 복잡해진다. 예를 들어 일반적인 비스니스 애플리케이션에서 User 엔티티는 다양한 엔티티와 연관 관계를 갖는다. 이런 경우 모든 엔티티를 양방향으로 설정하면 User 클래스가 복잡해지고, 불필요한 연관 관계 매핑으로 인해 <strong>복잡성</strong>이 증가할 수 있다. 따라서, 양방향으로 할지 단방향으로 할지 구분해줘야 한다.</p>
+
+<p>기본적으로 <strong>단방향 매핑으로 설계</strong>하고 추후에 역방향 객체 탐색이 <strong>필요하면 추가</strong>하는 것이 좋다.</p>
+
+<h2 id="연관-관계의-주인링크">연관 관계의 주인<a href="https://yessm621.github.io/jpa/MappedBy/">(링크)</a></h2>
+
+<p>양방향 연관 관계의 경우 <code class="language-plaintext highlighter-rouge">연관 관계의 주인</code>을 정해야 한다. 연관 관계의 주인을 지정하는 것은 두 단방향 관계 중 <strong>제어의 권한</strong>을 갖는 실질적인 관계가 어떤 것인지 JPA에게 알려주는 것이라고 생각하면 된다.</p>
+
+<p>연관 관계의 주인은 연관 관계를 갖는 두 객체 사이에서 조회, 저장, 수정, 삭제를 할 수 있지만, 연관 관계의 주인이 아니면 조회만 가능하다. 연관 관계의 주인이 아닌 객체에서 mappedBy 속성을 사용해서 주인을 지정해줘야 한다. 보통 <code class="language-plaintext highlighter-rouge">외래 키</code>가 있는 곳을 <strong>연관 관계의 주인</strong>으로 정한다.</p>
+
+<h3 id="왜-연관-관계의-주인을-정해야할까">왜 연관 관계의 주인을 정해야할까?</h3>
+
+<p>예를 들어 Member 객체와 Order 객체가 있고 양방향 연관 관계라고 가정하자.</p>
+
+<p>사용자의 주문을 수정하려고 할 때 Member 객체에서 setOrder() 같은 메서드를 이용해서 수정하는게 좋을지 Order 객체에서 getMember() 같은 메서드를 이용해서 수정하는게 좋은지 헷갈릴 수 있다.</p>
+
+<p>두 객체 입장에서는 두 방법 다 맞는 방법이지만, JPA 입장에서는 혼란이 온다. 즉, Member에서 Order를 수정할때 FK를 수정할 지, Order에서 Member를 수정할 때 FK를 수정할 지를 결정하기 어렵다. 때문에 두 객체 사이의 <strong>연관 관계의 주인</strong>을 정해서 명확하게 정하는 것이다.</p>
+
+<h3 id="연관-관계의-주인만-제어하면-되나">연관 관계의 주인만 제어하면 되나?</h3>
+
+<p>DB에 외래 키가 있는 테이블을 수정하려면 연관 관계의 주인만 변경하면 된다. 그러나, 객체를 생각했을 때는 두 군데에서 변경하는 것이 좋다. (이 부분은 <a href="https://yessm621.github.io/jpa/2023/01/15/JPA-Convenience-Method/"><code class="language-plaintext highlighter-rouge">연관관계 편의 메서드</code></a>를 사용하면 편리하다.)</p>
+
+<h2 id="다중성">다중성</h2>
+
+<p>DB를 기준으로 다중성을 결정한다.</p>
+
+<h3 id="다대일">다대일</h3>
+
+<p>게시판(Post)과 게시글(Board)을 예로 들면, 게시글이 N이고 게시판이 1이다. 외래 키를 게시글이 관리하는 일반적인 형태이다.</p>
+
+<p><strong>다대일 단방향 연관 관계</strong></p>
+
+<p>다대일 단방향에선 다 쪽인 Post에서 @ManyToOne만 추가해줬다. 반대로 Board에서는 참조하지 않았다. (단방향)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"POST_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TITLE"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"BOARD_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Board</span> <span class="n">board</span><span class="o">;</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Board</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>다대일 양방향 연관 관계</strong></p>
+
+<p>다대일 양방향은 1 쪽에 @OneToMany를 추가하고 연관관계의 주인을 설정하기 위해 주인이 아닌 쪽에 mappedBy를 지정한다. mappedBy로 지정할 때 값은 대상이 되는 변수명을 따라 지정하면 된다. 여기서는 Post 객체의 board라는 이름의 변수이기 때문에 똑같이 board로 지정했다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"POST_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TITLE"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"BOARD_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Board</span> <span class="n">board</span><span class="o">;</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Board</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"board"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Post</span><span class="o">&gt;</span> <span class="n">posts</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="일대다">일대다</h3>
+
+<p>일대다와 다대일은 다르다. 다대일의 기준은 연관관계의 주인 다(N)쪽에 둔 것이고 이번에 언급할 일대다의 기준은 연관관계의 주인을 1 쪽에 둔 것이다.</p>
+
+<p><strong>일대다 단방향 연관 관계</strong></p>
+
+<blockquote>
+  <p><strong>참고</strong>
+실무에서는 일대다 단방향은 거의 쓰지 않는다.</p>
+
+</blockquote>
+
+<p>DB 입장에서는 무조건 다쪽에서 외래키를 관리한다. 하지만 일대다 단방향은 1쪽 객체에서 다쪽 객체를 조작(생성, 수정, 삭제)하는 방법이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"POST_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TITLE"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Board</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"board"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Post</span><span class="o">&gt;</span> <span class="n">posts</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">//... getter, setter</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Post</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Post</span><span class="o">();</span>
+<span class="n">post</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+
+<span class="nc">Board</span> <span class="n">board</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Board</span><span class="o">();</span>
+<span class="n">board</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Free Board"</span><span class="o">);</span>
+<span class="n">board</span><span class="o">.</span><span class="na">getPosts</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">post</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">board</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>post를 저장할 때 insert 쿼리가 실행된다. 그 후 board를 저장할 때 board를 insert하는 쿼리가 나간 후에 post를 update하는 쿼리가 실행된다. board.getPosts().add(post); 부분 때문이다.</p>
+
+<p>Board 엔티티는 Board 테이블에 매핑되기 때문에 Board 테이블에 직접 지정할 수 있으나 Post 테이블의 FK를 저장할 방법이 없으므로 조인 및 업데이트 쿼리를 날려야 하는 문제가 있다.</p>
+
+<p>따라서, 일대다 단방향은 다대일 양방향 연관 관계로 매핑하는 것이 추후에 유지보수에 훨씬 수월하다.</p>
+
+<p>일대다 양방향 연관 관계는 공식적으로 존재하지 않는다. 결론은 일대다 단방향, 양방향을 사용할 거면 <code class="language-plaintext highlighter-rouge">다대일 양방향</code>을 사용하는 것이 맞다.</p>
+
+<h3 id="일대일">일대일</h3>
+
+<p>주 테이블에 외래키를 넣을 수도 있고 대상 테이블에 외래키를 넣을 수도 있다. (일대일이기 때문에 테이블 A, B가 있을때 주 테이블이 A면 대상 테이블이 B이다.)</p>
+
+<p>아래 예제는 Post가 하나의 Attach를 가지고 있다고 가정한다.</p>
+
+<p><strong>일대일 단방향</strong></p>
+
+<ol>
+  <li>
+    <p>외래 키를 주 테이블이 갖고 있을 때 (Post: 주 테이블, Attach: 대상 테이블)</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Entity</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+     <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+     <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"POST_ID"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    
+     <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"TITLE"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+     <span class="nd">@OneToOne</span>
+     <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ATTACH_ID"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">Attach</span> <span class="n">attach</span><span class="o">;</span>
+     <span class="c1">//... getter,setter</span>
+ <span class="o">}</span>
+ <span class="nd">@Entity</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Attach</span> <span class="o">{</span>
+     <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+     <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ATTACH_ID"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+   <span class="c1">//... getter, setter</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>외래 키를 대상 테이블이 갖고 있을 때: JPA에서는 지원을 하지 않는다.</p>
+  </li>
+</ol>
+
+<p><strong>일대일 양방향</strong></p>
+
+<ol>
+  <li>
+    <p>외래키를 주 테이블이 갖고 있을 때</p>
+
+    <p>단순하게 똑같이 @OneToOne 설정 후 mappedBy 설정만 해서 읽기 전용으로 만들어주면 양방향도 간단하다.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Entity</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Attach</span> <span class="o">{</span>
+     <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+     <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ATTACH_ID"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    
+     <span class="nd">@OneToOne</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"attach"</span><span class="o">)</span>
+     <span class="kd">private</span> <span class="nc">Post</span> <span class="n">post</span><span class="o">;</span>
+   <span class="c1">//... getter, setter</span>
+ <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>외래키를 대상 테이블이 갖고 있을 때</p>
+
+    <p>이럴때는 어차피 양 쪽이 일대일이기 때문에 위에서 정의한 대로 처리하면 된다. 하지만 논란의 여지가 있다. 외래키를 Post에서 관리하는 것이 좋은 지 Attach에서 관리하는 것이 좋은 지 생각해봐야 한다.</p>
+
+    <p>비즈니스가 변경되어 하나의 Post가 Attach를 여러개 가질 수 있다고 가정하자. 그렇다면 외래 키는 다쪽인 Attach에 있는게 비즈니스 변경에 유리하다. 그렇다고 무조건 다가 될 확률이 높은 테이블에 외래 키를 놓는 것이 좋은게 아니다. Post 쪽에 외래 키를 두면 성능상 이득이 있기 때문이다.</p>
+
+    <p>결론은 종합적으로 판단하고 결정해야 한다.</p>
+  </li>
+</ol>
+
+<h3 id="다대다">다대다</h3>
+
+<p>실무에서 사용하면 안된다. 다대다는 일대다 - 다대일로 풀어서 만드는 것 (중간 테이블을 Entity로 만드는 것)이 추후 변경에도 유연하게 대처할 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-01-15T00:00:00+09:00">January 15, 2023</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/jpa/ConvenienceMethod/" class="pagination--pager" title="연관관계 편의 메서드
+">이전</a>
+    
+    
+      <a href="/testcode/Mock/" class="pagination--pager" title="Mock 이란?
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/jpa/ConvenienceMethod/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>연관관계 편의 메서드</a>
+    
+    
+      <a href="/jpa/JPA-DirtyChecking-Merge/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>변경 감지와 병합</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

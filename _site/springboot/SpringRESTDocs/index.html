@@ -1,0 +1,1268 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>스프링 REST Docs - yessm621.dev</title>
+<meta name="description" content="스프링 REST Docs란?">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="스프링 REST Docs">
+<meta property="og:url" content="http://localhost:4000/springboot/SpringRESTDocs/">
+
+
+  <meta property="og:description" content="스프링 REST Docs란?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-01-25T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/springboot/SpringRESTDocs/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="스프링 REST Docs">
+    <meta itemprop="description" content="스프링 REST Docs란?">
+    <meta itemprop="datePublished" content="2022-01-25T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">스프링 REST Docs
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-25T00:00:00+09:00">January 25, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#스프링-rest-docs란">스프링 REST Docs란?</a></li><li><a href="#스프링-rest-docs-장점">스프링 REST Docs 장점</a><ul><li><a href="#plugin-dependency-추가">plugin, dependency 추가</a></li></ul></li><li><a href="#스프링-rest-docs-요청응답-본문-문서화">스프링 REST Docs 요청/응답 본문 문서화</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="스프링-rest-docs란">스프링 REST Docs란?</h2>
+
+<p>지금까지 개발을 진행하면서 API 명세에 대한 정보 문서화 또는 Swagger 사용을 해왔습니다.</p>
+
+<p>매번 API 개발을 할 때마다 명세에 대한 정보를 문서화를 하였고,</p>
+
+<p>Swagger 사용을 하면 매번 Controller, DTO 단에 Swagger 어노테이션을 추가해야 하니 코드가 보기가 좋지 않았습니다.</p>
+
+<p>그러다가 API 명세서를 자동화해주는 것을 찾다가 Spring Rest Docs 찾게 되어, Spring Rest Docs를 적용하게 되었습니다.</p>
+
+<p><br /></p>
+
+<h2 id="스프링-rest-docs-장점">스프링 REST Docs 장점</h2>
+
+<p>코드에 영향이 없다. 따라서, 코드가 바뀌어도 문서를 따로 수정할 필요없이 자동으로 변경된다.</p>
+
+<p><br /></p>
+
+<h3 id="plugin-dependency-추가">plugin, dependency 추가</h3>
+
+<p><strong>Maven - pom.xml</strong></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.asciidoctor<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>asciidoctor-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.5.3<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;executions&gt;</span>
+        <span class="nt">&lt;execution&gt;</span>
+            <span class="nt">&lt;id&gt;</span>generate-docs<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;phase&gt;</span>prepare-package<span class="nt">&lt;/phase&gt;</span>
+            <span class="nt">&lt;goals&gt;</span>
+                <span class="nt">&lt;goal&gt;</span>process-asciidoc<span class="nt">&lt;/goal&gt;</span>
+            <span class="nt">&lt;/goals&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;backend&gt;</span>html<span class="nt">&lt;/backend&gt;</span>
+                <span class="nt">&lt;doctype&gt;</span>book<span class="nt">&lt;/doctype&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/execution&gt;</span>
+    <span class="nt">&lt;/executions&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.restdocs<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-restdocs-asciidoctor<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.0.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+<span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>maven-resources-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.7<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;executions&gt;</span>
+        <span class="nt">&lt;execution&gt;</span>
+            <span class="nt">&lt;id&gt;</span>copy-resources<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;phase&gt;</span>prepare-package<span class="nt">&lt;/phase&gt;</span>
+            <span class="nt">&lt;goals&gt;</span>
+                <span class="nt">&lt;goal&gt;</span>copy-resources<span class="nt">&lt;/goal&gt;</span>
+            <span class="nt">&lt;/goals&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;outputDirectory&gt;</span>
+                    ${project.build.outputDirectory}/static/docs
+                <span class="nt">&lt;/outputDirectory&gt;</span>
+                <span class="nt">&lt;resources&gt;</span>
+                    <span class="nt">&lt;resource&gt;</span>
+                        <span class="nt">&lt;directory&gt;</span>
+                            ${project.build.directory}/generated-docs
+                        <span class="nt">&lt;/directory&gt;</span>
+                    <span class="nt">&lt;/resource&gt;</span>
+                <span class="nt">&lt;/resources&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/execution&gt;</span>
+    <span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<p><strong>docs 조각</strong>: ./target/generated-snippets/<em>/</em>.adoc</p>
+
+<p><strong>docs build</strong>: ./target/classes/static/docs/index.html</p>
+
+<p><br /></p>
+
+<p><strong>Gradle - build.gradle (7버전)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins {
+	id 'org.springframework.boot' version '2.5.8'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	// Spring REST Docs
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+	id 'java'
+}
+
+group = 'com.debrains'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	// Spring REST Docs
+	asciidoctorExtensions
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	...
+
+	// Spring REST Docs
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+	...
+
+}
+
+test {
+	useJUnitPlatform()
+}
+
+...
+
+// Spring REST Docs
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	configurations 'asciidoctorExtensions'
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+bootJar {
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}/html5") {
+		into 'static/docs'
+	}
+}
+</code></pre></div></div>
+
+<p><strong>docs 조각</strong>: ./build/generated-snippets/<em>/</em>.adoc</p>
+
+<p><strong>docs build</strong>: ./build/docs/asciidoc/index.html</p>
+
+<p><br /></p>
+
+<h2 id="스프링-rest-docs-요청응답-본문-문서화">스프링 REST Docs 요청/응답 본문 문서화</h2>
+
+<p>EventControllerTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.test.demoinflearnrestapi.events</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">restdocs</span><span class="o">.</span><span class="na">mockmvc</span><span class="o">.</span><span class="na">MockMvcRestDocumentation</span><span class="o">.</span><span class="na">document</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="nc">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigureMockMvc</span>
+<span class="nd">@AutoConfigureRestDocs</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventControllerTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">MockMvc</span> <span class="n">mockMvc</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="nc">ObjectMapper</span> <span class="n">objectMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"정상적으로 이벤트를 생성하는 테스트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">createEvent</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">EventDto</span> <span class="n">event</span> <span class="o">=</span> <span class="nc">EventDto</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">...</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">post</span><span class="o">(</span><span class="s">"/api/events/"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">event</span><span class="o">)))</span>
+                <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">print</span><span class="o">())</span> <span class="c1">// 어떤 요청과 응답을 받았는지 알 수 있음</span>
+                <span class="o">...</span>
+                <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">document</span><span class="o">(</span><span class="s">"create-event"</span><span class="o">));</span>
+    <span class="o">}</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>@AutoConfigureRestDocs 어노테이션, andDo(document(“create-event”));</strong></p>
+
+<p>문서는 생성되지만 포맷팅이 안되어 보기에 안좋다</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="err">source</span><span class="p">,</span><span class="err">http</span><span class="p">,</span><span class="err">options=</span><span class="s2">"nowrap"</span><span class="p">]</span><span class="w">
+</span><span class="err">----</span><span class="w">
+</span><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">201</span><span class="w"> </span><span class="err">Created</span><span class="w">
+</span><span class="err">Location:</span><span class="w"> </span><span class="err">http://localhost:</span><span class="mi">8080</span><span class="err">/api/events/</span><span class="mi">1</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/hal+json</span><span class="w">
+</span><span class="err">Content-Length:</span><span class="w"> </span><span class="mi">565</span><span class="w">
+
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Spring"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"REST API development with Spring"</span><span class="p">,</span><span class="nl">"beginEnrollmentDateTime"</span><span class="p">:</span><span class="s2">"2022-01-18T14:21:22"</span><span class="p">,</span><span class="nl">"closeEnrollmentDateTime"</span><span class="p">:</span><span class="s2">"2022-01-19T14:21:22"</span><span class="p">,</span><span class="nl">"beginEventDateTime"</span><span class="p">:</span><span class="s2">"2022-01-25T14:21:22"</span><span class="p">,</span><span class="nl">"endEventDateTime"</span><span class="p">:</span><span class="s2">"2022-01-26T14:21:22"</span><span class="p">,</span><span class="nl">"location"</span><span class="p">:</span><span class="s2">"강남역"</span><span class="p">,</span><span class="nl">"basePrice"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="nl">"maxPrice"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nl">"limitIfEnrollment"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="nl">"offline"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"free"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"eventStatus"</span><span class="p">:</span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="nl">"_links"</span><span class="p">:{</span><span class="nl">"self"</span><span class="p">:{</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost:8080/api/events/1"</span><span class="p">},</span><span class="nl">"query-events"</span><span class="p">:{</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost:8080/api/events"</span><span class="p">},</span><span class="nl">"update-event"</span><span class="p">:{</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost:8080/api/events/1"</span><span class="p">}}}</span><span class="w">
+</span><span class="err">----</span><span class="w">
+</span></code></pre></div></div>
+<p><br /></p>
+
+<p>따라서, 아래와 같이 빈하나를 만들어주고 EventControllerTests.java 에 빈을 등록해줌</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.test.demoinflearnrestapi.common</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.autoconfigure.restdocs.RestDocsMockMvcConfigurationCustomizer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.TestConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">restdocs</span><span class="o">.</span><span class="na">operation</span><span class="o">.</span><span class="na">preprocess</span><span class="o">.</span><span class="na">Preprocessors</span><span class="o">.</span><span class="na">prettyPrint</span><span class="o">;</span>
+
+<span class="nd">@TestConfiguration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestDocsConfiguration</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RestDocsMockMvcConfigurationCustomizer</span> <span class="nf">restDocsMockMvcConfigurationCustomizer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">configurer</span> <span class="o">-&gt;</span> <span class="n">configurer</span><span class="o">.</span><span class="na">operationPreprocessors</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">withRequestDefaults</span><span class="o">(</span><span class="n">prettyPrint</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">withResponseDefaults</span><span class="o">(</span><span class="n">prettyPrint</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>EventControllerTests.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.test.demoinflearnrestapi.events</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">restdocs</span><span class="o">.</span><span class="na">mockmvc</span><span class="o">.</span><span class="na">MockMvcRestDocumentation</span><span class="o">.</span><span class="na">document</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="nc">SpringRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringBootTest</span>
+<span class="nd">@AutoConfigureMockMvc</span>
+<span class="nd">@AutoConfigureRestDocs</span>
+<span class="nd">@Import</span><span class="o">(</span><span class="nc">RestDocsConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventControllerTests</span> <span class="o">{</span>
+
+		<span class="o">...</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>그럼 포맷팅되어 이쁘게 나옴</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="err">source</span><span class="p">,</span><span class="err">http</span><span class="p">,</span><span class="err">options=</span><span class="s2">"nowrap"</span><span class="p">]</span><span class="w">
+</span><span class="err">----</span><span class="w">
+</span><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">201</span><span class="w"> </span><span class="err">Created</span><span class="w">
+</span><span class="err">Location:</span><span class="w"> </span><span class="err">http://localhost:</span><span class="mi">8080</span><span class="err">/api/events/</span><span class="mi">1</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/hal+json</span><span class="w">
+</span><span class="err">Content-Length:</span><span class="w"> </span><span class="mi">733</span><span class="w">
+
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Spring"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"REST API development with Spring"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"beginEnrollmentDateTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-18T14:21:22"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"closeEnrollmentDateTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-19T14:21:22"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"beginEventDateTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-25T14:21:22"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"endEventDateTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-26T14:21:22"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"강남역"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"basePrice"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxPrice"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"limitIfEnrollment"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"offline"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"free"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"eventStatus"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"_links"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"self"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/events/1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"query-events"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/events"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"update-event"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/events/1"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="err">----</span><span class="w">
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<p>스프링 REST Docs 링크 문서화, 요청/응답 헤더,필드 문서화</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">post</span><span class="o">(</span><span class="s">"/api/events/"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">event</span><span class="o">)))</span>
+        <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">print</span><span class="o">())</span> <span class="c1">// 어떤 요청과 응답을 받았는지 알 수 있음</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isCreated</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"id"</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">header</span><span class="o">().</span><span class="na">exists</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">LOCATION</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">header</span><span class="o">().</span><span class="na">string</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">,</span> <span class="nc">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON_VALUE</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"id"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="nc">Matchers</span><span class="o">.</span><span class="na">not</span><span class="o">(</span><span class="mi">100</span><span class="o">)))</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"free"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="kc">false</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"offline"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="kc">true</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"eventStatus"</span><span class="o">).</span><span class="na">value</span><span class="o">(</span><span class="nc">Matchers</span><span class="o">.</span><span class="na">not</span><span class="o">(</span><span class="nc">EventStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">)))</span>
+        <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">document</span><span class="o">(</span><span class="s">"create-event"</span><span class="o">,</span>
+                <span class="n">links</span><span class="o">(</span>
+                        <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"self"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to self"</span><span class="o">),</span>
+                        <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"query-events"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to query events"</span><span class="o">),</span>
+                        <span class="n">linkWithRel</span><span class="o">(</span><span class="s">"update-event"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to update an existing"</span><span class="o">)</span>
+                <span class="o">),</span>
+                <span class="n">requestHeaders</span><span class="o">(</span>
+                        <span class="n">headerWithName</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">ACCEPT</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"accept header"</span><span class="o">),</span>
+                        <span class="n">headerWithName</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"content type"</span><span class="o">)</span>
+                <span class="o">),</span>
+                <span class="n">requestFields</span><span class="o">(</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"name"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"Name of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"description"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"description of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"beginEnrollmentDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of begin of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"closeEnrollmentDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of close of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"beginEventDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of begin of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"endEventDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of end of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"location"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"location of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"basePrice"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"base price of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"maxPrice"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"max price of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"limitIfEnrollment"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"limit of enrollment"</span><span class="o">)</span>
+                <span class="o">),</span>
+                <span class="n">responseHeaders</span><span class="o">(</span>
+                        <span class="n">headerWithName</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">LOCATION</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"location header"</span><span class="o">),</span>
+                        <span class="n">headerWithName</span><span class="o">(</span><span class="nc">HttpHeaders</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"content type"</span><span class="o">)</span>
+                <span class="o">),</span>
+				<span class="c1">//relaxedResponseFields(</span>
+                <span class="n">responseFields</span><span class="o">(</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"id"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"identifier of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"name"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"Name of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"description"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"description of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"beginEnrollmentDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of begin of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"closeEnrollmentDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of close of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"beginEventDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of begin of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"endEventDateTime"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"date time of end of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"location"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"location of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"basePrice"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"base price of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"maxPrice"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"max price of new event"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"limitIfEnrollment"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"limit of enrollment"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"free"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"it tells is this event is free or not"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"offline"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"it tells is this offline is free or not"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"eventStatus"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"event status"</span><span class="o">),</span>
+						<span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"_links.self.href"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to self"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"_links.query-events.href"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to query events"</span><span class="o">),</span>
+                        <span class="n">fieldWithPath</span><span class="o">(</span><span class="s">"_links.update-event.href"</span><span class="o">).</span><span class="na">description</span><span class="o">(</span><span class="s">"link to update event"</span><span class="o">)</span>
+                <span class="o">)</span>
+        <span class="o">));</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>responseFields 를 쓰면 오류가 발생한다</p>
+
+<p>응답에는 links도 포함된다고 생각하는데 links에 대한 정의가 없기 때문에 오류 발생</p>
+
+<p>responseFields 대신 <em><code class="language-plaintext highlighter-rouge">relaxedResponseFields</code></em> 를 써줄수 있다.</p>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">relaxed</code> prefix(접두어) 를 사용할 때</p>
+
+<ul>
+  <li>장점: 문서 일부분만 테스트 할 수 있다.</li>
+  <li>단점: 정확한 문서를 생성하지 못한다.</li>
+</ul>
+
+<p><br /></p>
+
+<p>응답 필드에 links 에 대한 정보를 다시 써줘야하는 번거로움이 있지만 <code class="language-plaintext highlighter-rouge">relaxed 는 가급적 사용하지 않는 것</code>을 권장함</p>
+
+<p><br /></p>
+
+<p>src&gt;main&gt;asciidoc&gt;index.adoc 생성</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>= REST API Guide
+백기선;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= 개요
+
+[[overview-http-verbs]]
+== HTTP 동사
+
+본 REST API에서 사용하는 HTTP 동사(verbs)는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
+
+|===
+| 동사 | 용례
+
+| `GET`
+| 리소스를 가져올 때 사용
+
+| `POST`
+| 새 리소스를 만들 때 사용
+
+| `PUT`
+| 기존 리소스를 수정할 때 사용
+
+| `PATCH`
+| 기존 리소스의 일부를 수정할 때 사용
+
+| `DELETE`
+| 기존 리소스를 삭제할 때 사용
+|===
+
+[[overview-http-status-codes]]
+== HTTP 상태 코드
+
+본 REST API에서 사용하는 HTTP 상태 코드는 가능한한 표준 HTTP와 REST 규약을 따릅니다.
+
+|===
+| 상태 코드 | 용례
+
+| `200 OK`
+| 요청을 성공적으로 처리함
+
+| `201 Created`
+| 새 리소스를 성공적으로 생성함. 응답의 `Location` 헤더에 해당 리소스의 URI가 담겨있다.
+
+| `204 No Content`
+| 기존 리소스를 성공적으로 수정함.
+
+| `400 Bad Request`
+| 잘못된 요청을 보낸 경우. 응답 본문에 더 오류에 대한 정보가 담겨있다.
+
+| `404 Not Found`
+| 요청한 리소스가 없음.
+|===
+
+[[overview-errors]]
+== 오류
+
+에러 응답이 발생했을 때 (상태 코드 &gt;= 400), 본문에 해당 문제를 기술한 JSON 객체가 담겨있다. 에러 객체는 다음의 구조를 따른다.
+
+include::{snippets}/errors/response-fields.adoc[]
+
+예를 들어, 잘못된 요청으로 이벤트를 만들려고 했을 때 다음과 같은 `400 Bad Request` 응답을 받는다.
+
+include::{snippets}/errors/http-response.adoc[]
+
+[[overview-hypermedia]]
+== 하이퍼미디어
+
+본 REST API는 하이퍼미디어와 사용하며 응답에 담겨있는 리소스는 다른 리소스에 대한 링크를 가지고 있다.
+응답은 http://stateless.co/hal_specification.html[Hypertext Application from resource to resource. Language (HAL)] 형식을 따른다.
+링크는 `_links`라는 키로 제공한다. 본 API의 사용자(클라이언트)는 URI를 직접 생성하지 않아야 하며, 리소스에서 제공하는 링크를 사용해야 한다.
+
+[[resources]]
+= 리소스
+
+[[resources-index]]
+== 인덱스
+
+인덱스는 서비스 진입점을 제공한다.
+
+[[resources-index-access]]
+=== 인덱스 조회
+
+`GET` 요청을 사용하여 인덱스에 접근할 수 있다.
+
+operation::index[snippets='response-body,http-response,links']
+
+[[resources-events]]
+== 이벤트
+
+이벤트 리소스는 이벤트를 만들거나 조회할 때 사용한다.
+
+[[resources-events-list]]
+=== 이벤트 목록 조회
+
+`GET` 요청을 사용하여 서비스의 모든 이벤트를 조회할 수 있다.
+
+operation::get-events[snippets='response-fields,curl-request,http-response,links']
+
+[[resources-events-create]]
+=== 이벤트 생성
+
+`POST` 요청을 사용해서 새 이벤트를 만들 수 있다.
+
+operation::create-event[snippets='request-fields,curl-request,http-request,request-headers,http-response,response-headers,response-fields,links']
+
+[[resources-events-get]]
+=== 이벤트 조회
+
+`Get` 요청을 사용해서 기존 이벤트 하나를 조회할 수 있다.
+
+operation::get-event[snippets='request-fields,curl-request,http-response,links']
+
+[[resources-events-update]]
+=== 이벤트 수정
+
+`PUT` 요청을 사용해서 기존 이벤트를 수정할 수 있다.
+
+operation::update-event[snippets='request-fields,curl-request,http-response,links']
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>EventController.java</p>
+
+<p>profile 관련 코드 추가 (테스트 코드에도 추가해주기)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">eventResource</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">Link</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"/docs/index.html#resources-events-create"</span><span class="o">).</span><span class="na">withRel</span><span class="o">(</span><span class="s">"profile"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<p>maven&gt;Lifecycle&gt;package 실행하면 target/classes/static/docs 에 index.html 파일이 생성된다.</p>
+
+<p><br /></p>
+
+<p>http://localhost:8080/docs/index.html 로 접속하면 REST 문서 작성 내용을 볼 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a><span class="sep">, </span>
+    
+      <a href="/tags/#restapi" class="page__taxonomy-item" rel="tag">RestAPI</a><span class="sep">, </span>
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-25T00:00:00+09:00">January 25, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/springboot/Java-REST-API(4)/" class="pagination--pager" title="REST API with SpringBoot(4)
+">이전</a>
+    
+    
+      <a href="/testcode/JUnit5/" class="pagination--pager" title="Java, 테스트 코드 작성 - JUnit 5
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/springboot/Java-REST-API(4)/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>REST API with SpringBoot(4)</a>
+    
+    
+      <a href="/springboot/JWTImpl/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>스프링부트, JWT 구현</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,958 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>IP와 TCP - yessm621.dev</title>
+<meta name="description" content="IP">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="IP와 TCP">
+<meta property="og:url" content="http://localhost:4000/http/Internet-Network/">
+
+
+  <meta property="og:description" content="IP">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-06T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/http/Internet-Network/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="IP와 TCP">
+    <meta itemprop="description" content="IP">
+    <meta itemprop="datePublished" content="2022-07-06T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">IP와 TCP
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-06T00:00:00+09:00">July 6, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#ip">IP</a><ul><li><a href="#ip-패킷-정보">IP 패킷 정보</a></li><li><a href="#ip-프로토콜의-한계">IP 프로토콜의 한계</a></li></ul></li><li><a href="#tcp-udp">TCP, UDP</a><ul><li><a href="#tcp">TCP</a></li><li><a href="#tcpip-패킷-정보">TCP/IP 패킷 정보</a></li><li><a href="#tcp-특징">TCP 특징</a></li></ul></li><li><a href="#udp">UDP</a><ul><li><a href="#udp-특징">UDP 특징</a></li></ul></li><li><a href="#dns-domain-name-system">DNS (Domain Name System)</a></li><li><a href="#인터넷-프로토콜-스택의-4계층">인터넷 프로토콜 스택의 4계층</a><ul><li><a href="#예제-채팅-프로그램">[예제] 채팅 프로그램</a></li></ul></li><li><a href="#reference">Reference.</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="ip">IP</h2>
+
+<p>클라이언트와 서버의 통신은 복잡한 <strong>인터넷 망</strong>(중간 <strong>노드</strong>라는 서버들)을 거쳐서 데이터를 전송한다. 먼저 IP에 대해 알아보자.</p>
+
+<blockquote>
+  <p><strong>참고</strong> 노드
+<br />
+여기서의 노드란 네트워크를 중간에서 연결해주는 서버(라우터)를 의미한다.</p>
+
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">IP</code>란 Internet Protocol(인터넷 프로토콜)의 줄임말로 IP 프로토콜이라고도 한다. 복잡한 인터넷 망에서 클라이언트와 서버가 통신하려면 최소한의 <strong>규칙</strong>이 있어야 하는데 그게 IP이다.</p>
+
+<p>클라이언트가 서버에게 지정한 주소로 <strong>메시지를 전달</strong>할 수 있으려면 클라이언트와 서버에 <code class="language-plaintext highlighter-rouge">IP 주소</code>를 부여해야 한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615227-deb5e9c4-19fb-4d79-841e-0c7caed7c3eb.png" alt="1" /></p>
+
+<p>IP는 지정한 <strong>IP 주소</strong>(IP Address)에 데이터를 전달하고 <strong>패킷</strong>(Packet)이라는 통신 단위로 데이터를 전달한다.</p>
+
+<blockquote>
+  <p><strong>참고</strong> 패킷
+<br />
+네트워크에서 데이터를 주고 받을 때 데이터를 일정 묶음으로 나눠놓은 것이다.
+데이터는 작은 패킷으로 나뉘어 네트워크로 전송된다. 이 패킷에는 헤어가 있어서 헤더에 발신자 정보와 수령자 정보 등이 포함된다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+<strong>패킷 교환방식의 장점</strong>
+<br /></p>
+  <ol>
+    <li>네트워크 리소스 점유 시간이 적다.</li>
+    <li>클라이언트에서 서버로 이동하는 경로가 고정되어 있지 않다.
+      <ul>
+        <li>패킷마다 어떤 경로를 통해 전달될지가 결정되어 있지 않기 때문에 경로상에 장애가 발생해도 다른 경로를 통해 전송하게 되므로 안정성이 높다.</li>
+      </ul>
+    </li>
+    <li>나누어진 패킷은 순서(넘버링)가 매겨져 중간에 유실된 패킷에 대한 재요청이 가능하여 전체 내용을 재전송하지 않아도 된다. (syn, ack 신호 교환이 각 패킷에 모두 적용된다)</li>
+  </ol>
+
+  <p><strong>패킷 교환방식의 단점</strong>
+<br />
+모든 패킷에 대한 syn, ack 확인과정이 추가되는 것, 모든 패킷에 헤더가 붙어야 한다는 것에 따른 오버헤드가 발생할 수 있다.</p>
+
+</blockquote>
+
+<h3 id="ip-패킷-정보">IP 패킷 정보</h3>
+
+<p>IP 패킷 정보에는 출발지 IP, 목적지 IP, 전송 데이터, 기타 등이 있다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+요청(클라이언트 → 서버) 패킷과 응답(서버 → 클라이언트) 패킷의 전달 경로는 서로 다를 수 있다.</p>
+
+</blockquote>
+
+<h3 id="ip-프로토콜의-한계">IP 프로토콜의 한계</h3>
+
+<ol>
+  <li>비연결성: 클라이언트는 서버가 어떤 상태인지 모른다. 따라서, 서버가 서비스 <strong>불능 상태</strong>여도 일단 패킷을 전송하고 사라진다.</li>
+  <li>비신뢰성: 패킷을 보내는 중간에 노드(서버)가 꺼지거나 문제가 생기면 패킷이 유실되는데, 클라이언트는 패킷이 사라진지 모른다. 또한, 메시지가 너무 크면 패킷을 끊어서 보내는데 패킷이 순서대로 오지 않을 수 있다. 예) 클라이언트 1:Hello, 2:World → 서버 1:World, 2:Hello</li>
+  <li>프로그램 구분: 같은 IP를 사용하는 서버에서 통신하는 애플리케이션이 2개 이상이면 구분이 불가능하다.  예) 같은 IP에서 음악을 실행하고 게임을 하고 있으면 구분할 수 없다.</li>
+</ol>
+
+<blockquote>
+  <p><strong>참고</strong> IP 패킷의 순서
+<br />
+네트워크 계층 헤더의 프래그먼트 오프셋 등을 이용해 패킷의 순서를 알 수 있다. 수신측은 이 헤더정보를 통해 데이터의 순서나, 추가 데이터가 있는지 등을 파악할 수 있다.</p>
+
+</blockquote>
+
+<p>이러한 IP 프로토콜의 한계를 극복하기 위해 TCP를 사용한다.</p>
+
+<h2 id="tcp-udp">TCP, UDP</h2>
+
+<h3 id="tcp">TCP</h3>
+
+<p>TCP란 Transmission Control Protocol의 줄임말로 전송 제어 프로토콜이라고 한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">TCP</code>는 패킷소실을 방지해주고, 패킷 순서를 보장해준다. 또한, TCP엔 PORT가 있어서 같은 IP에서 다른 애플리케이션을 실행해도 구분할 수 있다.</p>
+
+<h3 id="tcpip-패킷-정보">TCP/IP 패킷 정보</h3>
+
+<ul>
+  <li>IP 내용: 출발지 IP, 목적지 IP, 기타</li>
+  <li>TCP 내용: 출발지 PORT, 목적지 PORT, 전송제어 정보, 순서 정보, 검증 정보</li>
+  <li>TCP = IP + PORT (IP가 한 아파트라면 PORT는 동, 호수이다.)</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615223-4d04118f-0c3f-4506-96e5-d4b86fc049b7.png" alt="1-1" /></p>
+
+<blockquote>
+  <p><strong>참고</strong> PORT
+<br />
+PORT는 클라이언트에서 한번에 둘 이상의 서버와 연결할 때 구분하기 위해 사용한다.
+포트는 0~65535 할당 가능하다. 그 중 0~1023까지는 잘 알려진 포트이므로 사용하지 않는 것이 좋다. 
+예) FTP - 20, 21 / TELNET - 23 / HTTP - 80 / HTTPS - 443</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong> localhost:8080
+<br />
+웹은 기본적으로 80포트를 사용하는 것이 관례이다. 그래서 HTTP 요청이면서 별도의 포트를 지정하지 않을 경우 80번 포트로 접속을 시도한다. 그러나, 사용자가 직접 포트 번호를 지정할 경우 그 포트로 바로 접속을 시도한다. 80에서 8080으로 포워딩하는 구조는 아니다.</p>
+
+</blockquote>
+
+<h3 id="tcp-특징">TCP 특징</h3>
+
+<p>TCP엔 전송제어 정보, 순서 정보, 검증 정보가 있기 때문에 아래의 연결지향, 데이터 전달 보증, 순서 보장이 가능하다.</p>
+
+<ol>
+  <li>연결지향 - <code class="language-plaintext highlighter-rouge">TCP 3way handshake</code>(가상 연결): 서버와 클라이언트가 연결이 되어있는지 확인한다.</li>
+  <li>데이터 전달 보증: 클라이언트에서 데이터를 전달하고 서버가 데이터를 받으면 서버가 데이터를 잘 받았다고 클라이언트에게 응답 메시지를 전달해준다. 따라서, 패킷이 누락 되면 클라이언트가 알 수 있다.</li>
+  <li>순서 보장: 패킷을 보냈는데 순서가 틀리면 다 버리고 다시 보낸다. 예) 패킷 1, 2, 3 을 보냈는데 전송 도착이 1, 3, 2라고 하면 2번째 패킷부터 순서가 틀렸기 때문에 2번부터 다시 받음</li>
+  <li>신뢰할 수 있는 프로토콜</li>
+  <li>현재는 대부분 TCP 사용</li>
+</ol>
+
+<p><strong>TCP 3way handshake</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">TCP 3way handshake</code>는 가상 연결로 물리적 연결이 아닌 <strong>논리적 연결</strong>이다. 클라이언트랑 서버랑 <code class="language-plaintext highlighter-rouge">SYN - ACK</code>을 보내면서 연결이 되어있나보다 생각하는 것이다.</p>
+
+<p>TCP/IP 프로토콜로 연결하는 과정은 다음과 같다. (SYN: 접속 요청, ACK: 요청 수락)</p>
+
+<ol>
+  <li>클라이언트에서 서버로 <code class="language-plaintext highlighter-rouge">SYN</code> 보냄</li>
+  <li>서버에서 클라이언트로 <code class="language-plaintext highlighter-rouge">SYN+ACK</code> 보냄</li>
+  <li>클라이언트에서 서버로 <code class="language-plaintext highlighter-rouge">ACK</code> 보냄</li>
+  <li>연결이 완료되며 클라이언트에서 서버로 데이터 전송</li>
+</ol>
+
+<p>1,2,3: connect 과정이고 이 과정 중 하나라도 실패하면 connection이 연결되지 않는다. 4번에서 데이터를 전송한다고 하였지만 요즘엔 최적화되어 3번 ACK를 전송하면서 데이터도 같이 전송한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615233-64d13c9c-3cbc-4709-99a2-698062259280.png" alt="2" /></p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+TCP/IP 패킷은 크게 헤더 부분과 데이터 부분으로 나눌 수 있다.
+3 way handshake에서 TCP/IP 패킷을 전송한다고 했는데 실제론 헤더 부분을 전송하는 것이다. 이 헤더 부분에 SYN, ACK등을 포함해서 보낼 수 있다. 3단계나 4단계에서 헤더 + 데이터 부분이 함께 전송된다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+데이터 전달이 종료되고 난 후 연결을 해제할 때는 4 way handshake 과정을 거친다.</p>
+
+</blockquote>
+
+<h2 id="udp">UDP</h2>
+
+<p>UDP란 User Datagram Protocol의 줄임말로 사용자 데이터그램 프로토콜이라고 한다.</p>
+
+<p>TCP와 달리 UDP는 패킷 소실 방지, 패킷 순서 보장을 해주는 것은 아니라 크게 도움이 되진 않지만, 그래도 문제를 해결해주는 정보를 가지고 있다. UDP는 TCP와 마찬가지로 PORT가 있다.</p>
+
+<h3 id="udp-특징">UDP 특징</h3>
+
+<p>UDP는 기능이 거의 없다. (연결지향 - TCP 3way handshake X, 데이터 전달 보증 X, 순서 보장 X) 데이터 전달 및 순서가 보장되지 않지만, <strong>단순하고 빠르</strong>다. IP와 거의 같고 PORT, 체크섬 정도만 추가된다.</p>
+
+<p>최근 HTTP 3스펙이 나오면서 TCP 프로토콜의 3 Way Handshake 과정의 번거로움을 없애고자 UDP를 사용하면서 UDP가 떠오르고 있다.</p>
+
+<blockquote>
+  <p><strong>참고</strong> 체크섬
+<br />
+이 메세지가 맞는지 검증하는 용도, 네트워크를 통해 전달된 값이 변경되었는지를 검사하는 값으로 무결성을 제공함</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong> TCP와 UDP
+<br />
+애플리케이션으로 통신을 구현할 때 TCP와 UDP 중 선택해서 사용할 수 있다. 다만, 웹 개발은 브라우저라고 하는 애플리케이션 위에서 동작하는 애플리케이션을 만드는 일이다. 따라서, 통신 프로토콜을 선택하거나 하는 자유도가 많이 떨어진다.
+서버와 브라우저가 서로 통신하며 HTTP 최신 규격을 사용할지 여부를 결정하게 되고, 이 규격에 따라 TCP만 사용할지 UDP도 사용할지가 결정된다.
+HTTP 최신규격인 HTTP/3 는 UDP를 이용한 데이터 전송을 주력으로 통신속도 향상을 꾀하는 것이 주된 목적이고 구글이 주도적으로 표준을 정립하고 있다.</p>
+
+</blockquote>
+
+<h2 id="dns-domain-name-system">DNS (Domain Name System)</h2>
+
+<p>IP는 기억하기 어렵고 변경될 수 있다. 따라서, IP주소를 <strong>도메인</strong> 명으로 변환하여 사용한다. 이때 <code class="language-plaintext highlighter-rouge">DNS</code>란 전화번호부처럼 도메인 명과 IP를 매칭하여 등록해 놓은 것을 의미한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615235-02a3b805-c01c-4b96-a4a4-9b4b1f9f1c5f.png" alt="3" /></p>
+
+<h2 id="인터넷-프로토콜-스택의-4계층">인터넷 프로토콜 스택의 4계층</h2>
+
+<p>아래 그림은 브라우저의 인터넷을 사용할 때 이용되는 프로토콜 스택의 4계층이다. 브라우저라는 응용 애플리케이션이 실제 네트워킹을 하기 위한 구조라고 이해하자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615242-f2d39b6a-ddc4-45ea-ae4f-610bce7ed8dd.png" alt="4" /></p>
+
+<h3 id="예제-채팅-프로그램">[예제] 채팅 프로그램</h3>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/209615244-878f01d1-cf42-427b-a359-4f4d6cb013f0.png" alt="5" /></p>
+
+<p>Hello, world! 라는 메시지를 전송하고 싶다면,</p>
+
+<ol>
+  <li>Hello, world! 메시지 생성</li>
+  <li>SOCKET 라이브러리를 사용해서 OS 계층에 메시지를 넘긴다.</li>
+  <li>OS 계층의 TCP가 메시지에 TCP의 정보 씌운다.</li>
+  <li>TCP 정보에 IP정보를 씌운다.
+    <ul>
+      <li>IP 패킷 안에 TCP 데이터 포함하고 있고 그 안에 메시지가 있다.</li>
+    </ul>
+  </li>
+  <li>네트워크 인터페이스를 통해 LAN 카드로 IP 패킷을 서버에 보낸다. (Ethernet frame이 포함되서 나간다.)</li>
+</ol>
+
+<blockquote>
+  <p><strong>참고</strong> 이더넷 프레임 (Ethernet frame)
+<br />
+랜카드에 등록된 맥주소 같은 물리적인 정보들이 포함되어 있다.</p>
+
+</blockquote>
+
+<h2 id="reference">Reference.</h2>
+
+<p><a href="https://www.inflearn.com/course/http-웹-네트워크">모든 개발자를 위한 HTTP 웹 기본 지식</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#http" class="page__taxonomy-item" rel="tag">Http</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#http" class="page__taxonomy-item" rel="tag">Http</a><span class="sep">, </span>
+    
+      <a href="/tags/#web" class="page__taxonomy-item" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-06T00:00:00+09:00">July 6, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/java/Exception/" class="pagination--pager" title="자바: 예외처리
+">이전</a>
+    
+    
+      <a href="/http/URI/" class="pagination--pager" title="URI
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="#" class="pagination_prev_next--pager disabled">첫 번째 글입니다</a>
+    
+    
+      <a href="/http/URI/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>URI</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

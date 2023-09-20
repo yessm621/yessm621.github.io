@@ -1,0 +1,836 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>영속성 전이(Cascade), 고아 객체 - yessm621.dev</title>
+<meta name="description" content="영속성 전이란?">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="영속성 전이(Cascade), 고아 객체">
+<meta property="og:url" content="http://localhost:4000/jpa/Cascade/">
+
+
+  <meta property="og:description" content="영속성 전이란?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-01-30T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/Cascade/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="영속성 전이(Cascade), 고아 객체">
+    <meta itemprop="description" content="영속성 전이란?">
+    <meta itemprop="datePublished" content="2023-01-30T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">영속성 전이(Cascade), 고아 객체
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#영속성-전이란">영속성 전이란?</a><ul><li><a href="#사용하는-이유">사용하는 이유?</a></li><li><a href="#cascade-옵션">Cascade 옵션</a></li><li><a href="#어디에-써야-할까">어디에 써야 할까?</a></li><li><a href="#언제-써야-할까">언제 써야 할까?</a></li></ul></li><li><a href="#고아-객체-orphanremoval">고아 객체 (orphanRemoval)</a></li><li><a href="#orphanremovaltrue와-cascaderemove">orphanRemoval=true와 Cascade.REMOVE</a><ul><li><a href="#차이점">차이점</a></li><li><a href="#함께-사용하면">함께 사용하면?</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="영속성-전이란">영속성 전이란?</h2>
+
+<p>엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속 상태로 만들고 싶으면 영속성 전이 기능을 사용하면 된다. 영속성 전이를 <code class="language-plaintext highlighter-rouge">Cascade</code>라고도 한다. Cascade 옵션은 엔티티의 상태 변화를 <strong>전파</strong>시키는 옵션으로 만약 엔티티에 상태 변화가 있으면 연관되어 있는 엔티티에도 <strong>상태 변화를 전이</strong>시키는 옵션이다.</p>
+
+<h3 id="사용하는-이유">사용하는 이유?</h3>
+
+<p>Cascade를 사용하는 이유를 설명하기 위해 다음과 같은 예를 들겠다. OrderItem과 Order는 다대일 양방향 연관관계이다.</p>
+
+<p>Cascade를 사용하지 않으면 OrderItem을 저장할 때 모든 엔티티를 각각 persist() 해주어야 한다. 각각 엔티티마다 적용해야 하므로 번거롭고 귀찮다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//@OneToMany(mappedBy = "order")</span>
+<span class="c1">//private List&lt;OrderItem&gt; orderItems = new ArrayList&lt;&gt;();</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">orderItemA</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">orderItemB</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">orderItemC</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">order</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Cascade를 사용하면 아래 코드처럼 간단해진다. order만 persist() 해주면 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)</span>
+<span class="c1">//private List&lt;OrderItem&gt; orderItems = new ArrayList&lt;&gt;();</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">order</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>영속성 전이는 연관관계를 매핑하는 것과는 아무 관련이 없다. 단지, 엔티티를 영속화할 때 연관된 엔티티도 같이 영속화하는 편리함을 제공할 뿐이다.</p>
+
+<h3 id="cascade-옵션">Cascade 옵션</h3>
+
+<p>Cascade엔 6가지 옵션이 있다.</p>
+
+<ul>
+  <li>ALL: 모두 적용</li>
+  <li>PERSIST: 영속</li>
+  <li>REMOVE: 삭제</li>
+  <li>MERGE: 병합</li>
+  <li>REFERESH</li>
+  <li>DETACH</li>
+</ul>
+
+<p>주로 사용하는 옵션은 <code class="language-plaintext highlighter-rouge">ALL</code>과 <code class="language-plaintext highlighter-rouge">PERSIST</code>이다. All의 경우 <strong>모든 영속성이 전이</strong>되는 경우이고 Persist의 경우 <strong>엔티티가 저장</strong>될 때만 연쇄적으로 저장되게 하는 옵션이다.</p>
+
+<p>참고로 CascadeType.PERSIST, CascadeType.REMOVE는 em.persist(), em.remove()를 실행할 때 바로 전이가 발생하지 않고 플러시를 호출할 때 전이가 발생한다.</p>
+
+<h3 id="어디에-써야-할까">어디에 써야 할까?</h3>
+
+<p>일대다 연관관계 기준으로 연관관계의 주인은 다 쪽에 있다. 그 <strong>반대쪽 엔티티</strong>에 사용하면 된다.</p>
+
+<h3 id="언제-써야-할까">언제 써야 할까?</h3>
+
+<ol>
+  <li>Cascade 되는 엔티티와 Cascade를 설정하는 엔티티의 <strong>라이프사이클이 동일하거나 비슷</strong>해야 한다.</li>
+  <li>Cascade 되는 엔티티가 Cascade를 설정하는 <strong>엔티티에서만 사용</strong>되어야 한다.</li>
+</ol>
+
+<p>예를 들어, Post와 Image가 있다고 가정하자. Image는 Post에서만 사용되고 Post가 삭제되면 Image도 삭제되어야 한다. 결론적으로, Image와 Post가 양방향 연관관계일 경우 Post 엔티티에 정의된 List<Image> images에 Cascade.ALL 옵션을 줄 수 있다.</Image></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Post</span> <span class="o">{</span>
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"post"</span><span class="o">,</span> <span class="n">cascade</span> <span class="o">=</span> <span class="nc">Cascade</span><span class="o">.</span><span class="na">ALL</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Image</span><span class="o">&gt;</span> <span class="n">images</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Image</span> <span class="o">{</span>
+    <span class="nd">@ManyToOne</span><span class="o">(</span><span class="n">fetch</span> <span class="o">=</span> <span class="nc">FetchType</span><span class="o">.</span><span class="na">LAZY</span><span class="o">)</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"post_id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Post</span> <span class="n">post</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>cascade를 사용할 수 없는 경우도 살펴보자. 예를 들어 Post, Comment, Member가 있다고 가정하자.</p>
+
+<ul>
+  <li>Post와 Comment: 일대다 연관관계, Cascade 적용</li>
+  <li>Member와 Comment: 일대다 연관관계</li>
+</ul>
+
+<p>만약, 게시글이 삭제되면 해당 게시물에 달린 댓글도 삭제된다. 이제 사용자는 더 이상 자신이 작성한 댓글을 확인할 수 없다. 설계 상 올바르게 구현한 것이면 상관없지만 그렇지 않은 경우엔 큰 문제가 생긴다.</p>
+
+<p>결론은 모든 @OneToMany에 cascade 옵션을 걸어 버리면 안된다.</p>
+
+<h2 id="고아-객체-orphanremoval">고아 객체 (orphanRemoval)</h2>
+
+<p>cascade와 비슷한 orphanRemoval에 대해 알아보겠다.</p>
+
+<p>부모와 연관관계가 끊어진 엔티티를 <code class="language-plaintext highlighter-rouge">고아객체</code>라고 하며 이러한 고아객체를 자동으로 삭제해주는 옵션을 활성화 시키는 것이 <code class="language-plaintext highlighter-rouge">orphanRemoval = true</code> 옵션을 @OneToMany에 주는 것이다.</p>
+
+<p>orphanRemoval=true 옵션은 라이프 사이클이 동일하고 해당 엔티티에서만 쓰이는 엔티티일 경우 사용해주면 된다. (Cascade와 동일한 맥락)</p>
+
+<h2 id="orphanremovaltrue와-cascaderemove"><strong>orphanRemoval=true와 Cascade.REMOVE</strong></h2>
+
+<h3 id="차이점">차이점</h3>
+
+<p>Cascade.REMOVE의 경우 일(Post)에 해당하는 엔티티를 em.remove()를 통해 직접 삭제할 때 다(Image)에 해당하는 엔티티들이 삭제되는 것이다.</p>
+
+<p>orphanRemoval=true는 위의 경우는 물론이고 엔티티의 리스트에서 요소를 삭제하기만 해도 해당 엔티티가 delete되는 기능까지 포함하고 있다고 이해하면 된다.</p>
+
+<h3 id="함께-사용하면">함께 사용하면?</h3>
+
+<p>orphanRemoval=true와 Cascade.ALL을 함께 사용하면 다(Image)에 해당하는 리스트 형태의 엔티티는 일(Post)에 해당하는 엔티티와 라이프 사이클이 완전히 똑같아진다. 또한, 다른 엔티티에서는 사용되지 않는 엔티티일 것이다. 즉, 부모 엔티티를 통해 자식의 생명주기를 관리할 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/jpa/JPA-DirtyChecking-Merge/" class="pagination--pager" title="변경 감지와 병합
+">이전</a>
+    
+    
+      <a href="/java/Java-Optional/" class="pagination--pager" title="Java, Optional
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/jpa/JPA-DirtyChecking-Merge/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>변경 감지와 병합</a>
+    
+    
+      <a href="/jpa/DetachedEndity/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>준영속</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,862 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>REST API with SpringBoot(1) - yessm621.dev</title>
+<meta name="description" content="REST">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="REST API with SpringBoot(1)">
+<meta property="og:url" content="http://localhost:4000/springboot/Java-REST-API(1)/">
+
+
+  <meta property="og:description" content="REST">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-01-16T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/springboot/Java-REST-API(1)/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REST API with SpringBoot(1)">
+    <meta itemprop="description" content="REST">
+    <meta itemprop="datePublished" content="2022-01-16T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">REST API with SpringBoot(1)
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-16T00:00:00+09:00">January 16, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#rest">REST</a></li><li><a href="#rest의-조건">REST의 조건</a></li><li><a href="#uniform-interface-조건">Uniform Interface 조건</a><ul><li><a href="#1-self-descriptive-messages">1. self-descriptive messages</a></li><li><a href="#2-hateoas">2. HATEOAS</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="rest">REST</h2>
+
+<ul>
+  <li>인터넷 상의 시스템 간의 상호 운용성을 제공하는 방법 중 하나</li>
+  <li>시스템 제 각각의 독립적인 진화를 보장하기 위한 방법</li>
+</ul>
+
+<h2 id="rest의-조건">REST의 조건</h2>
+
+<ul>
+  <li>Client-Server</li>
+  <li>Stateless</li>
+  <li>Cache</li>
+  <li>Uniform Interface</li>
+  <li>Layered System</li>
+  <li>Code-on-Demand(optional)</li>
+</ul>
+
+<p>대개, REST API가 아닌 이유는 Uniform Interface 조건을 만족하지 못하기 때문이다.</p>
+
+<h2 id="uniform-interface-조건">Uniform Interface 조건</h2>
+
+<ol>
+  <li>Identification of resources
+    <ul>
+      <li>리소스가 URI로 식별이 되는지</li>
+    </ul>
+  </li>
+  <li>Manipulation of resources through representations
+    <ul>
+      <li>
+        <p>서버가 클라이언트에서 이해할 수 있는 형식으로 응답하는지</p>
+
+        <p>→ json형식으로 정보를 표현해서 응답하는지</p>
+      </li>
+    </ul>
+  </li>
+  <li>Self-descriptive messages</li>
+  <li>Hypermedia as the engine of application state(HATEOAS)</li>
+</ol>
+
+<p>대부분 3, 4번을 만족하지 못해 REST API가 아니다.</p>
+
+<h3 id="1-self-descriptive-messages">1. self-descriptive messages</h3>
+
+<ul>
+  <li>메시지 스스로 메시지에 대한 설명이 가능해야 한다.</li>
+  <li>서버가 변해서 메시지가 변해도 클라이언트는 그 메시지를 보고 해석이 가능하다.</li>
+  <li>확장 가능한 커뮤니케이션</li>
+</ul>
+
+<p>방법1 - Media Type을 정의하는 방법 (Content-type으로 지정)</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/ecsimsw.subways+json</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - link header에 명세를 확인할 수 있는 링크를 넣음</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:</span><span class="w"> </span><span class="err">&lt;https://ecsimsw.com/docs/subway&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"profile"</span><span class="w">
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>→ 브라우저들이 아직 스팩을 지원하지 않는다. 따라서, 대안으로 HAL의 링크 데이터에 profile 링크 추가</p>
+
+<h3 id="2-hateoas">2. HATEOAS</h3>
+
+<ul>
+  <li>하이퍼미디어(링크)를 통해 애플리케이션 상태 변화가 가능해야 한다.</li>
+  <li>링크 정보를 동적으로 바꿀 수 있다.</li>
+</ul>
+
+<p>방법1 - 데이터에 링크 제공 (HAL)</p>
+
+<p>HAL: Hypertext Application Language 으로 json,xml코드 내의 외부 리소스에 대한 링크를 추가하기 위한 특별한 데이터 타입</p>
+
+<ol>
+  <li>application/hal+json</li>
+  <li>application/hal+xml</li>
+</ol>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">리소스</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"게시글 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HAL JSON을 이용한 예시 JSON"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">HAL</span><span class="w"> </span><span class="err">JSON의</span><span class="w"> </span><span class="err">링크</span><span class="w"> </span><span class="err">필드</span><span class="w">
+    </span><span class="nl">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1000"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">현재</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/docs#query-article"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">해당</span><span class="w"> </span><span class="err">api의</span><span class="w"> </span><span class="err">문서</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/1001"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article</span><span class="w"> </span><span class="err">의</span><span class="w"> </span><span class="err">다음</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080/api/article/999"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">article의</span><span class="w"> </span><span class="err">이전</span><span class="w"> </span><span class="err">api</span><span class="w"> </span><span class="err">주소</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>방법2 - 링크 헤더나 Location을 제공</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HTTP/</span><span class="mf">1.1</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="err">OK</span><span class="w">
+</span><span class="err">Content-Type:</span><span class="w"> </span><span class="err">application/json</span><span class="w">
+</span><span class="err">Link:&lt;/subways/</span><span class="mi">1</span><span class="err">/times&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"times"</span><span class="err">,</span><span class="w">
+     </span><span class="err">&lt;/subways/</span><span class="mi">1</span><span class="err">/detail&gt;;</span><span class="w"> </span><span class="err">rel=</span><span class="s2">"detail"</span><span class="w">
+
+</span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"잠실역"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a><span class="sep">, </span>
+    
+      <a href="/tags/#restapi" class="page__taxonomy-item" rel="tag">RestAPI</a><span class="sep">, </span>
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-16T00:00:00+09:00">January 16, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/git/GitCommand/" class="pagination--pager" title="Git 자주쓰는 명령어
+">이전</a>
+    
+    
+      <a href="/springboot/JAVA-REST-API(2)/" class="pagination--pager" title="REST API with SpringBoot(2)
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/springboot/SpringBootSettings/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>스프링부트 Settings</a>
+    
+    
+      <a href="/springboot/JAVA-REST-API(2)/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>REST API with SpringBoot(2)</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

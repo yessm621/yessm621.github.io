@@ -1,0 +1,937 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>스프링 HATEOAS - yessm621.dev</title>
+<meta name="description" content="HATEOAS란?">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="스프링 HATEOAS">
+<meta property="og:url" content="http://localhost:4000/springboot/Java-HATEOAS/">
+
+
+  <meta property="og:description" content="HATEOAS란?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-01-22T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/springboot/Java-HATEOAS/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="스프링 HATEOAS">
+    <meta itemprop="description" content="HATEOAS란?">
+    <meta itemprop="datePublished" content="2022-01-22T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">스프링 HATEOAS
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-22T00:00:00+09:00">January 22, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#hateoas란">HATEOAS란?</a><ul><li><a href="#테스트-코드">테스트 코드</a></li><li><a href="#eventresource">EventResource</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="hateoas란">HATEOAS란?</h2>
+
+<p>REST가 잘 적용된 API라면 응답에 HATEOAS를 지켜야 한다.</p>
+
+<p>REST API에서 클라이언트에 리소스를 넘겨줄 때 특정 부가적인 리소스의 링크 정보를 넘겨줌</p>
+
+<p>links 요소를 통해 href 값의 형태로 보내주면 자원 상태에 대한 처리를 링크에 있는 URL을 통해 처리할 수 있게 된다.</p>
+
+<p>HATEOAS 링크에 들어가는 정보는 현재 Resource의 관계이자 링크의 레퍼런스 정보인 REL과 하이퍼링크인 HREF 두 정보가 들어간다.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">예시</span><span class="w">
+</span><span class="nl">"_links"</span><span class="p">:{</span><span class="w">
+	</span><span class="nl">"self"</span><span class="p">:{</span><span class="w">
+		</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost/api/events/1"</span><span class="w">
+	</span><span class="p">},</span><span class="w">
+	</span><span class="nl">"query-events"</span><span class="p">:{</span><span class="w">
+		</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost/api/events"</span><span class="w">
+	</span><span class="p">},</span><span class="w">
+	</span><span class="nl">"update-event"</span><span class="p">:{</span><span class="w">
+		</span><span class="nl">"href"</span><span class="p">:</span><span class="s2">"http://localhost/api/events/1"</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<ol>
+  <li>링크를 만드는 기능
+    <ul>
+      <li>문자열을 가지고 만들기</li>
+      <li>컨트롤러와 메소드로 만들기</li>
+    </ul>
+  </li>
+  <li>리소스를 만드는 기능
+    <ul>
+      <li>리소스: 데이터(응답본문) + 링크</li>
+    </ul>
+  </li>
+  <li>링크 찾아주는 기능
+    <ul>
+      <li>traverson</li>
+      <li>LinkDiscoverers</li>
+    </ul>
+  </li>
+  <li>링크
+    <ul>
+      <li>HREF</li>
+      <li>REL(relation, 관계)
+        <ul>
+          <li>self</li>
+          <li>profile</li>
+          <li>update-event</li>
+          <li>query-events</li>
+          <li>…</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>참고)</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ResourceSupport</code> is now <code class="language-plaintext highlighter-rouge">RepresentationModel</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Resource</code> is now <code class="language-plaintext highlighter-rouge">EntityModel</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Resources</code> is now <code class="language-plaintext highlighter-rouge">CollectionModel</code></li>
+  <li><code class="language-plaintext highlighter-rouge">PagedResources</code> is now <code class="language-plaintext highlighter-rouge">PagedModel</code></li>
+</ul>
+
+<h3 id="테스트-코드">테스트 코드</h3>
+
+<p>링크 정보를 제공하는 테스트 코드를 추가</p>
+
+<ul>
+  <li>self: 리소스에 대한 링크</li>
+  <li>query-events: 이벤트 목록에 대한 링크</li>
+  <li>update-event: 이벤트 수정에 대한 링크</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"정상적으로 이벤트를 생성하는 테스트"</span><span class="o">)</span>
+<span class="nd">@TestDescription</span><span class="o">(</span><span class="s">"정상적으로 이벤트를 생성하는 테스트"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">createEvent</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="nc">EventDto</span> <span class="n">event</span> <span class="o">=</span> <span class="nc">EventDto</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"Spring"</span><span class="o">)</span>
+            <span class="o">...</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="n">mockMvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">post</span><span class="o">(</span><span class="s">"/api/events/"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">contentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="nc">MediaTypes</span><span class="o">.</span><span class="na">HAL_JSON</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">objectMapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">event</span><span class="o">)))</span>
+            <span class="o">.</span><span class="na">andDo</span><span class="o">(</span><span class="n">print</span><span class="o">())</span> <span class="c1">// 어떤 요청과 응답을 받았는지 알 수 있음</span>
+            <span class="o">...</span>
+            <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"_links.self"</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span> <span class="c1">// 3가지의 링크가 응답으로 오길 기다</span>
+            <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"_links.query-events"</span><span class="o">).</span><span class="na">exists</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">"_links.update-event"</span><span class="o">).</span><span class="na">exists</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="eventresource">EventResource</h3>
+
+<p><code class="language-plaintext highlighter-rouge">RepresentationModel</code>를 상속받고 Event 객체를 주입받아 Getter 메서드를 활용하여 제공하는 방법</p>
+
+<p>EventResource.java - 첫번째 방법</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.test.demoinflearnrestapi.events</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.annotation.JsonUnwrapped</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.hateoas.EntityModel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.hateoas.Link</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.hateoas.RepresentationModel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventResource</span> <span class="kd">extends</span> <span class="nc">RepresentationModel</span> <span class="o">{</span>
+
+    <span class="nd">@JsonUnwrapped</span>
+    <span class="kd">private</span> <span class="nc">Event</span> <span class="n">event</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">EventResource</span><span class="o">(</span><span class="nc">Event</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">event</span> <span class="o">=</span> <span class="n">event</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Event</span> <span class="nf">getEvent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">event</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">@JsonUnwrapped</code> 을 사용하는 이유?</p>
+
+<p>응답을 보낼 때 jackson(ObjectMapper)을 사용하여 serialization을 진행</p>
+
+<p>즉, BeanSerializer를 사용하는데 BeanSerializer는 기본적으로 필드명을 사용. 따라서, Test Assertion조건에 맞지않음</p>
+
+<p>응답 내부에 event가 존재하고 event에 정보가 있는 구조</p>
+
+<p>→ @JsonUnwrapped는 property를 serialize/deserialize 과정에서 <strong>평탄화(flattened)</strong>한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 예시 */</span>
+
+<span class="cm">/* @JsonUnwrapped 적용 전 */</span>
+<span class="o">{</span>
+  <span class="s">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+  <span class="s">"name"</span> <span class="o">:</span> <span class="o">{</span>
+    <span class="s">"firstName"</span> <span class="o">:</span> <span class="s">"seungmi"</span><span class="o">,</span>
+    <span class="s">"lastName"</span> <span class="o">:</span> <span class="s">"noh"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="cm">/* @JsonUnwrapped 적용 전 */</span>
+<span class="o">{</span>
+  <span class="s">"id"</span> <span class="o">:</span> <span class="mi">1</span><span class="o">,</span>
+  <span class="s">"firstName"</span> <span class="o">:</span> <span class="s">"seungmi"</span><span class="o">,</span>
+  <span class="s">"lastName"</span> <span class="o">:</span> <span class="s">"noh"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>EventResource.java - 두번째 방법</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventResource</span> <span class="kd">extends</span> <span class="nc">EntityModel</span><span class="o">&lt;</span><span class="nc">Event</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">EventResource</span><span class="o">(</span><span class="nc">Event</span> <span class="n">event</span><span class="o">,</span> <span class="nc">Link</span><span class="o">...</span> <span class="n">links</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">links</span><span class="o">));</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="nc">EventController</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">slash</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">withSelfRel</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>RepresentationModel 하위 클래스에 <code class="language-plaintext highlighter-rouge">EntityModel</code> 라는 클래스가 존재</p>
+
+<p>T에 해당하는 데이터가 content로 매핑 되는데 getContent() 메소드에 @JsonUnwrapped가 붙어있기 때문에 unwrap 된다.</p>
+
+<p>따라서, 위의 코드처럼 두번째 방법을 사용해도 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span> <span class="nf">createEvent</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nd">@Validated</span> <span class="nc">EventDto</span> <span class="n">eventDto</span><span class="o">,</span> <span class="nc">Errors</span> <span class="n">errors</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">errors</span><span class="o">.</span><span class="na">hasErrors</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">errors</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">eventValidator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">eventDto</span><span class="o">,</span> <span class="n">errors</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">errors</span><span class="o">.</span><span class="na">hasErrors</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">errors</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nc">Event</span> <span class="n">event</span> <span class="o">=</span> <span class="n">modelMapper</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">eventDto</span><span class="o">,</span> <span class="nc">Event</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">event</span><span class="o">.</span><span class="na">update</span><span class="o">();</span>
+    <span class="nc">Event</span> <span class="n">newEvent</span> <span class="o">=</span> <span class="n">eventRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+    <span class="nc">WebMvcLinkBuilder</span> <span class="n">selfLinkBuilder</span> <span class="o">=</span> <span class="n">linkTo</span><span class="o">(</span><span class="nc">EventController</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">slash</span><span class="o">(</span><span class="n">newEvent</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="no">URI</span> <span class="n">createdUri</span> <span class="o">=</span> <span class="n">selfLinkBuilder</span><span class="o">.</span><span class="na">toUri</span><span class="o">();</span>
+    <span class="nc">EventResource</span> <span class="n">eventResource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EventResource</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+    <span class="n">eventResource</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">linkTo</span><span class="o">(</span><span class="nc">EventController</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">withRel</span><span class="o">(</span><span class="s">"query-events"</span><span class="o">));</span>
+    <span class="n">eventResource</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">selfLinkBuilder</span><span class="o">.</span><span class="na">withRel</span><span class="o">(</span><span class="s">"update-event"</span><span class="o">));</span>
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">createdUri</span><span class="o">).</span><span class="na">body</span><span class="o">(</span><span class="n">eventResource</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>withRel(): 이 링크가 리소스와 어떤 관계에 있는지 관계를 정의 할 수 있다</p>
+
+<p>withSelRel(): 리소스에 대한 링크를 type-safe한 method로 제공한다</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a><span class="sep">, </span>
+    
+      <a href="/tags/#restapi" class="page__taxonomy-item" rel="tag">RestAPI</a><span class="sep">, </span>
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-01-22T00:00:00+09:00">January 22, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/springboot/Java-REST-API(3)/" class="pagination--pager" title="REST API with SpringBoot(3)
+">이전</a>
+    
+    
+      <a href="/springboot/Java-REST-API(4)/" class="pagination--pager" title="REST API with SpringBoot(4)
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/springboot/Java-REST-API(3)/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>REST API with SpringBoot(3)</a>
+    
+    
+      <a href="/springboot/Java-REST-API(4)/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>REST API with SpringBoot(4)</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1587 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>값 타입 - yessm621.dev</title>
+<meta name="description" content="개요">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="값 타입">
+<meta property="og:url" content="http://localhost:4000/jpa/ValueType/">
+
+
+  <meta property="og:description" content="개요">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-03-22T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/ValueType/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="값 타입">
+    <meta itemprop="description" content="개요">
+    <meta itemprop="datePublished" content="2023-03-22T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">값 타입
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-03-22T00:00:00+09:00">March 22, 2023</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#기본값-타입">기본값 타입</a></li><li><a href="#임베디드-타입복합-값-타입">임베디드 타입(복합 값 타입)</a><ul><li><a href="#임베디드-타입-사용법">임베디드 타입 사용법</a></li><li><a href="#임베디드-타입의-장점">임베디드 타입의 장점</a></li><li><a href="#임베디드-타입과-테이블-매핑">임베디드 타입과 테이블 매핑</a></li><li><a href="#임베디드-타입과-연관관계">임베디드 타입과 연관관계</a></li><li><a href="#attributeoverride-속성-재정의">@AttributeOverride: 속성 재정의</a></li><li><a href="#임베디드-타입과-null">임베디드 타입과 null</a></li></ul></li><li><a href="#값-타입과-불변-객체">값 타입과 불변 객체</a><ul><li><a href="#값-타입-공유-참조">값 타입 공유 참조</a></li><li><a href="#값-타입-복사">값 타입 복사</a></li><li><a href="#불변-객체">불변 객체</a></li></ul></li><li><a href="#값-타입의-비교">값 타입의 비교</a></li><li><a href="#값-타입-컬렉션">값 타입 컬렉션</a><ul><li><a href="#값-타입-컬렉션-사용">값 타입 컬렉션 사용</a></li><li><a href="#값-타입-컬렉션의-제약사항">값 타입 컬렉션의 제약사항</a></li><li><a href="#값-타입-컬렉션-대안">값 타입 컬렉션 대안</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="개요">개요</h2>
+
+<p>JPA의 데이터 타입을 크게 분류하면 <code class="language-plaintext highlighter-rouge">엔티티 타입</code>과 <code class="language-plaintext highlighter-rouge">값 타입</code>이 있다.</p>
+
+<ol>
+  <li>엔티티 타입
+    <ul>
+      <li>@Entity로 정의하는 객체</li>
+      <li>데이터가 변해도 <strong>식별자</strong>를 통해 <strong>추적 가능</strong></li>
+      <li>예) 회원 엔티티의 키나 나이 값을 변경해도 식별자로 인식 가능</li>
+    </ul>
+  </li>
+  <li>값 타입
+    <ul>
+      <li>int, Integer, String 처럼 단순히 값으로 사용하는 <strong>자바 기본 타입이나 객체</strong>를 의미</li>
+      <li>식별자가 없고 숫자나 문자 같은 속성만 있기 때문에 <strong>추적이 불가능</strong></li>
+      <li>예) 숫자 100을 200으로 변경하면 완전히 다른 값으로 대체</li>
+    </ul>
+  </li>
+</ol>
+
+<p>값 타입은 3가지로 나눌 수 있다.</p>
+
+<ol>
+  <li>기본값 타입
+    <ul>
+      <li>자바 기본 타입 (int, double)</li>
+      <li>래퍼 클래스 (Integer, Long)</li>
+      <li>String</li>
+    </ul>
+  </li>
+  <li>임베디드 타입 (embedded type, 복합 값 타입)
+    <ul>
+      <li>커스텀한 타입</li>
+    </ul>
+  </li>
+  <li>컬렉션 값 타입 (collection value type)</li>
+</ol>
+
+<p>값 타입 중 <code class="language-plaintext highlighter-rouge">임베디드 타입</code>과 <code class="language-plaintext highlighter-rouge">값 타입 컬렉션</code> 두 파트가 중요하다. 값 타입에 대해 하나씩 알아보자.</p>
+
+<h2 id="기본값-타입">기본값 타입</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위 코드에서 String, int 가 값 타입이다.</li>
+  <li>Member 엔티티는 id 라는 식별자 값을 가지고 생명주기도 있지만, <strong>값 타입은 식별자 값도 없고 생명주기도 회원 엔티티에 의존</strong>한다. 따라서, 회원 엔티티가 제거되면 name, age 값도 제거된다.</li>
+  <li>값 타입은 공유하면 안된다.
+    <ul>
+      <li>예) 회원 이름 변경 시 다른 회원의 이름도 함께 변경되면 안됨</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>참고</strong> 자바의 기본 타입은 절대 공유X
+<br />
+int, double 같은 기본 타입(primitive type)은 절대 공유하면 안된다. 기본 타입은 항상 값을 복사한다.</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="c1">// 값을 복사</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+
+<span class="c1">// 값이 공유가 되지 않음</span>
+<span class="c1">//a=20, b=10</span>
+</code></pre></div>  </div>
+
+  <p>Integer같은 래퍼 클래스나 String 같은 특수한 클래스는 공유 가능한 객체이지만 변경X</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="c1">// 주소값만 넘어가는 것 (참조값만)</span>
+<span class="nc">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+
+<span class="n">a</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+
+<span class="c1">// 값이 공유됨</span>
+<span class="c1">// a=20, b=20</span>
+</code></pre></div>  </div>
+
+</blockquote>
+
+<h2 id="임베디드-타입복합-값-타입">임베디드 타입(복합 값 타입)</h2>
+
+<p><strong>새로운 값 타입을 직접 정의해서 사용할 수 있는데 JPA에서는 이것을 <code class="language-plaintext highlighter-rouge">임베디드 타입</code>이라 한다.</strong> 중요한 것은 직접 정의한 임베디드 타입도 int, String 처럼 값 타입이라는 것이다.</p>
+
+<p><strong>임베디드 적용 전</strong></p>
+
+<p>아래 코드는 객체지향적이지 않고 응집력만 떨어뜨린다. 이를 근무 기간, 주소 같은 타입이 있다면 코드가 더 명확해질 것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="c1">// 근무 기간</span>
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">DATE</span><span class="o">)</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">startDate</span><span class="o">;</span>
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">DATE</span><span class="o">)</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">endDate</span><span class="o">;</span>
+
+    <span class="c1">// 집 주소</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">street</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>임베디드 적용 후</strong></p>
+
+<p>새로운 값 타입을 정의하여 회원 엔티티가 의미있고 응집력 있게 변했다. 새로 정의한 값 타입들은 재사용할 수 없고 응집도도 아주 높다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="c1">// 근무 기간</span>
+    <span class="nd">@Embedded</span> <span class="nc">Period</span> <span class="n">workPeriod</span><span class="o">;</span>
+
+    <span class="c1">// 집 주소</span>
+    <span class="nd">@Embedded</span> <span class="nc">Address</span> <span class="n">homeAddress</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Period</span> <span class="o">{</span>
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">DATE</span><span class="o">)</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">startDate</span><span class="o">;</span>
+    <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">DATE</span><span class="o">)</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">endDate</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">street</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816851-b5fa8202-86b6-4825-8615-95f2e5a68212.png" alt="1" /></p>
+
+<p>회원 - 컴포지션 관계 UML</p>
+
+<h3 id="임베디드-타입-사용법">임베디드 타입 사용법</h3>
+
+<p>임베디드 타입을 사용하려면 2가지 어노테이션이 필요하다.</p>
+
+<ul>
+  <li><strong>@Embeddable</strong>: 값 타입을 정의하는 곳에 표시</li>
+  <li><strong>@Embedded</strong>: 값 타입을 사용하는 곳에 표시</li>
+</ul>
+
+<p>그리고 임베디드 타입은 <strong>기본 생성자가 필수</strong>이다. 임베디드 타입을 포함한 모든 값 타입은 엔티티의 생명주기에 의존하므로 엔티티와 임베디드 타입의 관계를 UML 다이어그램으로 표현하면 컴포지션 관계가 된다.</p>
+
+<blockquote>
+  <p><strong>참고</strong> 하이버네이트는 임베디드 타입을 컴포넌트라 한다.</p>
+
+</blockquote>
+
+<h3 id="임베디드-타입의-장점">임베디드 타입의 장점</h3>
+
+<ul>
+  <li>재사용성</li>
+  <li>높은 응집도</li>
+  <li>Period.isWork()처럼 해당 값 타입만 사용하는 의미 있는 메소드를 만들 수 있음</li>
+  <li>임베디드 타입을 포함한 모든 값 타입은, 값 타입을 소유한 엔티티에 생명주기를 의존함</li>
+</ul>
+
+<h3 id="임베디드-타입과-테이블-매핑">임베디드 타입과 테이블 매핑</h3>
+
+<p>임베디드 타입은 DB의 테이블에 어떻게 매핑할까? 임베디드 타입은 엔티티의 값일 뿐이다. 임베디드 타입을 사용하기 전과 후에 <strong>매핑하는 테이블은 같다</strong>. 임베디드 타입 덕분에 객체와 테이블을 아주 세밀하게 매핑하는 것이 가능하다. 잘 설계한 ORM 애플리케이션은 매핑한 테이블의 수보다 클래스의 수가 더 많다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816858-c488b2cb-32a6-4513-8d00-7cb73ed27130.png" alt="2" /></p>
+
+<h3 id="임베디드-타입과-연관관계">임베디드 타입과 연관관계</h3>
+
+<p>임베디드 타입은 값 타입을 포함하거나 엔티티를 참조할 수 있다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+엔티티는 공유될 수 있으므로 참조한다고 표현하고, 값 타입은 특정 주인에 소속되고 논리적인 개념상 공유되지 않아 포함된다고 표현했다.</p>
+
+</blockquote>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816859-8599d4f1-11c9-455f-8881-15a8bb67fe94.png" alt="3" /></p>
+
+<p>아래 코드와 같이 embeddable 안에 엔티티를 정의할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">street</span><span class="o">;</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ZIPCODE"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Member</span> <span class="n">member</span><span class="o">;</span> <span class="c1">// 엔티티</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="attributeoverride-속성-재정의">@AttributeOverride: 속성 재정의</h3>
+
+<p>한 엔티티에서 같은 임베디드 타입을 사용하면 컬럼명이 중복된다. 이때 엔티티에 AttributeOverrides, @AttributeOverride를 사용해서 컬럼명 속성을 재정의하면 중복되게 사용할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+    <span class="nd">@Id</span> <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@Embedded</span>
+    <span class="nc">Address</span> <span class="n">homeAddress</span><span class="o">;</span>
+
+    <span class="nd">@Embedded</span>
+    <span class="nd">@AttributeOverrides</span><span class="o">({</span>
+        <span class="nd">@AttributeOverride</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"city"</span><span class="o">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"company_city"</span><span class="o">)),</span>
+        <span class="nd">@AttributeOverride</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"street"</span><span class="o">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"company_street"</span><span class="o">)),</span>
+        <span class="nd">@AttributeOverride</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"zipcode"</span><span class="o">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"company_zipcode"</span><span class="o">))</span>
+    <span class="o">})</span>
+    <span class="nc">Address</span> <span class="n">companyAddress</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="임베디드-타입과-null">임베디드 타입과 null</h3>
+
+<p>임베디드 타입의 값이 null이면 매핑한 컬럼 값은 모두 null이 된다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">member</span><span class="o">.</span><span class="na">setAddress</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>회원 테이블의 주소와 관련된 city, street, zipcode 컬럼 값은 모두 null이 된다.</p>
+
+<h2 id="값-타입과-불변-객체">값 타입과 불변 객체</h2>
+
+<p>값 타입은 복잡한 객체 세상을 조금이라도 단순화하려고 만든 개념이다. 따라서, 값 타입은 단순하고 안전하게 다룰 수 있어야 한다.</p>
+
+<h3 id="값-타입-공유-참조">값 타입 공유 참조</h3>
+
+<p>임베디드 타입 같은 값 타입을 여러 엔티티에서 공유하면 위험하다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816861-95347912-292a-4e44-86de-1d44240808a0.png" alt="4" /></p>
+
+<p>아래코드는 값 타입을 공유 시 발생할 수 있는 문제점을 나타내었다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Address</span> <span class="n">address</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"city"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">);</span>
+
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member2</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member2"</span><span class="o">);</span>
+<span class="n">member2</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">getHomeAddress</span><span class="o">().</span><span class="na">setCity</span><span class="o">(</span><span class="s">"newCity"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>member에 대한 주소값을 변경하려고 했지만 실제론 member2에 있는 주소값까지 변경이 된다. 이런 버그는 찾아내기 매우 힘들다. 이렇듯 뭔가를 수정했는데 예상치 못한 곳에서 문제가 발생하는 것을 부작용(side effect)이라 한다. 부작용을 막으려면 값을 복사해서 사용하면 된다.</p>
+
+<h3 id="값-타입-복사">값 타입 복사</h3>
+
+<p>값 타입의 실제 인스턴스인 값을 공유하는 것은 위험하다. 대신 값(인스턴스)을 복사해서 사용해야 한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816864-1312fc69-42b3-4b0e-8232-3f27a110323e.png" alt="5" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Address</span> <span class="n">address</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"city"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">);</span>
+
+<span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+
+<span class="nc">Address</span> <span class="n">copyAddress</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="n">address</span><span class="o">.</span><span class="na">getCity</span><span class="o">(),</span> <span class="n">address</span><span class="o">.</span><span class="na">getStreet</span><span class="o">(),</span> <span class="n">address</span><span class="o">.</span><span class="na">getZipcode</span><span class="o">());</span>
+
+<span class="nc">Member</span> <span class="n">member2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member2</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member2"</span><span class="o">);</span>
+<span class="n">member2</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="n">copyAddress</span><span class="o">);</span>
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member2</span><span class="o">);</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">getHomeAddress</span><span class="o">().</span><span class="na">setCity</span><span class="o">(</span><span class="s">"newCity"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>항상 값을 복사해서 사용하면 공유 참조로 인해 발생하는 부작용을 피할 수 있다. 문제는 임베디드 타입처럼 <strong>직접 정의한 값 타입은 자바의 기본 타입이 아니라 객체 타입</strong>이다. 따라서, 한계가 발생한다.</p>
+
+<p><strong>기본 타입 값 복사</strong></p>
+
+<p>자바 기본 타입에 값을 대입하면 값을 복사한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="c1">// a = 10, b = 4</span>
+</code></pre></div></div>
+
+<p><strong>객체 타입 참조 복사</strong></p>
+
+<p>객체를 복사할 땐 참조 값을 넘겨주기 때문에 인스턴스가 공유된다. <strong>객체 타입은 참조 값을 직접 대입하는 것을 막을 방법이 없다. 객체의 공유 참조는 피할 수 없다.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Address</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old"</span><span class="o">);</span>
+<span class="nc">Address</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+<span class="n">b</span><span class="o">.</span><span class="na">setCity</span><span class="o">(</span><span class="s">"new"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="불변-객체">불변 객체</h3>
+
+<p>객체 타입을 수정할 수 없게 만들면 <strong>부작용을 원천 차단</strong>할 수 있다. 따라서, <strong>값 타입은 불변 객체(immutable object)로 설계</strong>해야 한다.</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">불변 객체</code>란 생성 시점 이후 절대 값을 변경할 수 없는 객체를 의미</strong>한다. 생성자로만 값을 설정하고 수정자(Setter)를 만들지 않으면 된다. 즉, Setter를 없애거나 Setter를 public에서 private로 만들면 된다. <strong>불변</strong>이라는 작은 제약으로 부작용이라는 큰 재앙을 막을 수 있다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+Integer, String은 자바가 제공하는 대표적인 불변 객체이다.</p>
+
+</blockquote>
+
+<h2 id="값-타입의-비교">값 타입의 비교</h2>
+
+<p>값 타입은 인스턴스가 달라도 그 안에 값이 같으면 같은 것으로 봐야 한다. 따라서 값 타입을 비교할 때는 a.equals(b)를 사용해서 동등성 비교를 해야 한다. 물론 Address의 equals() 메소드를 재정의해야 한다. 값 타입의 equals() 메소드를 재정의할 때는 보통 모든 필드의 값을 비교하도록 구현한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// a==b : true</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+<span class="c1">// a==b : false</span>
+<span class="nc">Address</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"서울시"</span><span class="o">);</span>
+<span class="nc">Address</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"서울시"</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"a == b: "</span> <span class="o">+</span> <span class="o">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">));</span> <span class="c1">// false</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"a equals b: "</span> <span class="o">+</span> <span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">b</span><span class="o">)));</span> <span class="c1">// false</span>
+<span class="c1">// equals의 기본 비교는 == 이기 때문에 false가 나온다</span>
+
+<span class="c1">// equals 를 오버라이드 해서 사용해야 true가 나옴</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="nc">Address</span> <span class="n">address</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Address</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+    <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">city</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">city</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+            <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">street</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">street</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+            <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">zipcode</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">zipcode</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"a equals b: "</span> <span class="o">+</span> <span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">b</span><span class="o">)));</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>참고</strong></p>
+
+  <ul>
+    <li><strong>동일성(identity) 비교:</strong> 인스턴스의 참조값을 비교, == 사용</li>
+    <li><strong>동등성(equivalence) 비교</strong>: 인스턴스의 값을 비교, equals() 사용</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+자바에서 equals()를 재정의하면 hashCode()도 재정의하는 것이 안전하다. 그렇지 않으면 해시를 사용하는 컬렉션(HashSet, HashMap)이 정상 동작하지 않는다. 자바 IDE에는 대부분 equals, hashCode 메소드를 자동으로 생성해주는 기능이 있다.</p>
+
+</blockquote>
+
+<h2 id="값-타입-컬렉션">값 타입 컬렉션</h2>
+
+<p>값 타입을 하나 이상 저장할 때 사용한다. @ElementCollection, @CollectionTable 어노테이션을 사용하면 된다.</p>
+
+<p>데이터베이스는 컬렉션을 같은 테이블에 저장할 수 없기 때문에 컬렉션을 저장하기 위한 별도의 테이블이 필요하다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/226816866-471f6a55-2688-43a5-946d-72522738eba3.png" alt="6" /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="kd">extends</span> <span class="nc">BaseEntity</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+    <span class="nd">@Embedded</span>
+    <span class="kd">private</span> <span class="nc">Address</span> <span class="n">homeAddress</span><span class="o">;</span>
+
+    <span class="nd">@ElementCollection</span>
+    <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FAVORITE_FOOD"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">))</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FOOD_NAME"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">favoriteFoods</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+
+		<span class="c1">// 결론적으로 사용하면 안된다</span>
+    <span class="nd">@ElementCollection</span>
+    <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ADDRESS"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">))</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Address</span><span class="o">&gt;</span> <span class="n">addressHistory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"homeCity"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"치킨"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"족발"</span><span class="o">);</span>
+<span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"피자"</span><span class="o">);</span>
+
+<span class="n">member</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old1"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+<span class="n">member</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old2"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+
+<span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hibernate: 
+    /* insert jpabook.jpashop.domain.Member
+        */ insert 
+        into
+            Member
+            (city, street, zipcode, username, MEMBER_ID) 
+        values
+            (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.addressHistory */ insert 
+        into
+            ADDRESS
+            (MEMBER_ID, city, street, zipcode) 
+        values
+            (?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.addressHistory */ insert 
+        into
+            ADDRESS
+            (MEMBER_ID, city, street, zipcode) 
+        values
+            (?, ?, ?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert collection
+        row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+        into
+            FAVORITE_FOOD
+            (MEMBER_ID, FOOD_NAME) 
+        values
+            (?, ?)
+5월 02, 2022 10:20:42 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+
+Process finished with exit code 0
+</code></pre></div></div>
+
+<h3 id="값-타입-컬렉션-사용">값 타입 컬렉션 사용</h3>
+
+<ul>
+  <li>값 타입 저장 예제</li>
+  <li>값 타입 조회 예제
+    <ul>
+      <li>값 타입 컬렉션도 <strong>지연 로딩</strong> 전략 사용</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Member</span> <span class="n">member</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
+  <span class="n">member</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">"member1"</span><span class="o">);</span>
+  <span class="n">member</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"homeCity"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+    
+  <span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"치킨"</span><span class="o">);</span>
+  <span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"족발"</span><span class="o">);</span>
+  <span class="n">member</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"피자"</span><span class="o">);</span>
+    
+  <span class="n">member</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old1"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+  <span class="n">member</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old2"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+    
+  <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
+    
+  <span class="n">em</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+  <span class="n">em</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=============== START =============="</span><span class="o">);</span>
+  <span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Address</span><span class="o">&gt;</span> <span class="n">addressHistory</span> <span class="o">=</span> <span class="n">findMember</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">();</span>
+  <span class="k">for</span> <span class="o">(</span><span class="nc">Address</span> <span class="n">address</span> <span class="o">:</span> <span class="n">addressHistory</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"address = "</span> <span class="o">+</span> <span class="n">address</span><span class="o">.</span><span class="na">getCity</span><span class="o">());</span>
+  <span class="o">}</span>
+    
+  <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">favoriteFoods</span> <span class="o">=</span> <span class="n">findMember</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">();</span>
+  <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">favoriteFood</span> <span class="o">:</span> <span class="n">favoriteFoods</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"favoriteFood = "</span> <span class="o">+</span> <span class="n">favoriteFood</span><span class="o">);</span>
+  <span class="o">}</span>
+    
+  <span class="n">tx</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Hibernate: 
+      /* insert jpabook.jpashop.domain.Member
+          */ insert 
+          into
+              Member
+              (city, street, zipcode, username, MEMBER_ID) 
+          values
+              (?, ?, ?, ?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.addressHistory */ insert 
+          into
+              ADDRESS
+              (MEMBER_ID, city, street, zipcode) 
+          values
+              (?, ?, ?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.addressHistory */ insert 
+          into
+              ADDRESS
+              (MEMBER_ID, city, street, zipcode) 
+          values
+              (?, ?, ?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+          into
+              FAVORITE_FOOD
+              (MEMBER_ID, FOOD_NAME) 
+          values
+              (?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+          into
+              FAVORITE_FOOD
+              (MEMBER_ID, FOOD_NAME) 
+          values
+              (?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+          into
+              FAVORITE_FOOD
+              (MEMBER_ID, FOOD_NAME) 
+          values
+              (?, ?)
+  =============== START ==============
+  Hibernate: 
+      select
+          member0_.MEMBER_ID as member_i1_7_0_,
+          member0_.city as city2_7_0_,
+          member0_.street as street3_7_0_,
+          member0_.zipcode as zipcode4_7_0_,
+          member0_.username as username5_7_0_ 
+      from
+          Member member0_ 
+      where
+          member0_.MEMBER_ID=?
+  Hibernate: 
+      select
+          addresshis0_.MEMBER_ID as member_i1_0_0_,
+          addresshis0_.city as city2_0_0_,
+          addresshis0_.street as street3_0_0_,
+          addresshis0_.zipcode as zipcode4_0_0_ 
+      from
+          ADDRESS addresshis0_ 
+      where
+          addresshis0_.MEMBER_ID=?
+  address = old1
+  address = old2
+  Hibernate: 
+      select
+          favoritefo0_.MEMBER_ID as member_i1_5_0_,
+          favoritefo0_.FOOD_NAME as food_nam2_5_0_ 
+      from
+          FAVORITE_FOOD favoritefo0_ 
+      where
+          favoritefo0_.MEMBER_ID=?
+  favoriteFood = 족발
+  favoriteFood = 치킨
+  favoriteFood = 피자
+  5월 02, 2022 10:48:36 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+  INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+  Process finished with exit code 0
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>값 타입 수정 예제</p>
+
+    <p>**[예제1] Set<기본값 타입=""> 수정**</기본값></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=============== START =============="</span><span class="o">);</span>
+  <span class="nc">Member</span> <span class="n">findMember</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Member</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">member</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    
+  <span class="c1">// homeCity -&gt; newCity</span>
+  <span class="c1">// findMember.getHomeAddress().setCity("newCity");</span>
+    
+  <span class="c1">// 위의 코드처럼 setter를 사용해서 값을 변경하면 부작용(side effect) 발생</span>
+  <span class="c1">// side effect 와 같은 버그는 매우 잡기 힘들다.</span>
+  <span class="c1">// 따라서, 아래와 같이 아예 새로 넣어줘야 한다.</span>
+  <span class="nc">Address</span> <span class="n">a</span> <span class="o">=</span> <span class="n">findMember</span><span class="o">.</span><span class="na">getHomeAddress</span><span class="o">();</span>
+  <span class="n">findMember</span><span class="o">.</span><span class="na">setHomeAddress</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"newCity"</span><span class="o">,</span> <span class="n">a</span><span class="o">.</span><span class="na">getStreet</span><span class="o">(),</span> <span class="n">a</span><span class="o">.</span><span class="na">getZipcode</span><span class="o">()));</span>
+    
+  <span class="c1">//치킨 -&gt; 한식</span>
+  <span class="n">findMember</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">remove</span><span class="o">(</span><span class="s">"치킨"</span><span class="o">);</span>
+  <span class="n">findMember</span><span class="o">.</span><span class="na">getFavoriteFoods</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">"한식"</span><span class="o">);</span>
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  =============== START ==============
+  Hibernate: 
+      select
+          member0_.MEMBER_ID as member_i1_7_0_,
+          member0_.city as city2_7_0_,
+          member0_.street as street3_7_0_,
+          member0_.zipcode as zipcode4_7_0_,
+          member0_.username as username5_7_0_ 
+      from
+          Member member0_ 
+      where
+          member0_.MEMBER_ID=?
+  Hibernate: 
+      select
+          favoritefo0_.MEMBER_ID as member_i1_5_0_,
+          favoritefo0_.FOOD_NAME as food_nam2_5_0_ 
+      from
+          FAVORITE_FOOD favoritefo0_ 
+      where
+          favoritefo0_.MEMBER_ID=?
+  Hibernate: 
+      /* update
+          jpabook.jpashop.domain.Member */ update
+              Member 
+          set
+              city=?,
+              street=?,
+              zipcode=?,
+              username=? 
+          where
+              MEMBER_ID=?
+  Hibernate: 
+      /* delete collection row jpabook.jpashop.domain.Member.favoriteFoods */ delete 
+          from
+              FAVORITE_FOOD 
+          where
+              MEMBER_ID=? 
+              and FOOD_NAME=?
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.favoriteFoods */ insert 
+          into
+              FAVORITE_FOOD
+              (MEMBER_ID, FOOD_NAME) 
+          values
+              (?, ?)
+  5월 02, 2022 11:16:33 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+  INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+  Process finished with exit code 0
+</code></pre></div>    </div>
+
+    <p>**[예제2] List<임베디드 타입=""> 수정**</임베디드></p>
+
+    <p>Set<기본값 타입="">처럼 삭제 후 수정이 잘 될 것 같지만 그렇지 않다.</기본값></p>
+
+    <p>해당되는 값을 모두 삭제 후 모든 값을 다시 넣어준다</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//remove 는 equals()로 비교함. 따라서, equals()와 hashcode()를 잘 정의해야 함</span>
+  <span class="n">findMember</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">remove</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"old1"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+  <span class="n">findMember</span><span class="o">.</span><span class="na">getAddressHistory</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="s">"newCity1"</span><span class="o">,</span> <span class="s">"street"</span><span class="o">,</span> <span class="s">"10000"</span><span class="o">));</span>
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  =============== START ==============
+  Hibernate: 
+      select
+          member0_.MEMBER_ID as member_i1_7_0_,
+          member0_.city as city2_7_0_,
+          member0_.street as street3_7_0_,
+          member0_.zipcode as zipcode4_7_0_,
+          member0_.username as username5_7_0_ 
+      from
+          Member member0_ 
+      where
+          member0_.MEMBER_ID=?
+  Hibernate: 
+      select
+          addresshis0_.MEMBER_ID as member_i1_0_0_,
+          addresshis0_.city as city2_0_0_,
+          addresshis0_.street as street3_0_0_,
+          addresshis0_.zipcode as zipcode4_0_0_ 
+      from
+          ADDRESS addresshis0_ 
+      where
+          addresshis0_.MEMBER_ID=?
+  Hibernate: 
+      /* delete collection jpabook.jpashop.domain.Member.addressHistory */ delete 
+          from
+              ADDRESS 
+          where
+              MEMBER_ID=?
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.addressHistory */ insert 
+          into
+              ADDRESS
+              (MEMBER_ID, city, street, zipcode) 
+          values
+              (?, ?, ?, ?)
+  Hibernate: 
+      /* insert collection
+          row jpabook.jpashop.domain.Member.addressHistory */ insert 
+          into
+              ADDRESS
+              (MEMBER_ID, city, street, zipcode) 
+          values
+              (?, ?, ?, ?)
+  5월 02, 2022 11:16:56 오전 org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+  INFO: HHH10001008: Cleaning up connection pool [jdbc:h2:tcp://localhost/~/test]
+    
+  Process finished with exit code 0
+</code></pre></div>    </div>
+  </li>
+  <li>참고: 값 타입 컬렉션은 영속성 전에(Cascade) + 고아 객체 제거 기능을 필수로 가진다고 볼 수 있다.</li>
+</ul>
+
+<h3 id="값-타입-컬렉션의-제약사항">값 타입 컬렉션의 제약사항</h3>
+
+<p>값 타입은 엔티티와 다르게 식별자 개념이 없기 때문에 값을 변경하면 추적이 어렵다. 값 타입 컬렉션에 변경 사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다.</p>
+
+<p>값 타입 컬렉션을 매핑하는 테이블은 모든 컬럼을 묶어서 기본키를 구성해야 한다. (null 입력X, 중복 저장X)</p>
+
+<h3 id="값-타입-컬렉션-대안">값 타입 컬렉션 대안</h3>
+
+<p>실무에서는 상황에 따라 <strong>값 타입 컬렉션 대신에 일대다 관계를 고려</strong>한다. 일대다 관계를 위한 엔티티를 만들고, 여기에서 값 타입을 사용하면 영속성 전이(Cascade) + 고아 객체 제거를 사용해서 값 타입 컬렉션 처럼 사용할 수 있다. 예) AddressEntity</p>
+
+<p><strong>[전] 값 타입 컬렉션</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+    <span class="nd">@Embedded</span>
+    <span class="kd">private</span> <span class="nc">Address</span> <span class="n">homeAddress</span><span class="o">;</span>
+
+    <span class="nd">@ElementCollection</span>
+    <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FAVORITE_FOOD"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">))</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FOOD_NAME"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">favoriteFoods</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="nd">@ElementCollection</span>
+    <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ADDRESS"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">))</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Address</span><span class="o">&gt;</span> <span class="n">addressHistory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Embeddable</span>
+<span class="nd">@Getter</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">city</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">street</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">o</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">getClass</span><span class="o">()</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">())</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="nc">Address</span> <span class="n">address</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Address</span><span class="o">)</span> <span class="n">o</span><span class="o">;</span>
+        <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">city</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">city</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">street</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">street</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                <span class="nc">Objects</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">zipcode</span><span class="o">,</span> <span class="n">address</span><span class="o">.</span><span class="na">zipcode</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Objects</span><span class="o">.</span><span class="na">hash</span><span class="o">(</span><span class="n">city</span><span class="o">,</span> <span class="n">street</span><span class="o">,</span> <span class="n">zipcode</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>[후] 일대다로 변경 (실무에서 많이 사용)</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+    <span class="nd">@Embedded</span>
+    <span class="kd">private</span> <span class="nc">Address</span> <span class="n">homeAddress</span><span class="o">;</span>
+
+    <span class="nd">@ElementCollection</span>
+    <span class="nd">@CollectionTable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FAVORITE_FOOD"</span><span class="o">,</span> <span class="n">joinColumns</span> <span class="o">=</span> <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">))</span>
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"FOOD_NAME"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">favoriteFoods</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">cascade</span> <span class="o">=</span> <span class="nc">CascadeType</span><span class="o">.</span><span class="na">ALL</span><span class="o">,</span> <span class="n">orphanRemoval</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"MEMBER_ID"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">AddressEntity</span><span class="o">&gt;</span> <span class="n">addressHistory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"ADDRESS"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AddressEntity</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">Address</span> <span class="n">address</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">AddressEntity</span><span class="o">(</span><span class="nc">String</span> <span class="n">city</span><span class="o">,</span> <span class="nc">String</span> <span class="n">street</span><span class="o">,</span> <span class="nc">String</span> <span class="n">zipcode</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Address</span><span class="o">(</span><span class="n">city</span><span class="o">,</span> <span class="n">street</span><span class="o">,</span> <span class="n">zipcode</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-03-22T00:00:00+09:00">March 22, 2023</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/jpa/Proxy/" class="pagination--pager" title="프록시, 즉시로딩과 지연로딩
+">이전</a>
+    
+    
+      <a href="/jpa/JPA-findById-getReferenceById/" class="pagination--pager" title="findById() vs getReferenceById() (feat. getOne())
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/jpa/Proxy/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>프록시, 즉시로딩과 지연로딩</a>
+    
+    
+      <a href="/jpa/JPA-findById-getReferenceById/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>findById() vs getReferenceById() (feat. getOne())</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

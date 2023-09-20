@@ -1,0 +1,768 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>CQS 패턴, CQRS 패턴 - yessm621.dev</title>
+<meta name="description" content="CQS 패턴, CQRS 패턴에 대해 알아보기 전에 주요 용어인 커맨드와 쿼리에 대해 알아보자.">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="CQS 패턴, CQRS 패턴">
+<meta property="og:url" content="http://localhost:4000/jpa/JPA-CQS-CQRS-Pattern/">
+
+
+  <meta property="og:description" content="CQS 패턴, CQRS 패턴에 대해 알아보기 전에 주요 용어인 커맨드와 쿼리에 대해 알아보자.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-03-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/JPA-CQS-CQRS-Pattern/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="CQS 패턴, CQRS 패턴">
+    <meta itemprop="description" content="CQS 패턴, CQRS 패턴에 대해 알아보기 전에 주요 용어인 커맨드와 쿼리에 대해 알아보자.">
+    <meta itemprop="datePublished" content="2023-03-14T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">CQS 패턴, CQRS 패턴
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-03-14T00:00:00+09:00">March 14, 2023</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#커맨드command">커맨드(Command)</a></li><li><a href="#쿼리query">쿼리(Query)</a></li><li><a href="#cqs-패턴">CQS 패턴</a></li><li><a href="#cqrs-패턴">CQRS 패턴</a><ul><li><a href="#cqs-패턴과-cqrs-패턴의-차이점">CQS 패턴과 CQRS 패턴의 차이점</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>CQS 패턴, CQRS 패턴에 대해 알아보기 전에 주요 용어인 <code class="language-plaintext highlighter-rouge">커맨드</code>와 <code class="language-plaintext highlighter-rouge">쿼리</code>에 대해 알아보자.</p>
+
+<h2 id="커맨드command">커맨드(Command)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">명령(command)</code>는 시스템의 <strong>상태를 변경</strong>하는 작업을 의미한다. 예를 들어, 데이터를 삽입, 수정, 삭제하는 작업이 명령에 해당된다. 명령은 주로 <strong>void 형태의 메서드로 구현</strong>하며 메서드 호출 후 시스템 상태가 변경된다.</p>
+
+<h2 id="쿼리query">쿼리(Query)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">조회(Query)</code>는 시스템의 <strong>상태를 조회</strong>하는 작업을 의미한다. 예를 들어, 데이터를 조회하는 작업이 조회에 해당된다. 조회는 일반적으로 <strong>시스템 상태를 변경하지 않</strong>으며 <strong>데이터를 반환</strong>하는 형태의 메서드로 구현된다.</p>
+
+<h2 id="cqs-패턴">CQS 패턴</h2>
+
+<p>커맨드와 쿼리에 대해 알아보았는데 그렇다면 커맨드와 쿼리의 분리가 무엇일까?</p>
+
+<p><strong>커맨드와 쿼리의 분리(Command Query Separation)</strong>를 줄임말로 <code class="language-plaintext highlighter-rouge">CQS</code>라 한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">CQS</code>는 디자인 패턴 중 하나로 <strong>명령과 조회를 분리</strong>하는 것을 추구한다. 또한, 명령과 조회는 각각 다른 요구사항과 비즈니스 로직을 가지고 있기 때문에 분리함으로써 각각의 기능을 독립적으로 변경할 수 있다. 이러한 CQS의 특징은 <strong>코드의 가독성, 유지보수성, 테스트 용이성</strong>을 개선할 수 있게 도와준다.</p>
+
+<p>CQS는 객체지향 프로그래밍에서 매우 유용한 개념이고 SOLID 원칙 중 하나인 <strong>SRP(단일 책임 원칙)</strong>과 관련이 있다. SRP도 하나의 클래스는 하나의 책임만 가져야 한다는 원칙인데 CQS는 이를 더욱 구체화한 개념으로 명령과 조회를 분리함으로써 하나의 클래스가 여러가지 책임을 수행하는 것을 방지한다.</p>
+
+<p>실무에서 개발을 할 때 권장하는 방법은 INSERT는 ID만 반환하고 UPDATE, DELETE는 void 형태의 메서드로 구현하는 것이다. 또한, SELECT는 내부의 변경이 없는 메서드로 설계하는 것이 좋다. 이 개념은 개발 전반에 기본 개념으로 생각하는 것이 좋다.</p>
+
+<h2 id="cqrs-패턴">CQRS 패턴</h2>
+
+<p><code class="language-plaintext highlighter-rouge">CQRS 패턴</code>은 <strong>명령과 조회를 담당하는 모델을 분리하는 패턴</strong>이다. 도메인 모델에서 명령(Command)과 조회(Query)를 다른 모델로 분리하여, 명령 처리 모델과 조회 모델을 최적화할 수 있도록 한다. 즉, CQRS는 명령 처리와 조회 처리를 최적화하기 위한 패턴이다.</p>
+
+<ul>
+  <li><strong>읽기 모델</strong>: 클라이언트에게 제공되는 데이터 모델. 일반적으로 조회 기능에 사용한다.</li>
+  <li><strong>쓰기 모델</strong>: 클라이언트에서 받은 데이터를 저장하고 갱신하는 데이터 모델. 일반적으로 입력, 갱신, 삭제 등의 기능에 사용된다.</li>
+</ul>
+
+<p>CQRS 패턴은 명령 처리 모델과 조회 모델이 서로 다른 저장소를 사용할 수 있으며, 각각의 모델이 서로 다른 스케일링 요구사항을 가질 때 유용하다. 또한, CQRS 패턴은 명령 처리 모델과 조회 모델을 각각 별도로 구현하므로, 시스템의 성능을 높일 수 있다.</p>
+
+<h3 id="cqs-패턴과-cqrs-패턴의-차이점">CQS 패턴과 CQRS 패턴의 차이점</h3>
+
+<p>CQS 패턴과 CQRS 패턴은 비슷한 개념이지만, CQRS 패턴은 명령(Command)과 조회(Query)를 담당하는 모델을 분리하여 성능을 최적화하는 패턴이며, CQS 패턴은 명령과 조회를 분리하여 코드의 가독성과 유지보수성을 개선하는 패턴이다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-03-14T00:00:00+09:00">March 14, 2023</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/jpa/DetachedEndity/" class="pagination--pager" title="준영속
+">이전</a>
+    
+    
+      <a href="/jpa/Proxy/" class="pagination--pager" title="프록시, 즉시로딩과 지연로딩
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/jpa/DetachedEndity/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>준영속</a>
+    
+    
+      <a href="/jpa/Proxy/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>프록시, 즉시로딩과 지연로딩</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

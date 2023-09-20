@@ -1,0 +1,1025 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>내부 클래스 - yessm621.dev</title>
+<meta name="description" content="내부 클래스란?">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="내부 클래스">
+<meta property="og:url" content="http://localhost:4000/java/Java-InnerClass/">
+
+
+  <meta property="og:description" content="내부 클래스란?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-12-12T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/java/Java-InnerClass/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="내부 클래스">
+    <meta itemprop="description" content="내부 클래스란?">
+    <meta itemprop="datePublished" content="2022-12-12T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">내부 클래스
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-12-12T00:00:00+09:00">December 12, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#내부-클래스란">내부 클래스란?</a><ul><li><a href="#내부-클래스의-장점">내부 클래스의 장점</a></li></ul></li><li><a href="#내부-클래스의-종류와-특징">내부 클래스의 종류와 특징</a></li><li><a href="#내부-클래스의-제어자와-접근성">내부 클래스의 제어자와 접근성</a></li><li><a href="#익명-클래스">익명 클래스</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="내부-클래스란">내부 클래스란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">내부 클래스</code>는 <strong>클래스 내에 선언된 클래스</strong>다. 클래스에 다른 클래스를 선언하는 이유는 두 클래스가 서로 긴밀한 관계에 있기 때문이다.</p>
+
+<h3 id="내부-클래스의-장점">내부 클래스의 장점</h3>
+
+<ul>
+  <li>내부 클래스에서 외부 클래스의 멤버들을 쉽게 접근할 수 있다.</li>
+  <li>코드의 복잡성을 줄일 수 있다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 외부 클래스(outer class)</span>
+<span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span> <span class="c1">// B의 외부 클래스</span>
+
+    <span class="c1">// 내부 클래스(inner class)</span>
+    <span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span> <span class="c1">// A의 내부 클래스</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="내부-클래스의-종류와-특징">내부 클래스의 종류와 특징</h2>
+
+<p><code class="language-plaintext highlighter-rouge">내부 클래스의 종류</code>는 <strong>변수의 선언위치에 따른 종류와 같다</strong>. 내부 클래스는 마치 변수를 선언한 것과 같은 위치에 선언할 수 있으며, 변수의 선언위치에 따라 인스턴스 변수, 클래스 변수, 지역 변수로 구분되는 것과 같이 내부 클래스도 선언위치에 따라 아래와 같이 구분된다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>내부 클래스</th>
+      <th>특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>인스턴스 클래스</td>
+      <td>외부 클래스의 멤버변수 선언위치에 선언하며, 외부 클래스의 인스턴스 멤버처럼 다루어진다. 주로 외부 클래스의 인스턴스 멤버들과 관련된 작업에 사용될 목적으로 선언된다.</td>
+    </tr>
+    <tr>
+      <td>스태틱 클래스</td>
+      <td>외부 클래스의 멤버변수 선언위치에 선언하며 외부 클래스의 static 멤버처럼 다루어진다. 주로 외부 클래스의 static 멤버, 특히 static 메서드에서 사용될 목적으로 선언된다.</td>
+    </tr>
+    <tr>
+      <td>지역 클래스</td>
+      <td>외부 클래스의 메서드나 초기화 블럭 안에 선언하며, 선언된 영역 내부에서만 사용될 수 있다.</td>
+    </tr>
+    <tr>
+      <td>익명 클래스</td>
+      <td>클래스의 선언과 객체의 생성을 동시에 하는 이름없는 클래스(일회용)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+
+    <span class="c1">// 인스턴스 클래스</span>
+    <span class="kd">class</span> <span class="nc">InstanceInner</span> <span class="o">{}</span>
+
+    <span class="c1">// 스태틱 클래스</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">StaticInner</span> <span class="o">{}</span>
+
+    <span class="kt">void</span> <span class="nf">methodA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 지역 클래스</span>
+        <span class="kd">class</span> <span class="nc">LocalInner</span> <span class="o">{}</span>
+    <span class="o">}</span>    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>참고</strong> 내부 클래스의 선언과 변수의 선언</p>
+
+  <p>내부 클래스는 변수와 마찬가지로 선언된 위치에 따라 종류가 달라진다. 또한, <code class="language-plaintext highlighter-rouge">유효범위(scope)</code>와 <code class="language-plaintext highlighter-rouge">접근성(accessibility)</code>도 변수와 동일하다.</p>
+
+  <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 변수 선언 위치에 따른 종류</span>
+<span class="kd">class</span> <span class="nc">Outer</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">iv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// 인스턴스 변수</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// 클래스(스태틱) 변수</span>
+
+    <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">lv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="c1">// 지역변수</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>  </div>
+
+</blockquote>
+
+<h2 id="내부-클래스의-제어자와-접근성">내부 클래스의 제어자와 접근성</h2>
+
+<p>내부 클래스도 클래스이기 때문에 abstract나 final과 같은 제어자를 사용할 수 있을 뿐만 아니라, 멤버 변수들처럼 private, protected과 접근제어자도 사용이 가능하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">InnerEx1</span> <span class="o">{</span>
+    <span class="kd">class</span> <span class="nc">InstanceInner</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">iv</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+        <span class="c1">//static int cv = 100; // 오류 발생</span>
+        <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="no">CONST</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">StaticInner</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">iv</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+        <span class="kd">static</span> <span class="kt">int</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">class</span> <span class="nc">LocalInner</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">iv</span> <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+            <span class="c1">//static int cv = 300; // 오류 발생</span>
+            <span class="kd">final</span> <span class="kd">static</span> <span class="kt">int</span> <span class="no">CONST</span> <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">InstanceInner</span><span class="o">.</span><span class="na">CONST</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">StaticInner</span><span class="o">.</span><span class="na">cv</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행결과</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100
+200
+</code></pre></div></div>
+
+<p>내부 클래스 중에서 <strong>스태틱 클래스만 static 멤버</strong>를 가질 수 있다. 내부 클래스에 static 변수를 선언해야 한다면 스태틱 클래스로 선언해야 한다. 다만, final과 static이 동시에 붙은 변수는 상수이므로 모든 내부 클래스에서 정의가 가능하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">InnerEx2</span> <span class="o">{</span>
+    <span class="kd">class</span> <span class="nc">InstanceInner</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">StaticInner</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 인스턴스 멤버 간에는 서로 직접 접근가능</span>
+    <span class="nc">InstanceInner</span> <span class="n">iv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InstanceInner</span><span class="o">();</span>
+
+    <span class="c1">// static 멤버 간에는 서로 직접 접근가능</span>
+    <span class="kd">static</span> <span class="nc">StaticInner</span> <span class="n">cv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StaticInner</span><span class="o">();</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">staticMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// static 멤버는 인스턴스 멤버에 직접 접근 불가</span>
+        <span class="c1">//InstanceInner obj1 = new InstanceInner(); // 에러 발생</span>
+        <span class="nc">StaticInner</span> <span class="n">obj2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StaticInner</span><span class="o">();</span>
+
+        <span class="c1">// 굳이 접근을 하려면 외부 클래스를 먼저 생성하고 인스턴스 클래스를 생성</span>
+        <span class="nc">InnerEx2</span> <span class="n">outer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InnerEx2</span><span class="o">();</span>
+        <span class="nc">InstanceInner</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">outer</span><span class="o">.</span><span class="na">new</span> <span class="nf">InstanceInner</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">instanceMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 인스턴스 메서드에서는 인스턴스 멤버와 static 멤버 모두 접근 가능</span>
+        <span class="nc">InstanceInner</span> <span class="n">obj1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InstanceInner</span><span class="o">();</span>
+        <span class="nc">StaticInner</span> <span class="n">obj2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StaticInner</span><span class="o">();</span>
+
+        <span class="c1">// 메서드 내에 지역적으로 선언된 내부 클래스는 외부에서 접근 불가</span>
+        <span class="c1">//LocalInner lv = new LocalInner(); // 에러 발생</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">class</span> <span class="nc">LocalInner</span> <span class="o">{}</span>
+
+        <span class="nc">LocalInner</span> <span class="n">lv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LocalInner</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>인스턴스 클래스는 외부 클래스의 인스턴스 멤버를 객체 생성 없이 사용할 수 있지만, 스태틱 클래스는 외부 클래스의 인스턴스 멤버를 객체 생성 없이 사용할 수 없다. 마찬가지로 인스턴스 클래스는 스태틱 클래스의 멤버들을 객체 생성 없이 사용할 수 있지만, 스태틱 클래스에서는 인스턴스 클래스의 멤버들을 객체 생성 없이 사용할 수 없다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">InnerEx3</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">outerIv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">outerCv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">class</span> <span class="nc">InstanceInner</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">iiv</span> <span class="o">=</span> <span class="n">outerIv</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">icv</span> <span class="o">=</span> <span class="n">outerCv</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">StaticInner</span> <span class="o">{</span>
+        <span class="c1">//int siv = outerIv; // 에러 발생</span>
+        <span class="kt">int</span> <span class="n">scv</span> <span class="o">=</span> <span class="n">outerCv</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">lv</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="kt">int</span> <span class="no">LV</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="kd">class</span> <span class="nc">LocalInner</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">liv</span> <span class="o">=</span> <span class="n">outerIv</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">lcv</span> <span class="o">=</span> <span class="n">outerCv</span><span class="o">;</span>
+
+            <span class="kt">int</span> <span class="n">liv3</span> <span class="o">=</span> <span class="n">lv</span><span class="o">;</span> <span class="c1">// JDK 1.8부터 에러 안남</span>
+            <span class="kt">int</span> <span class="n">liv4</span> <span class="o">=</span> <span class="no">LV</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>내부 클래스에서 외부 클래스의 변수들에 대한 접근성을 보여주는 예제이다. 인스턴스 클래스는 외부 클래스의 인스턴스 멤버이기 때문에 인스턴스 변수와 static 변수를 모두 사용할 수 있다.</p>
+
+<p>스태틱 클래스는 외부 클래스의 static 멤버이기 때문에 인스턴스 멤버는 사용할 수 없다.</p>
+
+<h2 id="익명-클래스">익명 클래스</h2>
+
+<p><code class="language-plaintext highlighter-rouge">익명 클래스(anonymous class)</code>는 다른 내부 클래스와 달리 이름이 없다. <strong>클래스의 선언과 객체의 생성을 동시</strong>에 하기 때문에 <strong>단 한번만 사용</strong>할 수있고 <strong>오직 하나의 객체만 생성</strong>할 수 있는 일회용 클래스이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="n">조상클래스이름</span><span class="o">()</span> <span class="o">{</span>
+	<span class="c1">// 멤버 선언</span>
+<span class="o">}</span>
+
+<span class="k">new</span> <span class="n">구현인터페이스이름</span><span class="o">()</span> <span class="o">{</span>
+	<span class="c1">// 멤버 선언</span>
+<span class="o">}</span>
+
+<span class="c1">// new Object {}</span>
+</code></pre></div></div>
+
+<p>이름이 없기 때문에 생성자도 가질 수 없고, 조상 클래스의 이름이나 구현하고자 하는 인터페이스의 이름을 사용하여 정의하기 때문에 하나의 클래스를 상속받는 동시에 인터페이스를 구현하거나 둘 이상의 인터페이스를 구현할 수 없다. 오로지 <strong>단 하나의 클래스를 상속</strong>받거나 <strong>단 하나의 인터페이스를 구현</strong>해야만 한다.</p>
+
+<p>익명 클래스는 구문이 다소 생소하지만, 인스턴스 클래스를 익명 클래스로 바꾸는 연습을 몇 번만 하면 곧 익숙해질 것이다.</p>
+
+<p>아래 예제는 익명클래스의 사용 예이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">InnerEx4</span> <span class="o">{</span>
+    <span class="nc">Object</span> <span class="n">iv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">{</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{}</span> <span class="o">};</span>
+    <span class="kd">static</span> <span class="nc">Object</span> <span class="n">cv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">{</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{}</span> <span class="o">};</span>
+
+    <span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Object</span> <span class="n">lv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">()</span> <span class="o">{</span> <span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="o">{}</span> <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 코드를 컴파일하면 4개의 클래스파일이 생성된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>InnerEx4.class
+InnerEx4$1.class &lt;- 익명 클래스
+InnerEx4$2.class &lt;- 익명 클래스
+InnerEx4$3.class &lt;- 익명 클래스
+</code></pre></div></div>
+
+<p>익명 클래스는 이름이 없기 때문에 <code class="language-plaintext highlighter-rouge">외부 클래스명$숫자.class</code>의 형식으로 클래스 파일명이 결정된다.</p>
+
+<p><strong>익명 클래스 적용 전</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionListener</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">InnerEx5</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Button</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Start"</span><span class="o">);</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">EventHandler</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">EventHandler</span> <span class="kd">implements</span> <span class="nc">ActionListener</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ActionEvent occurred!!!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>익명 클래스 적용 후</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">hello.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionListener</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InnerEx6</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Button</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Start"</span><span class="o">);</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">addActionListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">ActionListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ActionEvent occurred!!!"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>InnerEx5를 익명 클래스를 이용해 변경한 것이 InnerEx6이다. 먼저 두 개의 독립된 클래스를 작성한 후 다시 익명 클래스를 이용하여 변경하면 보다 쉽게 코드를 작성할 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-12-12T00:00:00+09:00">December 12, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/java/LambdaExpression/" class="pagination--pager" title="람다식(Lambda Expression)
+">이전</a>
+    
+    
+      <a href="/java/Java-Generic/" class="pagination--pager" title="지네릭스(Generics)
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/java/LambdaExpression/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>람다식(Lambda Expression)</a>
+    
+    
+      <a href="/java/Java-Generic/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>지네릭스(Generics)</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

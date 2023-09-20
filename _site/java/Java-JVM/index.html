@@ -1,0 +1,907 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>JVM(Java Virtual Machine) - yessm621.dev</title>
+<meta name="description" content="JVM(Java Virtual Machine)이란?">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="JVM(Java Virtual Machine)">
+<meta property="og:url" content="http://localhost:4000/java/Java-JVM/">
+
+
+  <meta property="og:description" content="JVM(Java Virtual Machine)이란?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/java/Java-JVM/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="JVM(Java Virtual Machine)">
+    <meta itemprop="description" content="JVM(Java Virtual Machine)이란?">
+    <meta itemprop="datePublished" content="2022-07-14T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">JVM(Java Virtual Machine)
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-14T00:00:00+09:00">July 14, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#jvmjava-virtual-machine이란">JVM(Java Virtual Machine)이란?</a></li><li><a href="#jvm의-메모리-구조">JVM의 메모리 구조</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="jvmjava-virtual-machine이란">JVM(Java Virtual Machine)이란?</h2>
+
+<p>직역하면 자바를 실행하기 위한 가상 기계(컴퓨터)</p>
+
+<p><em>자바 프로그램이 어느 기기나 운영체제 상에서도 실행될 수 있도록 하면서 프로그램 메모리를 관리하고 최적화하는 것</em></p>
+
+<p><strong>자바프로그램 실행과정</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/178899519-1348bcfc-38c8-4d69-a820-5c3eb6d27c10.png" alt="Untitled" /></p>
+
+<p>원시코드(*.java)는 CPU가 인식하지 못하므로 기계어로 컴파일을 해줘야함.</p>
+
+<p>원시코드(<em>.java)는 JVM이 인식할 수 있는 Java Bytecode(</em>.class)로 변환됨. (Java compiler가 변환해줌)</p>
+
+<blockquote>
+  <p><strong>참고 Java compiler란?</strong>
+<br />
+JDK를 설치하면 bin에 존재하는 javac.exe를 말함 (즉, JDK에 Java compiler가 포함되어 있음) javac 명령어를 통해 .java를 .class로 컴파일 할 수 있음</p>
+
+</blockquote>
+
+<p>변환된 bytecode는 기계어가 아니기 때문에 OS에서 바로 실행되지 않음.</p>
+
+<p>이때, JVM이 OS가 bytecode를 이해할 수 있도록 해석해준다. 따라서, Byte Code는 JVM 위에서 OS 상관없이 실행될 수 있는 것.</p>
+
+<p>OS에 종속적이지 않고, Java 파일 하나만 만들면 어느 디바이스든 JVM 위에서 실행할 수 있음.</p>
+
+<p><strong>컴파일 하는 방법</strong></p>
+
+<p>Java Compiler는 JDK를 설치하면 javac.exe라는 실행 파일 형태로 설치됨. (경로: *jdk/bin/javac.exe)</p>
+
+<p>Java Compiler의 javac라는 명령어를 사용하면 .class파일을 생성할 수 있음.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac test.java
+</code></pre></div></div>
+
+<p><strong>실행하는 방법</strong></p>
+
+<p>java 명령어로 .class 파일을 실행 시킬 수 있음.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nb">test</span><span class="o">(</span>.class 파일 이름<span class="o">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+JDK 디렉토리의 /bin 폴더에 존재하는 java.exe는 JVM을 구동시키기 위한 명령 프로그램(JRE)
+java 명령어로 JVM을 실행 시킬 수 있음</p>
+
+</blockquote>
+
+<p><strong>바이트 코드란?</strong></p>
+
+<p>가상 컴퓨터(VM)에서 돌아가는 실행 프로그램을 위한 이진 표현법</p>
+
+<p>자바 바이트코드는 JVM이 이해할 수 있는 언어로 변환된 자바 소스코드를 의미함</p>
+
+<p>바이트 코드는 다시 실시간 번역기 or JLT 컴파일러에 의해 바이너리 코드로 변환된다.</p>
+
+<p><strong>즉, CPU가 이해하는 언어는 바이너리 코드, 가상 머신이 이해하는 코드는 바이트 코드</strong></p>
+
+<p>지금까지 내용을 정리하면,</p>
+
+<p>자바 코드를 컴파일하여 .class 바이트 코드로 만들면 이 코드가 자바 가상 머신 환경에서 실행 됨. JVM은 자바 실행 환경 JRE에 포함되어 있음. 현재 사용하는 컴퓨터의 운영체제에 맞는 자바 실행환경(JRE, Java Runtime Environment)가 설치되어 있다면 자바 가상 머신이 설치되어 있다는 뜻</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/178899511-9410742a-18ed-4c97-abd8-01464234fd62.png" alt="Untitled2" /></p>
+
+<p>Java는 컴파일된 바이트 코드로 어떤 JVM에서도 동작시킬 수 있기 때문에 플랫폼에 의존적이지 않지만, JVM은 플랫폼에 의존적. 즉, 리눅스 JVM과 윈도우의 JVM은 서로 다르다.</p>
+
+<p><strong>바이트 코드를 읽는 방식</strong></p>
+
+<p>JVM은 바이트코드를 명령어 단위로 읽어서 해석하는데, <strong>Interpreter 방식</strong>과 <strong>JIT 컴파일 방식</strong> 두가지 방식을 <code class="language-plaintext highlighter-rouge">혼합</code>해서 사용함.</p>
+
+<p><strong>Interpreter 방식</strong>은 바이트코드를 한 줄씩 해석, 실행하는 방식이며 초기 방식으로 속도가 느리다는 단점이 있다. 이를 보완하기 위해 나온 것이 JIT(Just In Time) 컴파일 방식.</p>
+
+<p><strong>JIT(Just In Time) 컴파일 방식</strong>은 바이트코드를 JIT 컴파일러를 이용해 프로그램을 실제 실행하는 시점에 각 OS에 맞는 Native Code로 변환하여 실행 속도를 개선함. 하지만, 바이트코드를 Native Code로 변환하는 데에도 <strong>비용이 소요</strong>되므로, JVM은 모든 코드를 JIT 컴파일러 방식으로 실행하지 않고, 인터프리터 방식을 사용하다가 일정 기준이 넘어가면 JIT 컴파일 방식으로 명령어를 실행함.</p>
+
+<p><strong>JIT 컴파일러란?</strong></p>
+
+<p><em>JIT 컴파일러는 바이트 코드를 읽는 방식 중 하나인 인터프리터 방식의 속도가 느리다는 점을 보완한 방식. 같은 코드를 매번 해석하지 않고, 실행할 때 컴파일을 하면서 해당 코드를 캐싱해버림. 이후에는 바뀐 부분만 컴파일하고, 나머지는 캐싱된 코드를 사용함.</em></p>
+
+<p>자바에선 자바 컴파일러가 자바 프로그램 코드를 바이트 코드로 변환한 다음, 실제 바이트 코드를 실행하는 시점에서 자바 가상 머신(JVM, 정확히는 JRE)이 바이트 코드를 JIT 컴파일을 통해 기계어로 변환</p>
+
+<p><strong>가비지 컬렉션 (Garbage Collection, GC)</strong></p>
+
+<p>JRE의 구성 요소 중 하나. 자바 이전에는 프로그래머가 모든 프로그램 메모리를 관리했지만 Java에서는 JVM이 프로그램 메모리를 관리함.
+<em>더 이상 사용되지 않는 인스턴스를 찾아 메모리에서 삭제함</em></p>
+
+<blockquote>
+  <p><strong>참고 JDK와 JRE 차이?</strong>
+<br />
+<strong>JDK(Java Development kit, 자바 개발 키트)</strong>
+<br />
+자바를 사용하기 위해 필요한 모든 기능을 갖춘 Java용 SDK(Software Development Kit). JDK는 JRE를 포함하고 있다. 즉, JDK는 프로그램을 생성, 실행, 컴파일 할 수 있음
+<br />
+<strong>JRE(Java Runtime Environment, 자바 런타임 환경)</strong>
+<br />
+JVM + 자바 클래스 라이브러리 등으로 구성되어 있으며, 컴파일 된 Java 프로그램을 <strong>실행</strong>하는데 필요한 패키지</p>
+
+</blockquote>
+
+<h2 id="jvm의-메모리-구조">JVM의 메모리 구조</h2>
+
+<p>위의 내용을 다시 정리하자면, JVM이란 Java Virtual Machine의 약자로, 자바 가상 머신이라고 부름. <em>자바와 운영체제 사이에서 중개자 역할을 수행하며, 자바가 운영체제에 구애 받지 않고 프로그램을 실행할 수 있도록 도와준다. 또한, 가비지 컬렉터(GC)를 사용한 메모리 관리도 자동으로 수행하며, 다른 하드웨어와 다르게 레지스터 기반이 아닌 스택 기반으로 동작함.</em></p>
+
+<p><strong>JVM의 구조</strong></p>
+
+<ul>
+  <li>Garbage Collector</li>
+  <li>Execution Engine</li>
+  <li>Class Loader</li>
+  <li>Runtime Data Area</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/178899517-d38575cf-b178-4f91-b728-50752e5981f7.png" alt="Untitled3" /></p>
+
+<p>자바 소스 파일은 자바 컴파일러에 의해서 바이트 코드 형태인 클래스 파일이 되고 이 클래스 파일은 클래스 로더가 읽어들이면서 JVM이 수행됨</p>
+
+<p><strong>Class Loader</strong></p>
+
+<p><em>.java 소스를 자바컴파일러가 컴파일하면 .class(바이트코드)이 생성되는데 이렇게 생성된 클래스파일들을 엮어서 JVM이 운영체제로부터 할당받은 메모리영역인 Runtime Data Area로 적재하는 역할을 Class Loader가 함.</em> (자바 애플리케이션이 실행중일 때 이런 작업 수행)</p>
+
+<p><strong>Execution Engine</strong></p>
+
+<p><em>클래스 로더를 통해 JVM 내에 Runtime Data Area에 배치된 바이트 코드들을 기계어로 변경해 명령어 단위로 읽어서 실행하는 역할을 한다.</em></p>
+
+<p>최초 JVM이 나왔을 당시에는 인터프리터 방식이었기때문에 속도가 느리다는 단점이 있었다. 하지만 이를 JIT 컴파일러 방식을 통해 보완함. JIT는 바이트 코드를 어셈블러 같은 네이티브 코드로 바꿈으로써 실행이 빠르지만 변환하는데 비용이 발생함. 이 같은 이유로 JVM은 모든 코드를 JIT 컴파일러 방식으로 실행하지 않고, 인터프리터 방식을 사용하다가 일정한 기준이 넘어가면 JIT 컴파일러 방식으로 실행함</p>
+
+<p><strong>Garbage Collector(GC)</strong></p>
+
+<p><em>GC는 힙 메모리 영역에 생성된 객체들 중에서 참조되지 않은 객체들을 탐색 후 제거하는 역할을 한다.</em></p>
+
+<p>GC가 역할을 하는 시간은 언제인지 정확히 알 수 없다. (참조가 없어지자마자 해제되는 것을 보장하지 않음)</p>
+
+<p><strong>Runtime Data Area</strong></p>
+
+<p><em>JVM의 메모리 영역으로 자바 애플리케이션을 실행할 때 사용되는 데이터들을 적재하는 영역.</em> 이 영역은 크게 Method Area, Heap Area, Stack Area, PC Register, Native Method Stack로 나눌 수 있음.</p>
+
+<ul>
+  <li>
+    <p>Method Area</p>
+
+    <p>모든 쓰레드가 공유하는 메모리 영역. 메소드 영역은 클래스, 인터페이스, 메소드, 필드, Static 변수 등이 생성되는 영역.</p>
+  </li>
+  <li>
+    <p>Heap Area</p>
+
+    <p><em>모든 쓰레드가 공유하며, new 키워드로 생성된 객체와 배열이 생성되는 영역.</em> 또한, 메소드 영역에 로드된 클래스만 생성이 가능하고 Garbage Collector가 참조되지 않는 메모리를 확인하고 제거하는 영역.</p>
+  </li>
+  <li>
+    <p>Stack Area</p>
+
+    <p><img src="https://user-images.githubusercontent.com/79130276/178899518-4d565bb0-fc73-4108-946f-044d7d6619e4.png" alt="Untitled4" /></p>
+
+    <p>메서드 호출 시마다 각각의 스택 프레임(그 메서드만을 위한 공간)이 생성한다. 메서드 안에서 사용되는 값들을 저장하고, 호출된 메서드의 매개변수, 지역변수, 리턴 값 및 연산 시 일어나는 값들을 임시로 저장함. 마지막으로, 메서드 수행이 끝나면 프레임별로 삭제한다.</p>
+  </li>
+  <li>
+    <p>PC Register</p>
+
+    <p><em>쓰레드가 시작될 때 생성되며, 생성될 때마다 생성되는 공간으로 쓰레드마다 하나씩 존재함. 쓰레드가 어떤 부분을 무슨 명령으로 실행해야할 지에 대한 기록을 하는 부분으로 현재 수행중인 JVM 명령의 주소를 갖는다.</em></p>
+  </li>
+  <li>
+    <p>Native Method Stack</p>
+
+    <p><em>자바 외 언어로 작성된 네이티브 코드를 위한 메모리 영역</em></p>
+  </li>
+</ul>
+
+<p>쓰레드가 생성되었을 때 기준으로1,2번인 메소드 영역과 힙 영역을 모든 쓰레드가 공유하고,3,4,5번인 스택 영역과 PC 레지스터, Native method stack은 각각의 쓰레드마다 생성되고 공유되지 않는다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-14T00:00:00+09:00">July 14, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/http/HTTPAPI/" class="pagination--pager" title="HTTP API
+">이전</a>
+    
+    
+      <a href="/http/CookieCash/" class="pagination--pager" title="쿠키와 캐시
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/java/Exception/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>자바: 예외처리</a>
+    
+    
+      <a href="/java/equalsAndHashCode/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>hashCode()와 equals()</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

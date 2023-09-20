@@ -1,0 +1,936 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>프로젝션(Projection), DTO로 조회하는 방법 - yessm621.dev</title>
+<meta name="description" content="프로젝션">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="프로젝션(Projection), DTO로 조회하는 방법">
+<meta property="og:url" content="http://localhost:4000/jpa/JPA-Projection-DTO/">
+
+
+  <meta property="og:description" content="프로젝션">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-09-21T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/JPA-Projection-DTO/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="프로젝션(Projection), DTO로 조회하는 방법">
+    <meta itemprop="description" content="프로젝션">
+    <meta itemprop="datePublished" content="2022-09-21T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">프로젝션(Projection), DTO로 조회하는 방법
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-09-21T00:00:00+09:00">September 21, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#프로젝션">프로젝션</a><ul><li><a href="#단일-프로젝션-조회">단일 프로젝션 조회</a></li><li><a href="#프로젝션-대상이-여러개---튜플-조회">프로젝션 대상이 여러개 - 튜플 조회</a></li></ul></li><li><a href="#프로젝션과-결과-반환-dto-조회">프로젝션과 결과 반환, DTO 조회</a><ul><li><a href="#순수-jpa에서-dto-조회">순수 JPA에서 DTO 조회</a></li><li><a href="#프로퍼티-접근---setter">프로퍼티 접근 - setter</a></li><li><a href="#필드-직접-접근">필드 직접 접근</a></li><li><a href="#생성자-사용">생성자 사용</a></li><li><a href="#필드명과-파라미터명이-다른-경우">필드명과 파라미터명이 다른 경우</a></li></ul></li><li><a href="#queryprojection">@QueryProjection</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="프로젝션">프로젝션</h2>
+
+<p>프로젝션이란 select 대상을 지정하는 것을 의미한다.</p>
+
+<p>프로젝션 대상이 하나면 타입을 명확하게 지정할 수 있다. 그러나, 프로젝션 대상이 둘 이상이면 <strong>튜플</strong>이나 <strong>DTO</strong>로 조회해야 한다.</p>
+
+<h3 id="단일-프로젝션-조회">단일 프로젝션 조회</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">simpleProjection</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="프로젝션-대상이-여러개---튜플-조회">프로젝션 대상이 여러개 - 튜플 조회</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">tupleProjection</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Tuple</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span> <span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="nc">Tuple</span> <span class="n">tuple</span> <span class="o">:</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tuple</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>프로젝션 타입이 2개 이상인 경우에 Tuple이 반환된다.</p>
+
+<blockquote>
+  <p><strong>주의</strong>
+<br />
+튜플은 Querydsl의 Tuple 객체이다. 따라서, <strong>JPA에 종속적</strong>이기 때문에 Repository 부분에서만 사용하고 그 이후는 <strong>DTO</strong>로 받는게 좋다.</p>
+
+</blockquote>
+
+<h2 id="프로젝션과-결과-반환-dto-조회">프로젝션과 결과 반환, DTO 조회</h2>
+
+<p>Querydsl에서 DTO로 프로젝션을 조회하는 방법은 4가지가 있다.</p>
+
+<ul>
+  <li>setter를 통해 값을 주입</li>
+  <li>필드에 직접 주입</li>
+  <li>생성자를 통한 주입</li>
+  <li>@QueryProjection를 통한 주입</li>
+</ul>
+
+<h3 id="순수-jpa에서-dto-조회">순수 JPA에서 DTO 조회</h3>
+
+<p>순수 JPA에서 DTO를 조회할 때는 new 명령어를 사용해야한다. DTO의 package 이름을 다 적어줘야해서 <strong>지저분</strong>하며 생성자 방식만 지원한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findDtoByJPQL</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select new study.querydsl.dto.MemberDto(m.username, m.age) from Member m"</span><span class="o">,</span>  <span class="nc">MemberDto</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="프로퍼티-접근---setter">프로퍼티 접근 - setter</h3>
+
+<p>MemberDTO의 기본 생성자로 객체를 생성 후, 동일한 필드명을 가진 파라미터에 한해 setter로 값을 셋팅한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findDtoBySetter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="nc">Projections</span><span class="o">.</span><span class="na">bean</span><span class="o">(</span><span class="nc">MemberDto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="필드-직접-접근">필드 직접 접근</h3>
+
+<p>setter나 생성자를 사용하지 않고 바로 필드에 값을 주입한다. 역시 필드명이 동일한 파라미터에 한해 동작한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findDtoByField</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="nc">Projections</span><span class="o">.</span><span class="na">fields</span><span class="o">(</span><span class="nc">MemberDto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="생성자-사용">생성자 사용</h3>
+
+<p>MemberDTO의 생성자를 이용해 객체를 셋팅한다. 만약, 파라미터에 맞는 생성자가 없는 경우, 런타임 에러가 발생한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findDtoByConstructor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="nc">Projections</span><span class="o">.</span><span class="na">constructor</span><span class="o">(</span><span class="nc">MemberDto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="필드명과-파라미터명이-다른-경우">필드명과 파라미터명이 다른 경우</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDto</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span> <span class="c1">// username</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span> <span class="c1">// age</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>fields 사용 - as()</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findUserDto</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="nc">Projections</span><span class="o">.</span><span class="na">fields</span><span class="o">(</span><span class="nc">UserDto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">.</span><span class="na">as</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span>
+                    <span class="nc">ExpressionUtils</span><span class="o">.</span><span class="na">as</span><span class="o">(</span><span class="nc">JPAExpressions</span>
+                            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">memberSub</span><span class="o">.</span><span class="na">age</span><span class="o">.</span><span class="na">max</span><span class="o">())</span>
+                            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">memberSub</span><span class="o">),</span> <span class="s">"age"</span><span class="o">)</span>
+            <span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>프로퍼티나, 필드 접근 생성 방식에서 이름이 다를 때 해결 방안</li>
+  <li>ExpressionUtils.as(source,alias): 필드나, 서브 쿼리에 별칭 적용</li>
+  <li>username.as(“memberName”): 필드에 별칭 적용</li>
+</ul>
+
+<p><strong>construct 사용</strong></p>
+
+<p>생성자를 사용할때는 UserDto에 @NoArgsConstructor, @AllArgsConstructor를 추가해야 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findUserDtoByConstructor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="nc">Projections</span><span class="o">.</span><span class="na">constructor</span><span class="o">(</span><span class="nc">UserDto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span>
+                    <span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="queryprojection">@QueryProjection</h2>
+
+<p>위의 3가지 방법보다 @QueryProjection를 사용하는게 깔끔한 방법이다. 생성자에 <strong>@QueryProjection</strong> 어노테이션을 추가한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Data</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MemberDto</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="nd">@QueryProjection</span>
+    <span class="kd">public</span> <span class="nf">MemberDto</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>어노테이션 추가 후 ./gradlew compileQuerydsl 실행한다. Q클래스파일(QMemberDto)이 생성되는지 확인한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">findDtoByQueryProjection</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">MemberDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">queryFactory</span>
+            <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="k">new</span> <span class="nc">QMemberDto</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">username</span><span class="o">,</span><span class="n">member</span><span class="o">.</span><span class="na">age</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">member</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">fetch</span><span class="o">();</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="nc">MemberDto</span> <span class="n">memberDto</span> <span class="o">:</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberDto = "</span> <span class="o">+</span> <span class="n">memberDto</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>앞서 사용했던 생성자 방법은 컴파일에서 체크하지 못하는 단점이 있다. 반면에, 이 방법은 컴파일러로 타입을 체크할 수 있으므로 가장 안전한 방법이다. 다만, DTO에 QueryDSL 어노테이션을 유지해야 하는 점과 DTO까지 Q 파일을 생성해야 하는 단점이 있다. 즉, DTO가 Querydsl에 독립적이지 못하다는 단점이 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">Jpa</a><span class="sep">, </span>
+    
+      <a href="/tags/#querydsl" class="page__taxonomy-item" rel="tag">Querydsl</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-09-21T00:00:00+09:00">September 21, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/jpa/JPA-Querydsl-Settings/" class="pagination--pager" title="Querydsl 설정
+">이전</a>
+    
+    
+      <a href="/java/equalsAndHashCode/" class="pagination--pager" title="hashCode()와 equals()
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/jpa/JPA-Querydsl-Settings/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>Querydsl 설정</a>
+    
+    
+      <a href="/jpa/ConvenienceMethod/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>연관관계 편의 메서드</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

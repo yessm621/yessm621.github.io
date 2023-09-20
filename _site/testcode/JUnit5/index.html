@@ -1,0 +1,1037 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Java, 테스트 코드 작성 - JUnit 5 - yessm621.dev</title>
+<meta name="description" content="JUnit 5 소개">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="Java, 테스트 코드 작성 - JUnit 5">
+<meta property="og:url" content="http://localhost:4000/testcode/JUnit5/">
+
+
+  <meta property="og:description" content="JUnit 5 소개">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-03-05T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/testcode/JUnit5/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">55</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(10)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(2)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(5)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java, 테스트 코드 작성 - JUnit 5">
+    <meta itemprop="description" content="JUnit 5 소개">
+    <meta itemprop="datePublished" content="2022-03-05T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Java, 테스트 코드 작성 - JUnit 5
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-03-05T00:00:00+09:00">March 5, 2022</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#junit-5-소개">JUnit 5 소개</a><ul><li><a href="#junit-5란">JUnit 5란?</a></li><li><a href="#junit-5의-세부-모듈-3가지">Junit 5의 세부 모듈 3가지</a></li></ul></li><li><a href="#junit-5-시작하기">JUnit 5: 시작하기</a><ul><li><a href="#기본-어노테이션">기본 어노테이션</a></li></ul></li><li><a href="#junit-5-테스트-이름-표기하기">JUnit 5: 테스트 이름 표기하기</a></li><li><a href="#junit-5-assertion">JUnit 5: Assertion</a><ul><li><a href="#자주-사용하는-assert문">자주 사용하는 Assert문</a></li></ul></li><li><a href="#junit-5-조건에-따라-테스트-실행하기">JUnit 5: 조건에 따라 테스트 실행하기</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="junit-5-소개">JUnit 5 소개</h2>
+
+<h3 id="junit-5란">JUnit 5란?</h3>
+
+<ul>
+  <li>자바 개발자가 가장 많이 사용하는 테스팅 프레임워크
+    <ul>
+      <li>단위 테스트를 작성하는 자바 개발자 93%가 <code class="language-plaintext highlighter-rouge">JUnit</code>을 사용</li>
+    </ul>
+  </li>
+  <li>자바 8 이상을 필요로 함</li>
+</ul>
+
+<h3 id="junit-5의-세부-모듈-3가지">Junit 5의 세부 모듈 3가지</h3>
+
+<ol>
+  <li>JUnit Platform: 테스트 코드를 실행해주는 런처를 제공. TestEngine API 제공</li>
+  <li><strong>Jupiter</strong>: TestEngine API 구현체로 JUnit 5를 제공</li>
+  <li>Vintage: JUnit 4와 3을 지원하는 TestEngine 구현체</li>
+</ol>
+
+<h2 id="junit-5-시작하기">JUnit 5: 시작하기</h2>
+
+<blockquote>
+  <p>참고
+<br />
+Junit 5부터는 public을 안붙여도 된다. (리플렉션을 사용하기 때문에 public 을 굳이 붙일 필요가 없어짐)</p>
+
+</blockquote>
+
+<h3 id="기본-어노테이션">기본 어노테이션</h3>
+
+<p>어노테이션을 사용하는 메소드를 구현할 때는 반드시 <code class="language-plaintext highlighter-rouge">static</code>을 붙여야 한다.
+default 는 되고 private 은 안된다. 그리고 리턴타입이 있으면 안됨.</p>
+
+<p>→ 기본적으로 static void 써야한다고 생각하자</p>
+
+<p><strong>@Test</strong></p>
+
+<ul>
+  <li>테스트 메서드임을 나타내는 어노테이션</li>
+</ul>
+
+<p><strong>@BeforeAll / @AfterAll</strong></p>
+
+<ul>
+  <li>
+    <p>beforeAll 어노테이션: 테스트 클래스 안에 있는 모든 테스트가 실행되기 전 딱 한번 호출 됨</p>
+  </li>
+  <li>
+    <p>afterAll 어노테이션: 테스트 클래스 안에 있는 모든 테스트가 실행된 후 딱 한번 호출 됨</p>
+  </li>
+</ul>
+
+<p><strong>@BeforeEach / @AfterEach</strong></p>
+
+<ul>
+  <li>
+    <p>beforeEach 어노테이션: 각각의 테스트 메서드가 실행되기 전 호출 됨</p>
+  </li>
+  <li>
+    <p>afterEach 어노테이션: 각각의 테스트 메서드가 실행된 후 호출 됨</p>
+  </li>
+</ul>
+
+<p><strong>@Disabled</strong></p>
+
+<ul>
+  <li>테스트 어노테이션이 있어도 Disabled 어노테이션이 붙어있다면 테스트코드가 실행되지 않음</li>
+</ul>
+
+<p><strong>테스트 예제</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.yes.thejavatest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">StudyTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Study</span> <span class="n">study</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Study</span><span class="o">();</span>
+        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">study</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"create"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">create1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"create1"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@BeforeAll</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">beforeAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"before all"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@AfterAll</span>
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">afterAll</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"after all"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">beforeEach</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"before each"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@AfterEach</span>
+    <span class="kt">void</span> <span class="nf">afterEach</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"after each"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@Disabled</span>
+    <span class="kt">void</span> <span class="nf">create2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"create2"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="junit-5-테스트-이름-표기하기">JUnit 5: 테스트 이름 표기하기</h2>
+
+<ul>
+  <li>@DisplayNameGeneration</li>
+  <li><strong>@DisplayName</strong></li>
+</ul>
+
+<p><strong>테스트 예제</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.yes.thejavatest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="nd">@DisplayNameGeneration</span><span class="o">(</span><span class="nc">DisplayNameGenerator</span><span class="o">.</span><span class="na">ReplaceUnderscores</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">StudyTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"스터디 만들기"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Study</span> <span class="n">study</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Study</span><span class="o">();</span>
+        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">study</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"create"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="junit-5-assertion">JUnit 5: Assertion</h2>
+
+<p><code class="language-plaintext highlighter-rouge">org.junit.jupiter.api.Assertions.*</code> 를 사용</p>
+
+<h3 id="자주-사용하는-assert문">자주 사용하는 Assert문</h3>
+
+<p><strong>assertEquals(expected, actual)</strong></p>
+
+<ul>
+  <li>실제 값이 기대한 값과 같은지 확인</li>
+  <li>기대하는 값을 왼쪽에 실제 나오는 값을 오른쪽에 적어줌 (필수는 아니지만 api가 의도하는 바는 그렇다)</li>
+</ul>
+
+<p><strong>람다식으로 표현하는 이유</strong></p>
+
+<ul>
+  <li>테스트가 실패 했을 때만 연산 (람다식을 사용하지 않은 코드는 테스트를 실패하던 성공하던 무조건 실행)</li>
+  <li>문자열 연산의 비용이 조금 걱정이 될 때는 람다식을 쓰는게 유리 (성능을 신경쓰는 입장에서)</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> <span class="s">"스터디를 처음 만들면 상태값이 DRAFT여야 한다."</span><span class="o">);</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"스터디를 처음 만들면 상태값이 DRAFT여야 한다."</span><span class="o">);</span>
+
+<span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> 
+        <span class="s">"스터디를 처음 만들면 상태값이 "</span> <span class="o">+</span> <span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span> <span class="o">+</span> <span class="s">"여야 한다."</span><span class="o">);</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"스터디를 처음 만들면 상태값이 "</span> <span class="o">+</span> <span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span> <span class="o">+</span> <span class="s">"여야 한다."</span><span class="o">);</span>
+
+<span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Supplier</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"스터디를 처음 만들면 "</span> <span class="o">+</span> <span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span> <span class="o">+</span> <span class="s">" 상태다."</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p><strong>assertNotNull(actual)</strong></p>
+
+<ul>
+  <li>값이 null이 아닌지 확인</li>
+</ul>
+
+<p><strong>assertTrue(boolean)</strong></p>
+
+<ul>
+  <li>다음 조건이 참(true)인지 확인</li>
+</ul>
+
+<p><strong>assertAll(executablesl…)</strong></p>
+
+<ul>
+  <li>모든 확인 구문 확인</li>
+  <li>테스트는 순차적으로 실행되기 때문에 위에서 테스트가 깨지면 그 다음 assert문으로 넘어가지 않지만 이를 동시에 알 수 있는 방법이 있다.</li>
+  <li>각각 assert문을 실행 할 수도 있지만 모든 assert문의 결과를 한번에 알고 싶을 때 <code class="language-plaintext highlighter-rouge">assertAll</code>을 사용해서 람다식으로 표현하면 assert문을 한번에 실행 할 수 있다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertAll</span><span class="o">(</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertNotNull</span><span class="o">(</span><span class="n">study</span><span class="o">),</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertEquals</span><span class="o">(</span><span class="nc">StudyStatus</span><span class="o">.</span><span class="na">DRAFT</span><span class="o">,</span> <span class="n">study</span><span class="o">.</span><span class="na">getStatus</span><span class="o">(),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="s">"스터디를 처음 만들면 상태값이 DRAFT여야 한다."</span><span class="o">),</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">assertTrue</span><span class="o">(</span><span class="n">study</span><span class="o">.</span><span class="na">getLimit</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"스터디 최대 참석 가능 인원은 0보다 커야 한다."</span><span class="o">)</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>assertThrows(expectedType, executable)</strong></p>
+
+<ul>
+  <li>예외 발생 확인</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IllegalArgumentException</span> <span class="n">exception</span> <span class="o">=</span>
+        <span class="n">assertThrows</span><span class="o">(</span><span class="nc">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Study</span><span class="o">(-</span><span class="mi">10</span><span class="o">));</span>
+<span class="n">assertEquals</span><span class="o">(</span><span class="s">"limit은 0보다 커야 한다."</span><span class="o">,</span> <span class="n">exception</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><strong>assertTimeout(duration, executable)</strong></p>
+
+<ul>
+  <li>특정 시간 안에 실행이 완료되는지 확인</li>
+  <li>위의 코드는 테스트가 끝날때까지 테스트가 끝나지 않는다. 즉, 실제 테스트에 오래걸리는 코드가 있다면 그 코드가 끝날때까지 끝나지 않는다.
+그러나, 이렇게 하는 것은 비효율적이다.
+실제 100밀리세컨드가 끝나면 그냥 테스트가 실패하게 만들고 싶다.(이게 효율적이니까)</li>
+  <li>그럴때 사용하는 것이 assertTimeoutPreemptively() 이다. (Preemptively: 즉각적인)</li>
+  <li>그러나, assertTimeoutPreemptively()는 주의해서 사용해야한다. ThreadLocal과 관련해 예상하지 못한 예외가 발생할 수 있다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">assertTimeout</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">100</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">new</span> <span class="nf">Study</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">300</span><span class="o">);</span>
+<span class="o">});</span>
+
+<span class="n">assertTimeoutPreemptively</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">100</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">new</span> <span class="nf">Study</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">300</span><span class="o">);</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p><strong>org.assertj.core.api.Assertions.assertThat</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Study</span> <span class="n">actual</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Study</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">assertThat</span><span class="o">(</span><span class="n">actual</span><span class="o">.</span><span class="na">getLimit</span><span class="o">()).</span><span class="na">isGreaterThan</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>이렇게 테스트 하는 방법도 있다.</p>
+
+<h2 id="junit-5-조건에-따라-테스트-실행하기">JUnit 5: 조건에 따라 테스트 실행하기</h2>
+
+<p>특정한 조건을 만족하는 경우에 테스트를 실행하는 방법</p>
+
+<p>org.junit.jupiter.api.Assumptions</p>
+
+<ul>
+  <li>assumeTrue(조건)</li>
+  <li>assumingThat(조건, 테스트)</li>
+</ul>
+
+<p>@Enabled 와 @Disabled</p>
+
+<ul>
+  <li>OnOS</li>
+  <li>OnJre</li>
+  <li>IfEnvironmentVariable</li>
+  <li>If</li>
+</ul>
+
+<p><strong>테스트 예제</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">me.yes.thejavatest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.condition.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">assertj</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assumptions</span><span class="o">.</span><span class="na">assumeTrue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assumptions</span><span class="o">.</span><span class="na">assumingThat</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">StudyTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"스터디 만들기"</span><span class="o">)</span>
+    <span class="nd">@EnabledOnOs</span><span class="o">({</span><span class="no">OS</span><span class="o">.</span><span class="na">MAC</span><span class="o">,</span> <span class="no">OS</span><span class="o">.</span><span class="na">LINUX</span><span class="o">})</span>
+    <span class="nd">@EnabledOnJre</span><span class="o">({</span><span class="no">JRE</span><span class="o">.</span><span class="na">JAVA_8</span><span class="o">,</span> <span class="no">JRE</span><span class="o">.</span><span class="na">JAVA_9</span><span class="o">,</span> <span class="no">JRE</span><span class="o">.</span><span class="na">JAVA_10</span><span class="o">,</span> <span class="no">JRE</span><span class="o">.</span><span class="na">JAVA_11</span><span class="o">})</span>
+    <span class="nd">@EnabledIfEnvironmentVariable</span><span class="o">(</span><span class="n">named</span> <span class="o">=</span> <span class="s">"TEST_ENV"</span><span class="o">,</span> <span class="n">matches</span> <span class="o">=</span> <span class="s">"LOCAL"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">test_env</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">"TEST_ENV"</span><span class="o">);</span>
+
+        <span class="n">assumeTrue</span><span class="o">(</span><span class="s">"LOCAL"</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">test_env</span><span class="o">));</span>
+
+        <span class="n">assumingThat</span><span class="o">(</span><span class="s">"LOCAL"</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">test_env</span><span class="o">),</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">Study</span> <span class="n">actual</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Study</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+            <span class="n">assertThat</span><span class="o">(</span><span class="n">actual</span><span class="o">.</span><span class="na">getLimit</span><span class="o">()).</span><span class="na">isGreaterThan</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="o">});</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#testcode" class="page__taxonomy-item" rel="tag">TestCode</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#testcode" class="page__taxonomy-item" rel="tag">TestCode</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-03-05T00:00:00+09:00">March 5, 2022</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/springboot/SpringRESTDocs/" class="pagination--pager" title="스프링 REST Docs
+">이전</a>
+    
+    
+      <a href="/jpa/JPA-N+1/" class="pagination--pager" title="JPA N+1 문제
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+
+  
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="#" class="pagination_prev_next--pager disabled">첫 번째 글입니다</a>
+    
+    
+      <a href="/testcode/Mock/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>Mock 이란?</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
