@@ -53,6 +53,30 @@ var store = [{
         "url": "/springboot/SpringRESTDocs/",
         "teaser": null
       },{
+        "title": "DIP, OCP와 의존관계 주입(DI)",
+        "excerpt":"DIP, OCP를 지키기 위해선 다형성만으론 부족하다. 의존관계 주입(DI) 개념이 필요하다. 의존관계 주입에 대해 알아보기 전에 아래 요구사항과 그에 따른 코드 흐름을 살펴보자. 요구사항 정의서와 설계 회원 도메인 설계 회원을 가입하고 조회할 수 있다 회원은 일반과 VIP 두가지 등급이 있다 회원 데이터는 자체 DB를 구축할 수 있고, 외부 시스템과 연동할 수...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/DipOcpDi/",
+        "teaser": null
+      },{
+        "title": "IoC(제어의 역전)와 DI(의존관계 주입)",
+        "excerpt":"제어의 역전(IoC, Inversion of Control) AppConfig를 사용하기 전에는 클라이언트 구현 객체가 서버 구현 객체를 생성, 연결, 실행했다. 구현 객체가 프로그램의 제어 흐름을 스스로 조종했다. 반면에, AppConfig 등장 이후 구현 객체는 자신의 로직을 실행하는 역할만 담당하고 프로그램의 제어 흐름은 AppConfig가 가져갔다. 예를 들어, OrderServiceImpl은 필요한 인터페이스들을 호출하지만 어떤 구현 객체들이 실행될지...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/IoCDI/",
+        "teaser": null
+      },{
+        "title": "싱글톤 컨테이너",
+        "excerpt":"싱글톤 패턴 싱글톤 패턴 등장배경 웹 애플리케이션은 사용자의 요청이 많으며 동시에 요청을 한다. 만약, 스프링 없는 순수한 DI 컨테이너를 사용하면 클라이언트가 요청을 할 때마다 객체가 생성된다. 따라서, 메모리 낭비가 매우 심하다. 순수한 DI 컨테이너 테스트 @Test @DisplayName(\"스프링 없는 순수한 DI 컨테이너\") void pureContainer(){ AppConfig appConfig = new AppConfig(); MemberService memberService1...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/Singleton/",
+        "teaser": null
+      },{
+        "title": "컴포넌트 스캔",
+        "excerpt":"컴포넌트 스캔과 의존관계 자동 주입 스프링은 자바 코드의 @Bean이나 XML의 &lt;bean&gt; 같은 설정 정보가 없어도 자동으로 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능을 제공하며, 의존관계를 자동으로 주입하는 @Autowired 기능을 제공한다. 컴포넌트 스캔 @ComponentScan( excludeFilters = @Filter(type = FilterType.ANNOTATION, classes = Configuration.class)) public class AutoAppConfig { // 기존과 다르게 비어있음 } 컴포넌트...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/ComponentScan/",
+        "teaser": null
+      },{
         "title": "Java, 테스트 코드 작성 - JUnit 5",
         "excerpt":"JUnit 5 소개 JUnit 5란? 자바 개발자가 가장 많이 사용하는 테스팅 프레임워크 단위 테스트를 작성하는 자바 개발자 93%가 JUnit을 사용 자바 8 이상을 필요로 함 Junit 5의 세부 모듈 3가지 JUnit Platform: 테스트 코드를 실행해주는 런처를 제공. TestEngine API 제공 Jupiter: TestEngine API 구현체로 JUnit 5를 제공 Vintage: JUnit 4와...","categories": ["TestCode"],
         "tags": ["Java","TestCode"],
@@ -117,6 +141,24 @@ var store = [{
         "excerpt":"1. 쿠키 Set-Cookie: 서버에서 클라이언트로 쿠키 전달(응답) Cookie: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청시 서버로 전달 Stateless HTTP는 무상태 프로토콜 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어짐 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못함 클라이언트와 서버는 서로 상태를 유지하지 않는다 대안으로 모든 요청에 정보를 넘기는 방법이 있지만...","categories": ["Http"],
         "tags": ["Http","Web"],
         "url": "/http/CookieCash/",
+        "teaser": null
+      },{
+        "title": "좋은 객체 지향 설계의 원칙: SOLID",
+        "excerpt":"SOLID란, 클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리한 것이다. SRP, OCP, LSP, ISP, DIP가 있는데 그 중 OCP와 DIP가 중요하다. SRP 단일 책임 원칙 (Single Responsibility Principle) 한 클래스는 하나의 책임만 가져야 한다. 여기서 하나의 책임이라는 말은 모호할 수 있다. 하나의 책임을 구분하는 중요한 기준은 변경이다....","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/SOLID/",
+        "teaser": null
+      },{
+        "title": "스프링 컨테이너와 스프링 빈",
+        "excerpt":"스프링 컨테이너 스프링 컨테이너란? 스프링 컨테이너란 스프링에서 자바 객체들을 관리하는 공간을 말한다. 여기서 자바 객체는 스프링 빈(Bean)을 의미한다. 즉, 스프링 컨테이너는 빈의 생성부터 소멸까지의 생명주기를 관리해주는 곳이다. 스프링 컨테이너의 종류에는 ApplicationContext와 BeanFactory가 있다. 하지만, BeanFactory를 직접 사용하는 경우는 거의 없으므로 일반적으로 ApplicationContext를 스프링 컨테이너라 한다. 스프링 컨테이너 생성 ApplicationContext는 인터페이스이다....","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/SpringContainerBean/",
+        "teaser": null
+      },{
+        "title": "의존관계 주입 방법",
+        "excerpt":"다양한 의존관계 주입 방법 생성자 주입 수정자 주입 (setter 주입) 필드 주입 일반 메서드 주입 생성자 주입 생성자를 통해서 의존 관계를 주입 받는 방법이고 현재 가장 권장하는 방법이다. 생성자 호출 시점에 1번만 호출되는 것이 보장되고 불변, 필수 의존관계에 사용된다. 또한, 생성자가 1개만 있으면 @Autowired를 생략해도 자동 주입 된다. (스프링 빈에만...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/DependencyInjection/",
         "teaser": null
       },{
         "title": "RestfulAPI 개발 시 주의할 점",
@@ -227,6 +269,12 @@ var store = [{
         "url": "/java/LambdaExpression/",
         "teaser": null
       },{
+        "title": "빈 생명주기 콜백",
+        "excerpt":"빈 생명주기 콜백 시작 데이터베이스 커넥션 풀이나, 네트워크 소켓처럼 애플리케이션 시작 시점에 필요한 연결을 미리 해두고, 애플리케이션 종료 시점에 연결을 모두 종료하는 작업을 진행하려면, 객체의 초기화와 종료 작업이 필요하다. 데이터베이스 커넥션에 대해 얘기한 이유는 빈 생명주기 콜백과 비슷하기 때문이다. 빈 생명주기 콜백도 시작과 안전한 종료를 위한 작업이 필요하다. 스프링 빈은...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/BeanLifeCycle/",
+        "teaser": null
+      },{
         "title": "내부 클래스",
         "excerpt":"내부 클래스란? 내부 클래스는 클래스 내에 선언된 클래스다. 클래스에 다른 클래스를 선언하는 이유는 두 클래스가 서로 긴밀한 관계에 있기 때문이다. 내부 클래스의 장점 내부 클래스에서 외부 클래스의 멤버들을 쉽게 접근할 수 있다. 코드의 복잡성을 줄일 수 있다. class A { ... } class B { ... } // 외부 클래스(outer...","categories": ["Java"],
         "tags": ["Java"],
@@ -237,6 +285,12 @@ var store = [{
         "excerpt":"지네릭스(Generics) 지네릭스는 컴파일 시 타입을 체크해주는 기능을 하며 객체의 타입 안정성을 높이고 형변환의 번거로운을 줄여준다. 컴파일 체크 컴파일 시 타입을 체크해주는 기능 (compile-time type check) - JDK 1.5 지네릭스 적용 전 ArrayList tvList = new ArrayList(); tvList.add(new Tv()); // OK tvList.add(new Audio()); // OK ArrayList는 Object 배열을 가지고 있으므로 모든...","categories": ["Java"],
         "tags": ["Java"],
         "url": "/java/Java-Generic/",
+        "teaser": null
+      },{
+        "title": "빈 스코프",
+        "excerpt":"빈 스코프란? 스프링 빈은 스프링 컨테이너의 시작과 함께 생성되고 스프링 컨테이너가 종료될 때 까지 유지된다. 이것은 스프링 빈이 기본적으로 싱글톤 스코프로 생성되기 때문이다. 스코프는 번역 그대로 빈이 존재할 수 있는 범위를 뜻한다. 스프링은 다양한 스코프를 지원한다. 싱글톤: 기본 스코프, 스프링 컨테이너의 시작과 종료까지 유지되는 가장 넓은 범위의 스코프이다. 프로토타입: 스프링...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/BeanScope/",
         "teaser": null
       },{
         "title": "연관관계 편의 메서드",
@@ -327,5 +381,11 @@ var store = [{
         "excerpt":"RestAPI with 스프링부트 A to Z      REST API with SpringBoot(1)   REST API with SpringBoot(2)   REST API with SpringBoot(3)   REST API with SpringBoot(4)   스프링 HATEOAS   스프링 REST Docs  ","categories": ["Series"],
         "tags": ["SpringBoot","RestAPI"],
         "url": "/series/RestAPISeries/",
+        "teaser": null
+      },{
+        "title": "스프링 기본원리 목차",
+        "excerpt":"RestAPI with 스프링부트 A to Z      좋은 객체 지향 설계의 원칙: SOLID   DIP, OCP와 의존관계 주입(DI)   IoC와 DI   스프링 컨테이너와 스프링 빈   싱글톤 컨테이너   컴포넌트 스캔   의존관계 주입 방법   빈 생명주기 콜백   빈 스코프  ","categories": ["Series"],
+        "tags": ["SpringBoot"],
+        "url": "/series/SpringSeries/",
         "teaser": null
       }]

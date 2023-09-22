@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-20T14:35:06+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">yessm621.dev</title><subtitle>An amazing website.</subtitle><author><name>승미</name></author><entry><title type="html">RestAPI with 스프링부트 목차</title><link href="http://localhost:4000/series/RestAPISeries/" rel="alternate" type="text/html" title="RestAPI with 스프링부트 목차" /><published>2023-09-19T00:00:00+09:00</published><updated>2023-09-19T00:00:00+09:00</updated><id>http://localhost:4000/series/RestAPISeries</id><content type="html" xml:base="http://localhost:4000/series/RestAPISeries/"><![CDATA[<h2 id="restapi-with-스프링부트-a-to-z">RestAPI with 스프링부트 A to Z</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-09-23T00:14:53+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">yessm621.dev</title><subtitle>An amazing website.</subtitle><author><name>승미</name></author><entry><title type="html">스프링 기본원리 목차</title><link href="http://localhost:4000/series/SpringSeries/" rel="alternate" type="text/html" title="스프링 기본원리 목차" /><published>2023-09-23T00:00:00+09:00</published><updated>2023-09-23T00:00:00+09:00</updated><id>http://localhost:4000/series/SpringSeries</id><content type="html" xml:base="http://localhost:4000/series/SpringSeries/"><![CDATA[<h2 id="restapi-with-스프링부트-a-to-z">RestAPI with 스프링부트 A to Z</h2>
 
 <ol>
-  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(1)/">REST API with SpringBoot(1)</a></li>
-  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(2)/">REST API with SpringBoot(2)</a></li>
-  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(3)/">REST API with SpringBoot(3)</a></li>
-  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(4)/">REST API with SpringBoot(4)</a></li>
-  <li><a href="https://yessm621.github.io/springboot/Java-HATEOAS/">스프링 HATEOAS</a></li>
-  <li><a href="https://yessm621.github.io/springboot/SpringRESTDocs/">스프링 REST Docs</a></li>
-</ol>]]></content><author><name>승미</name></author><category term="Series" /><category term="SpringBoot" /><category term="RestAPI" /><summary type="html"><![CDATA[RestAPI with 스프링부트 A to Z]]></summary></entry><entry><title type="html">JPA 목차</title><link href="http://localhost:4000/series/JPASeries/" rel="alternate" type="text/html" title="JPA 목차" /><published>2023-09-19T00:00:00+09:00</published><updated>2023-09-19T00:00:00+09:00</updated><id>http://localhost:4000/series/JPASeries</id><content type="html" xml:base="http://localhost:4000/series/JPASeries/"><![CDATA[<h2 id="jpa-a-to-z">JPA A to Z</h2>
+  <li><a href="https://yessm621.github.io/springboot/SOLID/">좋은 객체 지향 설계의 원칙: SOLID</a></li>
+  <li><a href="https://yessm621.github.io/springboot/DipOcpDi/">DIP, OCP와 의존관계 주입(DI)</a></li>
+  <li><a href="https://yessm621.github.io/springboot/IoCDI/">IoC와 DI</a></li>
+  <li><a href="https://yessm621.github.io/springboot/SpringContainerBean/">스프링 컨테이너와 스프링 빈</a></li>
+  <li><a href="https://yessm621.github.io/springboot/Singleton/">싱글톤 컨테이너</a></li>
+  <li><a href="https://yessm621.github.io/springboot/ComponentScan/">컴포넌트 스캔</a></li>
+  <li><a href="https://yessm621.github.io/springboot/DependencyInjection/">의존관계 주입 방법</a></li>
+  <li><a href="https://yessm621.github.io/springboot/BeanLifeCycle/">빈 생명주기 콜백</a></li>
+  <li><a href="https://yessm621.github.io/springboot/BeanScope/">빈 스코프</a></li>
+</ol>]]></content><author><name>승미</name></author><category term="Series" /><category term="SpringBoot" /><summary type="html"><![CDATA[RestAPI with 스프링부트 A to Z]]></summary></entry><entry><title type="html">JPA 목차</title><link href="http://localhost:4000/series/JPASeries/" rel="alternate" type="text/html" title="JPA 목차" /><published>2023-09-19T00:00:00+09:00</published><updated>2023-09-19T00:00:00+09:00</updated><id>http://localhost:4000/series/JPASeries</id><content type="html" xml:base="http://localhost:4000/series/JPASeries/"><![CDATA[<h2 id="jpa-a-to-z">JPA A to Z</h2>
 
 <ol>
   <li><a href="https://yessm621.github.io/jpa/ORMJPAHibernate/">ORM과 JPA, Hibernate</a></li>
@@ -22,7 +25,16 @@
   <li><a href="https://yessm621.github.io/jpa/Proxy/">프록시, 즉시로딩과 지연로딩</a></li>
   <li><a href="https://yessm621.github.io/jpa/Cascade/">영속성 전이(Cascade), 고아 객체</a></li>
   <li><a href="https://yessm621.github.io/jpa/ValueType/">값 타입</a></li>
-</ol>]]></content><author><name>승미</name></author><category term="Series" /><category term="Jpa" /><summary type="html"><![CDATA[JPA A to Z]]></summary></entry><entry><title type="html">Spring Security</title><link href="http://localhost:4000/springboot/Spring-SpringSecurity/" rel="alternate" type="text/html" title="Spring Security" /><published>2023-06-05T00:00:00+09:00</published><updated>2023-06-05T00:00:00+09:00</updated><id>http://localhost:4000/springboot/Spring-SpringSecurity</id><content type="html" xml:base="http://localhost:4000/springboot/Spring-SpringSecurity/"><![CDATA[<h1 id="spring-security-적용하기">Spring Security 적용하기</h1>
+</ol>]]></content><author><name>승미</name></author><category term="Series" /><category term="Jpa" /><summary type="html"><![CDATA[JPA A to Z]]></summary></entry><entry><title type="html">RestAPI with 스프링부트 목차</title><link href="http://localhost:4000/series/RestAPISeries/" rel="alternate" type="text/html" title="RestAPI with 스프링부트 목차" /><published>2023-09-19T00:00:00+09:00</published><updated>2023-09-19T00:00:00+09:00</updated><id>http://localhost:4000/series/RestAPISeries</id><content type="html" xml:base="http://localhost:4000/series/RestAPISeries/"><![CDATA[<h2 id="restapi-with-스프링부트-a-to-z">RestAPI with 스프링부트 A to Z</h2>
+
+<ol>
+  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(1)/">REST API with SpringBoot(1)</a></li>
+  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(2)/">REST API with SpringBoot(2)</a></li>
+  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(3)/">REST API with SpringBoot(3)</a></li>
+  <li><a href="https://yessm621.github.io/springboot/Java-REST-API(4)/">REST API with SpringBoot(4)</a></li>
+  <li><a href="https://yessm621.github.io/springboot/Java-HATEOAS/">스프링 HATEOAS</a></li>
+  <li><a href="https://yessm621.github.io/springboot/SpringRESTDocs/">스프링 REST Docs</a></li>
+</ol>]]></content><author><name>승미</name></author><category term="Series" /><category term="SpringBoot" /><category term="RestAPI" /><summary type="html"><![CDATA[RestAPI with 스프링부트 A to Z]]></summary></entry><entry><title type="html">Spring Security</title><link href="http://localhost:4000/springboot/Spring-SpringSecurity/" rel="alternate" type="text/html" title="Spring Security" /><published>2023-06-05T00:00:00+09:00</published><updated>2023-06-05T00:00:00+09:00</updated><id>http://localhost:4000/springboot/Spring-SpringSecurity</id><content type="html" xml:base="http://localhost:4000/springboot/Spring-SpringSecurity/"><![CDATA[<h1 id="spring-security-적용하기">Spring Security 적용하기</h1>
 
 <p>Spring Security 5.7 버전부터 기존에 사용하던 스프링 시큐리티 적용 방식과 많이 달라졌다. 이 부분에 대해 정리하기 위해 이 포스트를 작성하게 되었다.</p>
 
@@ -1932,242 +1944,4 @@ Hibernate:
     <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div></div>
-<p>위와 같이 SQL 스크립트를 작성하면 <strong><em>스프링 부트는 SQL 스크립트를 실행해서 애플리케이션 로딩 시점에 데이터베이스를 초기화하는 기능을 제공한다.</em></strong></p>]]></content><author><name>승미</name></author><category term="TestCode" /><category term="TestCode" /><category term="SpringBoot" /><summary type="html"><![CDATA[테스트 환경을 분리해야 하는 이유]]></summary></entry><entry><title type="html">Java, Optional</title><link href="http://localhost:4000/java/Java-Optional/" rel="alternate" type="text/html" title="Java, Optional" /><published>2023-02-13T00:00:00+09:00</published><updated>2023-02-13T00:00:00+09:00</updated><id>http://localhost:4000/java/Java-Optional</id><content type="html" xml:base="http://localhost:4000/java/Java-Optional/"><![CDATA[<h2 id="optional이란">Optional이란</h2>
-
-<p><code class="language-plaintext highlighter-rouge">Optional</code>을 사용하면 null이 올 수 있는 값을 감싸서 참조하더라도 <code class="language-plaintext highlighter-rouge">NPE</code>가 발생하지 않도록 도와준다. Optional은 Java8 부터 지원한다.</p>
-
-<blockquote>
-  <p><strong>참고</strong> NPE(NullPointerException)
-개발을 할 때 가장 많이 발생하는 예외 중 하나가 바로 NPE이다. null 여부를 검사하는 코드는 복잡하고 번거롭다. 그래서 null 대신 초기값을 사용하길 권장하기도 한다.</p>
-
-</blockquote>
-
-<h2 id="optional에서-제공하는-메서드">Optional에서 제공하는 메서드</h2>
-
-<h3 id="optional-객체-생성">Optional 객체 생성</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// of(): 값이 널인 경우 NPE 오류 발생. 값이 반드시 있어야 한다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
-
-<span class="c1">// ofNullable(): 값이 널인 경우 비어있는 Optional 반환. 값이 널일 수도 있는 경우에 사용한다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-
-<span class="c1">// empty(): 비어있는 Optional 객체 생성</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-</code></pre></div></div>
-
-<h3 id="optional-중간-처리">Optional 중간 처리</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// filter(): 값이 참이면 해당 필터를 통과시키고 거짓이면 통과시키지 않는다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"1"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"NO DATA"</span><span class="o">);</span> <span class="c1">// 1</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"0"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"1"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"NO DATA"</span><span class="o">);</span> <span class="c1">// NO DATA</span>
-
-<span class="c1">// map()</span>
-<span class="c1">// Convert String to Integer</span>
-<span class="nc">Integer</span> <span class="n">test</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">Integer:</span><span class="o">:</span><span class="n">valueOf</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(</span><span class="nl">NoSuchElementException:</span><span class="o">:</span><span class="k">new</span><span class="o">);</span>
-</code></pre></div></div>
-
-<h3 id="optional-종단-처리">Optional 종단 처리</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ifPresent()</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"test"</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">((</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{...});</span> <span class="c1">// something to do</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">ifPresent</span><span class="o">((</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{...});</span> <span class="c1">// nothing to do</span>
-
-<span class="c1">// isPresent(): 객체가 존재하는지 여부 판별</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">isPresent</span><span class="o">();</span> <span class="c1">// true</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">filter</span><span class="o">((</span><span class="n">val</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"0"</span><span class="o">.</span><span class="na">eqauls</span><span class="o">(</span><span class="n">val</span><span class="o">)).</span><span class="na">isPresent</span><span class="o">();</span> <span class="c1">// false</span>
-
-<span class="c1">// get(): 객체를 꺼낸다. 비어있는 객체이면 오류가 발생한다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"test"</span><span class="o">).</span><span class="na">get</span><span class="o">();</span> <span class="c1">// 'test'</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">get</span><span class="o">();</span> <span class="c1">// Exception!!!</span>
-
-<span class="c1">// orElse(): 객체가 비어있다면 기본값을 제공한다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="kc">null</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"default"</span><span class="o">);</span> <span class="c1">// 'default'</span>
-
-<span class="c1">// orElseGet(): 객체가 비어있다면 기본값을 제공한다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"input"</span><span class="o">).</span><span class="na">filter</span><span class="o">(</span><span class="s">"test"</span><span class="o">::</span><span class="n">equals</span><span class="o">).</span><span class="na">orElseGet</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"default"</span><span class="o">);</span> <span class="c1">// 'default'</span>
-
-<span class="c1">// orElseThrow(): 객체가 비어있거나 값이 맞는 부분이 없으면 Exception을 던진다.</span>
-<span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"input"</span><span class="o">).</span><span class="na">filter</span><span class="o">(</span><span class="s">"test"</span><span class="o">::</span><span class="n">equals</span><span class="o">).</span><span class="na">orElseThrow</span><span class="o">(</span><span class="nl">NoSuchElementException:</span><span class="o">:</span><span class="k">new</span><span class="o">);</span>
-</code></pre></div></div>
-
-<p>만약, 빈 Optional 객체에 get() 메서드를 호출하면 오류가 발생하므로 Optional 객체를 가져오기 전에 값이 있는지 확인 해야 한다.</p>
-
-<p>이때, 값이 있는지 확인하는 방법은 두가지가 있다.</p>
-
-<ol>
-  <li>isPresent()-get()</li>
-  <li>orElse(), orElseGet(), orElseThrow() <code class="language-plaintext highlighter-rouge">(권장)</code></li>
-</ol>
-
-<p>두가지 방법 중 권장하는 방법은 orElse(), orElseGet(), orElseThrow()를 사용하는 것이다.</p>
-
-<h2 id="optional-사용-시-주의할-점">Optional 사용 시 주의할 점</h2>
-
-<p>Optional 사용 시 잘못 사용하는 <strong>안티 패턴</strong>과 <strong>올바르게 사용하는 방법</strong>에 대해 알아보자.</p>
-
-<h3 id="1-orelseorelsegetorelsethrow">1. orElse()/orElseGet()/orElseThrow()</h3>
-
-<p>isPresent()-get() 대신 orElse(), orElseGet(), orElseThrow()를 사용하면 코드를 줄일 수 있다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-<span class="o">}</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-
-<span class="c1">// 안 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nf">NoSuchElementException</span><span class="o">();</span>
-<span class="o">}</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">NoSuchElementException</span><span class="o">());</span>
-</code></pre></div></div>
-
-<h3 id="2-orelseget--new-">2. orElseGet(() → new …)</h3>
-
-<p>orElse(…)에서 …은 Optional에 값이 있든 없든 무조건 실행된다. 따라서, …가 새로운 객체를 생성하거나 새로운 연산을 수행하는 경우 orElse() 대신 orElseGet()을 써야 한다.</p>
-
-<p>Optional에 값이 없으면 orElse()의 인자로서 실행된 값이 반환되므로 실행한 의미가 있지만, Optional에 값이 있으면 orElse()의 인자로서 실행된 값이 무시되고 버려진다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="nc">Member</span><span class="o">());</span>  <span class="c1">// member에 값이 있든 없든 new Member()는 무조건 실행됨</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">orElseGet</span><span class="o">(</span><span class="nl">Member:</span><span class="o">:</span><span class="k">new</span><span class="o">);</span>  <span class="c1">// member에 값이 없을 때만 new Member()가 실행됨</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">Member</span> <span class="no">EMPTY_MEMBER</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Member</span><span class="o">();</span>
-<span class="o">...</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span> <span class="o">=</span> <span class="o">...;</span>
-<span class="k">return</span> <span class="n">member</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="no">EMPTY_MEMBER</span><span class="o">);</span>  <span class="c1">// 이미 생성됐거나 계산된 값은 orElse()를 사용해도 무방</span>
-</code></pre></div></div>
-
-<h3 id="3-단지-값을-얻을-목적이라면-optional-대신-null-비교">3. 단지 값을 얻을 목적이라면 Optional 대신 null 비교</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">status</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="no">READY</span><span class="o">);</span>
-
-<span class="c1">// 좋음</span>
-<span class="k">return</span> <span class="n">status</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">status</span> <span class="o">:</span> <span class="no">READY</span><span class="o">;</span>
-</code></pre></div></div>
-
-<h3 id="4-optional-대신-비어있는-컬렉션-반환">4. Optional 대신 비어있는 컬렉션 반환</h3>
-
-<p>Optional은 비용이 비싸다. 그리고 컬렉션은 null이 아니라 비어있는 컬렉션을 반환하는 것이 좋을 때가 많다. 따라서, 컬렉션은 Optional로 감싸서 반환하지 말고 비어있는 컬렉션을 반환하자.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">();</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullbale</span><span class="o">(</span><span class="n">members</span><span class="o">);</span>
-
-<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">members</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="na">getMembers</span><span class="o">();</span>
-<span class="k">return</span> <span class="n">members</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">members</span> <span class="o">:</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
-</code></pre></div></div>
-
-<p>마찬가지 이유로 Spring Data JPA Respository 메서드 선언 시 컬렉션을 Optional로 감싸서 반환하는 것은 좋지 않다. 컬렉션을 반환하는 JPA Repository 메서드는 null을 반환하지 않고 비어있는 컬렉션을 반환해주므로 Optional을 사용할 필요가 없다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span> <span class="o">{</span>
-    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;&gt;</span> <span class="nf">findAllByNameContaining</span><span class="o">(</span><span class="nc">String</span> <span class="n">part</span><span class="o">);</span>
-<span class="o">}</span>
-
-<span class="c1">// 좋음</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MemberRepository</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span> <span class="o">{</span>
-    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="nf">findAllByNameContaining</span><span class="o">(</span><span class="nc">String</span> <span class="n">part</span><span class="o">);</span>  <span class="c1">// null이 반환되지 않으므로 Optional 불필요</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="5-optional을-필드로-사용-금지">5. Optional을 필드로 사용 금지</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">email</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
-<span class="o">}</span>
-
-<span class="c1">// 좋음</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Member</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="6-optional을-생성자나-메서드-인자로-사용-금지">6. Optional을 생성자나 메서드 인자로 사용 금지</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HRManager</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increaseSalary</span><span class="o">(</span><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Member</span><span class="o">&gt;</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">member</span><span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">member</span> <span class="o">-&gt;</span> <span class="n">member</span><span class="o">.</span><span class="na">increaseSalary</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-<span class="n">hrManager</span><span class="o">.</span><span class="na">increaseSalary</span><span class="o">(</span><span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">member</span><span class="o">));</span>
-
-<span class="c1">// 좋음</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HRManager</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increaseSalary</span><span class="o">(</span><span class="nc">Member</span> <span class="n">member</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">member</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">member</span><span class="o">.</span><span class="na">increaseSalary</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-<span class="n">hrManager</span><span class="o">.</span><span class="na">increaseSalary</span><span class="o">(</span><span class="n">member</span><span class="o">);</span>
-</code></pre></div></div>
-
-<h3 id="7-optional을-컬렉션의-원소로-사용-금지">7. Optional을 컬렉션의 원소로 사용 금지</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="n">sports</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
-<span class="n">sports</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"100"</span><span class="o">,</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"BasketBall"</span><span class="o">));</span>
-<span class="n">sports</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"101"</span><span class="o">,</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">someOtherSports</span><span class="o">));</span>
-<span class="nc">String</span> <span class="n">basketBall</span> <span class="o">=</span> <span class="n">sports</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"100"</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="s">"BasketBall"</span><span class="o">);</span>
-<span class="nc">String</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">sports</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"101"</span><span class="o">).</span><span class="na">orElse</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">sports</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
-<span class="n">sports</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"100"</span><span class="o">,</span> <span class="s">"BasketBall"</span><span class="o">);</span>
-<span class="n">sports</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"101"</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-<span class="nc">String</span> <span class="n">basketBall</span> <span class="o">=</span> <span class="n">sports</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="s">"100"</span><span class="o">,</span> <span class="s">"BasketBall"</span><span class="o">);</span>
-<span class="nc">String</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">sports</span><span class="o">.</span><span class="na">computeIfAbsent</span><span class="o">(</span><span class="s">"101"</span><span class="o">,</span> <span class="n">k</span> <span class="o">-&gt;</span> <span class="s">""</span><span class="o">);</span>
-</code></pre></div></div>
-
-<h3 id="8-ofofnullable혼동-주의">8. of(), ofNullable() 혼동 주의</h3>
-
-<p>of(X)는 X가 null이 아님이 확실할 때만 사용해야 한다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>  <span class="c1">// member의 email이 null이면 NPE 발생</span>
-
-<span class="c1">// 좋음</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">member</span><span class="o">.</span><span class="na">getEmail</span><span class="o">());</span>
-
-<span class="c1">// 안 좋음</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="s">"READY"</span><span class="o">);</span>
-
-<span class="c1">// 좋음</span>
-<span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"READY"</span><span class="o">);</span>
-</code></pre></div></div>
-
-<h3 id="9-optional대신optionalintoptionallongoptionaldouble">9. Optional<T> 대신 OptionalInt, OptionalLong, OptionalDouble</T></h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 안 좋음</span>
-<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">count</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">38</span><span class="o">);</span>  <span class="c1">// boxing 발생</span>
-<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>  <span class="c1">// unboxing 발생</span>
-
-<span class="c1">// 좋음</span>
-<span class="nc">OptionalInt</span> <span class="n">count</span> <span class="o">=</span> <span class="nc">OptionalInt</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">38</span><span class="o">);</span>  <span class="c1">// boxing 발생 안 함</span>
-<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">.</span><span class="na">getAsInt</span><span class="o">()</span> <span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>  <span class="c1">// unboxing 발생 안 함</span>
-</code></pre></div></div>]]></content><author><name>승미</name></author><category term="Java" /><category term="Java" /><summary type="html"><![CDATA[Optional이란]]></summary></entry></feed>
+<p>위와 같이 SQL 스크립트를 작성하면 <strong><em>스프링 부트는 SQL 스크립트를 실행해서 애플리케이션 로딩 시점에 데이터베이스를 초기화하는 기능을 제공한다.</em></strong></p>]]></content><author><name>승미</name></author><category term="TestCode" /><category term="TestCode" /><category term="SpringBoot" /><summary type="html"><![CDATA[테스트 환경을 분리해야 하는 이유]]></summary></entry></feed>
