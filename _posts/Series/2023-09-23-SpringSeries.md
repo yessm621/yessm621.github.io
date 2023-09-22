@@ -6,7 +6,7 @@ tags:
   - SpringBoot
 ---
 
-## RestAPI with 스프링부트 A to Z
+## 스프링 기본 원리 A to Z
 
 1. [좋은 객체 지향 설계의 원칙: SOLID](https://yessm621.github.io/springboot/SOLID/)
 2. [DIP, OCP와 의존관계 주입(DI)](https://yessm621.github.io/springboot/DipOcpDi/)

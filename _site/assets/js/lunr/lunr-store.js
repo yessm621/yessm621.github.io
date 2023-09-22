@@ -143,6 +143,72 @@ var store = [{
         "url": "/http/CookieCash/",
         "teaser": null
       },{
+        "title": "SSR, CSR",
+        "excerpt":"서버 사이드 렌더링, 클라이언트 사이드 렌더링은 각각 서버와 클라이언트가 웹 페이지를 렌더링하는 기술을 의미한다. 서버 사이드 렌더링(SSR) SSR은 서버에서 사용자에게 보여줄 페이지를 모두 구성해 보여주는 방식이다. 즉, HTML 최종 결과를 서버에서 만들어서 웹 브라우저에 전달한다. 주로 정적인 화면에서 사용하고 관련 기술로는 JSP, 타임리프가 있다. SSR을 쓰면 모든 데이터가 매핑된 서비스...","categories": ["Http"],
+        "tags": ["Http"],
+        "url": "/http/SsrCsr/",
+        "teaser": null
+      },{
+        "title": "웹 서버와 WAS",
+        "excerpt":"웹 서버(Web Server, WS) 웹 서버는 HTTP 기반으로 동작하며 정적 리소스를 제공한다. 정적 리소스에는 정적 html, css ,js, 이미지, 영상 등이 있다. nginx, apache가 웹 서버에 해당한다. 웹 어플리케이션 서버(WAS) WAS는 HTTP 기반으로 동작하며 웹 서버 기능(정적 리소스 제공)도 제공할 수 있고 애플리케이션 로직도 수행한다. tomcat 등이 WAS에 해당된다. 웹...","categories": ["Http"],
+        "tags": ["Http"],
+        "url": "/http/WebServerWAS/",
+        "teaser": null
+      },{
+        "title": "서블릿",
+        "excerpt":"서블릿 서블릿이란 Dynamic Web Page를 만들 때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술이다. 웹을 만들때는 다양한 요청(request)과 응답(response)이 있고 규칙이 존재하는데 이러한 요청과 응답을 일일이 처리하기 힘들다. 서블릿은 이러한 웹 요청과 응답의 흐름을 간단한 메서드 호출만으로 체계적으로 다룰 수 있게 해주는 기술이다. 서블릿을 사용하지 않으면 아래의 리스트를 모두 구현해야...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/Servlet/",
+        "teaser": null
+      },{
+        "title": "스레드와 스레드 풀",
+        "excerpt":"스레드 스레드란 프로세스의 자원을 이용해서 실제로 작업을 수행하는 것 애플리케이션 코드를 하나하나 순차적으로 실행하는 것 자바 메인 메서드를 처음 실행하면 main이라는 이름의 스레드가 실행 스레드가 없다면 자바 애플리케이션 실행이 불가능함 스레드는 한번에 하나의 코드 라인만 수행 동시 처리가 필요하면 스레드를 추가로 생성 참고 클라이언트에서 요청이 들어온 경우 WAS와 연결을 해주는...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/Thread/",
+        "teaser": null
+      },{
+        "title": "구 MVC 패턴과 프론트 컨트롤러",
+        "excerpt":"구 MVC 패턴의 한계 MVC 패턴을 적용해 컨트롤러의 역할과 뷰 렌더링하는 역할을 구분하였지만 중복이 많고 필요하지 않은 코드가 많다. 포워드 중복 View로 이동하는 코드가 항상 중복 호출된다. RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath); dispatcher.forward(request, response); ViewPath 중복 유지보수가 어렵다. JSP가 아닌 thymeleaf 같은 다른 뷰로 변경 시 전체 코드를 변경해야 한다. String...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/FrontController/",
+        "teaser": null
+      },{
+        "title": "MVC 패턴",
+        "excerpt":"서블릿과 JSP의 한계 서블릿으로 개발을 하면 뷰 화면을 위해 HTML을 만드는 작업이 자바 코드에 섞여서 지저분하고 복잡하다. 이를 개선하기 위해 등장한 것이 JSP이다. JSP를 통해 자바에서 HTML을 사용하는 것이 아니라 HTML 코드 내에 중요한 부분에만 자바 코드를 써서 간결하게 작성할 수 있다. JSP를 사용하면서 HTML 작업이 깔끔해졌지만 자바 코드, 데이터를...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/MVCPattern/",
+        "teaser": null
+      },{
+        "title": "요청 매핑 핸들러 어뎁터 구조",
+        "excerpt":"요청 매핑 핸들러 어뎁터 구조 HTTP 메시지 컨버터는 어디서 사용되는지 알아보자. HTTP 메시지 컨버터는 애노테이션 기반의 컨트롤러, 즉 @RequestMapping을 처리하는 핸들러 어댑터인 RequestMappingHandlerAdapter(요청 매핑 헨들러 어댑터)와 관련이 있다. 아래 그림은 스프링 MVC 동작 과정에서 핸들러 어댑터 ↔ 컨트롤러 과정을 좀 더 세부화한 것이다. 핸들러 어댑터가 컨트롤러를 호출하기 전에 ArgumentResolver를 호출하고...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/RequestMappingHandlerAdapter/",
+        "teaser": null
+      },{
+        "title": "디스패처 서블릿",
+        "excerpt":"DispatcherServlet 스프링 MVC도 프론트 컨트롤러 패턴으로 구현하였으며 스프링 MVC의 프론트 컨트롤러가 디스패처 서블릿이다. 디스패처 서블릿은 스프링 MVC의 핵심이다. 프론트 컨트롤러와 관련된 내용 (링크) DispatcherServlet도 부모 클래스에서 HttpServlet을 상속받아서 사용하며 서블릿으로 동작한다. DispatcherServlet → FrameworkServlet → HttpServletBean → HttpServlet 스프링 부트는 DispatcherServlet을 서블릿으로 자동으로 등록하면서 모든 경로(urlPatterns=”/”)에 대해 매핑한다. DispatcherServlet 요청...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/DispatcherServlet/",
+        "teaser": null
+      },{
+        "title": "HTTP 메시지 컨버터",
+        "excerpt":"뷰 템플릿으로 HTML을 생성해서 응답할 때는 viewResolver가 view를 찾아서 반환한다. 그런데 HTTP API 처럼 JSON 데이터를 HTTP 바디에 직접 읽거나 쓰는 경우에는 어떤 원리로 JSON ↔ 자바 객체로 변환되는 것일까? 이에 대한 답은 HTTP 메시지 컨버터에 있다. HTTP 메시지 컨버터 HTTP 메시지 컨버터 인터페이스를 사용하면 JSON, String, Byte 타입으로 편리하게...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/HTTPMessageConverter/",
+        "teaser": null
+      },{
+        "title": "로깅",
+        "excerpt":"로깅 운영 시스템에서는 System.out.println()같은 시스템 콘솔 사용하지 않고 별도의 로깅 라이브러리를 사용해서 로그를 출력함 로깅 라이브러리 스프링 부트 라이브러리를 사용하면 스프링 부트 로깅 라이브러리(spring-boot-starter-logging) 포함 스프링 부트가 사용하는 기본 로깅 라이브러리 SLF4J Logback 로그 라이브러리는 Logback, Log4J, Log4J2 등등 수 많은 라이브러리가 존재 그것을 통합해 인터페이스로 제공하는 것이 SLF4J 라이브러리...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot"],
+        "url": "/springboot/Logging/",
+        "teaser": null
+      },{
+        "title": "PRG, Post/Redirect/Get",
+        "excerpt":"PRG 패턴 PRG 패턴이란 웹 개발 패턴 중 자주 쓰이는 패턴으로 HTTP POST 요청에 대해 GET 방식의 웹페이지로 리다이렉트 시키는 패턴이다. PRG 패턴을 사용하게 된 이유는 아래 코드로 설명할 수 있다. 이 코드는 상품을 등록하고 상품 목록 페이지로 다시 돌아가는 코드이다. 이 코드에서는 오류가 있다. 상품을 등록을 완료하고 웹 브라우저의...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","Java"],
+        "url": "/springboot/PRG/",
+        "teaser": null
+      },{
         "title": "좋은 객체 지향 설계의 원칙: SOLID",
         "excerpt":"SOLID란, 클린코드로 유명한 로버트 마틴이 좋은 객체 지향 설계의 5가지 원칙을 정리한 것이다. SRP, OCP, LSP, ISP, DIP가 있는데 그 중 OCP와 DIP가 중요하다. SRP 단일 책임 원칙 (Single Responsibility Principle) 한 클래스는 하나의 책임만 가져야 한다. 여기서 하나의 책임이라는 말은 모호할 수 있다. 하나의 책임을 구분하는 중요한 기준은 변경이다....","categories": ["SpringBoot"],
         "tags": ["SpringBoot","Java"],
@@ -383,8 +449,14 @@ var store = [{
         "url": "/series/RestAPISeries/",
         "teaser": null
       },{
+        "title": "스프링 MVC",
+        "excerpt":"스프링 MVC A to Z      서블릿   쓰레드와 쓰레드 풀   MVC 패턴   구 MVC 패턴과 프론트 컨트롤러   디스패처 서블릿   HTTP 메시지 컨버터   요청 매핑 핸들러 어댑터 구조   PRG Post/Redirect/Get  ","categories": ["Series"],
+        "tags": ["SpringBoot"],
+        "url": "/series/SpringMvcSeries/",
+        "teaser": null
+      },{
         "title": "스프링 기본원리 목차",
-        "excerpt":"RestAPI with 스프링부트 A to Z      좋은 객체 지향 설계의 원칙: SOLID   DIP, OCP와 의존관계 주입(DI)   IoC와 DI   스프링 컨테이너와 스프링 빈   싱글톤 컨테이너   컴포넌트 스캔   의존관계 주입 방법   빈 생명주기 콜백   빈 스코프  ","categories": ["Series"],
+        "excerpt":"스프링 기본 원리 A to Z      좋은 객체 지향 설계의 원칙: SOLID   DIP, OCP와 의존관계 주입(DI)   IoC와 DI   스프링 컨테이너와 스프링 빈   싱글톤 컨테이너   컴포넌트 스캔   의존관계 주입 방법   빈 생명주기 콜백   빈 스코프  ","categories": ["Series"],
         "tags": ["SpringBoot"],
         "url": "/series/SpringSeries/",
         "teaser": null
