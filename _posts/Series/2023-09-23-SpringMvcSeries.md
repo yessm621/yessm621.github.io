@@ -1,5 +1,5 @@
 ---
-title:  "스프링 MVC"
+title:  "스프링 MVC 목차"
 categories: 
   - Series
 tags:

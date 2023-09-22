@@ -1,0 +1,855 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.23.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>SSE(Server-Send Events) - yessm621.dev</title>
+<meta name="description" content="SSE(Server-Send Events)">
+
+
+  <meta name="author" content="승미">
+  
+  <meta property="article:author" content="승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="yessm621.dev">
+<meta property="og:title" content="SSE(Server-Send Events)">
+<meta property="og:url" content="http://localhost:4000/springboot/SSE/">
+
+
+  <meta property="og:description" content="SSE(Server-Send Events)">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-07-30T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/springboot/SSE/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "승미",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="yessm621.dev Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- 사이트 맨위에 책 모양으로  파비콘 등록-->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+    <!--폰트 : "Nanum Gothic Coding", "Coming Soon"-->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Nanum+Gothic+Coding&display=swap">
+     
+    <!--폰트 : "Iropke Batang"-->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css">
+  </head>
+
+  <body class="layout--single <!-- 본문 늘리기!!!-->">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/setting/logo.png" alt="yessm621.dev"></a>
+        
+        <a class="site-title" href="/">
+          yessm621.dev
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tag</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/setting/bio-photo.png" alt="승미" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">승미</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>공부하며 기록하는 블로그입니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:yessm621@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!--전체 글 수를 세기 위한 연산. sum 변수에 전체 글 수 저장-->
+
+
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      
+      <!--전체 글 수-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">전체 글 수</style> <span style="font-family:'Coming Soon';">80</style> <span style="font-family:'Cafe24Oneprettynight';">개</style> 
+      </li>
+
+      <li>
+        <!--기본 양식
+         <span class="nav__sub-title">옆에 들어갈 큰 제목</span>
+            <ul> 
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        -->
+    
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Java</span><!--큰 카테고리-->
+            <!--ul 태그로 같은 카테고리들 모아둔 페이지들 나열-->
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Java" class="">문법(8)</a></li>
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                        <li><a href="/categories/SpringBoot" class="">SpringBoot(31)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                        <li><a href="/categories/Jpa" class="">JPA(23)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/TestCode" class="">테스트코드(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <!-- <span class="nav__sub-title">Python</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>     -->
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Series</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Series" class="">시리즈(4)</a></li>
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">Git</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Git" class="">Git(1)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>    
+        <!--------------------------------------분류 끝-------------------------------------------->
+        
+        <!--------------------------------------분류 시작-------------------------------------------->
+        <span class="nav__sub-title">CS</span>
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Http" class="">Http(7)</a></li>
+                    
+                
+                    
+                
+            </ul>
+
+            <ul>
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <li><a href="/categories/Auth" class="">인증/인가(3)</a></li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+
+        <!--------------------------------------분류 끝-------------------------------------------->
+
+
+      </li>
+ 
+  </ul>
+</nav>
+
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SSE(Server-Send Events)">
+    <meta itemprop="description" content="SSE(Server-Send Events)">
+    <meta itemprop="datePublished" content="2023-07-30T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">SSE(Server-Send Events)
+</h1>
+          
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-07-30T00:00:00+09:00">July 30, 2023</time></p>
+
+<!--작성일-->
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu"><li><a href="#sseserver-send-events">SSE(Server-Send Events)</a><ul><li><a href="#polling">Polling</a></li><li><a href="#long-polling">Long-Polling</a></li><li><a href="#sseserver-send-events-1">SSE(Server-Send Events)</a></li><li><a href="#sse-구현">SSE 구현</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="sseserver-send-events">SSE(Server-Send Events)</h1>
+
+<p>HTTP는 비연결성 프로토콜이다. 클라이언트와 서버가 연결되고 요청과 응답을 주고 받으면 연결을 끊는다. HTTP는 전통적인 Client-Server 모델로 클라이언트가 서버에 요청을 보내면 서버는 클라이언트의 요청에 대한 응답을 한다. 보통은 서버가 클라이언트에게 요청을 할 일이 거의 없다.</p>
+
+<p>이러한 특징 때문에 HTTP에서 실시간으로 서비스를 제공하기 어렵다. 예를 들면 SNS의 알림 같은 경우가 그렇다. 사용자가 새로고침을 하지 않는 이상 새로 발생한 알림에 대해 사용자가 알기 어렵다. 이렇게 웹 애플리케이션을 개발하다보면 클라이언트의 요청이 없어도 서버에서 데이터를 전달해줘야 하는 경우가 발생한다.</p>
+
+<p>이 문제를 해결하기 위한 방법은 세가지가 있다.</p>
+
+<h2 id="polling">Polling</h2>
+
+<p>Polling은 일정 주기를 가지고 서버로 요청을 보내는 방법이다. 일정 시간마다 서버에 요청을 보내 데이터가 갱신되었는지 확인하고 갱신되었다면 데이터를 응답받는다.</p>
+
+<p>하지만 Polling은 실시간으로 데이터가 업데이트 되지 않는다는 단점이 있다. 또한, 불필요한 요청이 발생 할 수도 있고 이에 따른 서버 부하가 발생한다. 이는 대규모 트래픽에 적합하지 않다.</p>
+
+<h2 id="long-polling">Long-Polling</h2>
+
+<p>Long-Polling은 서버로 요청이 들어올 경우 일정 시간동안 대기 하였다가 요청한 데이터가 업데이트 된 경우 서버에서 웹 브라우저로 응답을 보낸다. 서버의 데이터가 빈번하게 변하지 않는 경우에 적합하다. Polling보단 개선된 형태이지만 데이터 업데이트가 빈번한 경우엔 마찬가지로 부하가 발생하여 대규모 트래픽에 적합하지 않다.</p>
+
+<h2 id="sseserver-send-events-1">SSE(Server-Send Events)</h2>
+
+<p>SSE는 클라이언트에서 서버쪽으로 특정 이벤트를 구독함을 알려주면 그 이후엔 서버에서 데이터 변화가 있을 때마다 서버에서 클라이언트에게 데이터를 보내줄 수 있다. 다만 서버에서 클라이언트로만 데이터 전송이 가능하고 그 반대는 불가능하다. 따라서 알림 기능에 매우 적합하다.</p>
+
+<p><img width="569" alt="스크린샷 2023-07-28 오후 12 08 15" src="https://github.com/yessm621/yessm621.github.io/assets/79130276/16b02f68-fed1-4e90-ae8b-f0189d5c4907" /></p>
+
+<p>이 외에도 서버에서 웹브라우저 사이 양방향 통신이 가능한 방법인 WebSocket도 있다. WebSocket은 채팅에 적합하다.</p>
+
+<p>여기까지 서버에서 클라이언트에게 요청을 보낼 수 있는 방법을 알아보았다.</p>
+
+<p>이제 SSE(Server-Send Events)를 사용해서 실시간으로 알림을 받을 수 있는 서비스를 만들어보자.</p>
+
+<h2 id="sse-구현">SSE 구현</h2>
+
+<p>먼저 http://localhost:8080/api/v1/users/alarm/subscribe를 통해 클라이언트가 서버에게 특정 이벤트가 발생하였을 때 구독한다는 것을 알려준다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.me.sns.controller</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/v1/users"</span><span class="o">)</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/alarm/subscribe"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">SseEmitter</span> <span class="nf">subscribe</span><span class="o">(</span><span class="nc">Authentication</span> <span class="n">authentication</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Authentication을 이용해서 User를 가져왔다고 가정</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="o">(</span><span class="nc">User</span><span class="o">)</span> <span class="n">authentication</span><span class="o">.</span><span class="na">getPrincipal</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">alarmService</span><span class="o">.</span><span class="na">connectAlarm</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.me.sns.service</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AlarmService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="nc">Long</span> <span class="no">DEFAULT_TIMEOUT</span> <span class="o">=</span> <span class="mi">60L</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="nc">String</span> <span class="no">ALARM_NAME</span> <span class="o">=</span> <span class="s">"alarm"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">EmitterRepository</span> <span class="n">emitterRepository</span><span class="o">;</span>
+
+    <span class="c1">// SseEmitter를 사용해서 알림을 보낼 때 사용</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">alarmId</span><span class="o">,</span> <span class="nc">Integer</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 로그인 한 유저의 SseEmitter 가져오기</span>
+        <span class="n">emitterRepository</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">userId</span><span class="o">).</span><span class="na">ifPresentOrElse</span><span class="o">(</span><span class="n">sseEmitter</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">sseEmitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">sseEmitter</span><span class="o">.</span><span class="na">event</span><span class="o">().</span><span class="na">id</span><span class="o">(</span><span class="n">alarmId</span><span class="o">.</span><span class="na">toString</span><span class="o">()).</span><span class="na">name</span><span class="o">(</span><span class="no">ALARM_NAME</span><span class="o">).</span><span class="na">data</span><span class="o">(</span><span class="s">"new alarm"</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">emitterRepository</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">SnsApplicationException</span><span class="o">(</span><span class="nc">ErrorCode</span><span class="o">.</span><span class="na">ALARM_CONNECT_ERROR</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">},</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"No emitter founded"</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 클라이언트가 서버에게 연결을 요청</span>
+    <span class="kd">public</span> <span class="nc">SseEmitter</span> <span class="nf">connectAlarm</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SseEmitter</span> <span class="n">sseEmitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SseEmitter</span><span class="o">(</span><span class="no">DEFAULT_TIMEOUT</span><span class="o">);</span>
+        <span class="n">emitterRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="n">sseEmitter</span><span class="o">);</span>
+
+        <span class="c1">// 시간 초과, 네트워크 오류를 포함한 모든 이유로 비동기 요청이 정상 동작할 수 없을 때 저장해둔 SseEmitter를 삭제함.</span>
+        <span class="n">sseEmitter</span><span class="o">.</span><span class="na">onCompletion</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">emitterRepository</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">userId</span><span class="o">));</span>
+        <span class="n">sseEmitter</span><span class="o">.</span><span class="na">onTimeout</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">emitterRepository</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">userId</span><span class="o">));</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 연결 요청에 의해 SseEmitter가 생성되면 더미 데이터를 보내줘야함.</span>
+            <span class="c1">// 연결된 후 하나의 데이터도 전송되지 않는다면 SseEmitter의 유효시간이 끝났을 경우,</span>
+            <span class="c1">// 503 응답이 발생하므로 연결시 바로 더미 데이터를 한 번 보내준다.</span>
+            <span class="n">sseEmitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="nc">SseEmitter</span><span class="o">.</span><span class="na">event</span><span class="o">().</span><span class="na">id</span><span class="o">(</span><span class="s">"id"</span><span class="o">).</span><span class="na">name</span><span class="o">(</span><span class="no">ALARM_NAME</span><span class="o">).</span><span class="na">data</span><span class="o">(</span><span class="s">"connect complete"</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">exception</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">SnsApplicationException</span><span class="o">(</span><span class="nc">ErrorCode</span><span class="o">.</span><span class="na">ALARM_CONNECT_ERROR</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">sseEmitter</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.me.sns.repository</span><span class="o">;</span>
+
+<span class="nd">@Slf4j</span>
+<span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitterRepository</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">SseEmitter</span><span class="o">&gt;</span> <span class="n">emitterMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nc">SseEmitter</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">userId</span><span class="o">,</span> <span class="nc">SseEmitter</span> <span class="n">sseEmitter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">key</span> <span class="o">=</span> <span class="n">getKey</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+        <span class="n">emitterMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">sseEmitter</span><span class="o">);</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Set sseEmitter {}"</span><span class="o">,</span> <span class="n">userId</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sseEmitter</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">SseEmitter</span><span class="o">&gt;</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">key</span> <span class="o">=</span> <span class="n">getKey</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Get sseEmitter {}"</span><span class="o">,</span> <span class="n">userId</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">emitterMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">emitterMap</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">getKey</span><span class="o">(</span><span class="n">userId</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="nf">getKey</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Emitter:UID"</span> <span class="o">+</span> <span class="n">userId</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a><span class="sep">, </span>
+    
+      <a href="/tags/#sse" class="page__taxonomy-item" rel="tag">SSE</a>
+    
+    </span>
+  </p>
+
+
+
+        <!--
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-07-30T00:00:00+09:00">July 30, 2023</time></p>
+
+작성일-->
+      </footer>
+
+      
+
+      <!-- 기존 코드
+
+  <nav class="pagination">
+    
+      <a href="/springboot/Spring-SpringSecurity/" class="pagination--pager" title="Spring Security
+">이전</a>
+    
+    
+      <a href="/series/JPASeries/" class="pagination--pager" title="JPA 목차
+">다음</a>
+    
+  </nav>
+
+-->
+
+
+<!--같은 카테고리내에서 다음으로 이동하는 것.-->
+
+
+
+  
+  	
+  	
+  	
+  	
+  	
+
+
+  <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
+    
+      <a href="/springboot/Spring-SpringSecurity/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>Spring Security</a>
+    
+    
+      <a href="#" class="pagination_prev_next--pager disabled">가장 최근 글입니다</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 승미 <a href="https://jekyllrb.com" rel="nofollow"></a>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

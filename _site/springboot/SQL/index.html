@@ -10,8 +10,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>PRG, Post/Redirect/Get - yessm621.dev</title>
-<meta name="description" content="PRG 패턴">
+<!-- begin _includes/seo.html --><title>스프링 부트 실행 시 DB에 데이터 삽입 - yessm621.dev</title>
+<meta name="description" content="개요">
 
 
   <meta name="author" content="승미">
@@ -23,30 +23,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="yessm621.dev">
-<meta property="og:title" content="PRG, Post/Redirect/Get">
-<meta property="og:url" content="http://localhost:4000/springboot/PRG/">
+<meta property="og:title" content="스프링 부트 실행 시 DB에 데이터 삽입">
+<meta property="og:url" content="http://localhost:4000/springboot/SQL/">
 
 
-  <meta property="og:description" content="PRG 패턴">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-07-22T00:00:00+09:00">
+  <meta property="og:description" content="개요">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2023-04-09T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/springboot/PRG/">
+
+<link rel="canonical" href="http://localhost:4000/springboot/SQL/">
 
 
 
@@ -550,19 +550,19 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="PRG, Post/Redirect/Get">
-    <meta itemprop="description" content="PRG 패턴">
-    <meta itemprop="datePublished" content="2022-07-22T00:00:00+09:00">
+    <meta itemprop="headline" content="스프링 부트 실행 시 DB에 데이터 삽입">
+    <meta itemprop="description" content="개요">
+    <meta itemprop="datePublished" content="2023-04-09T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">PRG, Post/Redirect/Get
+          <h1 id="page-title" class="page__title" itemprop="headline">스프링 부트 실행 시 DB에 데이터 삽입
 </h1>
           
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-22T00:00:00+09:00">July 22, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-04-09T00:00:00+09:00">April 9, 2023</time></p>
 
 <!--작성일-->
           
@@ -576,106 +576,62 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#prg-패턴">PRG 패턴</a></li><li><a href="#prg---새로고침-문제-해결">PRG - 새로고침 문제 해결</a><ul><li><a href="#prg-적용-전">PRG 적용 전</a></li><li><a href="#prg-적용-후">PRG 적용 후</a></li></ul></li><li><a href="#redirectattributes">RedirectAttributes</a></li></ul>
+              <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#설정">설정</a><ul><li><a href="#applicationyml">application.yml</a></li><li><a href="#스크립트-작성">스크립트 작성</a></li></ul></li></ul>
 
             </nav>
           </aside>
         
-        <h2 id="prg-패턴">PRG 패턴</h2>
+        <h2 id="개요">개요</h2>
 
-<p><code class="language-plaintext highlighter-rouge">PRG 패턴</code>이란 웹 개발 패턴 중 자주 쓰이는 패턴으로 HTTP POST 요청에 대해 GET 방식의 웹페이지로 <code class="language-plaintext highlighter-rouge">리다이렉트</code> 시키는 패턴이다.</p>
+<p>애플리케이션을 실행 할 때 DB에 데이터가 미리 들어가 있으면 편할 때가 있다. 이때 데이터를 넣는 방법에 대해 알아보자.</p>
 
-<p>PRG 패턴을 사용하게 된 이유는 아래 코드로 설명할 수 있다. 이 코드는 상품을 등록하고 상품 목록 페이지로 다시 돌아가는 코드이다. 이 코드에서는 오류가 있다. 상품을 등록을 완료하고 웹 브라우저의 <strong>새로고침 버튼</strong>을 누를 때마다 상품이 새로 등록된다.</p>
+<h2 id="설정">설정</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/add"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nc">String</span> <span class="nf">addItemV5</span><span class="o">(</span><span class="nc">Item</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">itemRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
-    <span class="k">return</span> <span class="s">"/basic/item"</span>
-<span class="o">}</span>
+<p>application.yml 또는 application.properties를 <code class="language-plaintext highlighter-rouge">resource 폴더</code> 밑에 두고 아래와 같이 수정한다.</p>
+
+<h3 id="applicationyml">application.yml</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">jpa</span><span class="pi">:</span>
+    <span class="na">defer-datasource-initialization</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">sql</span><span class="pi">:</span>
+    <span class="na">init</span><span class="pi">:</span>
+      <span class="na">mode</span><span class="pi">:</span> <span class="s">always</span>
 </code></pre></div></div>
-
-<p>왜 새로고침 버튼을 누를 때마다 새로 등록될까? 새로고침은 클라이언트 마지막에 보낸 요청을 다시 보낸다. 즉, 클라이언트가 서버에게 보낸 마지막 요청이 상품을 등록하는 것이기 때문에 새로고침을 할 때마다 상품이 새로 등록된다.</p>
-
-<h2 id="prg---새로고침-문제-해결">PRG - 새로고침 문제 해결</h2>
-
-<p>PRG 패턴으로 이 문제를 해결할 수 있다.</p>
-
-<p>웹 브라우저의 새로 고침은 마지막에 서버에 전송한 데이터를 다시 전송한다. 새로 고침 문제를 해결하려면 상품 저장 후에 뷰 템플릿으로 이동하는 것이 아니라, 상품 상세 화면으로 <code class="language-plaintext highlighter-rouge">리다이렉트를 호출</code>해주면 된다.</p>
-
-<p>웹 브라우저는 리다이렉트의 영향으로 상품 저장 후에 실제 상품 상세 화면으로 다시 이동한다. 따라서, 마지막에 호출한 내용이 상품 상세 화면인 ‘GET /items/{id}’ 가 되는 것이다. 이후 새로고침을 해도 상품 상세 화면으로 이동하게 되므로 새로 고침 문제를 해결할 수 있다.</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
- * PRG - Post/Redirect/Get
- */</span>
-<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/add"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nc">String</span> <span class="nf">addItemV5</span><span class="o">(</span><span class="nc">Item</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">itemRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
-    <span class="c1">// return "/basic/item"</span>
-    <span class="k">return</span> <span class="s">"redirect:/basic/items/"</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>기존엔 상품 등록 후 뷰 템플릿(/basic/item)을 리턴하였는데 이젠 상품 상세 화면으로 리다이렉트 하도록 코드를 작성하여 문제를 해결하였다. 이런 문제 해결 방식을 <code class="language-plaintext highlighter-rouge">PRG Post/Redirect/Get</code>라 한다.</p>
-
-<h3 id="prg-적용-전">PRG 적용 전</h3>
-
-<ol>
-  <li>‘POST /items/add + 상품 데이터‘를 서버로 전송</li>
-  <li>서버에서 클라이언트로 ‘POST + 200 응답코드’ 전달</li>
-  <li>클라이언트가 서버에 마지막으로 요청한 url은 ‘POST /items/add + 상품 데이터‘ 이다</li>
-  <li>클라이언트의 새로고침은 마지막에 서버에 전송한 데이터를 다시 전송하는 것이다</li>
-  <li>따라서, 새로고침을 할때마다 1번을 전송한다. (무의미한 데이터를 저장하게 된다)</li>
-</ol>
-
-<p><img width="568" alt="스크린샷 2022-07-22 오후 11 23 16" src="https://user-images.githubusercontent.com/79130276/180464226-cc5f7b3c-37a0-40f5-8b02-d640f10a31aa.png" /></p>
-
-<h3 id="prg-적용-후">PRG 적용 후</h3>
-
-<ol>
-  <li>‘POST /items/add + 상품 데이터‘를 서버로 전송</li>
-  <li>서버에서 클라이언트로 ‘POST + 302 응답 코드 + Location’ 전달</li>
-  <li>302 응답 코드와 Location이 전달되면 Location에 적힌 url을 다시 호출하게 된다.</li>
-  <li>따라서, 클라이언트는 서버에 ‘GET + /items/{id}’를 요청하게 된다.</li>
-  <li>클라이언트가 서버에 마지막으로 요청한 url은 ‘GET + /items/{id}’ 이다</li>
-  <li>클라이언트의 새로고침은 마지막에 서버에 전송한 데이터를 다시 전송하는 것이다</li>
-  <li>따라서, 새로고침을 할때마다 5번을 전송한다. (새로고침 오류를 해결!)</li>
-</ol>
-
-<p><img width="613" alt="스크린샷 2022-07-22 오후 11 25 43" src="https://user-images.githubusercontent.com/79130276/180464206-79a1214a-c986-45e5-a805-1a54b4e7cf20.png" /></p>
-
-<blockquote>
-  <p><strong>주의</strong>
-<br />
-<code class="language-plaintext highlighter-rouge">"redirect:/basic/items/" + item.getId()</code>  redirect에서 <strong>+item.getId()</strong> 처럼 URL에 변수를 더해서 사용하는 것은 URL 인코딩이 안되기 때문에 위험하다. 위의 경우는 int여서 괜찮았지만 문자열을 전송하게 되어 한글을 전송하게 된다면 인코딩 문제가 발생하게 된다. 이러한 문제는 다음에 설명하는 <code class="language-plaintext highlighter-rouge">RedirectAttributes</code>를 사용하여 해결할 수 있다.</p>
-
-</blockquote>
-
-<h2 id="redirectattributes">RedirectAttributes</h2>
-
-<p><code class="language-plaintext highlighter-rouge">RedirectAttributes</code>를 사용하면 URL <strong>인코딩</strong>도 해주고, <strong>pathVarible</strong>, <strong>쿼리 파라미터</strong>까지 처리해준다.</p>
 
 <ul>
-  <li>redirect:/basic/items/{itemId}
+  <li>spring.jpa.defer-datasource-initialization: true
     <ul>
-      <li>pathVariable 바인딩: {itemId}</li>
-      <li>나머지는 쿼리 파라미터로 처리: ?status=true</li>
+      <li>spring boot 2.5 버전 이상부터는 data.sql 스크립트는 Hibernate가 초기화되기 전에 실행된다고 한다. data.sql을 사용하여 Hibernate에 의해 생성된 스키마를 채우려면 해당 값을 true로 설정해야 한다.</li>
+    </ul>
+  </li>
+  <li>sql.init.mode: always
+    <ul>
+      <li>스크립트 동작 설정</li>
+      <li>모든 데이터베이스에 SQL 스크립트를 동작시킨다.</li>
     </ul>
   </li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
- * RedirectAttributes
- */</span>
-<span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/add"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nc">String</span> <span class="nf">addItemV6</span><span class="o">(</span><span class="nc">Item</span> <span class="n">item</span><span class="o">,</span> <span class="nc">RedirectAttributes</span> <span class="n">redirectAttributes</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">Item</span> <span class="n">savedItem</span> <span class="o">=</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
-    <span class="n">redirectAttributes</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"itemId"</span><span class="o">,</span> <span class="n">savedItem</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
-    <span class="n">redirectAttributes</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">"status"</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-    <span class="k">return</span> <span class="s">"redirect:/basic/items/{itemId}"</span><span class="o">;</span>
-<span class="o">}</span>
+<h3 id="스크립트-작성">스크립트 작성</h3>
+
+<p>스크립트는 schema.sql, data.sql로 작성할 수 있는데 암묵적으로 schema.sql은 DDL을 작성하고 data.sql은 DML을 작성한다.</p>
+
+<p>data.sql</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">HOUSE_RULE</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span>
+    <span class="p">(</span><span class="s1">'반려동물'</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'흡연'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>코드를 실행하면 ‘http://localhost:8080/basic/items/3?status=true’ 리다이렉트 결과가 나온다.</p>
+<p>이제 애플리케이션을 실행하면 data.sql이 실행되어 DB에 데이터가 자동으로 들어간다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+스프링 릴리즈 노트에서 데이터 초기화 기술을 섞는 것을 추천하지 않는다고 되어있다. 운영 단계에서는 data.sql을 사용하지 말고 개발 단계에서만 사용하자.</p>
+
+</blockquote>
 
         
       </section>
@@ -709,7 +665,7 @@
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
     <span itemprop="keywords">
     
-      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+      <a href="/tags/#db" class="page__taxonomy-item" rel="tag">DB</a><span class="sep">, </span>
     
       <a href="/tags/#springboot" class="page__taxonomy-item" rel="tag">SpringBoot</a>
     
@@ -720,7 +676,7 @@
 
         <!--
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2022-07-22T00:00:00+09:00">July 22, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 작성일</strong> <time datetime="2023-04-09T00:00:00+09:00">April 9, 2023</time></p>
 
 작성일-->
       </footer>
@@ -731,11 +687,11 @@
 
   <nav class="pagination">
     
-      <a href="/springboot/Logging/" class="pagination--pager" title="로깅
+      <a href="/jpa/ValueType/" class="pagination--pager" title="값 타입
 ">이전</a>
     
     
-      <a href="/springboot/SOLID/" class="pagination--pager" title="좋은 객체 지향 설계의 원칙: SOLID
+      <a href="/springboot/Mapper/" class="pagination--pager" title="DTO 변환 시, ModelMapper 사용해도 괜찮을까?
 ">다음</a>
     
   </nav>
@@ -754,20 +710,6 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
   	
   	
   	
@@ -777,10 +719,10 @@
 
   <nav class="pagination_prev_next" style="padding-top: 5px; padding-bottom: 5px;">
     
-      <a href="/springboot/Logging/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>로깅</a>
+      <a href="/springboot/BeanScope/" class="pagination_prev_next--pager"><span class="prev_next">이전 글  &nbsp</span>빈 스코프</a>
     
     
-      <a href="/springboot/SOLID/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>좋은 객체 지향 설계의 원칙: SOLID</a>
+      <a href="/springboot/Mapper/" class="pagination_prev_next--pager"><span class="prev_next">다음 글  &nbsp  </span>DTO 변환 시, ModelMapper 사용해도 괜찮을까?</a>
     
   </nav>
 

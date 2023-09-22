@@ -425,6 +425,18 @@ var store = [{
         "url": "/jpa/ValueType/",
         "teaser": null
       },{
+        "title": "스프링 부트 실행 시 DB에 데이터 삽입",
+        "excerpt":"개요 애플리케이션을 실행 할 때 DB에 데이터가 미리 들어가 있으면 편할 때가 있다. 이때 데이터를 넣는 방법에 대해 알아보자. 설정 application.yml 또는 application.properties를 resource 폴더 밑에 두고 아래와 같이 수정한다. application.yml spring: jpa: defer-datasource-initialization: true sql: init: mode: always spring.jpa.defer-datasource-initialization: true spring boot 2.5 버전 이상부터는 data.sql 스크립트는 Hibernate가 초기화되기...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","DB"],
+        "url": "/springboot/SQL/",
+        "teaser": null
+      },{
+        "title": "DTO 변환 시, ModelMapper 사용해도 괜찮을까?",
+        "excerpt":"개요 ModelMapper는 Entity를 DTO로 변환할 때, 또는 그 반대 경우에 사용한다. ModelMapper를 사용하면 코드가 간단해진다는 장점이 있다. 그렇다면 ModelMapper를 사용하는게 좋은 방법일까? 이에 대한 의견은 매우 분분하다고 한다. 좋다는 의견도 있고 매우 안좋다는 의견도 있다. 왜 이렇게 의견이 분분한지 그 이유를 알기 위해 ModelMapper의 단점을 알아보자. ModelMapper의 단점 첫째, 모델이...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot"],
+        "url": "/springboot/Mapper/",
+        "teaser": null
+      },{
         "title": "findById() vs getReferenceById() (feat. getOne())",
         "excerpt":"findById()와 getReferenceById()는 검색할 때 사용하며 비슷한 기능을 한다. 하지만 조회하는 기본 메커니즘이 다르다. findById() findById()는 실제 DB를 바로 조회해서 필요한 데이터를 가져온다. (EAGER) 당연히 반환되는 객체도 데이터가 매핑되어있는 실제 엔티티 객체이다. getReferenceById() getReferenceById()는 주어진 식별자를 가진 엔티티에 대한 참조를 반환한다. 이 메소드는 데이터베이스에 충돌하지 않고 항상 프록시를 반환한다. LAZY로 가져온...","categories": ["Jpa"],
         "tags": ["Jpa"],
@@ -435,6 +447,12 @@ var store = [{
         "excerpt":"Spring Security 적용하기 Spring Security 5.7 버전부터 기존에 사용하던 스프링 시큐리티 적용 방식과 많이 달라졌다. 이 부분에 대해 정리하기 위해 이 포스트를 작성하게 되었다. Spring Security와 관련된 포스트는 두번에 거쳐 작성할 예정이다. 이번 포스트는 Spring Security를 적용하는 방법에 대해 작성할 것이고 다음 포스트는 작성 스프링 시큐리티를 테스트 코드에 어떻게 적용할...","categories": ["SpringBoot"],
         "tags": ["SpringBoot"],
         "url": "/springboot/Spring-SpringSecurity/",
+        "teaser": null
+      },{
+        "title": "SSE(Server-Send Events)",
+        "excerpt":"SSE(Server-Send Events) HTTP는 비연결성 프로토콜이다. 클라이언트와 서버가 연결되고 요청과 응답을 주고 받으면 연결을 끊는다. HTTP는 전통적인 Client-Server 모델로 클라이언트가 서버에 요청을 보내면 서버는 클라이언트의 요청에 대한 응답을 한다. 보통은 서버가 클라이언트에게 요청을 할 일이 거의 없다. 이러한 특징 때문에 HTTP에서 실시간으로 서비스를 제공하기 어렵다. 예를 들면 SNS의 알림 같은 경우가...","categories": ["SpringBoot"],
+        "tags": ["SpringBoot","SSE"],
+        "url": "/springboot/SSE/",
         "teaser": null
       },{
         "title": "JPA 목차",
@@ -449,7 +467,7 @@ var store = [{
         "url": "/series/RestAPISeries/",
         "teaser": null
       },{
-        "title": "스프링 MVC",
+        "title": "스프링 MVC 목차",
         "excerpt":"스프링 MVC A to Z      서블릿   쓰레드와 쓰레드 풀   MVC 패턴   구 MVC 패턴과 프론트 컨트롤러   디스패처 서블릿   HTTP 메시지 컨버터   요청 매핑 핸들러 어댑터 구조   PRG Post/Redirect/Get  ","categories": ["Series"],
         "tags": ["SpringBoot"],
         "url": "/series/SpringMvcSeries/",
