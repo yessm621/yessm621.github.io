@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "DevLog_"
+title                    : "DevLog__"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "승미"
@@ -290,3 +290,4 @@ defaults:
       comments: # true
       share: true
       related: true
+      sidebar_main: true
