@@ -1,8 +1,7 @@
-#맨위에 네비게이션바
 # main links
 main:
-  #- title: "Quick-Start Guide"
-  #  url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  - title: "Quick-Start Guide"
+    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
@@ -11,9 +10,3 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
-  - title: "About"
-    url: "/about/"
-  - title: "Category"
-    url: "/categories/"
-  - title: "Tag"
-    url: "/tags/"
