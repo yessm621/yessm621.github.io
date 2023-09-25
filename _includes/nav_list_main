@@ -100,6 +100,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "DesignPattern" %}
+                    <li><a href="/categories/designPattern" class="">DesignPattern({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         <!--------------------------------------분류 끝-------------------------------------------->
         
       </li>
