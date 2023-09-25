@@ -18,7 +18,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Java" %}
-                        <li><a href="/categories/Java" class="">문법({{category[1].size}})</a></li>
+                        <li><a href="/categories/java" class="">문법({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -26,7 +26,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "SpringBoot" %}
-                        <li><a href="/categories/SpringBoot" class="">SpringBoot({{category[1].size}})</a></li>
+                        <li><a href="/categories/springboot" class="">SpringBoot({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -34,7 +34,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Jpa" %}
-                        <li><a href="/categories/Jpa" class="">Jpa({{category[1].size}})</a></li>
+                        <li><a href="/categories/jpa" class="">Jpa({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -42,7 +42,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "TestCode" %}
-                        <li><a href="/categories/TestCode" class="">테스트 코드({{category[1].size}})</a></li>
+                        <li><a href="/categories/testcode" class="">테스트 코드({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -53,7 +53,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Series" %}
-                        <li><a href="/categories/Series" class="">시리즈({{category[1].size}})</a></li>
+                        <li><a href="/categories/series" class="">시리즈({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -64,7 +64,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Git" %}
-                        <li><a href="/categories/Git" class="">Git({{category[1].size}})</a></li>
+                        <li><a href="/categories/git" class="">Git({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -72,7 +72,7 @@
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Http" %}
-                       <li><a href="/categories/Http" class="">Http({{category[1].size}})</a></li>
+                       <li><a href="/categories/http" class="">Http({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
            </ul>
@@ -80,10 +80,26 @@
            <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Auth" %}
-                    <li><a href="/categories/Auth" class="">인증/인가({{category[1].size}})</a></li>
+                    <li><a href="/categories/authorization" class="">인증/인가({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-        </ul>
+            </ul>
+
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Db" %}
+                    <li><a href="/categories/db" class="">DB({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Aws" %}
+                    <li><a href="/categories/aws" class="">AWS({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         <!--------------------------------------분류 끝-------------------------------------------->
         
       </li>
