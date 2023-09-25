@@ -30,6 +30,22 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "Jpa" %}
+                        <li><a href="/categories/Jpa" class="">Jpa({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "TestCode" %}
+                        <li><a href="/categories/TestCode" class="">테스트 코드({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         <!--------------------------------------분류 끝-------------------------------------------->
 
         <!--------------------------------------분류 시작-------------------------------------------->
@@ -63,8 +79,8 @@
 
            <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "Authorization" %}
-                    <li><a href="/categories/Authorization" class="">인증/인가({{category[1].size}})</a></li>
+                    {% if category[0] == "Auth" %}
+                    <li><a href="/categories/Auth" class="">인증/인가({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
         </ul>
