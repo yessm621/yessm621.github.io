@@ -99,6 +99,7 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jekyll-sass-converter (~> 2.0)
+  jekyll-sitemap
   minimal-mistakes-jekyll!
   rake (>= 12.3.3)
   webrick (~> 1.7)
