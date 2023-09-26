@@ -1,12 +1,13 @@
 ---
-title: "Series"
+title: "CS"
 layout: archive
 classes: wide <!-- 본문 늘리기!!!-->
-permalink: categories/Series
+permalink: /cs
 author_profile: true
-sidebar_main: true
+sidebar:
+    nav: "sidebar-category"
 ---
 
 
-{% assign posts = site.categories.Series %}
+{% assign posts = site.categories.CS %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

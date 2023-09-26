@@ -1,12 +1,13 @@
 ---
-title: "Http"
+title: "Python"
 layout: archive
 classes: wide <!-- 본문 늘리기!!!-->
-permalink: categories/Http
+permalink: /python
 author_profile: true
-sidebar_main: true
+sidebar:
+    nav: "sidebar-category"
 ---
 
 
-{% assign posts = site.categories.Http %}
+{% assign posts = site.categories.Python %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

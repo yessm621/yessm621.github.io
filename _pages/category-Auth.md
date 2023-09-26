@@ -1,12 +1,13 @@
 ---
-title: "Java"
+title: "Auth"
 layout: archive
 classes: wide <!-- 본문 늘리기!!!-->
-permalink: categories/Java
+permalink: /auth
 author_profile: true
-sidebar_main: true
+sidebar:
+    nav: "sidebar-category"
 ---
 
 
-{% assign posts = site.categories.Java %}
+{% assign posts = site.categories.Auth %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

@@ -15,3 +15,61 @@ main:
     url: "/categories/"
   - title: "Tag"
     url: "/tags/"
+
+sidebar-category:
+  - title: "Java"
+    children:
+      - title: "문법"
+        url: "/java"
+        category: "Java"
+      - title: "SpringBoot"
+        url: "/springboot"
+        category: "SpringBoot"
+      - title: "Jpa"
+        url: "/jpa"
+        category: "Jpa"
+      - title: "테스트 코드"
+        url: "/testcode"
+        category: "TestCode"
+        
+  - title: "Python"
+    children:
+      - title: "문법"
+        url: "/python"
+        category: "Python"
+
+  - title: "Series"
+    children:
+      - title: "시리즈"
+        url: "/series"
+        category: "Series"
+
+  - title: "Web"
+    children:
+      - title: "Git"
+        url: "/git"
+        category: "Git"
+      - title: "Http"
+        url: "/http"
+        category: "Http"
+      - title: "인증/인가"
+        url: "/auth"
+        category: "Auth"
+      - title: "DB"
+        url: "/db"
+        category: "DB"
+      - title: "AWS"
+        url: "/aws"
+        category: "AWS"
+      - title: "디자인 패턴"
+        url: "/designpattern"
+        category: "DesignPattern"
+
+  - title: "Etc"
+    children:
+      - title: "리눅스"
+        url: "/linux"
+        category: "Linux"
+      - title: "CS"
+        url: "/cs"
+        category: "CS"
