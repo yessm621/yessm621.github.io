@@ -1,0 +1,1051 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>컬렉션 조회 최적화 - Seungmi Blog</title>
+<meta name="description" content="컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자. (*ToOne 보다 신경 쓸게 많다.)">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="컬렉션 조회 최적화">
+<meta property="og:url" content="http://localhost:4000/jpa/JPA-JPA-Collections-Performance-Optimization/">
+
+
+  <meta property="og:description" content="컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자. (*ToOne 보다 신경 쓸게 많다.)">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-08-16T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-08-16T22:30:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/jpa/JPA-JPA-Collections-Performance-Optimization/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="컬렉션 조회 최적화">
+    <meta itemprop="description" content="컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자. (*ToOne 보다 신경 쓸게 많다.)">
+    <meta itemprop="datePublished" content="2022-08-16T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-08-16T22:30:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/jpa/JPA-JPA-Collections-Performance-Optimization/" class="u-url" itemprop="url">컬렉션 조회 최적화
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-08-16T00:00:00+09:00">August 16, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#엔티티를-dto로-변환---페치-조인-최적화">엔티티를 DTO로 변환 - 페치 조인 최적화</a><ul><li><a href="#페치-조인-최적화">페치 조인 최적화</a></li><li><a href="#페이징과-한계-돌파">페이징과 한계 돌파</a></li><li><a href="#default_batch_fetch_size-설정">default_batch_fetch_size 설정</a></li><li><a href="#batchsize">@BatchSize</a></li></ul></li><li><a href="#jpa에서-dto-직접-조회">JPA에서 DTO 직접 조회</a><ul><li><a href="#컬렉션-조회-최적화">컬렉션 조회 최적화</a></li><li><a href="#플랫-데이터-최적화">플랫 데이터 최적화</a></li></ul></li><li><a href="#정리">정리</a><ul><li><a href="#엔티티-조회-방식-접근-순서">엔티티 조회 방식 접근 순서</a></li><li><a href="#dto-조회-방식의-선택지">DTO 조회 방식의 선택지</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>컬렉션인 일대다 관계(OneToMany)를 조회하고, 최적화하는 방법을 알아보자. (*ToOne 보다 신경 쓸게 많다.)</p>
+
+<p>[예제] Order와 Member는 다대일 연관관계(양방향), Order와 Delivery는 다대일 연관관계(양방향)가 되어있고, Member와 Delivery는 지연 로딩이 설정되어 있다. 주문내역에서 추가로 주문한 상품 정보를 추가로 조회하자. Order 기준으로 컬렉션인 OrderItem 와 Item 이 필요하다.</p>
+
+<p>엔티티를 DTO로 변환하면 마찬가지로 1 + N + N 문제가 생긴다. 이를 해결하기 위해 fetch join을 사용한다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+DTO로 만들어야 한다는 것은 단순하게 겉 껍질(order)만 DTO로 만들라는게 아니다. 내부의 엔티티(orderItems)까지 모두 DTO로 만들어야 한다는 것을 의미한다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+지연 로딩은 영속성 컨텍스트에 있으면 영속성 컨텍스트에 있는 엔티티를 사용하고 없으면 SQL을 실행한다. 따라서 같은 영속성 컨텍스트에서 이미 로딩한 회원 엔티티를 추가로 조회하면 SQL을 실행하지 않는다.</p>
+
+</blockquote>
+
+<h2 id="엔티티를-dto로-변환---페치-조인-최적화">엔티티를 DTO로 변환 - 페치 조인 최적화</h2>
+
+<h3 id="페치-조인-최적화">페치 조인 최적화</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1">// OrderApiController.java</span>
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/api/v3/orders"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderDto</span><span class="o">&gt;</span> <span class="nf">ordersV3</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="n">orders</span> <span class="o">=</span> <span class="n">orderRepository</span><span class="o">.</span><span class="na">findAllWithItem</span><span class="o">();</span>
+
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">orders</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">o</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">OrderDto</span><span class="o">(</span><span class="n">o</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>일대다 조인을 하면 다에 초점이 맞춰져 데이터 개수가 증가한다. 예를 들어 조인문 앞에 테이블의 row가 2, 조인문 뒤에 테이블의 row가 4라면 4로 증가한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/184794480-5492bf64-65dc-4b82-bcdc-37611572ca01.png" alt="1" /></p>
+
+<p>JPQL에서 <code class="language-plaintext highlighter-rouge">distinct</code>를 사용하면 <strong>중복을 제거</strong>해준다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1">// OrderRepository.java</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Order</span><span class="o">&gt;</span> <span class="nf">findAllWithItem</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span>
+            <span class="s">"select distinct o from Order o"</span> <span class="o">+</span>
+                    <span class="s">" join fetch o.member m"</span> <span class="o">+</span>
+                    <span class="s">" join fetch o.delivery d"</span> <span class="o">+</span>
+                    <span class="s">" join fetch o.orderItems oi"</span> <span class="o">+</span>
+                    <span class="s">" join fetch oi.item i"</span><span class="o">,</span> <span class="nc">Order</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>SQL의 distinct는 row의 모든 필드가 중복되어야 중복을 제거해준다. 그러나, JPA의 distinct는 JPA에서 자체적으로 기준이 되는 엔티티가 중복이 되면 제거를 해준다. 여기선 기준이 되는 엔티티가 Order 엔티티이다. (from 다음에 나오는 엔티티, root entity라고도 한다.)</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+실무에서 복잡한 쿼리를 짤때는 QueryDSL을 이용하자
+문자열로 짜는 JPQL은 오류를 잡기 어렵지만 QueryDSL을 사용하면 문자열 오류, 공백 등을 신경쓰지 않고 코드를 작성할 수 있다는 장점이 있다.</p>
+
+</blockquote>
+
+<p>페치 조인으로 SQL이 1번만 실행된다. distinct를 사용한 이유는 일대다 조인이 있으므로 데이터베이스 row가 증가한다. 그 결과 같은 order 엔티티의 조회 수도 증가하게 된다. JPA의 distinct는 SQL에 distinct를 추가하고, 더해서 같은 엔티티가 조회되면, 애플리케이션에서 중복을 걸러준다. 이 예제에선 order가 컬렉션 페치 조인 때문에 중복 조회 되는 것을 막아준다.</p>
+
+<p>하지만, <strong>페이징이 불가능</strong>하다는 치명적인 단점이 있다. setFirstResult(), setMaxResults() 적용이 안된다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+컬렉션 페치 조인을 사용하면 페이징이 불가능하다. 하이버네이트는 경고 로그를 남기면서 모든
+데이터를 DB에서 읽어오고, <strong>메모리에서 페이징 해버린다</strong> (매우 위험하다).</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+컬렉션 페치 조인은 1개만 사용할 수 있다. 컬렉션 둘 이상에 페치 조인을 사용하면 안된다. 데이터가 부정합하게 조회될 수 있다.</p>
+
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">일대다 페치조인에서는 페이징을 절대 사용하면 안된다.</code></p>
+
+<h3 id="페이징과-한계-돌파">페이징과 한계 돌파</h3>
+
+<p>대부분의 페이징 + 컬렉션 엔티티 조회 문제는 다음에서 설명하는 방법으로 해결할 수 있다.</p>
+
+<p>먼저, <em><strong>ToOne</strong>(OneToOne, ManyToOne) 관계를 모두 페치조인 한다. ToOne 관계는 row수를
+증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다. 그 후, 컬렉션(</em>ToMany)은 지연 로딩으로 조회한다. 지연 로딩 성능 최적화를 위해 <code class="language-plaintext highlighter-rouge">hibernate.default_batch_fetch_size</code>, @BatchSize 를 적용한다.</p>
+
+<ul>
+  <li>hibernate.default_batch_fetch_size: 글로벌 설정</li>
+  <li>@BatchSize: 개별 최적화</li>
+</ul>
+
+<p>이 옵션을 사용하면 컬렉션이나, 프록시 객체를 한꺼번에 <strong>설정한 size 만큼 IN 쿼리로 조회</strong>한다.</p>
+
+<h3 id="default_batch_fetch_size-설정">default_batch_fetch_size 설정</h3>
+
+<p>application.yml</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>jpa.hibernate.properties.hibernate.default_batch_fetch_size: 100
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>설정 후 쿼리 결과</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>...
+2022-08-14 01:10:22.984  INFO 31396 --- [nio-8080-exec-4] p6spy                                    : #1660407022984 | took 1ms | statement | connection 8| url jdbc:h2:tcp://localhost/~/jpashop
+select orderitems0_.order_id as order_id5_5_1_, orderitems0_.order_item_id as order_it1_5_1_, orderitems0_.order_item_id as order_it1_5_0_, orderitems0_.count as count2_5_0_, orderitems0_.item_id as item_id4_5_0_, orderitems0_.order_id as order_id5_5_0_, orderitems0_.order_price as order_pr3_5_0_ from order_item orderitems0_ where orderitems0_.order_id in (?, ?)
+select orderitems0_.order_id as order_id5_5_1_, orderitems0_.order_item_id as order_it1_5_1_, orderitems0_.order_item_id as order_it1_5_0_, orderitems0_.count as count2_5_0_, orderitems0_.item_id as item_id4_5_0_, orderitems0_.order_id as order_id5_5_0_, orderitems0_.order_price as order_pr3_5_0_ from order_item orderitems0_ where orderitems0_.order_id in (4, 11);
+2022-08-14 01:10:22.996 DEBUG 31396 --- [nio-8080-exec-4] org.hibernate.SQL                        : 
+...
+2022-08-14 01:10:22.998  INFO 31396 --- [nio-8080-exec-4] p6spy                                    : #1660407022998 | took 0ms | statement | connection 8| url jdbc:h2:tcp://localhost/~/jpashop
+select item0_.item_id as item_id2_3_0_, item0_.name as name3_3_0_, item0_.price as price4_3_0_, item0_.stock_quantity as stock_qu5_3_0_, item0_.artist as artist6_3_0_, item0_.etc as etc7_3_0_, item0_.author as author8_3_0_, item0_.isbn as isbn9_3_0_, item0_.actor as actor10_3_0_, item0_.director as directo11_3_0_, item0_.dtype as dtype1_3_0_ from item item0_ where item0_.item_id in (?, ?, ?, ?)
+select item0_.item_id as item_id2_3_0_, item0_.name as name3_3_0_, item0_.price as price4_3_0_, item0_.stock_quantity as stock_qu5_3_0_, item0_.artist as artist6_3_0_, item0_.etc as etc7_3_0_, item0_.author as author8_3_0_, item0_.isbn as isbn9_3_0_, item0_.actor as actor10_3_0_, item0_.director as directo11_3_0_, item0_.dtype as dtype1_3_0_ from item item0_ where item0_.item_id in (2, 3, 9, 10);
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>default_batch_fetch_size를 설정하면 쿼리 호출 수가 1 + N → 1 + 1로 최적화 된다. 조인보다 DB 데이터 전송량이 최적화 된다. (Order와 OrderItem을 조인하면 Order가 OrderItem 만큼 중복해서 조회된다. 이 방법은 각각 조회하므로 전송해야할 중복 데이터가 없다.) 페치 조인 방식과 비교해서 쿼리 호출 수가 약간 증가하지만, DB 데이터 전송량이 감소한다. 컬렉션 페치 조인은 페이징이 불가능 하지만 이 방법은 <code class="language-plaintext highlighter-rouge">페이징이 가능</code>하다.</p>
+
+<p>정리하자면, ToOne 관계는 페치 조인해도 페이징에 영향을 주지 않는다. 따라서 ToOne 관계는 페치조인으로 쿼리 수를 줄이고 해결하고, 나머지(컬렉션)는 hibernate.default_batch_fetch_size로 최적화 하자.</p>
+
+<h3 id="batchsize">@BatchSize</h3>
+
+<p>개별로 설정하려면 @BatchSize를 적용하면 된다. (컬렉션은 컬렉션 필드에, 엔티티는 엔티티 클래스에 적용)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c1">// Order.java</span>
+
+<span class="c1">// ToMany 일 때는 연관관계 위치에 작성한다.</span>
+<span class="nd">@BatchSize</span><span class="o">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">)</span>
+<span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"order"</span><span class="o">,</span> <span class="n">cascade</span> <span class="o">=</span> <span class="nc">CascadeType</span><span class="o">.</span><span class="na">ALL</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderItem</span><span class="o">&gt;</span> <span class="n">orderItems</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="c1">// ToOne 일 때는 엔티티 class 부분에서 작성한다.</span>
+<span class="nd">@BatchSize</span><span class="o">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="o">)</span>
+<span class="nd">@Entity</span>
+<span class="nd">@Getter</span> <span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>그냥 default_batch_fetch_size 사용하자!</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+default_batch_fetch_size 의 크기는 적당한 사이즈를 골라야 하는데, 100~1000 사이를 선택하는 것을 권장한다. 이 전략을 SQL IN 절을 사용하는데, 데이터베이스에 따라 IN 절 파라미터를 1000으로 제한하기도 한다. 1000으로 잡으면 한번에 1000개를 DB에서 애플리케이션에 불러오므로 DB 에 순간 부하가 증가할 수 있다. 하지만 애플리케이션은 100이든 1000이든 결국 전체 데이터를 로딩해야 하므로 메모리 사용량이 같다. 1000으로 설정하는 것이 성능상 가장 좋지만, 결국 DB든 애플리케이션이든 순간 부하를 어디까지 견딜 수 있는지로 결정하면 된다.</p>
+
+</blockquote>
+
+<p>여기까지 하면 JPA와 관련된 성능최적화는 90%는 해결이 된다.</p>
+
+<h2 id="jpa에서-dto-직접-조회">JPA에서 DTO 직접 조회</h2>
+
+<p>쿼리는 루트 1번, 컬렉션 N 번 실행된다. ToOne(N:1, 1:1) 관계들을 먼저 조회하고, ToMany(1:N) 관계는 각각 별도로 처리한다.</p>
+
+<p>이런 방식을 선택한 이유는 다음과 같다.</p>
+
+<ul>
+  <li>ToOne 관계는 조인해도 데이터 row 수가 증가하지 않는다.</li>
+  <li>ToMany(1:N) 관계는 조인하면 row 수가 증가한다.</li>
+</ul>
+
+<p>row 수가 증가하지 않는 ToOne 관계는 조인으로 최적화하기 쉬우므로 한번에 조회하고, ToMany
+관계는 최적화 하기 어려우므로 findOrderItems() 같은 별도의 메서드로 조회한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderQueryDto</span><span class="o">&gt;</span> <span class="nf">findOrderQueryDtos</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderQueryDto</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">findOrders</span><span class="o">();</span> <span class="c1">// query 1번 -&gt; N개</span>
+    <span class="n">result</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">o</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderItemQueryDto</span><span class="o">&gt;</span> <span class="n">orderItems</span> <span class="o">=</span> <span class="n">findOrderItems</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getOrderId</span><span class="o">());</span> <span class="c1">// Query N번</span>
+        <span class="n">o</span><span class="o">.</span><span class="na">setOrderItems</span><span class="o">(</span><span class="n">orderItems</span><span class="o">);</span>
+    <span class="o">});</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderQueryDto</span><span class="o">&gt;</span> <span class="nf">findOrders</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span>
+                    <span class="s">"select new jpabook.jpashop.repository.order.query.OrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address)"</span> <span class="o">+</span>
+                            <span class="s">" from Order o"</span> <span class="o">+</span>
+                            <span class="s">" join o.member m"</span> <span class="o">+</span>
+                            <span class="s">" join o.delivery d"</span><span class="o">,</span> <span class="nc">OrderQueryDto</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">OrderItemQueryDto</span><span class="o">&gt;</span> <span class="nf">findOrderItems</span><span class="o">(</span><span class="nc">Long</span> <span class="n">orderId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span>
+                    <span class="s">"select new jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)"</span> <span class="o">+</span>
+                            <span class="s">" from OrderItem oi"</span> <span class="o">+</span>
+                            <span class="s">" join oi.item i"</span> <span class="o">+</span>
+                            <span class="s">" where oi.order.id = :orderId"</span><span class="o">,</span> <span class="nc">OrderItemQueryDto</span><span class="o">.</span><span class="na">class</span>
+            <span class="o">)</span>
+            <span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="s">"orderId"</span><span class="o">,</span> <span class="n">orderId</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="컬렉션-조회-최적화">컬렉션 조회 최적화</h3>
+
+<p>쿼리는 루트 1번, 컬렉션 1번 실행된다. ToOne 관계들을 먼저 조회하고, 여기서 얻은 식별자 orderId로 ToMany 관계인 OrderItem을 한꺼번에 조회하자. MAP을 사용해서 매칭 성능 향상(O(1))</p>
+
+<h3 id="플랫-데이터-최적화">플랫 데이터 최적화</h3>
+
+<p>쿼리는 1번 실행된다. 하지만, 조인으로 인해 DB에서 애플리케이션에 전달하는 데이터에 중복 데이터가 추가되므로 상황에 따라 컬렉션 조회 최적화 보다 더 느릴 수 도 있다. 또한 애플리케이션에서 추가 작업이 크다. 페이징 불가능하다.</p>
+
+<h2 id="정리">정리</h2>
+
+<h3 id="엔티티-조회-방식-접근-순서">엔티티 조회 방식 접근 순서</h3>
+
+<ol>
+  <li>엔티티 조회 방식으로 우선접근
+    <ol>
+      <li>페치조인으로 쿼리 수를 최적화</li>
+      <li>컬렉션 최적화
+        <ol>
+          <li>페이징 필요 → hibernate.default_batch_fetch_size , @BatchSize 로 최적화</li>
+          <li>페이징 필요X → 페치 조인 사용</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>엔티티 조회 방식으로 해결이 안되면 DTO조회 방식 사용</li>
+  <li>DTO 조회 방식으로 해결이 안되면 NativeSQL or 스프링 JdbcTemplate</li>
+</ol>
+
+<blockquote>
+  <p><strong>참고</strong>
+엔티티 조회 방식은 페치 조인이나, hibernate.default_batch_fetch_size , @BatchSize 같이 코드를 거의 수정하지 않고, 옵션만 약간 변경해서, 다양한 성능 최적화를 시도할 수 있다. 반면에 DTO를 직접 조회하는 방식은 성능을 최적화 하거나 성능 최적화 방식을 변경할 때 많은 코드를 변경해야 한다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+개발자는 성능 최적화와 코드 복잡도 사이에서 줄타기를 해야 한다. 항상 그런 것은 아니지만, 보통 성능 최적화는 단순한 코드를 복잡한 코드로 몰고간다. 엔티티 조회 방식은 JPA가 많은 부분을 최적화 해주기 때문에, 단순한 코드를 유지하면서, 성능을 최적화 할 수 있다. 반면에 DTO 조회 방식은 SQL을 직접 다루는 것과 유사하기 때문에, 둘 사이에 줄타기를 해야 한다.</p>
+
+</blockquote>
+
+<h3 id="dto-조회-방식의-선택지">DTO 조회 방식의 선택지</h3>
+
+<ul>
+  <li>DTO로 조회하는 방법도 각각 장단이 있다. V4, V5, V6에서 단순하게 쿼리가 1번 실행된다고 V6이 항상 좋은 방법인 것은 아니다.</li>
+  <li>V4는 코드가 단순하다. 특정 주문 한건만 조회하면 이 방식을 사용해도 성능이 잘 나온다. 예를 들어서 조회한 Order 데이터가 1건이면 OrderItem을 찾기 위한 쿼리도 1번만 실행하면 된다.</li>
+  <li>V5는 코드가 복잡하다. 여러 주문을 한꺼번에 조회하는 경우에는 V4 대신에 이것을 최적화한 V5 방식을 사용해야 한다. 예를 들어서 조회한 Order 데이터가 1000건인데, V4 방식을 그대로 사용하면, 쿼리가 총 1 + 1000번 실행된다. 여기서 1은 Order 를 조회한 쿼리고, 1000은 조회된 Order의 row 수다. V5 방식으로 최적화 하면 쿼리가 총 1 + 1번만 실행된다. 상황에 따라 다르겠지만 운영 환경에서 100배 이상의 성능 차이가 날 수 있다.</li>
+  <li>V6는 완전히 다른 접근방식이다. 쿼리 한번으로 최적화 되어서 상당히 좋아보이지만, Order를 기준으로 페이징이 불가능하다. 실무에서는 이정도 데이터면 수백이나, 수천건 단위로 페이징 처리가 꼭 필요하므로, 이 경우 선택하기 어려운 방법이다. 그리고 데이터가 많으면 중복 전송이 증가해서 V5와 비교해서 성능 차이도 미비하다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a><span class="sep">, </span>
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-08-16">August 16, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%BB%AC%EB%A0%89%EC%85%98+%EC%A1%B0%ED%9A%8C+%EC%B5%9C%EC%A0%81%ED%99%94%20http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJPA-JPA-Collections-Performance-Optimization%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJPA-JPA-Collections-Performance-Optimization%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fjpa%2FJPA-JPA-Collections-Performance-Optimization%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/jpa/JPA-Fetch-Join/" class="pagination--pager" title="페치 조인 (fetch join)
+">이전</a>
+    
+    
+      <a href="/jpa/JPA-JPA-Performance-Optimization/" class="pagination--pager" title="JPA 조회 성능 최적화
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/jpa/JPA-JPA-Collections-Performance-Optimization/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/jpa/JPA-JPA-Collections-Performance-Optimization"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

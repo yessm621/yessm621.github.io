@@ -1,0 +1,756 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>JDBC와 최신 데이터 접근 기술(SQL Mapper, ORM) - Seungmi Blog</title>
+<meta name="description" content="최근에는 JDBC를 직접 사용하기 보다 SQL Mapper, ORM을 통해 JDBC를 편리하게 사용할 수 있다.">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="JDBC와 최신 데이터 접근 기술(SQL Mapper, ORM)">
+<meta property="og:url" content="http://localhost:4000/spring/Spring-SQLMapper-ORM/">
+
+
+  <meta property="og:description" content="최근에는 JDBC를 직접 사용하기 보다 SQL Mapper, ORM을 통해 JDBC를 편리하게 사용할 수 있다.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-10-24T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-10-25T07:40:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring/Spring-SQLMapper-ORM/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="JDBC와 최신 데이터 접근 기술(SQL Mapper, ORM)">
+    <meta itemprop="description" content="최근에는 JDBC를 직접 사용하기 보다 SQL Mapper, ORM을 통해 JDBC를 편리하게 사용할 수 있다.">
+    <meta itemprop="datePublished" content="2022-10-24T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-10-25T07:40:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/spring/Spring-SQLMapper-ORM/" class="u-url" itemprop="url">JDBC와 최신 데이터 접근 기술(SQL Mapper, ORM)
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-10-24T00:00:00+09:00">October 24, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#sql-mapper">SQL Mapper</a></li><li><a href="#orm-기술">ORM 기술</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>최근에는 JDBC를 직접 사용하기 보다 <code class="language-plaintext highlighter-rouge">SQL Mapper</code>, <code class="language-plaintext highlighter-rouge">ORM</code>을 통해 JDBC를 편리하게 사용할 수 있다.</p>
+
+<h2 id="sql-mapper">SQL Mapper</h2>
+
+<p><code class="language-plaintext highlighter-rouge">SQL Mapper</code>는 JDBC를 편리하게 사용할 수 있도록 도와준다. SQL 응답 결과를 객체로 편리하게 변환해주고 JDBC의 반복 코드를 제거해준다. 하지만 개발자가 직접 SQL을 작성해야 한다는 단점도 있다. 대표적으로 <strong>JdbcTemplate, MyBatis</strong>가 SQL Mapper에 해당한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/197540320-00b379ec-6ac4-4c36-a081-15eba164580c.png" alt="4" /></p>
+
+<h2 id="orm-기술">ORM 기술</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ORM(Object Relational Mapper)</code>은 객체를 관계형 데이터베이스 테이블과 매핑해주는 기술이다. ORM 덕분에 개발자는 SQL을 직접 작성하지 않는다. 또한, 개발자 대신 ORM 기술이 SQL을 동적으로 생성해준다. 대표적으로 <strong>JPA, 하이버네이트, 이클립스 링크</strong>가 있다.</p>
+
+<p>이 중에서 <code class="language-plaintext highlighter-rouge">JPA</code>는 자바 진영의 <strong>ORM 표준 인터페이스</strong>이고 이것을 구현하는 기술이 <strong>하이버네이트</strong>와 이클립스 링크가 있다. 주로 하이버네이트를 사용한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/197540323-d1661631-3f72-4499-82b7-3111201e6a37.png" alt="5" /></p>
+
+<p>그렇다면 SQL Mapper과 ORM 기술 중 어느 것을 사용하는 것이 좋을까?</p>
+
+<p>SQL Mapper는 SQL만 직접 작성하면 나머지 번거로운 일은 SQL Mapper가 대신 해결해준다. ORM 기술은 SQL을 직접 작성하지 않아도 되서 개발 생산성이 높다. 편리한 반면 쉬운 기술은 아니므로 실무에서 사용하려면 깊이있는 학습이 필요하다.</p>
+
+<p><strong>SQL Mapper와 ORM 기술은 모두 JDBC를 사용</strong>한다. JDBC가 어떻게 동작하는지 알고 기본 원리를 알아야 해당 기술을 더 깊이 있게 이해할 수 있고 문제가 발생했을 때 근본적인 문제를 찾아 해결할 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#db" class="page__taxonomy-item p-category" rel="tag">DB</a><span class="sep">, </span>
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-24">October 24, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=JDBC%EC%99%80+%EC%B5%9C%EC%8B%A0+%EB%8D%B0%EC%9D%B4%ED%84%B0+%EC%A0%91%EA%B7%BC+%EA%B8%B0%EC%88%A0%28SQL+Mapper%2C+ORM%29%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-SQLMapper-ORM%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-SQLMapper-ORM%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-SQLMapper-ORM%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/Spring-JDBC/" class="pagination--pager" title="JDBC
+">이전</a>
+    
+    
+      <a href="/spring/Spring-ConnectionPool/" class="pagination--pager" title="커넥션 풀
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/spring/Spring-SQLMapper-ORM/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/Spring-SQLMapper-ORM"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

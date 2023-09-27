@@ -1,0 +1,903 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>OAuth 2.0 - Seungmi Blog</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="OAuth 2.0">
+<meta property="og:url" content="http://localhost:4000/web/Web-OAuth/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-10-13T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-10-14T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/web/Web-OAuth/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="OAuth 2.0">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2022-10-13T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-10-14T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/web/Web-OAuth/" class="u-url" itemprop="url">OAuth 2.0
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-10-13T00:00:00+09:00">October 13, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#oauth란">OAuth란</a></li><li><a href="#oauth-주요-용어">OAuth 주요 용어</a><ul><li><a href="#resource-owner">Resource Owner</a></li><li><a href="#client">Client</a></li><li><a href="#resource-server">Resource Server</a></li><li><a href="#authorization-server">Authorization Server</a></li></ul></li><li><a href="#oauth20-등록">OAuth2.0 등록</a><ul><li><a href="#client-id">Client ID</a></li><li><a href="#client-secret">Client Secret</a></li><li><a href="#authorized-redirect-uris">Authorized redirect URIs</a></li><li><a href="#scope">Scope</a></li></ul></li><li><a href="#resource-owner의-승인">Resource Owner의 승인</a></li><li><a href="#resource-server의-승인">Resource Server의 승인</a></li><li><a href="#oauth-흐름-정리">OAuth 흐름 정리</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p><br /></p>
+
+<p>웹 서핑을 하다보면 Google, Facebook 등의 소셜 로그인 기능을 쉽게 찾아볼 수 있다. 클릭 한 번으로 간편하게 로그인할 수 있으며 연동되는 애플리케이션에서 Google, Facebook 등이 제공하는 기능을 간편하게 사용할 수 있다는 장점이 있다.</p>
+
+<p>이 때 사용되는 프로토콜이 바로 <code class="language-plaintext highlighter-rouge">OAuth</code>다.</p>
+
+<h2 id="oauth란">OAuth란</h2>
+
+<p>OAuth는 인터넷 사용자들이 비밀번호를 제공하지 않고 다른 웹사이트 상의 자신들의 정보에 대해 웹사이트나 애플리케이션의 접근 권한을 부여할 수 있는 공통적인 수단으로서 사용되는 접근 위임을 위한 개방형 표준이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510728-5ea0bb0a-86a6-496d-bfe8-513b393cceb7.png" alt="1" /></p>
+
+<p>OAuth에는 3가지 주체가 있다.</p>
+
+<ul>
+  <li>사용자, User: 내 사이트를 이용하고자 하는 사용자</li>
+  <li>내 사이트, mine: xxxxx.com</li>
+  <li>그들의 서비스, Their: Google, Facebook, Twitter 등</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195511668-89e98ebf-8930-4733-9e2b-8cbcddcd19b5.png" alt="1" /></p>
+
+<p>OAuth를 이용하면 우리의 서비스가 그들이 만든 서비스와 <strong>상호작용</strong>할 수 있다.</p>
+
+<p>User는 mine을 통해 accessToken으로 그들의 서비스에 접근할 수 있다. 최종적으로는 OAuth를 통해 accessToken을 얻어낼 수 있다.</p>
+
+<h2 id="oauth-주요-용어">OAuth 주요 용어</h2>
+
+<p>OAuth에는 3가지 주체가 있다고 했다. 3가지 주체를 OAuth 용어에 맞게 해석하면 다음과 같다.</p>
+
+<ul>
+  <li>사용자(User) ⇒ Resource Owner</li>
+  <li>내 사이트(mine) ⇒ Client</li>
+  <li>그들의 서비스(Their) ⇒ Resource Server</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Resource Server</code>, <code class="language-plaintext highlighter-rouge">Resource Owner</code>, <code class="language-plaintext highlighter-rouge">Client</code> 이 세가지의 관계가 <code class="language-plaintext highlighter-rouge">OAuth의 핵심</code>이다.</p>
+
+<p><br /></p>
+
+<h3 id="resource-owner">Resource Owner</h3>
+
+<p>웹 서비스를 이용하는 사용자, 자원을 소유한 사람 (자원은 개인정보라고 생각하면 된다.)</p>
+
+<h3 id="client">Client</h3>
+
+<p>개인이 만든 애플리케이션 서버</p>
+
+<h3 id="resource-server">Resource Server</h3>
+
+<p>사용자의 개인정보를 가지고 있는 서버 (Google, Facebook 등)</p>
+
+<h3 id="authorization-server">Authorization Server</h3>
+
+<p>인증과 관련된 처리를 전담하는 서버</p>
+
+<p>공식 메뉴얼에서는 Resource Server와 Authorization Server를 구분하여 보여주지만 우리는 합쳐서 Resource Server라고 부르겠다.</p>
+
+<h2 id="oauth20-등록">OAuth2.0 등록</h2>
+
+<p>Client가 Resource Server를 이용하기 위해선 Resource Server에게 사전에 승인을 받아야한다. 이를 <code class="language-plaintext highlighter-rouge">등록(Register)</code>한다고 하며, 서비스(Google, Facebook 등)마다 등록하는 방법은 다르다.</p>
+
+<p>하지만 아래 세가지 요소를 공통적으로 갖는다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">client id</code>, <code class="language-plaintext highlighter-rouge">client secret</code>, <code class="language-plaintext highlighter-rouge">authorized redirect URIs</code></p>
+
+<h3 id="client-id">Client ID</h3>
+
+<p>애플리케이션을 식별하는 식별자 ID를 의미한다.</p>
+
+<h3 id="client-secret">Client Secret</h3>
+
+<p>식별하는 값에 대한 비밀번호. 즉, Client ID에 대한 비밀번호이다. Client ID는 외부에 노출될 수 있으나 Client Secret은 절대 외부에 노출되면 안된다.</p>
+
+<h3 id="authorized-redirect-uris">Authorized redirect URIs</h3>
+
+<p>authorized는 ‘권한을 부여하다’라는 뜻이다.</p>
+
+<p>Resource Server만 갖는 정보이며 Client에 권한을 부여하는 과정에서 나중에 Authorized code를 전달하는 통로이다. 나중에 Clinet ↔ Resource Server 유효성 검사에서 이 redirect URIs도 체크되며 해당 주소가 아닐 경우 Resource Server는 해당 Client가 아니라고 판단한다.</p>
+
+<h3 id="scope">Scope</h3>
+
+<p>Resource Server에서 사전에 사용 가능하도록 미리 정의한 기능</p>
+
+<h2 id="resource-owner의-승인">Resource Owner의 승인</h2>
+
+<p>등록을 통해 Resource Server는 client id, client secret, redirectURL을 알게 되었고, Client는 client id와 client secret을 알게 되었다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510735-af1ea9bd-dd39-4495-be93-f753a16d27e7.png" alt="2" /></p>
+
+<p>Resource Server에 4가지 기능이 있다고 가정하고 각각의 기능을 A, B, C, D라고 할때 client는 Resource Server의 모든 기능이 필요한게 아니고 B와 C 기능만 필요하다고 하다고 가정한다. 그렇다면 모든 기능에 대한 인증을 받는게 아니라 최소한의 인증만 받는게 효율적이다.</p>
+
+<p>Resource Owner가 Client에 접속한다. 이때 Resource Server의 기능 중 하나인 페이스북 글쓰기 기능을 사용하려고 한다고 가정하자. 그렇다면 아래와 같이 ‘페이스북으로 로그인하기’라는 페이지가 보이게 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510758-d3dfba95-00ed-41a7-8b87-f8d09339a59a.png" alt="3" /></p>
+
+<p>버튼의 링크는 아래와 같다. 이 링크를 통해 Resource Owner는 Resource Server로 접속하게 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>http://resource.server/?client_id=1&amp;scope=B,C&amp;redirect_uri=http://client/callback
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Resource Server는 Resource Owner의 현재 로그인 여부를 확인한다. 로그인이 안되어있으면 로그인을 요청한다. 로그인이 완료되면 그때서야 요청한 링크의 client id와 redirect URL를 Resource Server의 client id와 redirect URL과 비교한다. 같다면 Resource Owner에게 scope에 해당하는 기능을 부여할 것인지를 확인하는 메시지를 전송한다. (향후 redirect_uri를 통해서 Resource Server는 Client에게 임시비밀번호인 Authorization code를 제공한다.)</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510759-aaeb2fbb-4f2b-4385-ae94-a82fbb9b963c.png" alt="4" /></p>
+
+<p>허용버튼을 누르면 (Resource Owner에서 Resource Server로 요청) Resource Server에 user id, scope 저장됨</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510763-0556b16e-c417-473d-9c57-2a03ee1eb239.png" alt="5" /></p>
+
+<h2 id="resource-server의-승인">Resource Server의 승인</h2>
+
+<p>임시비밀번호인 <strong>authorization code</strong>를 <code class="language-plaintext highlighter-rouge">Redirect URL</code>을 통해 Resource Server에서 Resource Owner에게 전송한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510765-eb381d83-f831-48fd-bb60-0c6fcd4a38b3.png" alt="6" /></p>
+
+<p>헤더에 Location 값을 전달하는 것을 <code class="language-plaintext highlighter-rouge">redirection</code>이라고 한다. (여기서 ?code=3은 authorization code 이다.) Resource Server가 Resource Owner의 웹 브라우저에게 저 주소(http://client/callback?code=3)로 이동하라고 명령한 것이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510767-14d5e461-dbb8-489a-80f4-8c1c4db6d344.png" alt="7" /></p>
+
+<p>Resource Owner의 웹 브라우저는 Location의 헤더값에 의해서 사용자가 인식하지도 못하게 주소(http://client/callback?code=3)로 redirect 한다. 주소 중 ?code=3을 통해 Client는 authorization code 값이 3이라는 것을 알게 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510768-4727da11-b732-47fb-ac58-89fdaa8497cb.png" alt="8" /></p>
+
+<p>Client는 Resource Owner를 통하지 않고 Resource Server로 직접 접근한다. 직접 접근할때 authorization code와 client id, client secret 값을 같이 전송한다. 이제 Resource Server는 authorization code와 client id, client secret 값이 일치하는지 확인하고 일치하면 <code class="language-plaintext highlighter-rouge">access token</code>을 발급한다. 그리고 필요없어진 Authorization code는 지운다.</p>
+
+<p>그렇게 토큰을 받은 Client는 사용자에게 최종적으로 로그인이 완료되었다고 응답한다.</p>
+
+<blockquote>
+  <p>OAuth의 목적은 최종적으로 <code class="language-plaintext highlighter-rouge">Access Token을 발급</code>하는 것이다.</p>
+
+</blockquote>
+
+<p>이제 Client는 Resource Server의 API를 요청해 Resource Owner의 ID와 같은 사용자 정보를 가지고 올 수 있다. 그리고 Access Token의 기간이 만료되면 Refresh Token을 이용해서 Access Token을 재발급 받는다.</p>
+
+<h2 id="oauth-흐름-정리">OAuth 흐름 정리</h2>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/195510771-397b8446-e759-4210-8950-5f3261b2d32b.png" alt="9" /></p>
+
+<ol>
+  <li>Resource Owner는 서비스(client)를 이용하기 위해 로그인 페이지에 접근한다.</li>
+  <li>그럼 서비스(Client)는 Resource Owner에게 로그인 페이지를 제공하게 된다. 로그인 페이지에서 사용자는 ‘구글/페이스북으로 로그인’ 버튼을 누른다.</li>
+  <li>
+    <p>Resource Owner가 로그인 버튼을 클릭하게 되면 특정한 url이 구글/페이스북 서버쪽으로 보내지게 된다.</p>
+
+    <p>(특정한 url: http://resource.server/?client_id=1&amp;scope=B,C&amp;redirect_uri=http://client/callback)</p>
+  </li>
+  <li>
+    <p>Resource Owner가 보낸 client_id와 redirect_uri를 Resource Server에 등록된 정보와 비교한다.
+확인이 완료되면 Resource Server로 부터 전용 로그인 페이지로 이동하여 사용자에게 보여준다.</p>
+
+    <p><img src="https://user-images.githubusercontent.com/79130276/195511278-e9d1d997-99c6-4ba0-bc4b-963be36e8019.png" alt="1" /></p>
+  </li>
+  <li>
+    <p>ID/PW로 로그인을 하게되면 Client가 사용하려는 기능(scope)에 대해 Resource Owner의 동의(승인)을 요청한다. 즉, scope에 해당되는 권한을 클라이언트에게 부여할 것인지 사용자에게 재차 확인한다.</p>
+
+    <p><img src="https://user-images.githubusercontent.com/79130276/195511282-9454db5f-9d9e-491c-b16b-58f13ad54dd4.png" alt="2" /></p>
+
+    <p>위 이미지가 의미하는 것은 다음과 같다.</p>
+
+    <p>‘Client는 Resource Owner를 대신해 해당 기능(scope)를 사용하려고 합니다. 동의하시겠습니까?’</p>
+
+    <p>동의를 누르면 Resource Owner는 Client가 해당 기능 사용에 위임했다는 것을 의미한다.</p>
+  </li>
+  <li>하지만, 이미 Owner가 Client에게 권한 승인을 했더라도 아직 Server가 허락하지 않았다. 따라서, Resource Server도 Client에게 권한 승인을 하기위해 Authorization code를 Redirect URL을 통해 사용자에게 응답하고</li>
+  <li>사용자는 그대로 Client에게 다시 보낸다.</li>
+  <li>이제 Client가 Resource Server에게 직접 url(client_id, client_secret, authorization code 등)을 보낸다.</li>
+  <li>그럼 Resource Server는 Client가 전달한 정보들을 비교해서 일치한다면, Access Token을 발급한다. 그리고 필요없어진 Authorization code는 지운다.</li>
+  <li>그렇게 토큰을 받은 Client는 사용자에게 최종적으로 로그인이 완료되었다고 응답한다.</li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#web" class="page__taxonomy-item p-category" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#web" class="page__taxonomy-item p-category" rel="tag">Web</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-13">October 13, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=OAuth+2.0%20http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWeb-OAuth%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWeb-OAuth%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fweb%2FWeb-OAuth%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/web/Web-Authentication-Authorization/" class="pagination--pager" title="인증과 인가
+">이전</a>
+    
+    
+      <a href="/spring/Spring-JWT-OAuth-Security/" class="pagination--pager" title="JWT, OAuth2.0, Security
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/web/Web-OAuth/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/web/Web-OAuth"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

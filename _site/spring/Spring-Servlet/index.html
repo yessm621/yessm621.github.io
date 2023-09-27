@@ -1,0 +1,867 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>서블릿 - Seungmi Blog</title>
+<meta name="description" content="목차">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="서블릿">
+<meta property="og:url" content="http://localhost:4000/spring/Spring-Servlet/">
+
+
+  <meta property="og:description" content="목차">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-19T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-12-21T08:15:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring/Spring-Servlet/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="서블릿">
+    <meta itemprop="description" content="목차">
+    <meta itemprop="datePublished" content="2022-07-19T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-12-21T08:15:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/spring/Spring-Servlet/" class="u-url" itemprop="url">서블릿
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-07-19T00:00:00+09:00">July 19, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#목차">목차</a></li><li><a href="#서블릿">서블릿</a><ul><li><a href="#서블릿-사용예제">서블릿 사용예제</a></li><li><a href="#서블릿-특징">서블릿 특징</a></li><li><a href="#서블릿-http-요청-응답-흐름">서블릿 HTTP 요청, 응답 흐름</a></li></ul></li><li><a href="#서블릿-컨테이너">서블릿 컨테이너</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="목차">목차</h2>
+
+<ol>
+  <li><a href="https://yessm621.github.io/http/Web-WebServer-WAS/">웹 서버와 WAS</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-Servlet/">서블릿</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-Thread/">쓰레드와 쓰레드 풀</a></li>
+  <li><a href="https://yessm621.github.io/http/Web-SSR-CSR/">SSR, CSR</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-MVCPattern/">MVC 패턴</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-MVCPattern-FrontController/">구 MVC 패턴과 프론트 컨트롤러</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-DispatcherServlet/">디스패처 서블릿</a></li>
+  <li><a href="https://yessm621.github.io/web/Spring-Logging/">로깅</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-HTTPMessageConverter/">HTTP 메시지 컨버터</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-RequestMappingHandlerAdapter/">요청 매핑 핸들러 어댑터 구조</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-PRG/">PRG Post/Redirect/Get</a></li>
+</ol>
+
+<h2 id="서블릿">서블릿</h2>
+
+<p><code class="language-plaintext highlighter-rouge">서블릿</code>이란 Dynamic Web Page를 만들 때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술이다. 웹을 만들때는 다양한 <strong>요청(request)</strong>과 <strong>응답(response)</strong>이 있고 규칙이 존재하는데 이러한 요청과 응답을 일일이 처리하기 힘들다. 서블릿은 이러한 웹 요청과 응답의 흐름을 간단한 메서드 호출만으로 체계적으로 다룰 수 있게 해주는 기술이다.</p>
+
+<p>서블릿을 사용하지 않으면 아래의 리스트를 모두 구현해야 한다. 하지만, 서블릿을 지원하는 WAS를 사용하면 초록색 박스안의 내용만 구현하면 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/208683437-623d6d1b-7bfc-4c8d-a6b8-2a6198838614.png" alt="1" /></p>
+
+<h3 id="서블릿-사용예제">서블릿 사용예제</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"helloServelt"</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">"/hello"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServlet</span> <span class="kd">extends</span> <span class="nc">HttpServlet</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>@WebServlet
+    <ul>
+      <li>name: 서블릿 이름</li>
+      <li>urlPatterns: URL 매핑</li>
+    </ul>
+  </li>
+  <li>protected void service(HttpServletRequest request, HttpServletResponse response)
+    <ul>
+      <li>HTTP 요청을 통해 매핑된 URL이 호출되면 서블릿 컨테이너는 service() 메서드를 실행한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="서블릿-특징">서블릿 특징</h3>
+
+<ol>
+  <li>urlPatterns의 URL이 호출되면 서블릿 코드가 실행된다.</li>
+  <li>HTTP 요청, 응답 정보를 편리하게 사용할 수 있는 HttpServletRequest와 HttpServletResponse를 제공한다.</li>
+  <li>개발자는 HTTP 스펙을 매우 편리하게 사용할 수 있다.</li>
+</ol>
+
+<h3 id="서블릿-http-요청-응답-흐름">서블릿 HTTP 요청, 응답 흐름</h3>
+
+<p>클라이언트에서 <strong>URL 요청</strong>이 들어오면 WAS는 <code class="language-plaintext highlighter-rouge">Request, Response 객체</code>를 생성하고 <code class="language-plaintext highlighter-rouge">서블릿 객체</code>를 호출한다. 개발자는 Reqeust 객체에서 HTTP 요청 정보를 꺼내서 사용하고 Response 객체에서 HTTP 응답 정보를 편리하게 입력한다. WAS는 Response 객체에 담겨있는 내용으로 HTTP 응답 정보를 생성하여 클라이언트에 전달한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/208683263-e15dec06-0750-43a9-bdaa-3c0d73aff8d7.png" alt="스크린샷 2022-12-20 오후 10 49 34" /></p>
+
+<blockquote>
+  <p><strong>참고</strong> 서블릿 객체의 생성 시점
+<br />
+서버 설정에 따라 다르다. 로딩 시점에 생성할 수도 있고 최초 요청 시점에 생성할 수도 있다.</p>
+
+</blockquote>
+
+<h2 id="서블릿-컨테이너">서블릿 컨테이너</h2>
+
+<p><code class="language-plaintext highlighter-rouge">서블릿 컨테이너</code>란 톰캣처럼 <strong>서블릿을 지원하는 WAS</strong>를 서블릿 컨테이너라고 한다. 서블릿 컨테이너는 서블릿 객체를 생성, 초기화, 호출, 종료하는 <strong>생명주기를 관리</strong>하는데 이때 <strong>싱글톤</strong>으로 관리한다.</p>
+
+<p>고객의 요청이 올 때 마다 객체를 생성하는 것은 비효율적이므로 최초 로딩 시점에 서블릿 객체를 미리 만들어두고 재활용한다. 모든 고객의 요청은 동일한 서블릿 객체 인스턴스에 접근하며 서블릿 컨테이너 종료 시 함께 종료한다. 이때, <strong>공유 변수</strong> 사용에 주의해야한다.</p>
+
+<p>JSP도 서블릿으로 변환되어서 사용하며 동시 요청을 위한 <code class="language-plaintext highlighter-rouge">멀티 쓰레드</code> 처리를 지원한다.</p>
+
+<blockquote>
+  <p><strong>참고</strong> 싱글톤 패턴
+<br />
+<strong>싱글톤 패턴</strong>은 <code class="language-plaintext highlighter-rouge">객체를 딱 하나만 생성</code>하여 생성된 객체를 프로그램 어디에서나 접근하여 사용할 수 있도록 하는 패턴을 말한다.
+개발을 하다보면 전역적으로 하나의 객체만을 사용해야 하는 경우가 있는데 이때 <strong>싱글톤 패턴</strong>을 사용하면 <strong>객체 생성을 단 한번으로 제한</strong>하여 객체들이 복제되는 경우를 방지할 수 있고 클래스를 사용하는 여러 곳에서 인스턴스를 계속 생성하여 불필요하게 메모리 낭비를 유발할 수 있다고 판단되는 경우에도 싱글톤 패턴을 사용한다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong> 서블릿과 싱글톤
+<br />
+/hello 를 처리하는 HelloServlet, /spring을 처리하는 SpringServlet이 각각 존재한다면 HelloServlet, SpringServlet를 매번 요청이 올 때마다 새롭게 만들어줄 필요 없이 한 번만 생성한 뒤 이미 생성된 것을 사용하면 된다. 여기서 언급된 싱글톤은 HelloServlet, SpringServlet을 각각 <strong>하나만 존재</strong>하도록 하는 것이다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong> 스프링 컨테이너와 서블릿 컨테이너의 관계
+<br />
+서로가 어디에 포함된다고 보기보단 스프링 빈을 관리하는 스프링 컨테이너와 서블릿을 관리하는 서블릿 컨테이너가 각자의 목적에 맞게 별도의 컨테이너로 존재한다.</p>
+
+  <p><img src="https://user-images.githubusercontent.com/79130276/208683749-e030ec6f-2777-42fe-b89c-ea78e074ccee.png" alt="2" /></p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+request 객체를 만들어서 서블릿에 넘겨주는 것이 서블릿 컨테이너의 역할이며 response도 마찬가지로 서블릿 컨테이너가 한다. 서블릿 컨테이너가 서블릿을 호출해준다.
+서블릿은 service() 로직을 수행하는 싱글톤 객체라고 이해해도 된다.</p>
+
+</blockquote>
+
+<blockquote>
+  <p><strong>참고</strong> 서블릿 컨테이너 흐름
+<br /></p>
+  <ol>
+    <li>서블릿 컨테이너가 서블릿 객체를 생성 (서블릿의 생성시점은 서버 설정에 따라 다름)</li>
+    <li>클라이언트가 해당 서블릿을 사용하는 HTTP 요청을 하면, 서블릿 컨테이너에서 request, response 객체를 생성</li>
+    <li>이때, 쓰레드가 서블릿 객체를 호출하고 request, response 객체를 서블릿 객체에 넘겨줌</li>
+    <li>request 객체를 활용해 서블릿의 비즈니스 로직 실행</li>
+    <li>응답 결과를 response 객체에 담은 후, 서블릿 컨테이너에 전달</li>
+    <li>서블릿 컨테이너가 HTTP 응답 메시지 생성 후 클라이언트에게 전달</li>
+  </ol>
+
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-12-20">December 20, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%84%9C%EB%B8%94%EB%A6%BF%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Servlet%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Servlet%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Servlet%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/java/Java-JVM/" class="pagination--pager" title="JVM(Java Virtual Machine)
+">이전</a>
+    
+    
+      <a href="/spring/Spring-Thread/" class="pagination--pager" title="스레드와 스레드 풀
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/spring/Spring-Servlet/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/Spring-Servlet"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

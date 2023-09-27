@@ -1,0 +1,2240 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>JWT(Json Web Token) 인증 - Seungmi Blog</title>
+<meta name="description" content="1. REST API 인증 기법">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="JWT(Json Web Token) 인증">
+<meta property="og:url" content="http://localhost:4000/spring/SpringBoot-JWT/">
+
+
+  <meta property="og:description" content="1. REST API 인증 기법">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-04-20T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-04-26T00:55:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring/SpringBoot-JWT/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="JWT(Json Web Token) 인증">
+    <meta itemprop="description" content="1. REST API 인증 기법">
+    <meta itemprop="datePublished" content="2022-04-20T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-04-26T00:55:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/spring/SpringBoot-JWT/" class="u-url" itemprop="url">JWT(Json Web Token) 인증
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-04-20T00:00:00+09:00">April 20, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#1-rest-api-인증-기법">1. REST API 인증 기법</a><ul><li><a href="#11-basic-인증">1.1 Basic 인증</a></li><li><a href="#12-토큰-기반-인증">1.2 토큰 기반 인증</a></li><li><a href="#13-json-웹-토큰-jwt">1.3 JSON 웹 토큰 (JWT)</a></li></ul></li><li><a href="#2-스프링-시큐리티-통합">2. 스프링 시큐리티 통합</a><ul><li><a href="#21-실습-전-준비">2.1 실습 전 준비</a></li><li><a href="#22-jwt-생성-및-반환-구현">2.2 JWT 생성 및 반환 구현</a></li><li><a href="#23-스프링-시큐리티와-서블릿-필터">2.3 스프링 시큐리티와 서블릿 필터</a></li><li><a href="#24-jwt를-이용한-인증-구현">2.4 JWT를 이용한 인증 구현</a></li><li><a href="#25-스프링-시큐리티-설정">2.5 스프링 시큐리티 설정</a></li><li><a href="#26-todocontroller에서-인증된-사용자-사용하기">2.6 TodoController에서 인증된 사용자 사용하기</a></li><li><a href="#27-패스워드-암호화">2.7 패스워드 암호화</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="1-rest-api-인증-기법">1. REST API 인증 기법</h2>
+
+<ul>
+  <li>Basic 인증</li>
+  <li>Bearer 인증</li>
+  <li>JSON 웹 토큰</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="11-basic-인증">1.1 Basic 인증</h3>
+
+<p><strong>Basic 인증이란</strong></p>
+
+<ul>
+  <li>상태가 없는 웹 애플리케이션(Todo 앱)에서 인증을 구현하는 가장 간단한 방법</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>Basic 인증 절차</strong></p>
+
+<ol>
+  <li>모든 HTTP 요청에 아이디와 비밀번호를 같이 보냄</li>
+  <li>최초 로그인 후 HTTP 요청 헤더의 <code class="language-plaintext highlighter-rouge">Authorization: ‘Basic &lt;ID&gt;:&lt;Password&gt;’</code> 처럼 Base64로 인코딩한 문자열을 함께 보냄</li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>Basic Auth 예</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Authorization : Basic a2FpemVuOjEyMzQ1 (ID:Password)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>HTTP 요청을 수신한 서버는 인코딩된 문자열을 디코딩하여 아이디와 비밀번호가 일치하면 요청받은 일을 수행하고, 아니면 거부함</li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>Basic 인증의 단점</strong></p>
+
+<ol>
+  <li>아이디와 비밀번호를 노출한다.
+    <ul>
+      <li>디코딩을 통해 아이디와 비밀번호를 확인할 수 있다.</li>
+      <li>따라서 보안을 위해 반드시 HTTPS를 사용해야 한다.</li>
+    </ul>
+  </li>
+  <li>사용자를 로그아웃시킬 수 없다
+    <ul>
+      <li>모든 요청이 일종의 로그인 요청이기 때문</li>
+      <li>여러 디바이스에서 로그인이 가능한 경우 한꺼번에 로그아웃을 하거나 디바이스 별로 로그아웃을 할 수 있는 기능을 Basic 인증은 제공하기 힘들다</li>
+    </ul>
+  </li>
+  <li>사용자 계정 정보가 있는 저장 장소(인증 서버, 인증 DB)의 경우 과부하가 걸릴 확률이 높다
+    <ul>
+      <li>큰 서비스일 수록 문제 발생</li>
+    </ul>
+  </li>
+  <li>인증 서버가 단일 장애점(시스템의 한 부분이 오류가 나는 경우 전체 시스템을 가동 불가하게 함)</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="12-토큰-기반-인증">1.2 토큰 기반 인증</h3>
+
+<p><strong>토큰 기반 인증이란?</strong></p>
+
+<ul>
+  <li>토큰은 최초 로그인 시 서버가 만들어 줌.</li>
+  <li>서버가 토큰을 만들어 반환하면 클라이언트는 이후 요청에 아이디와 비밀번호 대신 토큰을 넘겨 자신이 인증된 사용자임을 알림</li>
+  <li>토큰 기반 요청은 헤더에 <code class="language-plaintext highlighter-rouge">Authorization: Bearer &lt;TOKEN&gt;</code> 명시</li>
+</ul>
+
+<p><strong>Bearer Token 예</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Authorization: Bearer eyJhbGciOiJIUzUMyIsInJvbGUiOiJST0xFX1VTRVIiLCJpc3MiOiJkZ
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>토큰 기반 인증 장점</strong></p>
+
+<ol>
+  <li>Basic Auth 에 비해 보안 측면에서 안전하다</li>
+  <li>서버가 토큰을 마음대로 생성할 수 있으므로 사용자의 인가 정보, 유효 시간을 정해 관리할 수 있다</li>
+  <li>디바이스마다 다른 토큰을 생성해 주고 유효 시간을 다르게 정하거나 임의로 로그아웃을 할 수 있다</li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>토큰 기반 인증 단점</strong></p>
+
+<p>Basic 인증에서 마주한 스케일 문제를 해결할 수 없다. 즉,  토큰 이용만으로 스케일 문제를 해결할 수 없다</p>
+
+<p><br /></p>
+
+<h3 id="13-json-웹-토큰-jwt">1.3 JSON 웹 토큰 (JWT)</h3>
+
+<p>전자 서명된 토큰 중 하나가 <strong>JSON 웹 토큰 (JWT)</strong></p>
+
+<p>서버에서 전자 서명된 토큰을 이용하면 인증에 따른 스케일 문제를 해결할 수 있다</p>
+
+<p>JWT 토큰은 <code class="language-plaintext highlighter-rouge">{header}.{payload}.{signature}</code></p>
+
+<p><strong>JWT 예</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzMyIsInJvbGUiOiJST0xFX1VTRVIiLCJpc3MiOiJkZWJyYWlucyIsImlhdCI6MTY0NzQ3NjgzMSwiZXhwIjoxNjQ3NDgwNDMxfQ.IXv1DKfaBNGWzTPEzuinyJV789PnWg8EwZQAI6GVCwYvbb6KQKmevvScHPjIHde8fwVz2J2zGcLAuh2QLqUSmw
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p>JWT 를 디코딩하면 다음과 같다</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">header</span><span class="w">
+	</span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS512"</span><span class="w">
+</span><span class="p">}</span><span class="err">.</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">payload</span><span class="w">
+	</span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absdcsdfdfsdfds"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo app"</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1595733647</span><span class="p">,</span><span class="w">
+	</span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1595733657</span><span class="w">
+</span><span class="p">}</span><span class="err">.</span><span class="w">
+</span><span class="err">IXv</span><span class="mi">1</span><span class="err">DKfaBNGWzTPEzuinyJV</span><span class="mi">789</span><span class="err">PnWg</span><span class="mi">8</span><span class="err">EwZQAI</span><span class="mi">6</span><span class="err">GVCwYvbb</span><span class="mi">6</span><span class="err">KQKmevvScHPjIHde</span><span class="mi">8</span><span class="err">fwVz</span><span class="mi">2</span><span class="err">J</span><span class="mi">2</span><span class="err">zGcLAuh</span><span class="mi">2</span><span class="err">QLqUSmw</span><span class="w">
+</span><span class="err">//</span><span class="w"> </span><span class="err">signature</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>Header</strong></p>
+
+<ul>
+  <li>typ(type): 토큰의 타입을 의미</li>
+  <li>alg(algorithm): 토큰의 서명을 발행하는데 사용된 해시 알고리즘의 종류를 의미</li>
+</ul>
+
+<p><strong>Payload</strong></p>
+
+<ul>
+  <li>sub(subject): 토큰의 주인을 의미. sub는 ID처럼 유일한 식별자</li>
+  <li>iss(issuer): 토큰을 발행한 주체를 의미. 페이스북이 발행했다면 facebook 이 됨</li>
+  <li>iat(issued at): 토큰일 발행된 날짜와 시간</li>
+  <li>exp(expiration): 토큰이 만료되는 시간</li>
+</ul>
+
+<p><strong>Signature</strong></p>
+
+<ul>
+  <li>토큰을 발행한 주체 Issuer가 발행한 서명으로 토큰의 유효성 검사에 사용</li>
+</ul>
+
+<p><br /></p>
+
+<p>JWT에서 전자 서명이란 {헤더}.{페이로드}와 시크릿키를 이용해 해시 함수에 돌린 암호화한 결과 값</p>
+
+<p><strong>시크릿키</strong>란 나만 알고있는 문자열, 비밀번호 같은 것</p>
+
+<p><br /></p>
+
+<p><strong>JWT 인증 절차</strong></p>
+
+<ol>
+  <li>최초 로그인 시 서버는 사용자의 아이디와 비밀번호를 서버에 저장된 값과 비교해 인증</li>
+  <li>인증된 사용자의 경우 사용자의 정보를 이용해 {헤더}.{페이로드} 부분을 작성, 시크릿키로 {헤더}.{페이로드} 부분을 전자 서명</li>
+  <li>전자 서명의 결과로 나온 값을 {헤더}.{페이로드}.{서명}으로 이어붙이고 Base64로 인코딩 후 반환</li>
+  <li>이후 이 토큰으로 리소스 접근 요청하면 서브는 토큰을 디코딩해 {헤더}.{페이로드}와 {서명} 부분으로 나눔</li>
+  <li>서버는 {헤더}.{페이로드}와 시크릿키로 전자 서명을 만든 후 방금 만든 전자 서명을 HTTP 요청이 갖고 온 {서명} 부분과 비교해 이 토큰의 유효성을 검사</li>
+</ol>
+
+<p><br /></p>
+
+<p>위 과정을 통해 JWT 인증 방식은 인증 서버에 토큰의 유효성에 대해 물어볼 필요가 없다. 따라서 인증 서버에 부하를 일으키지 않는다. 즉, 인증 서버가 단일 장애점이 아니다.</p>
+
+<p><br /></p>
+
+<p>토큰을 훔쳐가면 해당 계정의 리소스에 접근 할 수 있기 때문에 이를 방지하기 위해 HTTPS를 통해 통신해야 함.</p>
+
+<p><br /></p>
+
+<h2 id="2-스프링-시큐리티-통합">2. 스프링 시큐리티 통합</h2>
+
+<ul>
+  <li>JWT 인증 로직 구현</li>
+  <li>패스워드 암호화 로직 구현</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="21-실습-전-준비">2.1 실습 전 준비</h3>
+
+<ul>
+  <li>User.java</li>
+  <li>UserRepository.java</li>
+  <li>UserService.java</li>
+  <li>UserDTO.java</li>
+  <li>UserController.java</li>
+</ul>
+
+<p><br /></p>
+
+<p><strong>User.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.user</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.persistence.*</span><span class="o">;</span>
+
+<span class="nd">@Entity</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="nd">@Data</span>
+<span class="nd">@Builder</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">uniqueConstraints</span> <span class="o">=</span> <span class="o">{</span><span class="nd">@UniqueConstraint</span><span class="o">(</span><span class="n">columnNames</span> <span class="o">=</span> <span class="s">"email"</span><span class="o">)})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>UserRepository.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.user</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.data.jpa.repository.JpaRepository</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Repository</span><span class="o">;</span>
+
+<span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nc">User</span> <span class="nf">findByEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">);</span>
+    <span class="nc">Boolean</span> <span class="nf">existsByEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">);</span>
+    <span class="nc">User</span> <span class="nf">findByEmailAndPassword</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>UserService.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.user</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">create</span><span class="o">(</span><span class="kd">final</span> <span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Invalid arguments"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">email</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">userRepository</span><span class="o">.</span><span class="na">existsByEmail</span><span class="o">(</span><span class="n">email</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Email already exists"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">getByCredentials</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">email</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findByEmailAndPassword</span><span class="o">(</span><span class="n">email</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>UserDTO.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.user</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.AllArgsConstructor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Builder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">lombok.NoArgsConstructor</span><span class="o">;</span>
+
+<span class="nd">@Data</span>
+<span class="nd">@Builder</span>
+<span class="nd">@AllArgsConstructor</span>
+<span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDTO</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">token</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">password</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>UserController.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.user</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.common.ResponseDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.security.TokenProvider</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PostMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestBody</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/auth"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">UserService</span> <span class="n">userService</span><span class="o">;</span>
+
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/signup"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">registerUser</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="nc">User</span> <span class="n">registeredUser</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+            <span class="nc">UserDTO</span> <span class="n">responseUserDTO</span> <span class="o">=</span> <span class="nc">UserDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseUserDTO</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">ResponseDTO</span> <span class="n">responseDTO</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseDTO</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/signin"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">authenticate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">getByCredentials</span><span class="o">(</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="nc">UserDTO</span> <span class="n">responseUserDTO</span> <span class="o">=</span> <span class="nc">UserDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseUserDTO</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nc">ResponseDTO</span> <span class="n">responseDTO</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Login failed"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseDTO</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="22-jwt-생성-및-반환-구현">2.2 JWT 생성 및 반환 구현</h3>
+
+<p>사용자 정보를 바탕으로 헤더와 페이로드를 작성학고 전자 서명한 후 토큰을 리턴</p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035377-bf150b8d-9076-4ad8-aa7c-58d68dbe282b.png" alt="1st" /></p>
+
+<p><br /></p>
+
+<p><strong>1. JWT 관련 라이브러리 추가</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>2. TokenProvider 생성</strong></p>
+
+<p><strong>TokenProvider.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.security</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">io.jsonwebtoken.Claims</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">io.jsonwebtoken.Jwts</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">io.jsonwebtoken.SignatureAlgorithm</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.user.User</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.time.Instant</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.temporal.ChronoUnit</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TokenProvider</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">SECRET_KEY</span> <span class="o">=</span> <span class="s">"test12341234"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">create</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Date</span> <span class="n">expiryDate</span> <span class="o">=</span> <span class="nc">Date</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">plus</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">ChronoUnit</span><span class="o">.</span><span class="na">DAYS</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">signWith</span><span class="o">(</span><span class="nc">SignatureAlgorithm</span><span class="o">.</span><span class="na">HS512</span><span class="o">,</span> <span class="no">SECRET_KEY</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">setSubject</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">setIssuer</span><span class="o">(</span><span class="s">"yessm app"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">setIssuedAt</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">setExpiration</span><span class="o">(</span><span class="n">expiryDate</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">compact</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">validateAndGetUserId</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Claims</span> <span class="n">claims</span> <span class="o">=</span> <span class="nc">Jwts</span><span class="o">.</span><span class="na">parser</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">setSigningKey</span><span class="o">(</span><span class="no">SECRET_KEY</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">parseClaimsJws</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="n">claims</span><span class="o">.</span><span class="na">getSubject</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>TokenProvider 클래스가 하는 일은 사용자 정보를 받아 JWT를 생성하는 일</p>
+
+<p>create(): JWT 라이브러리를 이용해 <code class="language-plaintext highlighter-rouge">JWT 토큰을 생성</code></p>
+
+<p>validateAndGetUserId(): 토큰을 <strong>디코딩</strong> 및 파싱하고 토큰의 위조 여부 확인</p>
+
+<p><br /></p>
+
+<p><strong>3. UserController.java 수정</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre>    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/signin"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">authenticate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">getByCredentials</span><span class="o">(</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 토큰 생성, UserDTO에 추가</span>
+            <span class="kd">final</span> <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">tokenProvider</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+            <span class="kd">final</span> <span class="nc">UserDTO</span> <span class="n">responseUserDTO</span> <span class="o">=</span> <span class="nc">UserDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">token</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseUserDTO</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nc">ResponseDTO</span> <span class="n">responseDTO</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Login failed"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseDTO</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>4. 테스트</strong></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035696-197d4e9f-3571-4796-aa79-6672d902d0b2.png" alt="Untitled1" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035700-793c4d71-4713-472d-a86b-2fc5a8976d29.png" alt="Untitled2" /></p>
+
+<p><strong>인코딩된 JWT 토큰</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5ZXNzbTYyM0BnbWFpbC5jb20iLCJpc3MiOiJ5ZXNzbSBhcHAiLCJpYXQiOjE2NTAzNDU3NjEsImV4cCI6MTY1MDQzMjE2MX0.znuDrNcPA6BcKUzbysOQJ99vxm_OCTPpEhr1DUfveMjkkDh1uEKn4zF7pHSBiz3cTR4gBRalyKMDUHgn3RSIHA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="23-스프링-시큐리티와-서블릿-필터">2.3 스프링 시큐리티와 서블릿 필터</h3>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035383-af82a211-0dca-45a5-921a-8c2819fa434b.png" alt="2nd" /></p>
+
+<p><br /></p>
+
+<p><strong>스프링 시큐리티</strong>의 도움을 받아 API가 실행될 때마다 <strong>사용자를 인증해 주는 부분을 구현</strong></p>
+
+<p>토큰 인증을 위해 컨트롤러 메서드의 첫 부분마다 인증 코드를 작성하기 위해 <code class="language-plaintext highlighter-rouge">서블릿 필터</code>를 사용</p>
+
+<p><br /></p>
+
+<p>스프링 시큐리티는 <strong>서블릿 필터의 집합.</strong>  서블릿 필터란 서블릿 실행 전에 실행되는 클래스들</p>
+
+<p>스프링이 구현하는 서블릿이 디스패처 서블릿이고 서블릿 필터는 디스패처 서블릿이 실행되기 전에 항상 실행됨</p>
+
+<p>따라서, 개발자는 <strong>서블릿 필터를 구현</strong>하고 <strong>서블릿 필터를 서블릿 컨테이너가 실행하도록 설정</strong>해 주기만 하면 된다</p>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">서블릿 필터</code>는 구현된 로직에 따라 원하지 않는 HTTP 요청을 걸러낼 수 있다.</p>
+
+<p>걸러낸 HTTP는 거절되는 것이고 서블릿 필터가 전부 살아남은 HTTP요청은 디스패처 서블릿으로 넘어와 컨트롤러에서 실행됨</p>
+
+<p><br /></p>
+
+<h3 id="24-jwt를-이용한-인증-구현">2.4 JWT를 이용한 인증 구현</h3>
+
+<p><strong>스프링 시큐리티관련 라이브러리 추가</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>implementation 'org.springframework.boot:spring-boot-starter-security'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p><strong>OncePerRequestFilter 클래스</strong>를 상속해 필터를 생성</p>
+
+<p>OncePerRequestFilter는 한 요청당 반드시 한 번만 실행됨</p>
+
+<p><br /></p>
+
+<p>OncePerRequestFilter를 상속받는 JwtAuthenticationFilter를 구현</p>
+
+<p><strong>JwtAuthenticationFilter.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.security</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">lombok.extern.log4j.Log4j2</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.authentication.AbstractAuthenticationToken</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.authentication.UsernamePasswordAuthenticationToken</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.authority.AuthorityUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.context.SecurityContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.context.SecurityContextHolder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.web.authentication.WebAuthenticationDetailsSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.StringUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.filter.OncePerRequestFilter</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.FilterChain</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="nd">@Log4j2</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtAuthenticationFilter</span> <span class="kd">extends</span> <span class="nc">OncePerRequestFilter</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">TokenProvider</span> <span class="n">tokenProvider</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doFilterInternal</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span>
+                                    <span class="nc">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                    <span class="nc">FilterChain</span> <span class="n">filterChain</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="nc">ServletException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 요청에서 토큰 가져옴</span>
+            <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">parseBearerToken</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">token</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">token</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">"null"</span><span class="o">))</span> <span class="o">{</span>
+                <span class="c1">// userId 가져오기, 위조된 경우 예외 처리</span>
+                <span class="nc">String</span> <span class="n">userId</span> <span class="o">=</span> <span class="n">tokenProvider</span><span class="o">.</span><span class="na">validateAndGetUserId</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+
+                <span class="c1">// 인증 완료. SecurityContextHolder에 등록해야 인증된 사용자라고 생각한다</span>
+                <span class="nc">AbstractAuthenticationToken</span> <span class="n">authentication</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UsernamePasswordAuthenticationToken</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nc">AuthorityUtils</span><span class="o">.</span><span class="na">NO_AUTHORITIES</span><span class="o">);</span>
+
+                <span class="n">authentication</span><span class="o">.</span><span class="na">setDetails</span><span class="o">(</span><span class="k">new</span> <span class="nc">WebAuthenticationDetailsSource</span><span class="o">().</span><span class="na">buildDetails</span><span class="o">(</span><span class="n">request</span><span class="o">));</span>
+
+                <span class="nc">SecurityContext</span> <span class="n">securityContext</span> <span class="o">=</span> <span class="nc">SecurityContextHolder</span><span class="o">.</span><span class="na">createEmptyContext</span><span class="o">();</span>
+                <span class="n">securityContext</span><span class="o">.</span><span class="na">setAuthentication</span><span class="o">(</span><span class="n">authentication</span><span class="o">);</span>
+                <span class="nc">SecurityContextHolder</span><span class="o">.</span><span class="na">setContext</span><span class="o">(</span><span class="n">securityContext</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Could not set user authentication in security context"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">String</span> <span class="nf">parseBearerToken</span><span class="o">(</span><span class="nc">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">bearerToken</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="nc">StringUtils</span><span class="o">.</span><span class="na">hasText</span><span class="o">(</span><span class="n">bearerToken</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">bearerToken</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"Bearer "</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">bearerToken</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">7</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p>위 코드의 처리 과정</p>
+
+<ol>
+  <li>요청의 헤더에서 <strong>Bearer 토큰</strong>을 가져옴</li>
+  <li>
+    <p>TokenProvider를 이용해 토큰을 인증하고 <strong>UsernamePasswordAuthenticationToken 작성</strong></p>
+
+    <p>→ UsernamePasswordAuthenticationToken 오브젝트에 사용자의 인증 정보를 저장하고 SecurityContext에 인증된 사용자를 등록</p>
+
+    <p>→ 등록하는 이유? 요청을 처리하는 과정에서 사용자가 인증됐는지의 여부나 인증된 사용자가 누군지 알아야 할 때가 있기 때문</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p>스프링 시큐리티의 SercurityContext는 SecurityContextHolder의 createEmptyContext() 메서드를 이용해 생성 가능</p>
+
+<p>생성한 컨텍스트에 인증 정보인 authentication을 넣고 다시 SecurityContextHolder에 컨텍스트로 등록</p>
+
+<p>SecurityContextHolder는 기본적으로 ThreadLocal에 저장됨</p>
+
+<p>ThreadLocal에 저장되므로 Thread마다 하나의 컨텍스트를 관리할 수 있음</p>
+
+<p><br /></p>
+
+<h3 id="25-스프링-시큐리티-설정">2.5 스프링 시큐리티 설정</h3>
+
+<p><code class="language-plaintext highlighter-rouge">서블릿 필터를 사용</code>하려면</p>
+
+<ol>
+  <li>서블릿 필터를 구현해야 함</li>
+  <li>서블릿 컨테이너에 이 서블릿 필터를 사용하라고 알려주는 설정 작업</li>
+</ol>
+
+<p><br /></p>
+
+<p>스프링 시큐리티에 JwtAuthenticationFilter를 사용하라고 알려주자</p>
+
+<p><br /></p>
+
+<p><strong>WebSecurityConfig.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.config</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.security.JwtAuthenticationFilter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.builders.HttpSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.EnableWebSecurity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.config.http.SessionCreationPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.filter.CorsFilter</span><span class="o">;</span>
+
+<span class="nd">@EnableWebSecurity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebSecurityConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">JwtAuthenticationFilter</span> <span class="n">jwtAuthenticationFilter</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="n">http</span><span class="o">.</span><span class="na">cors</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">and</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">csrf</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">disable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">httpBasic</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">disable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">sessionManagement</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">sessionCreationPolicy</span><span class="o">(</span><span class="nc">SessionCreationPolicy</span><span class="o">.</span><span class="na">STATELESS</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">and</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">authorizeRequests</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">antMatchers</span><span class="o">(</span><span class="s">"/"</span><span class="o">,</span> <span class="s">"/auth/**"</span><span class="o">).</span><span class="na">permitAll</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">anyRequest</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">authenticated</span><span class="o">();</span>
+
+        <span class="n">http</span><span class="o">.</span><span class="na">addFilterAfter</span><span class="o">(</span>
+                <span class="n">jwtAuthenticationFilter</span><span class="o">,</span>
+                <span class="nc">CorsFilter</span><span class="o">.</span><span class="na">class</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">HttpSecurity</code> 는 시큐리티 설정을 위한 오브젝트</p>
+
+<p>web.xml 대신 <code class="language-plaintext highlighter-rouge">HttpSecurity</code> 를 이용해 시큐리티 관련 설정을 하는 것</p>
+
+<p><br /></p>
+
+<p>addFilterAfter() 메서드를 통해 CorsFilter 이후에  jwtAuthenticationFilter 실행하게 설정</p>
+
+<p><br /></p>
+
+<p><strong>테스팅</strong></p>
+<ol>
+  <li>회원가입 후 다시 로그인을 하면 아래 그림과 같이 응답과 함께 토큰이 온다</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035702-f6a1c8bd-73bd-4d77-81d6-bf0007dc4601.png" alt="Untitled3" /></p>
+
+<p><br /></p>
+
+<ol>
+  <li>Authorization 에 Bearer Token 을 선택하고 토큰을 복사하여 붙여넣기 한다</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/165035709-7407c498-ec58-49db-8815-56bd03471330.png" alt="Untitled4" /></p>
+
+<p><br /></p>
+
+<ol>
+  <li>토큰이 위조되면 아래와 같은 에러메시지가 발생한다.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>// JWT를 신뢰할 수 없어 예외 처리됨
+io.jsonwebtoken.SignatureException: 
+JWT signature does not match locally computed signature. 
+JWT validity cannot be asserted and should not be trusted.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="26-todocontroller에서-인증된-사용자-사용하기">2.6 TodoController에서 인증된 사용자 사용하기</h3>
+
+<p><strong>TodoController.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.dto.ResponseDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.dto.TodoDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.entity.Todo</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.service.TodoService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.core.annotation.AuthenticationPrincipal</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"todo"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TodoController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">TodoService</span> <span class="n">todoService</span><span class="o">;</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/test"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">testTodo</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">todoService</span><span class="o">.</span><span class="na">testService</span><span class="o">();</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+        <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">String</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">list</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@PostMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">createTodo</span><span class="o">(</span>
+            <span class="nd">@AuthenticationPrincipal</span> <span class="nc">String</span> <span class="n">userId</span><span class="o">,</span>
+            <span class="nd">@RequestBody</span> <span class="nc">TodoDTO</span> <span class="n">dto</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Todo</span> <span class="n">entity</span> <span class="o">=</span> <span class="nc">TodoDTO</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">dto</span><span class="o">);</span>
+            <span class="n">entity</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+            <span class="n">entity</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Todo</span><span class="o">&gt;</span> <span class="n">entities</span> <span class="o">=</span> <span class="n">todoService</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">entity</span><span class="o">);</span>
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">dtos</span> <span class="o">=</span> <span class="n">entities</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="nl">TodoDTO:</span><span class="o">:</span><span class="k">new</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+            <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">dtos</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">String</span> <span class="n">error</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">();</span>
+            <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">error</span><span class="o">(</span><span class="n">error</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">retrieveTodoList</span><span class="o">(</span>
+            <span class="nd">@AuthenticationPrincipal</span> <span class="nc">String</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"UserID : "</span> <span class="o">+</span> <span class="n">userId</span><span class="o">);</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Todo</span><span class="o">&gt;</span> <span class="n">entities</span> <span class="o">=</span> <span class="n">todoService</span><span class="o">.</span><span class="na">retrieve</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">dtos</span> <span class="o">=</span> <span class="n">entities</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="nl">TodoDTO:</span><span class="o">:</span><span class="k">new</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+        <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">dtos</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@PutMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">updateTodo</span><span class="o">(</span><span class="nd">@AuthenticationPrincipal</span> <span class="nc">String</span> <span class="n">userId</span><span class="o">,</span>
+                                        <span class="nd">@RequestBody</span> <span class="nc">TodoDTO</span> <span class="n">dto</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Todo</span> <span class="n">entity</span> <span class="o">=</span> <span class="nc">TodoDTO</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">dto</span><span class="o">);</span>
+        <span class="n">entity</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Todo</span><span class="o">&gt;</span> <span class="n">entities</span> <span class="o">=</span> <span class="n">todoService</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">entity</span><span class="o">);</span>
+
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">dtos</span> <span class="o">=</span> <span class="n">entities</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="nl">TodoDTO:</span><span class="o">:</span><span class="k">new</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+        <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">dtos</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@DeleteMapping</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">deleteTodo</span><span class="o">(</span>
+            <span class="nd">@AuthenticationPrincipal</span> <span class="nc">String</span> <span class="n">userId</span><span class="o">,</span>
+            <span class="nd">@RequestBody</span> <span class="nc">TodoDTO</span> <span class="n">dto</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Todo</span> <span class="n">entity</span> <span class="o">=</span> <span class="nc">TodoDTO</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">dto</span><span class="o">);</span>
+            <span class="n">entity</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Todo</span><span class="o">&gt;</span> <span class="n">entities</span> <span class="o">=</span> <span class="n">todoService</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">entity</span><span class="o">);</span>
+
+            <span class="nc">List</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">dtos</span> <span class="o">=</span> <span class="n">entities</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="nl">TodoDTO:</span><span class="o">:</span><span class="k">new</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+            <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">data</span><span class="o">(</span><span class="n">dtos</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">String</span> <span class="n">error</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">();</span>
+            <span class="nc">ResponseDTO</span><span class="o">&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.&lt;</span><span class="nc">TodoDTO</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">().</span><span class="na">error</span><span class="o">(</span><span class="n">error</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p>매개변수 userId 는 스프링의 @AuthenticationPrincipal 를 이용해서 찾는다</p>
+
+<p><br /></p>
+
+<p>@AuthenticationPrincipal 이란?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nc">AbstractAuthenticationToken</span> <span class="n">authentication</span> <span class="o">=</span> 
+<span class="k">new</span> <span class="nf">UsernamePasswordAuthenticationToken</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nc">AuthorityUtils</span><span class="o">.</span><span class="na">NO_AUTHORITIES</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>UsernamePasswordAuthenticationToken 생성자의 첫 매개변수가 AuthenticationPrincipal 이다</p>
+
+<p><br /></p>
+
+<h3 id="27-패스워드-암호화">2.7 패스워드 암호화</h3>
+
+<p>스프링 시큐리티가 제공하는 BCryptPasswordEncoder 를 사용</p>
+
+<p><br /></p>
+
+<p><strong>UserService.java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="o">...</span>
+
+	<span class="kd">public</span> <span class="nc">User</span> <span class="nf">getByCredentials</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">email</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">password</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">PasswordEncoder</span> <span class="n">encoder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">User</span> <span class="n">originalUser</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findByEmail</span><span class="o">(</span><span class="n">email</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">originalUser</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">encoder</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="n">password</span><span class="o">,</span> <span class="n">originalUser</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">originalUser</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findByEmailAndPassword</span><span class="o">(</span><span class="n">email</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>BCryptPasswordEncoder 는 같은 값을 인코딩해도 할 때마다 값이 다르기 때문에 <code class="language-plaintext highlighter-rouge">matches()</code> 메서드를 이용해 패스워드가 같은지 비교</p>
+
+<p><br /></p>
+
+<p><strong>UserController.java 수정</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">me.yessm.userauth.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.dto.ResponseDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.dto.UserDTO</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.entity.User</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.security.TokenProvider</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">me.yessm.userauth.service.UserService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.http.ResponseEntity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.PasswordEncoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PostMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestBody</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/auth"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">UserService</span> <span class="n">userService</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">TokenProvider</span> <span class="n">tokenProvider</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">PasswordEncoder</span> <span class="n">passwordEncoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BCryptPasswordEncoder</span><span class="o">();</span>
+
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/signup"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">registerUser</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">password</span><span class="o">(</span><span class="n">passwordEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()))</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="nc">User</span> <span class="n">registeredUser</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+            <span class="nc">UserDTO</span> <span class="n">responseUserDTO</span> <span class="o">=</span> <span class="nc">UserDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getEmail</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">username</span><span class="o">(</span><span class="n">registeredUser</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseUserDTO</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">ResponseDTO</span> <span class="n">responseDTO</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseDTO</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/signin"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;?&gt;</span> <span class="n">authenticate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDTO</span> <span class="n">userDTO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"signin userDTO: "</span> <span class="o">+</span> <span class="n">userDTO</span><span class="o">);</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">getByCredentials</span><span class="o">(</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span>
+                <span class="n">userDTO</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(),</span>
+                <span class="n">passwordEncoder</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 토큰 생성</span>
+            <span class="kd">final</span> <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">tokenProvider</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+            <span class="kd">final</span> <span class="nc">UserDTO</span> <span class="n">responseUserDTO</span> <span class="o">=</span> <span class="nc">UserDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">token</span><span class="o">(</span><span class="n">token</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseUserDTO</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nc">ResponseDTO</span> <span class="n">responseDTO</span> <span class="o">=</span> <span class="nc">ResponseDTO</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Login failed"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span><span class="n">responseDTO</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#java" class="page__taxonomy-item p-category" rel="tag">Java</a><span class="sep">, </span>
+    
+      <a href="/tags/#jpa" class="page__taxonomy-item p-category" rel="tag">JPA</a><span class="sep">, </span>
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-04-25">April 25, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=JWT%28Json+Web+Token%29+%EC%9D%B8%EC%A6%9D%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpringBoot-JWT%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpringBoot-JWT%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpringBoot-JWT%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/jpa/JPA-N+1/" class="pagination--pager" title="JPA N+1 문제
+">이전</a>
+    
+    
+      <a href="/python/algorithm/Python-Algorithm/" class="pagination--pager" title="파이썬 알고리즘
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/spring/SpringBoot-JWT/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/SpringBoot-JWT"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

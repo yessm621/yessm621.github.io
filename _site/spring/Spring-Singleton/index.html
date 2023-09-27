@@ -1,0 +1,1108 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>싱글톤 컨테이너 - Seungmi Blog</title>
+<meta name="description" content="목차">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="싱글톤 컨테이너">
+<meta property="og:url" content="http://localhost:4000/spring/Spring-Singleton/">
+
+
+  <meta property="og:description" content="목차">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-02-22T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-11-18T00:15:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/spring/Spring-Singleton/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="싱글톤 컨테이너">
+    <meta itemprop="description" content="목차">
+    <meta itemprop="datePublished" content="2022-02-22T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-11-18T00:15:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/spring/Spring-Singleton/" class="u-url" itemprop="url">싱글톤 컨테이너
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-02-22T00:00:00+09:00">February 22, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#목차">목차</a></li><li><a href="#싱글톤-패턴">싱글톤 패턴</a><ul><li><a href="#싱글톤-패턴-등장배경">싱글톤 패턴 등장배경</a></li><li><a href="#싱글톤-패턴이란">싱글톤 패턴이란?</a></li><li><a href="#싱글톤-패턴-문제점">싱글톤 패턴 문제점</a></li></ul></li><li><a href="#싱글톤-컨테이너">싱글톤 컨테이너</a><ul><li><a href="#싱글톤-컨테이너란">싱글톤 컨테이너란?</a></li><li><a href="#싱글톤-방식의-주의점">싱글톤 방식의 주의점</a></li></ul></li><li><a href="#cglib-바이트코드-조작">CGLIB 바이트코드 조작</a><ul><li><a href="#configuration과-싱글톤">@Configuration과 싱글톤</a></li><li><a href="#configuration과-바이트코드-조작">@Configuration과 바이트코드 조작</a></li><li><a href="#configuration을-적용하지-않고-bean만-적용하면-어떻게-될까">@Configuration을 적용하지 않고 @Bean만 적용하면 어떻게 될까?</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <h2 id="목차">목차</h2>
+
+<ol>
+  <li><a href="https://yessm621.github.io/spring/Spring-SOLID/">좋은 객체 지향 설계의 원칙: SOLID</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-DIP-OCP-DI/">DIP, OCP와 의존관계 주입(DI)</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-IoC-DI/">IoC와 DI</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-SpringContainer-Bean/">스프링 컨테이너와 스프링 빈</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-Singleton/">싱글톤 컨테이너</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-ComponentScan/">컴포넌트 스캔</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-Dependency-Injection/">의존관계 주입 방법</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-BeanLifeCycle/">빈 생명주기 콜백</a></li>
+  <li><a href="https://yessm621.github.io/spring/Spring-BeanScope/">빈 스코프</a></li>
+</ol>
+
+<h2 id="싱글톤-패턴">싱글톤 패턴</h2>
+
+<h3 id="싱글톤-패턴-등장배경">싱글톤 패턴 등장배경</h3>
+
+<p>웹 애플리케이션은 사용자의 요청이 많으며 동시에 요청을 한다. 만약, 스프링 없는 순수한 DI 컨테이너를 사용하면 클라이언트가 요청을 할 때마다 객체가 생성된다. 따라서, 메모리 낭비가 매우 심하다.</p>
+
+<p><strong>순수한 DI 컨테이너 테스트</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="nd">@Test</span>
+<span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"스프링 없는 순수한 DI 컨테이너"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">pureContainer</span><span class="o">(){</span>
+    <span class="nc">AppConfig</span> <span class="n">appConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AppConfig</span><span class="o">();</span>
+
+    <span class="nc">MemberService</span> <span class="n">memberService1</span> <span class="o">=</span> <span class="n">appConfig</span><span class="o">.</span><span class="na">memberService</span><span class="o">();</span>
+    <span class="nc">MemberService</span> <span class="n">memberService2</span> <span class="o">=</span> <span class="n">appConfig</span><span class="o">.</span><span class="na">memberService</span><span class="o">();</span>
+
+    <span class="c1">// 참조값이 다른 것을 확인</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService1 = "</span> <span class="o">+</span> <span class="n">memberService1</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService2 = "</span> <span class="o">+</span> <span class="n">memberService2</span><span class="o">);</span>
+
+    <span class="c1">// memberService1 != memberService2</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">memberService1</span><span class="o">).</span><span class="na">isNotSameAs</span><span class="o">(</span><span class="n">memberService2</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>memberService1 = com.study.core.member.MemberServiceImpl@13b6aecc
+memberService2 = com.study.core.member.MemberServiceImpl@158a8276
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>이를 해결하기 위해서 해당 객체를 하나만 생성한 후 공유하도록 설계해야 하는데 이러한 패턴을 <code class="language-plaintext highlighter-rouge">싱글톤 패턴</code>이라 한다.</p>
+
+<h3 id="싱글톤-패턴이란">싱글톤 패턴이란?</h3>
+
+<p>싱글톤 패턴이란 클래스의 인스턴스가 딱 1개만 생성되는 것을 보장하는 디자인 패턴으로 싱글톤 패턴이 적용되면 객체 인스턴스를 2개 이상 생성하지 못하도록 막는다. (private 생성자를 사용해서 외부에서 임의로 new 키워드를 사용하지 못하도록 막는다.)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">hello.core.singleton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingletonService</span> <span class="o">{</span>
+
+		<span class="c1">// #1</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">SingletonService</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SingletonService</span><span class="o">();</span>
+
+		<span class="c1">// #2</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">SingletonService</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// #3</span>
+    <span class="kd">private</span> <span class="nf">SingletonService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">logic</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"싱글톤 객체 로직 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>static 영역에 객체 instance를 딱 1개만 생성해둔다. static으로 되있으면 클래스가 메모리에 로드될 때 단 한번만 수행하고 static 영역에 하나만 올라간다.</li>
+  <li>public으로 열어서 객체 인스턴스가 필요하면 이 static 메서드를 통해서만 조회하도록 허용한다. 이 객체 인스턴스가 필요하면 오직 getInstance() 메서드를 통해서만 조회할 수 있다. 이 메서드를 호출하면 항상 같은 인스턴스를 반환한다.</li>
+  <li>private 생성자를 통해 외부에서 new 키워드를 사용한 객체 생성을 못하게 막는다.</li>
+</ol>
+
+<p><strong>싱글톤 패턴을 사용한 테스트 코드</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nd">@Test</span>
+<span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"싱글톤 패턴을 적용한 객체 사용"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">singletonServiceTest</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">SingletonService</span> <span class="n">singletonService1</span> <span class="o">=</span> <span class="nc">SingletonService</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+    <span class="nc">SingletonService</span> <span class="n">singletonService2</span> <span class="o">=</span> <span class="nc">SingletonService</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"singletonService1 = "</span> <span class="o">+</span> <span class="n">singletonService1</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"singletonService2 = "</span> <span class="o">+</span> <span class="n">singletonService2</span><span class="o">);</span>
+
+    <span class="nc">Assertions</span><span class="o">.</span><span class="na">assertThat</span><span class="o">(</span><span class="n">singletonService1</span><span class="o">).</span><span class="na">isSameAs</span><span class="o">(</span><span class="n">singletonService2</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>singletonService1 = com.study.core.singleton.SingletonService@66d18979
+singletonService2 = com.study.core.singleton.SingletonService@66d18979
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>private로 new 키워드를 막아두었기 때문에 getInstance() 메서드 사용했다. 호출할 때 마다 같은 객체 인스턴스를 반환하는 것을 확인할 수 있다.</p>
+
+<p>싱글톤 패턴을 적용하면 고객의 요청이 올 때 마다 객체를 생성하는 것이 아니라, 이미 만들어진 객체를 공유해서 효율적으로 사용할 수 있다. 하지만 싱글톤 패턴은 다음과 같은 수 많은 문제점들을 가지고 있다.</p>
+
+<h3 id="싱글톤-패턴-문제점">싱글톤 패턴 문제점</h3>
+
+<ul>
+  <li>싱글톤 패턴을 구현하는 코드 자체가 많이 들어간다.</li>
+  <li>의존관계상 클라이언트가 구체 클래스에 의존한다. DIP를 위반한다.</li>
+  <li>클라이언트가 구체 클래스에 의존해서 OCP 원칙을 위반할 가능성이 높다.</li>
+  <li>테스트하기 어렵다.</li>
+  <li>내부 속성을 변경하거나 초기화 하기 어렵다.</li>
+  <li>private 생성자로 자식 클래스를 만들기 어렵다.</li>
+  <li>결론적으로 유연성이 떨어진다.</li>
+  <li>안티패턴으로 불리기도 한다.</li>
+</ul>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+여기서 DIP 원칙을 위반했다고 한 것이 싱글톤 패턴이 무조건 DIP 원칙을 위반한다는 것은 아니다.</p>
+
+</blockquote>
+
+<p>이러한 문제점들을 해결하기 위해 <code class="language-plaintext highlighter-rouge">싱글톤 컨테이너</code>를 사용한다.</p>
+
+<h2 id="싱글톤-컨테이너">싱글톤 컨테이너</h2>
+
+<h3 id="싱글톤-컨테이너란">싱글톤 컨테이너란?</h3>
+
+<p>스프링 컨테이너는 싱글톤 패턴의 문제점을 해결하면서 객체 인스턴스를 싱글톤(1개만 생성)으로 관리한다. 스프링 컨테이너는 싱글톤 패턴을 적용하지 않아도 객체 인스턴스를 싱글톤으로 관리한다. 즉, 객체를 하나만 생성해서 관리한다. 스프링 컨테이너는 싱글톤 컨테이너 역할을 한다. 이렇게 싱글톤 객체를 생성하고 관리하는 기능을 싱글톤 레지스트리라 한다.</p>
+
+<p>스프링 컨테이너는 위에서 설명했던 싱글톤 패턴을 위한 지저분한 코드가 들어가지 않아도 된다는 점과 DIP, OCP, 테스트, private 생성자로부터 자유롭게 싱글톤을 사용할 수 있다는 점 덕분에 싱글톤 패턴의 모든 단점을 해결하면서 객체를 싱글톤으로 유지할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="nd">@Test</span>
+<span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"스프링 컨테이너와 싱글톤"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">springContainer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">ApplicationContext</span> <span class="n">ac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">MemberService</span> <span class="n">memberService1</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"memberService"</span><span class="o">,</span> <span class="nc">MemberService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">MemberService</span> <span class="n">memberService2</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"memberService"</span><span class="o">,</span> <span class="nc">MemberService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="c1">// 참조값이 같은 것을 확인</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService1 = "</span> <span class="o">+</span> <span class="n">memberService1</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"memberService2 = "</span> <span class="o">+</span> <span class="n">memberService2</span><span class="o">);</span>
+
+    <span class="c1">// memberService1 == memberService2</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">memberService1</span><span class="o">).</span><span class="na">isSameAs</span><span class="o">(</span><span class="n">memberService2</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>memberService1 = com.study.core.member.MemberServiceImpl@c2db68f
+memberService2 = com.study.core.member.MemberServiceImpl@c2db68f
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>스프링 컨테이너 덕분에 고객의 요청이 올 때 마다 객체를 생성하는 것이 아니라, 이미 만들어진 객체를 공유해서 효율적으로 재사용할 수 있다.</p>
+
+<blockquote>
+  <p><strong>참고</strong>
+<br />
+스프링의 기본 빈 등록 방식은 싱글톤이지만, 싱글톤 방식만 지원하는 것은 아니다. 요청할 때마다 새로운 객체를 생성해서 반환하는 기능도 제공한다. 자세한 내용은 뒤에 빈 스코프에서 설명하겠다.</p>
+
+</blockquote>
+
+<h3 id="싱글톤-방식의-주의점">싱글톤 방식의 주의점</h3>
+
+<p>객체 인스턴스를 하나만 생성해서 공유하는 싱글톤 방식은 여러 클라이언트가 하나의 같은 객체 인스턴스를 공유하기 때문에 싱글톤 객체는 상태를 유지(stateful)하게 설계하면 안되고 <code class="language-plaintext highlighter-rouge">무상태(stateless)</code>로 설계해야 한다. 스프링 빈의 필드에 공유 값을 설정하면 정말 큰 장애가 발생할 수 있기 때문이다.</p>
+
+<p><strong>무상태(stateless)</strong></p>
+
+<ul>
+  <li>특정 클라이언트에 의존적인 필드가 있으면 안된다.</li>
+  <li>특정 클라이언트가 값을 변경할 수 있는 필드가 있으면 안된다.</li>
+  <li>가급적 읽기만 가능해야 한다.</li>
+  <li>필드 대신에 자바에서 공유되지 않는 지역변수, 파라미터, ThreadLocal 등을 사용해야 한다.</li>
+</ul>
+
+<h2 id="cglib-바이트코드-조작">CGLIB 바이트코드 조작</h2>
+
+<h3 id="configuration과-싱글톤">@Configuration과 싱글톤</h3>
+
+<p>아래 코드는 AppConfig 설정파일로 @Configuration과 @Bean이 있기 때문에 싱글톤이 적용되어있다. 그런데 호출되는 의존관계를 보면 싱글톤이 깨지는 것처럼 보인다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+    <span class="c1">// memberService -&gt; MemoryMemberRepository</span>
+    <span class="c1">// orderService -&gt; MemoryMemberRepository</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemberService</span> <span class="nf">memberService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemberServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">MemoryMemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MemoryMemberRepository</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">OrderService</span> <span class="nf">orderService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">OrderServiceImpl</span><span class="o">(</span><span class="n">memberRepository</span><span class="o">(),</span> <span class="n">discountPolicy</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">DiscountPolicy</span> <span class="nf">discountPolicy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">FixDiscountPolicy</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>memberService(), orderService() 둘 다 MemoryMemberRepository()가 생성되면서 싱글톤이 깨지는 것처럼 보인다. 그러나, 테스트를 해보면 모두 <strong>같은 객체를 호출</strong>하고 있다. 이처럼 싱글톤을 보장할 수 있는 이유는  @Configuration을 통해 바이트코드 조작 라이브러리를 사용하기 때문이다.</p>
+
+<h3 id="configuration과-바이트코드-조작">@Configuration과 바이트코드 조작</h3>
+
+<p>스프링 컨테이너는 싱글톤 레지스트리다. 따라서, 스프링 빈이 싱글톤이 되도록 보장해주어야 하는데 스프링이 자바 코드까지 조작하긴 어렵다. 그래서 스프링은 클래스의 <strong>바이트코드를 조작</strong>하는 라이브러리를 사용한다.</p>
+
+<p>AppConfig 클래스 정보를 출력하는 테스트코드</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">configurationDeep</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">ApplicationContext</span> <span class="n">ac</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AnnotationConfigApplicationContext</span><span class="o">(</span><span class="nc">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">AppConfig</span> <span class="n">bean</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="nc">AppConfig</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bean = "</span> <span class="o">+</span> <span class="n">bean</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bean = class hello.core.AppConfig$$EnhancerBySpringCGLIB$$4730a6f2
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>순수한 클래스라면 class hello.core.AppConfig가 출력되어야 하지만, 예상과는 다르게 클래스 명에 xxxCGLIB가 붙는다. 이것은 스프링이 CGLIB라는 <code class="language-plaintext highlighter-rouge">바이트코드 조작 라이브러리</code>를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고, 그 다른 클래스를 스프링 빈으로 등록했기 때문이다. (AppConfig를 상속받은 AppConfig@CGLIB)</p>
+
+<p>그 임의의 다른 클래스가 바로 싱글톤이 보장되도록 해준다. 아마도 다음과 같이 바이트 코드를 조작해서 작성되어 있을 것이다.</p>
+
+<p><strong>AppConfig@CGLIB 예상 코드</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">MemberRepository</span> <span class="nf">memberRepository</span><span class="o">()</span> <span class="o">{</span>
+ 
+    <span class="k">if</span> <span class="o">(</span><span class="n">memoryMemberRepository가</span> <span class="n">이미</span> <span class="n">스프링</span> <span class="n">컨테이너에</span> <span class="n">등록되어</span> <span class="n">있으면</span><span class="o">?)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">스프링</span> <span class="n">컨테이너에서</span> <span class="n">찾아서</span> <span class="n">반환</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">//스프링 컨테이너에 없으면</span>
+        <span class="n">기존</span> <span class="n">로직을</span> <span class="n">호출해서</span> <span class="nc">MemoryMemberRepository를</span> <span class="n">생성하고</span> <span class="n">스프링</span> <span class="n">컨테이너에</span> <span class="n">등록</span>
+        <span class="k">return</span> <span class="n">반환</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>@Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환하고, 스프링 빈이 없으면 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다. 덕분에 싱글톤이 보장된다.</p>
+
+<h3 id="configuration을-적용하지-않고-bean만-적용하면-어떻게-될까">@Configuration을 적용하지 않고 @Bean만 적용하면 어떻게 될까?</h3>
+
+<p>@Configuration을 붙이면 바이트코드를 조작하는 CGLIB 기술을 사용해서 싱글톤을 보장하지만 만약, @Bean만 적용하면 어떻게 될까?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1">//@Configuration 삭제</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bean = class hello.core.AppConfig
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>이 출력 결과를 통해서 AppConfig가 CGLIB 기술 없이 순수한 AppConfig로 스프링 빈에 등록된 것을 확인할 수 있다. 즉, @Bean만 사용해도 스프링 빈으로 등록되지만, 싱글톤을 보장하지 않는다. 스프링 설정 정보는 항상 <code class="language-plaintext highlighter-rouge">@Configuration</code>을 사용하자.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#spring" class="page__taxonomy-item p-category" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-17">November 17, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%8B%B1%EA%B8%80%ED%86%A4+%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88%20http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Singleton%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Singleton%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fspring%2FSpring-Singleton%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/Spring-IoC-DI/" class="pagination--pager" title="IoC(제어의 역전)와 DI(의존관계 주입)
+">이전</a>
+    
+    
+      <a href="/spring/Spring-ComponentScan/" class="pagination--pager" title="컴포넌트 스캔
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/spring/Spring-Singleton/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/spring/Spring-Singleton"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

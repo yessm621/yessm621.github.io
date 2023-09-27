@@ -1,0 +1,1037 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>시간 복잡도와 공간 복잡도 - Seungmi Blog</title>
+<meta name="description" content="알고리즘 평가할 때 시간 복잡도와 공간 복잡도를 사용함">
+
+
+  <meta name="author" content="노승미">
+  
+  <meta property="article:author" content="노승미">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Seungmi Blog">
+<meta property="og:title" content="시간 복잡도와 공간 복잡도">
+<meta property="og:url" content="http://localhost:4000/python/algorithm/Python-Time-Complexity/">
+
+
+  <meta property="og:description" content="알고리즘 평가할 때 시간 복잡도와 공간 복잡도를 사용함">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-12T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2022-07-13T01:30:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/algorithm/Python-Time-Complexity/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Noh Seungmi",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Seungmi Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">카테고리</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">태그</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About Me</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="http://localhost:4000/">
+        <img src="/assets/images/yessm.jpg" alt="노승미" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="http://localhost:4000/" itemprop="url">노승미</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>기록하는 개발자</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:yessm621@email.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/yessm621" rel="nofollow noopener noreferrer me"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Java">Java (16)</a></li>
+        
+        
+          <li><a href="/Spring">Spring (45)</a></li>
+        
+        
+          <li><a href="/JPA">JPA (21)</a></li>
+        
+        
+          <li><a href="/TestCode">테스트 코드 (3)</a></li>
+        
+        
+          <li><a href="/DesignPattern">디자인 패턴 (1)</a></li>
+        
+        
+          <li><a href="/Python">Python (3)</a></li>
+        
+        
+          <li><a href="/Django">Django (4)</a></li>
+        
+        
+          <li><a href="/TailwindCSS">TailwindCSS (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">DevOps</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/DB">DB (2)</a></li>
+        
+        
+          <li><a href="/HTTP">HTTP (5)</a></li>
+        
+        
+          <li><a href="/Web">Web (2)</a></li>
+        
+        
+          <li><a href="/Git">Git (4)</a></li>
+        
+        
+          <li><a href="/Linux">Linux (1)</a></li>
+        
+        
+          <li><a href="/Algorithm">알고리즘 (2)</a></li>
+        
+        
+          <li><a href="/CS">CS 지식 (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ETC</span>
+        
+
+        
+        <ul>
+          
+        
+          <li><a href="/Mac">Mac (1)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="시간 복잡도와 공간 복잡도">
+    <meta itemprop="description" content="알고리즘 평가할 때 시간 복잡도와 공간 복잡도를 사용함">
+    <meta itemprop="datePublished" content="2022-07-12T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2022-07-13T01:30:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title p-name" itemprop="headline">
+            <a href="http://localhost:4000/python/algorithm/Python-Time-Complexity/" class="u-url" itemprop="url">시간 복잡도와 공간 복잡도
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2022-07-12T00:00:00+09:00">July 12, 2022</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content e-content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Index</h4></header>
+              <ul class="toc__menu"><li><a href="#시간-복잡도">시간 복잡도</a><ul><li><a href="#o1---상수-시간">O(1) - 상수 시간</a></li><li><a href="#ologn---로그-시간">O(logN) - 로그 시간</a></li><li><a href="#on---선형-시간">O(n) - 선형 시간</a></li><li><a href="#on2---2차-시간">O(N^2) - 2차 시간</a></li><li><a href="#o2n---지수-시간">O(2^N) - 지수 시간</a></li><li><a href="#파이썬-주요-함수-메소드의-시간-복잡도">파이썬 주요 함수, 메소드의 시간 복잡도</a></li><li><a href="#list">list</a></li><li><a href="#dict">Dict</a></li></ul></li><li><a href="#공간-복잡도">공간 복잡도</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>알고리즘 평가할 때 시간 복잡도와 공간 복잡도를 사용함</p>
+
+<ul>
+  <li>시간 복잡도: 알고리즘의 수행시간을 평가</li>
+  <li>공간 복잡도: 알고리즘 수행에 필요한 메모리 양을 평가</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="시간-복잡도">시간 복잡도</h2>
+
+<p><em>시간 복잡도는 알고리즘의 수행시간을 나타냄.</em></p>
+
+<p>시간 복잡도를 낮출 수 있다면 프로그램에 큰 성능 향상을 기대할 수 있음</p>
+
+<p><br /></p>
+
+<h3 id="o1---상수-시간">O(1) - 상수 시간</h3>
+
+<p>입력 크기(N)에 상관없이 일정한 연산을 수행</p>
+
+<p><br /></p>
+
+<h3 id="ologn---로그-시간">O(logN) - 로그 시간</h3>
+
+<p>입력 크기(N)가 커질 때 연산 횟수가 logN에 비례해서 증가</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span> <span class="o">{}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="on---선형-시간">O(n) - 선형 시간</h3>
+
+<p>입력 크기(n)가 커질 때 연산 횟수가 n에 비례해서 증가하면 시간 복잡도는 O(n).</p>
+
+<ul>
+  <li>연산횟수가 선형적으로 증가하는 형태</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="on2---2차-시간">O(N^2) - 2차 시간</h3>
+
+<p>입력 크기(n)가 커질 때 연산 횟수가 n^2에 비례해서 증가</p>
+
+<p>예) 중첩 for문…</p>
+
+<p><br /></p>
+
+<h3 id="o2n---지수-시간">O(2^N) - 지수 시간</h3>
+
+<p>입력 크기가 커질 때 연산수가 2^N에 비례해서 증가</p>
+
+<p>예) 피보나치 수열…</p>
+
+<p><br /></p>
+
+<p><img src="https://user-images.githubusercontent.com/79130276/178433222-3b550022-9b55-4e97-b7e6-71eb5bb77b57.png" alt="Untitled" /></p>
+
+<p><br /></p>
+
+<h3 id="파이썬-주요-함수-메소드의-시간-복잡도">파이썬 주요 함수, 메소드의 시간 복잡도</h3>
+
+<h3 id="list">list</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Example</th>
+      <th>Big-O</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>l[i]</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Store</td>
+      <td>l[i] = 0</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Length</td>
+      <td>len(l)</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Append</td>
+      <td>l.append(5)</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Pop</td>
+      <td>l.pop()</td>
+      <td>O(1)</td>
+      <td>l.pop(-1) 과 동일</td>
+    </tr>
+    <tr>
+      <td>Clear</td>
+      <td>l.clear()</td>
+      <td>O(1)</td>
+      <td>l = [] 과 유사</td>
+    </tr>
+    <tr>
+      <td>Slice</td>
+      <td>l[a:b]</td>
+      <td>O(b-a)</td>
+      <td>l[:] : O(len(l)-0) = O(N)</td>
+    </tr>
+    <tr>
+      <td>Extend</td>
+      <td>l.extend(…)</td>
+      <td>O(len(…))</td>
+      <td>확장 길이에 따라</td>
+    </tr>
+    <tr>
+      <td>Construction</td>
+      <td>list(…)</td>
+      <td>O(len(…))</td>
+      <td>요소 길이에 따라</td>
+    </tr>
+    <tr>
+      <td>check ==, ≠</td>
+      <td>l1 == l2</td>
+      <td>O(N)</td>
+      <td>비교</td>
+    </tr>
+    <tr>
+      <td>Insert</td>
+      <td>l.insert(i, v)</td>
+      <td>O(N)</td>
+      <td>i 위치에 v를 추가</td>
+    </tr>
+    <tr>
+      <td>Delete</td>
+      <td>del l[i]</td>
+      <td>O(N)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Remove</td>
+      <td>l.remove(…)</td>
+      <td>O(N)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Containment</td>
+      <td>x in/not in l</td>
+      <td>O(N)</td>
+      <td>검색</td>
+    </tr>
+    <tr>
+      <td>Copy</td>
+      <td>l.copy()</td>
+      <td>O(N)</td>
+      <td>l[:] 과 동일 - O(N)</td>
+    </tr>
+    <tr>
+      <td>Pop</td>
+      <td>l.pop(i)</td>
+      <td>O(N)</td>
+      <td>l.pop(0):O(N)</td>
+    </tr>
+    <tr>
+      <td>Extreme value</td>
+      <td>min(l)/max(l)</td>
+      <td>O(N)</td>
+      <td>검색</td>
+    </tr>
+    <tr>
+      <td>Reverse</td>
+      <td>l.reverse()</td>
+      <td>O(N)</td>
+      <td>그대로 반대로</td>
+    </tr>
+    <tr>
+      <td>Interation</td>
+      <td>for v in l:</td>
+      <td>O(N)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Sort</td>
+      <td>l.sort()</td>
+      <td>O(N Log N)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Multiply</td>
+      <td>k*l</td>
+      <td>O(k N)</td>
+      <td>[1,2,3] * 3 » O(N**2)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="dict">Dict</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Example</th>
+      <th>Big-O</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Index</td>
+      <td>d[k]</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Store</td>
+      <td>d[k] = v</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Length</td>
+      <td>len(d)</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Delete</td>
+      <td>del d[k]</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>get/setdefault</td>
+      <td>d.method</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Pop</td>
+      <td>d.pop(k)</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Pop item</td>
+      <td>d.popitem()</td>
+      <td>O(1)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Clear</td>
+      <td>d.clear()</td>
+      <td>O(1)</td>
+      <td>s = {} or = dict() 유사</td>
+    </tr>
+    <tr>
+      <td>View</td>
+      <td>d.keys()</td>
+      <td>O(1)</td>
+      <td>d.values() 동일</td>
+    </tr>
+    <tr>
+      <td>Construction</td>
+      <td>dict(…)</td>
+      <td>O(len(…))</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Iteration</td>
+      <td>for k in d:</td>
+      <td>O(N)</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h2 id="공간-복잡도">공간 복잡도</h2>
+
+<p><em>공간 복잡도는 알고리즘에서 사용하는 메모리 양을 나타냄.</em></p>
+
+<p>공간 복잡도는 보조공간과 입력 공간을 합친 포괄적인 개념. 보조 공간은 알고리즘이 실행되는 동안 사용하는 임시 공간</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#algorithm" class="page__taxonomy-item p-category" rel="tag">Algorithm</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item p-category" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#algorithm" class="page__taxonomy-item p-category" rel="tag">Algorithm</a><span class="sep">, </span>
+    
+      <a href="/categories/#python" class="page__taxonomy-item p-category" rel="tag">Python</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-07-12">July 12, 2022</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%EC%8B%9C%EA%B0%84+%EB%B3%B5%EC%9E%A1%EB%8F%84%EC%99%80+%EA%B3%B5%EA%B0%84+%EB%B3%B5%EC%9E%A1%EB%8F%84%20http%3A%2F%2Flocalhost%3A4000%2Fpython%2Falgorithm%2FPython-Time-Complexity%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpython%2Falgorithm%2FPython-Time-Complexity%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpython%2Falgorithm%2FPython-Time-Complexity%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/http/Web-HTTPAPI/" class="pagination--pager" title="HTTP API
+">이전</a>
+    
+    
+      <a href="/java/Java-JVM/" class="pagination--pager" title="JVM(Java Virtual Machine)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h2 class="page__related-title">참고</h2>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-cascade/" rel="permalink">영속성 전이, Cascade
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-30T00:00:00+09:00">January 30, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">영속성 전이란?
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/jpa/JPA-DirtyChecking-Merge/" rel="permalink">변경 감지와 병합
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-26T00:00:00+09:00">January 26, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+✨ 결론부터 말하면 병합(merge)은 사용하지 말고 변경 감지(Dirth Checking)를 사용하자.
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/Spring-Valid-Validated/" rel="permalink">@Valid, @Validated
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-25T00:00:00+09:00">January 25, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">@Valid
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/testcode/TESTCODE-Mock/" rel="permalink">Mock 이란?
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+          <time datetime="2023-01-24T00:00:00+09:00">January 24, 2023</time>
+      </span>
+    
+
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Mock 이란?
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Noh Seungmi. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/python/algorithm/Python-Time-Complexity/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/python/algorithm/Python-Time-Complexity"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-yessm621-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
