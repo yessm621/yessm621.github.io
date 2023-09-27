@@ -1,8 +1,7 @@
 ---
 title: "Series"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /series
+permalink: /Series
 author_profile: true
 sidebar:
     nav: "sidebar-category"

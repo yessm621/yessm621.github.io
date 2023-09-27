@@ -1,8 +1,7 @@
 ---
 title: "DB"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /db
+permalink: /DB
 author_profile: true
 sidebar:
     nav: "sidebar-category"

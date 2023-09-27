@@ -1,8 +1,7 @@
 ---
 title: "Python"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /python
+permalink: /Python
 author_profile: true
 sidebar:
     nav: "sidebar-category"

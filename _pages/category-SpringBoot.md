@@ -1,8 +1,7 @@
 ---
 title: "SpringBoot"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /springBoot
+permalink: /SpringBoot
 author_profile: true
 sidebar:
     nav: "sidebar-category"

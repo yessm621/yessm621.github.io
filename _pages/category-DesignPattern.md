@@ -1,8 +1,7 @@
 ---
 title: "DesignPattern"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /designpattern
+permalink: /DesignPattern
 author_profile: true
 sidebar:
     nav: "sidebar-category"

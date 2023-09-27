@@ -1,13 +1,12 @@
 ---
 title: "AWS"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /aws
+permalink: /AWS
 author_profile: true
 sidebar:
     nav: "sidebar-category"
 ---
 
 
-{% assign posts = site.categories.Aws %}
+{% assign posts = site.categories.AWS %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

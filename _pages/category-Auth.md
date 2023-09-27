@@ -1,8 +1,7 @@
 ---
 title: "Auth"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /auth
+permalink: /Auth
 author_profile: true
 sidebar:
     nav: "sidebar-category"

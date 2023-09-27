@@ -1,8 +1,7 @@
 ---
 title: "Java"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /java
+permalink: /Java
 author_profile: true
 sidebar:
     nav: "sidebar-category"

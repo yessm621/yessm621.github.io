@@ -1,8 +1,7 @@
 ---
 title: "CS"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /cs
+permalink: /CS
 author_profile: true
 sidebar:
     nav: "sidebar-category"

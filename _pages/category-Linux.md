@@ -1,8 +1,7 @@
 ---
 title: "Linux"
 layout: archive
-classes: wide <!-- 본문 늘리기!!!-->
-permalink: /linux
+permalink: /Linux
 author_profile: true
 sidebar:
     nav: "sidebar-category"
