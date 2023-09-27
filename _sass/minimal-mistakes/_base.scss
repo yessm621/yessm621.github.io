@@ -126,8 +126,8 @@ blockquote {
 /* links */
 
 a {
+  /* devinlife : a link 하이퍼링크 밑줄 없애기 */
   text-decoration: none;
-
   &:focus {
     @extend %tab-focus;
   }
@@ -170,7 +170,7 @@ td > code {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   font-size: 0.8em;
-  background: $code-background-color;
+  background: #d1e8be;
   border-radius: $border-radius;
 
   &:before,

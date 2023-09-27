@@ -1,64 +1,75 @@
+#맨위에 네비게이션바
+# main links
 main:
-  - title: "카테고리"
-    url: /categories/
-  - title: "태그"
-    url: /tags/
-  - title: "About Me"
-    url: /about/
+  - title: "Home"
+    url: /index.html
+  # - title: "Quick-Start Guide"
+  #  url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  # - title: "Sitemap"
+  #   url: /sitemap/
+  # - title: "About"
+  #   url: "/about/"
+  - title: "Category"
+    url: "/categories/"
+  - title: "Tag"
+    url: "/tags/"
 
+# sidebar-category:
+#   - title: "Java"
+#     children:
+#       - title: "문법"
+#         url: "/Java"
+#         category: "Java"
+#       - title: "SpringBoot"
+#         url: "/SpringBoot"
+#         category: "SpringBoot"
+#       - title: "Jpa"
+#         url: "/Jpa"
+#         category: "Jpa"
+#       - title: "테스트 코드"
+#         url: "/TestCode"
+#         category: "TestCode"
+        
+#   - title: "Python"
+#     children:
+#       - title: "문법"
+#         url: "/Python"
+#         category: "Python"
 
-docs:
-  - title: Develop
-    children:
-      - title: "Java"
-        url: /Java
-        category: "Java"
-      - title: "Spring"
-        url: /Spring
-        category: "Spring"
-      - title: "JPA"
-        url: /JPA
-        category: "JPA"
-      - title: "테스트 코드"
-        url: /TestCode
-        category: "TestCode"
-      - title: "디자인 패턴"
-        url: /DesignPattern
-        category: "DesignPattern"
-      - title: "Python"
-        url: /Python
-        category: "Python"
-      - title: "Django"
-        url: /Django
-        category: "Django"
-      - title: "TailwindCSS"
-        url: /TailwindCSS
-        category: "TailwindCSS"
-  - title: DevOps
-    children:
-      - title: "DB"
-        url: /DB
-        category: "DB"
-      - title: "HTTP"
-        url: /HTTP
-        category: "HTTP"
-      - title: "Web"
-        url: /Web
-        category: "Web"
-      - title: "Git"
-        url: /Git
-        category: "Git"
-      - title: "Linux"
-        url: /Linux
-        category: "Linux"
-      - title: "알고리즘"
-        url: /Algorithm
-        category: "Algorithm"
-      - title: "CS 지식"
-        url: /CS
-        category: "CS"
-  - title: ETC
-    children:
-      - title: "Mac"
-        url: /Mac
-        category: "Mac"
+#   - title: "Series"
+#     children:
+#       - title: "시리즈"
+#         url: "/Series"
+#         category: "Series"
+
+#   - title: "Web"
+#     children:
+#       - title: "Git"
+#         url: "/Git"
+#         category: "Git"
+#       - title: "Http"
+#         url: "/Http"
+#         category: "Http"
+#       - title: "인증/인가"
+#         url: "/Auth"
+#         category: "Auth"
+#       - title: "DB"
+#         url: "/DB"
+#         category: "DB"
+#       - title: "AWS"
+#         url: "/AWS"
+#         category: "AWS"
+#       - title: "디자인 패턴"
+#         url: "/DesignPattern"
+#         category: "DesignPattern"
+
+#   - title: "Etc"
+#     children:
+#       - title: "리눅스"
+#         url: "/Linux"
+#         category: "Linux"
+#       - title: "CS"
+#         url: "/CS"
+#         category: "CS"

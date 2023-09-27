@@ -49,6 +49,36 @@
 /*
      Post pagination navigation links
      ========================================================================== */
+.pagination_prev_next {
+  @include clearfix();
+  float: left;
+  width: 100%;
+    
+  /* next/previous buttons */
+  &--pager {
+    margin-top: 0em;
+    padding-top: 0em;
+    display: block;
+    padding: 5px 2em;
+    //float: left;
+    height: 2em;
+    width: 100%;
+    font-family: $sans-serif;
+    font-size: $type-size-5;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: $muted-text-color;
+    border: 1px solid mix(#808080, $border-color, 25%);
+    border-radius: $border-radius;
+    
+    .prev_next {
+      font-family: $sans-serif;
+      color:#808080;
+        }
+  }
+}
+
 
 .pagination {
   @include clearfix();
@@ -200,8 +230,8 @@
       margin-left: 0;
     }
   }
-
-  img {
+  
+  img{
     -webkit-transition: none;
     transition: none;
   }
@@ -276,6 +306,7 @@
       display: none;
     }
 
+    /*
     a {
       margin: 0;
       padding: 10px 20px;
@@ -286,6 +317,7 @@
         background: $navicon-link-color-hover;
       }
     }
+    */
 
     &:before {
       content: "";
@@ -489,15 +521,45 @@
 }
 
 .nav__sub-title {
+  color: #5f5f5f;
   display: block;
   margin: 0.5rem 0;
   padding: 0.25rem 0;
   font-family: $sans-serif-narrow;
-  font-size: $type-size-6;
+  font-size: 25px;//1em;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: none;
   border-bottom: 1px solid $border-color;
 }
+/*****************/
+
+.page__taxonomy-item-category {
+  display: inside;
+  margin-right: 5px;
+  margin-bottom: 8px;
+  padding: 1px 8px;
+  text-decoration: none;
+  border: 1px solid #373C3F;
+  border-radius: 4px;
+  background-color: #4D5357;
+  font-family: "Coming Soon",Georgia,Times,serif;
+  color: #d3d3d3;
+}
+
+.page__taxonomy-item-tag {
+  display: inside;
+  margin-right: 5px;
+  margin-bottom: 8px;
+  padding: 1px 8px;
+  text-decoration: none;
+  border: 1px solid #373C3F;
+  border-radius: 4px;
+  background-color: #ebebeb;
+  font-family: "Coming Soon",Georgia,Times,serif;
+  color: #4D5357;
+}
+
+/****************************/
 
 /*
      Table of contents navigation
