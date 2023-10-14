@@ -20,7 +20,7 @@ Github Actions를 이용하여 main 브랜치에 push 하면 AWS EC2에 자동�
 
 ## 배포 과정
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/9e237e6a-d332-490b-8f20-98e3f991ed3b/Untitled.png)
+![1](https://github.com/yessm621/yessm621.github.io/assets/79130276/a57b798d-a3ba-42ce-a22d-25fa58fb0d73)
 
 1. 인텔리제이에서 main 브랜치로 push 또는 PR을 통해 main으로 merge
 2. Github Actions에서 코드 빌드
