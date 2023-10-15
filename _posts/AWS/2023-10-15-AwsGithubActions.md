@@ -1,5 +1,5 @@
 ---
-title: "Github Actions, AWS를 이용한 Spring Boot 배포"
+title: "AWS, Github Actions을 이용한 Spring Boot 배포"
 categories:
   - AWS
 tags:
