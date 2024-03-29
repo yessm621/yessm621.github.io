@@ -99,12 +99,16 @@ CodeDeploy를 사용하기 위해 IAM에서 역할을 만들어야 한다. IAM �
 
 Github Actions에서 AWS에 접근하려면 권한이 필요하다. IAM 사용자를 추가해보자.
 
+권한 설정 부분에서 직접 정책 연결을 선택하여 `AmazonS3FullAccess`와 `AWSCodeDeployFullAccess` 권한을 할당한다.
+
 ![1](https://github.com/yessm621/yessm621.github.io/assets/79130276/e6d18fa1-b902-4617-a3eb-ec7dfdef5656)
 
 ![2](https://github.com/yessm621/yessm621.github.io/assets/79130276/36d3b0e3-f95c-4caf-aaa8-9361d42be929)
 
+액세스 키를 발급받는다.
 
-발급 받은 키를 Github 에 등록해준다.
+![스크린샷 2024-03-28 오후 7 09 02](https://github.com/yessm621/yessm621.github.io/assets/79130276/960825ae-f0c0-4812-82e6-6b2e36e8a6eb)
+발급 받은 액세스 키를 Github 에 등록해준다.
 
 ![3](https://github.com/yessm621/yessm621.github.io/assets/79130276/96ad8196-dce4-404e-95c9-c238039b9f0c)
 
@@ -295,6 +299,9 @@ jobs:
           --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
 ```
 
+- AWS_REGION은 로그인 후 내 계정 왼쪽에서 확인 가능하다.
+    <img width="654" alt="1" src="https://github.com/yessm621/yessm621.github.io/assets/79130276/91c2419c-18e1-4dc8-a7d9-e736d1dd8489">
+    
 - APPLICATION_PROD에 대한 값을 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY 처럼 등록해야 한다.
 - APPLICATION_PROD에 들어가는 값은 운영환경의 설정 파일을 등록해주면 된다.
     
@@ -337,4 +344,4 @@ CodeDeploy에서 배포 내역을 확인할 수 있다.
 
 정상적으로 배포된 것을 확인할 수 있다.
 
-<img width="1209" alt="13" src="https://github.com/yessm621/yessm621.github.io/assets/79130276/3fcf7c75-6768-49da-a301-7b5863fcd1cf">
+<img width="1100" alt="스크린샷 2024-03-29 오후 10 38 58" src="https://github.com/yessm621/yessm621.github.io/assets/79130276/d789c4eb-f31b-4b1f-b6f8-929fb7fb90e3">

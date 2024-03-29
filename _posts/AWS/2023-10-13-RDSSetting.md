@@ -85,7 +85,7 @@ VPC 보안 그룹은 새로 생성한다.
 
 - time_zone: Asia/Seoul
 - char로 검색시 나오는 6개의 항목: utf8mb4
-- Collation 검색 시 나오는 2개의 항목: utfmb4_general_ci
+- Collation 검색 시 나오는 2개의 항목: utf8mb4_general_ci
 
 ## RDS 보안그룹 설정
 
