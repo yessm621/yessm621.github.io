@@ -1,12 +1,11 @@
 ---
 title: "SpringBoot"
 layout: archive
-permalink: /SpringBoot
+permalink: categories/SpringBoot
 author_profile: true
-sidebar:
-    nav: "sidebar-category"
+sidebar_main: true
 ---
 
 
 {% assign posts = site.categories.SpringBoot %}
-{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
+{% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
