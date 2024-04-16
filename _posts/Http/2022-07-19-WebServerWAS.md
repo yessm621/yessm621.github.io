@@ -2,8 +2,6 @@
 title:  "웹 서버와 WAS"
 categories:
   - Http
-tags:
-  - Http
 toc: true
 toc_sticky: true
 ---

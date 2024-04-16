@@ -2,8 +2,6 @@
 title:  "Git 자주쓰는 명령어"
 categories: 
   - Git
-tags:
-  - Git
 toc: true
 toc_sticky: true
 ---

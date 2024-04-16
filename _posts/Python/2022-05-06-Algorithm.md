@@ -3,7 +3,6 @@ title: "파이썬 알고리즘"
 categories:
   - Python
 tags:
-  - Python
   - Algorithm
 toc: true
 toc_sticky: true

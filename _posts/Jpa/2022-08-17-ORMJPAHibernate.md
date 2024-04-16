@@ -2,8 +2,6 @@
 title:  "ORM과 JPA, Hibernate"
 categories: 
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

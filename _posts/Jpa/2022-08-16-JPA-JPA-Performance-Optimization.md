@@ -2,8 +2,6 @@
 title: "JPA 조회 성능 최적화"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

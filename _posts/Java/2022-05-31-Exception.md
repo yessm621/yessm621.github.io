@@ -2,8 +2,6 @@
 title: "자바: 예외처리"
 categories:
   - Java
-tags:
-  - Java
 toc: true
 toc_sticky: true
 ---

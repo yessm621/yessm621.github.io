@@ -2,8 +2,6 @@
 title: "값 타입"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

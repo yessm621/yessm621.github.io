@@ -1,7 +1,7 @@
 ---
 title:  "프로세스와 스레드"
 categories:
-  - CS
+  - Etc
 tags:
   - CS
 toc: true

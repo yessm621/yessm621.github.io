@@ -3,8 +3,7 @@ title: "테스트 환경 분리, @Transactional과 임베디드 DB"
 categories: 
   - TestCode
 tags:
-  - TestCode
-  - SpringBoot
+  - Spring
 toc: true
 toc_sticky: true
 ---

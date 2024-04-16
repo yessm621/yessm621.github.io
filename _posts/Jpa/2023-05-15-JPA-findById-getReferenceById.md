@@ -2,8 +2,6 @@
 title: "findById() vs getReferenceById() (feat. getOne())"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

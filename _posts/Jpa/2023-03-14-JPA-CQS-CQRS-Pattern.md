@@ -2,8 +2,6 @@
 title: "CQS 패턴, CQRS 패턴"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

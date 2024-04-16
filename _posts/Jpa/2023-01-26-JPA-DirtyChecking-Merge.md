@@ -2,8 +2,6 @@
 title: "변경 감지와 병합"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

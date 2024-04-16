@@ -2,8 +2,6 @@
 title: "페치 조인 (fetch join)"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

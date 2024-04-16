@@ -2,8 +2,6 @@
 title: "컬렉션 조회 최적화"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

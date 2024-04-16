@@ -1,7 +1,7 @@
 ---
 title:  "vi 편집기 꾸미기"
 categories:
-  - Linux
+  - Etc
 tags:
   - Linux
 ---

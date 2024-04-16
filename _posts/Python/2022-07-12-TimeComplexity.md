@@ -3,7 +3,6 @@ title: "시간 복잡도와 공간 복잡도"
 categories:
   - Python
 tags:
-  - Python
   - Algorithm
 toc: true
 toc_sticky: true

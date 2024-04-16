@@ -2,8 +2,6 @@
 title: "트랜잭션"
 categories:
   - DB
-tags:
-  - DB
 toc: true
 toc_sticky: true
 ---

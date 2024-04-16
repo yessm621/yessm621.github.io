@@ -2,8 +2,6 @@
 title: "체크 예외, 언체크 예외"
 categories:
   - Java
-tags:
-  - Java
 toc: true
 toc_sticky: true
 ---

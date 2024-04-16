@@ -2,8 +2,6 @@
 title:  "엔티티 매니저 팩토리와 엔티티 매니저"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

@@ -2,8 +2,6 @@
 title: "쿼리 메서드 (Query Methods) 기능과 @Query"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

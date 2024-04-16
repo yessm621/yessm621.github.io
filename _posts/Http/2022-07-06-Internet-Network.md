@@ -3,7 +3,6 @@ title: "IP와 TCP"
 categories:
   - Http
 tags:
-  - Http
   - Web
 toc: true
 toc_sticky: true

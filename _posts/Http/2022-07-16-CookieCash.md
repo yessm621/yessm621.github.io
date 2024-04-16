@@ -3,7 +3,6 @@ title: "쿠키와 캐시"
 categories:
   - Http
 tags:
-  - Http
   - Web
 toc: true
 toc_sticky: true

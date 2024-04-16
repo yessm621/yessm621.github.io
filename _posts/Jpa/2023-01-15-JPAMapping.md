@@ -2,8 +2,6 @@
 title: "연관 관계 매핑"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

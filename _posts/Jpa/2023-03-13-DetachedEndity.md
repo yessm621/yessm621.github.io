@@ -2,8 +2,6 @@
 title: "준영속"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

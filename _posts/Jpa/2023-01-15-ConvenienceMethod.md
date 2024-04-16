@@ -2,8 +2,6 @@
 title: "연관관계 편의 메서드"
 categories:
   - Jpa
-tags:
-  - Jpa
 toc: true
 toc_sticky: true
 ---

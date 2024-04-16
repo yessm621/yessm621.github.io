@@ -2,8 +2,6 @@
 title:  "람다식(Lambda Expression)"
 categories:
   - Java
-tags:
-  - Java
 toc: true
 toc_sticky: true
 ---

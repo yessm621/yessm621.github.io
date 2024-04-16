@@ -2,8 +2,6 @@
 title: "자바 리플렉션(Reflection)"
 categories:
   - Java
-tags:
-  - Java
 toc: true
 toc_sticky: true
 ---

@@ -3,7 +3,6 @@ title: "H2 에러: 'Column \"start_value\" not found'"
 categories:
   - DB
 tags:
-  - DB
   - H2
 toc: true
 toc_sticky: true

@@ -2,8 +2,6 @@
 title:  "객체 비교, equals()와 hashCode()"
 categories: 
   - Java
-tags:
-  - Java
 toc: true
 toc_sticky: true
 ---
