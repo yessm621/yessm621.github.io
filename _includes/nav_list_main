@@ -40,7 +40,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DB" %}
                         <li><a href="/categories/db" class="nav__sub-title-sub">Database ({{category[1].size}})</a></li>
@@ -88,7 +88,7 @@
                         <li><a href="/categories/etc" class="nav__sub-title-sub">Etc ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ul> -->
             
             
             
