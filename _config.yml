@@ -287,4 +287,5 @@ defaults:
       layout: single
       author_profile: true
       comments: # true
-      sidebar_main: true
+      sidebar:
+        nav: "sidebar-category"
