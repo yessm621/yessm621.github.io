@@ -40,14 +40,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- <ul>
+            <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DB" %}
                         <li><a href="/categories/db" class="nav__sub-title-sub">Database ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Http" %}
                         <li><a href="/categories/http" class="nav__sub-title-sub">Http ({{category[1].size}})</a></li>
@@ -60,7 +60,7 @@
                         <li><a href="/categories/git" class="nav__sub-title-sub">Git ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ul> -->
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "DevOps" %}
@@ -68,7 +68,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Architecture" %}
                         <li><a href="/categories/architecture" class="nav__sub-title-sub">Architecture ({{category[1].size}})</a></li>
@@ -89,9 +89,6 @@
                     {% endif %}
                 {% endfor %}
             </ul> -->
-            
-            
-            
       </li>
   </ul>
 </nav>
