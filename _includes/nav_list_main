@@ -68,27 +68,27 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <!-- <ul>
+            <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Architecture" %}
                         <li><a href="/categories/architecture" class="nav__sub-title-sub">Architecture ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
-            <ul>
+            <!-- <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Python" %}
                         <li><a href="/categories/python" class="nav__sub-title-sub">Python ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ul> -->
             <ul>
                 {% for category in site.categories %}
                     {% if category[0] == "Etc" %}
                         <li><a href="/categories/etc" class="nav__sub-title-sub">Etc ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
-            </ul> -->
+            </ul>
       </li>
   </ul>
 </nav>
