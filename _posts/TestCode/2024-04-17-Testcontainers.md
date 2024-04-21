@@ -138,6 +138,6 @@ class PharmacyRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
 테스트를 실행하면 아래 이미지와 같이 redis:6, mariadb:10 컨테이너가 생성되고 실행된 것을 확인할 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/886c44a2-680b-4781-9632-2eeb99be0a4f/Untitled.png)
+![1](https://github.com/yessm621/yessm621.github.io/assets/79130276/9529e9f9-23aa-4b29-951a-1e6564f0566c)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/65ece039-2c30-4b6e-b5c7-06e93f695bf8/Untitled.png)
+![2](https://github.com/yessm621/yessm621.github.io/assets/79130276/e6bce42f-8cd2-4230-8b79-35abe0187089)
