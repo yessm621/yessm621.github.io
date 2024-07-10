@@ -1,5 +1,5 @@
 ---
-title: "findById() vs getReferenceById() (feat. getOne())"
+title: "findById()와 getReferenceById() 차이점"
 categories:
   - Jpa
 toc: true
