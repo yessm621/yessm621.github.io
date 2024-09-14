@@ -68,7 +68,7 @@ READ UNCOMMITTED을 사용하면 데이터 부정합이 발생할 수 있고 이
 
 예를 들어, 트랜잭션1과 트랜잭션2가 있다고 가정하자. 트랜잭션1은 데이터 A를 UPDATE 하여 B로 바꾸었고 Commit은 아직 하지 않았다. 이때 트랜잭션2가 데이터를 조회하면 UPDATE 하기 전인 A를 가져온다. READ COMMITTED은 UPDATE 전 값을 조회하기 위해 **Undo 영역**에서 조회한다.
 
-따라서, READ COMMITTED에서는 Dirty Read가 발생하지 않는다. 하지만 **Non-repeatable Read**[(링크)]([https://yessm621.github.io/db/IsolationLevel/#이상-현상2-non-repeatable-read](https://yessm621.github.io/db/IsolationLevel/#%EC%9D%B4%EC%83%81-%ED%98%84%EC%83%812-non-repeatable-read))가 발생한다. Non-repeatable Read은 하나의 트랜잭션에서 동일한 SELECT 쿼리를 실행했을 때 다른 결과가 나타나는 것을 말한다.
+따라서, READ COMMITTED에서는 Dirty Read가 발생하지 않는다. 하지만 **Non-repeatable Read**[(링크)](https://yessm621.github.io/db/IsolationLevel/#%EC%9D%B4%EC%83%81-%ED%98%84%EC%83%812-non-repeatable-read)가 발생한다. Non-repeatable Read은 하나의 트랜잭션에서 동일한 SELECT 쿼리를 실행했을 때 다른 결과가 나타나는 것을 말한다.
 
 ### REPEATABLE READ(반복가능한 읽기)
 
@@ -80,7 +80,7 @@ READ UNCOMMITTED을 사용하면 데이터 부정합이 발생할 수 있고 이
 
 참고로 Oracle은 REPEATABLE READ를 지원하지 않고 대신 Exclusive Lock(배타적 잠금)을 사용하여 Non-repeatable Read 문제를 해결한다.
 
-REPEATABLE READ는 Non-repeatable Read 문제를 해결할 수 있지만 **Phantom Read**[(링크)]([https://yessm621.github.io/db/IsolationLevel/#이상현상3-phantom-read](https://yessm621.github.io/db/IsolationLevel/#%EC%9D%B4%EC%83%81%ED%98%84%EC%83%813-phantom-read))는 해결할 수 없다. Phantom Read는 하나의 트랜잭션 내에서 여러번 실행되는 동일한 SELECT 쿼리에 대해 결과 레코드 수가 달라지는 현상을 말한다.
+REPEATABLE READ는 Non-repeatable Read 문제를 해결할 수 있지만 **Phantom Read**[(링크)](https://yessm621.github.io/db/IsolationLevel/#%EC%9D%B4%EC%83%81%ED%98%84%EC%83%813-phantom-read)는 해결할 수 없다. Phantom Read는 하나의 트랜잭션 내에서 여러번 실행되는 동일한 SELECT 쿼리에 대해 결과 레코드 수가 달라지는 현상을 말한다.
 
 ### SERIALIZABLE
 
