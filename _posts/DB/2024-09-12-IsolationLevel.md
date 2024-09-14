@@ -1,5 +1,5 @@
 ---
-title:  "트랜잭션 격리 수준(Transaction Isolation Level)"
+title:  "트랜잭션 격리 수준과 이상 현상"
 categories:
   - DB
 toc: true
@@ -10,7 +10,7 @@ toc_sticky: true
 
 트랜잭션 격리 수준이란 여러 트랜잭션이 동시에 실행될 때 특정 트랜잭션이 다른 트랜잭션에서 데이터를 조회하거나 변경할 수 있게 허용할지를 결정하는 것이다.
 
-트랜잭션 격리 수준을 알아보기 전에 3가지 대표적인 이상 현상에 대해 알아보자.
+[트랜잭션 격리 수준](https://yessm621.github.io/db/IsolationLevel)을 알아보기 전에 3가지 대표적인 이상 현상에 대해 알아보자.
 
 ## 이상 현상1: Dirty Read
 
