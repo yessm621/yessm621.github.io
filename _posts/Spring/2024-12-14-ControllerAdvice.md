@@ -349,16 +349,16 @@ public class ExController {
 
 **테스트 결과 - 성공 (200)**
 
-![스크린샷 2024-12-12 오후 1.04.04.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/f41bd35a-bec4-4ea3-a471-7a7fc0c756c8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-12-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.04.04.png)
+![1](https://github.com/user-attachments/assets/e803160f-323f-48f3-851b-f95c4fd1326c)
 
 **테스트 결과 - 실패 (400 에러)**
 
-![스크린샷 2024-12-12 오후 1.04.43.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/2e87354e-345f-4d69-aaf0-45db75734bdf/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-12-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.04.43.png)
+![2](https://github.com/user-attachments/assets/f0761387-b0bd-4c85-a13a-3a79e64ea31e)
 
 **테스트 결과 - 실패 (404 에러)**
 
-![스크린샷 2024-12-12 오후 1.05.27.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/c9fd45c9-2e4a-476d-9abc-4fbf70a42b21/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-12-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.05.27.png)
+![3](https://github.com/user-attachments/assets/4bfba70b-831d-4557-bf62-b35913de6c56)
 
 **테스트 결과 - 실패 (401 에러)**
 
-![스크린샷 2024-12-12 오후 1.06.03.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/82abb930-2348-4307-b627-41a86f1de913/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-12-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_1.06.03.png)
+![4](https://github.com/user-attachments/assets/eb7b1c14-0841-4a00-a4ea-601396b93bbe)
