@@ -155,3 +155,277 @@ spring.security.oauth2.client.registration.google.scope=profile,email
 - OAuth2를 사용하면서 필요한 환경설정을 추가했다.
     - registration: 외부 서비스에서 우리 서비스를 특정하기 위해 등록하는 정보이다. (필수로 입력해야 함)
     - provider
+
+## 엔티티 작성
+
+```java
+package com.study.security.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+
+@Entity
+@Table(name = "Users")
+@Getter
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+    private String password;
+    private String name;
+    private String provider; //출처 (예. naver, google..)
+    private String providerId;
+    @Enumerated(EnumType.STRING)
+    private UserRole role; //enum 사용
+    private String refresh; //refresh token 저장
+    private String expiration; //refresh token 만료일
+
+    protected User() {
+    }
+    
+    //다른 클래스에서 생성자를 사용할 수 없도록 private
+    private User(String username, String password, String name, String provider, String providerId, UserRole role, String refresh, String expiration) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.role = role;
+        this.refresh = refresh;
+        this.expiration = expiration;
+    }
+    
+    //정적 팩토리 메서드
+    public static User createUser(String username, UserRole role) {
+        User user = new User();
+        user.username = username;
+        user.role = role;
+        return user;
+    }
+
+    public static User createUser(String username, String password, UserRole role) {
+        User user = new User();
+        user.username = username;
+        user.password = password;
+        user.role = role;
+        return user;
+    }
+
+    public static User createUser(String email, String name, UserRole role, String provider, String providerId) {
+        User user = new User();
+        user.username = email;
+        user.name = name;
+        user.role = role;
+        user.provider = provider;
+        user.providerId = providerId;
+        return user;
+    }
+    
+    //dirty checking 사용
+    public void updateUser(String email, String name) {
+        this.username = email;
+        this.name = name;
+    }
+
+    public void updateRefresh(String refresh, String expiration) {
+        this.refresh = refresh;
+        this.expiration = expiration;
+    }
+}
+```
+
+- 가장 먼저 User 엔티티를 작성했다.
+- User 엔티티를 생성할 땐 생성자를 사용하지 않고 **정적 팩토리 메서드**를 사용해서 생성할 수 있도록 했다.
+- **변경감지(dirty checking)**을 사용해서 User 엔티티를 수정한다.
+
+.
+
+.
+
+```java
+package com.study.security.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum UserRole {
+
+    USER("ROLE_USER"),
+    ADMIN("ROLE_ADMIN");
+
+    private final String key;
+}
+```
+
+```java
+package com.study.security.repository;
+
+import com.study.security.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    Boolean existsByUsername(String username);
+
+    User findByUsername(String username);
+}
+```
+
+## 공통 응답 처리
+
+API를 반환할 때 성공, 실패에 대한 응답 처리 기능은 다음 [링크](https://yessm621.github.io/spring/ControllerAdvice/)에 작성해두었다. 이를 참고하자.
+
+## 회원가입
+
+일반 로그인에 대한 회원가입을 진행할 때 아래와 같은 형식으로 요청한다.
+
+```json
+POST /join
+Accept: application/json
+
+//Request
+{
+    "username": "user",
+    "password": "1234"
+}
+```
+
+.
+
+.
+
+회원가입과 관련된 코드는 아래와 같다.
+
+```java
+package com.study.security.config;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@EnableWebSecurity
+@Configuration
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(auth -> auth.disable())
+                .formLogin(auth -> auth.disable())
+                .httpBasic(auth -> auth.disable());
+
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/join", "/login").permitAll()
+                        .anyRequest().authenticated());
+
+        http
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        return http.build();
+    }
+}
+```
+
+- 회원가입 시 password를 암호화하기 위해 BCryptPasswordEncoder를 스프링 빈으로 등록한다.
+- CSRF 비활성화: REST API에서는 주로 Stateless 환경을 사용하므로 CSRF 방어가 필요하지 않다.
+- SessionCreationPolicy.STATELESS: 세션을 STATELESS(무결성) 상태로 설정한다.
+
+.
+
+.
+
+```java
+package com.study.security.dto;
+
+import lombok.Data;
+
+@Data
+public class JoinDto {
+
+    private String username;
+    private String password;
+}
+```
+
+```java
+package com.study.security.service;
+
+import com.study.security.dto.JoinDto;
+import com.study.security.entity.User;
+import com.study.security.entity.UserRole;
+import com.study.security.exception.ApiException;
+import com.study.security.exception.ErrorCode;
+import com.study.security.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public void join(JoinDto joinDto) {
+        String username = joinDto.getUsername();
+        String password = joinDto.getPassword();
+
+        Boolean isExist = userRepository.existsByUsername(username);
+        if (isExist) {
+            throw new ApiException(ErrorCode.ALREADY_EXIST_USERNAME);
+        }
+
+        User user = User.createUser(username, bCryptPasswordEncoder.encode(password), UserRole.USER);
+        userRepository.save(user);
+    }
+}
+```
+
+- 회원가입 시 existsByUsername(String username)을 통해 이미 존재하는 사용자 아이디면 에러를 발생 시킨다. 처음 회원가입하는 사용자 아이디면 패스워드를 암호화하여 DB에 저장한다.
+
+```java
+package com.study.security.controller;
+
+import com.study.security.dto.JoinDto;
+import com.study.security.exception.ApiResponse;
+import com.study.security.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+
+    @PostMapping("/join")
+    public ResponseEntity<ApiResponse> join(@RequestBody JoinDto joinDto) {
+        userService.join(joinDto);
+        return ResponseEntity.ok(ApiResponse.successWithNoContent());
+    }
+}
+```
