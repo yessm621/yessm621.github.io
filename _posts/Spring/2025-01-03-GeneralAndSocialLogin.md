@@ -162,9 +162,6 @@ spring.security.oauth2.client.registration.google.scope=profile,email
 ```java
 package com.study.security.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-
 @Entity
 @Table(name = "Users")
 @Getter
@@ -249,9 +246,6 @@ public class User {
 ```java
 package com.study.security.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 @Getter
 @AllArgsConstructor
 public enum UserRole {
@@ -265,9 +259,6 @@ public enum UserRole {
 
 ```java
 package com.study.security.repository;
-
-import com.study.security.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -304,15 +295,6 @@ Accept: application/json
 
 ```java
 package com.study.security.config;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
@@ -356,8 +338,6 @@ public class SecurityConfig {
 ```java
 package com.study.security.dto;
 
-import lombok.Data;
-
 @Data
 public class JoinDto {
 
@@ -368,17 +348,6 @@ public class JoinDto {
 
 ```java
 package com.study.security.service;
-
-import com.study.security.dto.JoinDto;
-import com.study.security.entity.User;
-import com.study.security.entity.UserRole;
-import com.study.security.exception.ApiException;
-import com.study.security.exception.ErrorCode;
-import com.study.security.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -407,15 +376,6 @@ public class UserService {
 
 ```java
 package com.study.security.controller;
-
-import com.study.security.dto.JoinDto;
-import com.study.security.exception.ApiResponse;
-import com.study.security.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -453,15 +413,6 @@ JWT의 특징은 내부 정보를 단순 BASE64 방식으로 인코딩하기 때
 
 ```java
 package com.study.security.jwt;
-
-import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 @Component
 public class JwtUtil {
@@ -513,24 +464,6 @@ public class JwtUtil {
 
 ```java
 package com.study.security.jwt;
-
-import com.study.security.dto.CustomUserDetails;
-import com.study.security.entity.User;
-import com.study.security.entity.UserRole;
-import io.jsonwebtoken.ExpiredJwtException;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @Component
 @RequiredArgsConstructor
@@ -586,18 +519,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
 일반 로그인의 동작 흐름을 생각하며 코드를 작성한다.
 
-![스크린샷 2025-01-03 오후 12.45.52.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/89206a7c-26d6-4e13-8a4c-996fa9d2ce38/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-01-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_12.45.52.png)
+![4](https://github.com/user-attachments/assets/be3b4eb4-3e50-4dff-84f3-70c29eb0074a)
+
+.
+
+.
 
 ```java
 package com.study.security.dto;
-
-import com.study.security.entity.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
@@ -650,19 +579,12 @@ public class CustomUserDetails implements UserDetails {
 
 - Spring Security에서 제공하는 UserDetails를 사용하여 사용자 인증을 진행할 수 있다. 우리는 UserDetails를 커스텀해서 사용자 정보를 받아온다.
 
+.
+
+.
+
 ```java
 package com.study.security.service;
-
-import com.study.security.dto.CustomUserDetails;
-import com.study.security.entity.User;
-import com.study.security.exception.ApiException;
-import com.study.security.exception.ErrorCode;
-import com.study.security.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -683,11 +605,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 - 마찬가지로 Spring Security에서 제공하는 UserDetailsService를 커스텀하여 작성했다.
 
+.
+
+.
+
 ```java
 package com.study.security.dto;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @Data
 @AllArgsConstructor
@@ -703,10 +626,12 @@ public class TokenDto {
 
 - 로그인 성공 시 Access Token을 반환하기 위한 Dto이다.
 
+.
+
+.
+
 ```java
 package com.study.security.util;
-
-import jakarta.servlet.http.Cookie;
 
 public class CookieUtil {
     public static Cookie createCookie(String key, String token, int expiredS) {
@@ -720,34 +645,14 @@ public class CookieUtil {
 ```
 
 - Cookie를 생성하는 클래스이다. 여러가지 설정이 있지만 가장 중요한 httpOnly 설정을 주목하자.
-- `httpOnly 설정`은 보안상 중요한 설정이다. 반드시 true로 설정하도록 하자.
+- `httpOnly` 설정은 보안상 중요한 설정이다. 반드시 true로 설정하도록 하자.
+
+.
+
+.
 
 ```java
 package com.study.security.jwt;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.security.dto.CustomUserDetails;
-import com.study.security.exception.ApiException;
-import com.study.security.exception.ApiResponse;
-import com.study.security.exception.ErrorCode;
-import com.study.security.exception.ErrorMessage;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.StreamUtils;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.Iterator;
 
 @RequiredArgsConstructor
 public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -814,24 +719,12 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     - Refresh Token은 쿠키에 담아 반환한다. 이때 쿠키는 httpOnly 설정이 되있다. (CookieUtil 참고)
 - 로그인이 실패하면 unsuccessfulAuthentication 메서드를 실행한다.
 
+.
+
+.
+
 ```java
 package com.study.security.config;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.security.jwt.CustomLoginFilter;
-import com.study.security.jwt.JwtFilter;
-import com.study.security.jwt.JwtUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -884,27 +777,39 @@ public class SecurityConfig {
 
 ## 소셜 로그인 (OAuth2)
 
+우리는 미리 application.properties에 OAuth2 소셜 로그인을 위한 변수 설정을 마쳤다.
+
+.
+
+.
+
 소셜 로그인의 동작 흐름을 생각하며 코드를 작성한다.
 
-![스크린샷 2025-01-03 오후 7.46.54.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/cbbfc0b0-b3cd-4154-9213-1b1b97991ca7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2025-01-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_7.46.54.png)
+![5](https://github.com/user-attachments/assets/84ab7bc1-7fab-4d57-ba29-d17a8261f482)
 
-우리는 미리 application.properties에 OAuth2 소셜 로그인을 위한 변수 설정을 마쳤다.
+.
+
+.
 
 소셜 로그인 시 네이버와 구글을 사용한다.
 
 - 네이버 소셜 로그인 신청([링크](https://www.devyummi.com/page?id=66936425054c1c47e044cd57)): 네이버 개발자 센터 → 네이버 로그인 API
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/2425b739-bcc1-4055-beda-ab3043ca4aba/image.png)
+![6](https://github.com/user-attachments/assets/b9c2c4ad-d447-4182-9f0f-805cdf782009)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/2e32c3db-c012-454d-9ada-ef9fa76f9506/image.png)
+![7](https://github.com/user-attachments/assets/83f55fc0-0946-4fff-826a-73f4bb420a6e)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/8a1664e0-bc81-4d56-8c70-5ec1db1ceeaf/image.png)
+![8](https://github.com/user-attachments/assets/9c389115-ed78-40ae-8d70-fc2c48e36277)
+
+.
+
+.
 
 - 구글 소셜 로그인 신청([링크](https://www.devyummi.com/page?id=669365e370d4f58bd7cbed16)): 사용자 인증 정보 → OAuth 동의 화면/사용자 인증 정보
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/c0496bb9-714a-4103-9517-46d75f587422/image.png)
+![9](https://github.com/user-attachments/assets/1478cd2a-2c83-424a-81b9-0c9099ffed79)
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/6b949e38-2db3-4d0d-a1e2-a4550a0d790b/cbb611e7-abef-40e4-a056-fd9c0a4a4c02/image.png)
+![10](https://github.com/user-attachments/assets/3e4476aa-eda9-496d-9ce8-bf3689ee1ae7)
 
 ### OAuth2Response
 
@@ -928,8 +833,6 @@ public interface OAuth2Response {
 
 ```java
 package com.study.security.oauth2;
-
-import java.util.Map;
 
 public class NaverResponse implements OAuth2Response {
 
@@ -964,8 +867,6 @@ public class NaverResponse implements OAuth2Response {
 ```java
 package com.study.security.oauth2;
 
-import java.util.Map;
-
 public class GoogleResponse implements OAuth2Response {
 
     private final Map<String, Object> attribute;
@@ -998,15 +899,6 @@ public class GoogleResponse implements OAuth2Response {
 
 ```java
 package com.study.security.oauth2;
-
-import com.study.security.dto.UserDto;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 
 @AllArgsConstructor
 public class CustomOAuth2User implements OAuth2User {
@@ -1043,22 +935,6 @@ public class CustomOAuth2User implements OAuth2User {
 
 ```java
 package com.study.security.service;
-
-import com.study.security.dto.UserDto;
-import com.study.security.entity.User;
-import com.study.security.entity.UserRole;
-import com.study.security.oauth2.CustomOAuth2User;
-import com.study.security.oauth2.GoogleResponse;
-import com.study.security.oauth2.NaverResponse;
-import com.study.security.oauth2.OAuth2Response;
-import com.study.security.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -1109,23 +985,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 ```java
 package com.study.security.oauth2;
 
-import com.study.security.jwt.JwtUtil;
-import com.study.security.service.ReissueService;
-import com.study.security.util.CookieUtil;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.Collection;
-import java.util.Iterator;
-
 @Component
 @RequiredArgsConstructor
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -1161,25 +1020,20 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
 - AccessToken과 Refresh Token을 생성하고 쿠키에 담아 전달한다.
 - Refresh Token은 DB에 저장한다.
-- 소셜 로그인에 성공하면 클라이언트 측으로 redirect 한다. 이때 **/oauth2-jwt-header** 주소로 redirect 하는데 이에 대한 설명은 아래 클라이언트 코드 부분에서 설명하겠다.
+- 소셜 로그인에 성공하면 클라이언트 측으로 redirect 한다. 이때 **/oauth2-jwt-header** 주소로 redirect 하는데 이에 대한 설명은 아래에서 설명하겠다.
 
 ### AccessToken을 Local Storage에 저장
 
 CustomOAuth2SuccessHandler 클래스에서 AccessToken과 Refresh Token을 쿠키로 전달했다. 쿠키로 전달된 AccessToken은 CSRF 공격의 위험성이 존재하기 때문에 쿠키에 계속 보관할 수 없다. 따라서 로컬 스토리지에 보관해야하는데 자바스크립트에서 httpOnly 쿠키에 접근할 수 없기 때문에 프론트엔드에서 백엔드로 다시 요청하여 백엔드는 httpOnly 쿠키의 값을 헤더에 넣어 전송하고 프론트엔드는 응답받은 헤더의 액세스 토큰을 로컬 스토리지에 저장한다.
 
+.
+
+.
+
 이와 관련된 코드가 바로 /oauth2-jwt-header에 대한 요청이다.
 
 ```java
 package com.study.security.controller;
-
-import com.study.security.exception.ApiResponse;
-import com.study.security.service.OAuth2Service;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -1194,20 +1048,14 @@ public class OAuth2Controller {
 }
 ```
 
+.
+
+.
+
 쿠키에 있는 Access Token을 Header로 옮겨 전달한다. (쿠키에 있던 Access Token은 삭제한다.)
 
 ```java
 package com.study.security.service;
-
-import com.study.security.exception.ApiException;
-import com.study.security.exception.ApiResponse;
-import com.study.security.exception.ErrorCode;
-import com.study.security.util.CookieUtil;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 @Service
 public class OAuth2Service {
@@ -1247,8 +1095,6 @@ public class OAuth2Service {
 ```java
 package com.study.security.config;
 
-import org.springframework.web.cors.CorsConfiguration;
-
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
@@ -1281,38 +1127,21 @@ public class SecurityConfig {
 }
 ```
 
+> **참고** CORS란?
+>
+CORS(Cross-Origin Resource sharing, 교차-출처  리소스 공유)란 다른 출처간의 자원을 공유하는 정책을 말한다. 즉, 도메인이 다른 2개의 사이트가 리소스에 접근할 수 있게하는 보안 매커니즘이다.
+>
+주로 프론트에서 서버로 API 요청을 할 때 발생한다.
+>
+
+.
+
+.
+
 OAuth2까지 진행한 SecurityConfig
 
 ```java
 package com.study.security.config;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.security.exception.ApiResponse;
-import com.study.security.exception.ErrorCode;
-import com.study.security.exception.ErrorMessage;
-import com.study.security.jwt.CustomLoginFilter;
-import com.study.security.jwt.CustomLogoutFilter;
-import com.study.security.jwt.JwtFilter;
-import com.study.security.jwt.JwtUtil;
-import com.study.security.oauth2.CustomOAuth2SuccessHandler;
-import com.study.security.repository.UserRepository;
-import com.study.security.service.CustomOAuth2UserService;
-import com.study.security.service.ReissueService;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-
-import java.util.Collections;
 
 @EnableWebSecurity
 @Configuration
