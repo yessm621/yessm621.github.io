@@ -1225,3 +1225,217 @@ public class SecurityConfig {
     }
 }
 ```
+
+## Refresh Token 재발급
+
+Access Token이 만료되었을 때 Refresh Token을 사용하여 재발급 받는다. 이때 보안성을 강화하기 위해 Refresh Rotate를 사용했다.
+
+`Refresh Rotate`는 Reissue 엔드포인트에서 Refresh Token을 받아 Access Token 갱신 시 Refresh Token도 함께 갱신하는 방법이다.
+
+![21](https://github.com/user-attachments/assets/dbec892c-e9a4-474a-bff1-8ffac7bc664f)
+
+.
+
+```java
+package com.study.security.controller;
+
+@RestController
+@RequiredArgsConstructor
+public class ReissueController {
+
+    private final ReissueService reissueService;
+
+    @PostMapping("/reissue")
+    public ResponseEntity<ApiResponse> reissue(HttpServletRequest request, HttpServletResponse response) {
+        TokenDto token = reissueService.reissue(request, response);
+        return ResponseEntity.ok(ApiResponse.success(token));
+    }
+}
+```
+
+```java
+package com.study.security.service;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class ReissueService {
+
+    private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+
+    public TokenDto reissue(HttpServletRequest request, HttpServletResponse response) {
+        String refresh = null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("refresh")) {
+                refresh = cookie.getValue();
+            }
+        }
+
+        if (refresh == null) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 없습니다.");
+        }
+
+        try {
+            jwtUtil.isExpired(refresh);
+        } catch (ExpiredJwtException e) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 만료되었습니다.");
+        }
+
+        String category = jwtUtil.getCategory(refresh);
+        if (!category.equals("refresh")) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 아닙니다.");
+        }
+
+        String username = jwtUtil.getUsername(refresh);
+        String role = jwtUtil.getRole(refresh);
+
+        String refreshToken = userRepository.findByUsername(username).getRefresh();
+        if (!refreshToken.equals(refresh)) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "올바른 Refresh Token이 아닙니다.");
+        }
+
+        String newAccess = jwtUtil.createJwt("access", username, role, 600_000L);
+        String newRefresh = jwtUtil.createJwt("refresh", username, role, 86400_000L);
+
+        addRefresh(username, newRefresh, 86400_000L);
+
+        TokenDto tokenDto = TokenDto.toDto(newAccess);
+        response.addCookie(CookieUtil.createCookie("refresh", newRefresh, 86_400));
+
+        return tokenDto;
+    }
+
+    public void addRefresh(String username, String refresh, Long expiredMs) {
+        Date date = new Date(System.currentTimeMillis() + expiredMs);
+        User user = userRepository.findByUsername(username);
+        user.updateRefresh(refresh, date.toString());
+    }
+}
+```
+
+- Refresh Token의 유효성을 검사 후 새로운 Access Token과 Refresh Token을 발급받는다.
+
+## 로그아웃
+
+```java
+package com.study.security.jwt;
+
+@RequiredArgsConstructor
+public class CustomLogoutFilter extends GenericFilterBean {
+
+    private final JwtUtil jwtUtil;
+    private final ReissueService reissueService;
+    private final UserRepository userRepository;
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
+    }
+
+    private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String requestUri = request.getRequestURI();
+        if (!requestUri.matches("^\\/logout$")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String requestMethod = request.getMethod();
+        if (!requestMethod.equals("POST")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String refresh = null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("refresh")) {
+                refresh = cookie.getValue();
+            }
+        }
+
+        if (refresh == null) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 없습니다.");
+        }
+
+        try {
+            jwtUtil.isExpired(refresh);
+        } catch (ExpiredJwtException e) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 만료되었습니다.");
+        }
+
+        String category = jwtUtil.getCategory(refresh);
+        if (!category.equals("refresh")) {
+            throw new ApiException(ErrorCode.TOKEN_EXCEPTION, "Refresh Token이 아닙니다.");
+        }
+
+        String username = jwtUtil.getUsername(refresh);
+        Boolean isExist = userRepository.existsByUsername(username);
+        if (!isExist) {
+            throw new ApiException(ErrorCode.NOT_FOUND_EXCEPTION, "사용자가 존재하지 않습니다.");
+        }
+
+        reissueService.addRefresh(username, null, 0L);
+
+        Cookie cookie = CookieUtil.createCookie("refresh", null, 0);
+
+        response.addCookie(cookie);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+}
+```
+
+```java
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        
+    ...
+
+    //추가
+    http
+            .addFilterBefore(new CustomLogoutFilter(jwtUtil, reissueService, userRepository), LogoutFilter.class);
+       
+    ...
+    
+    return http.build();
+}
+```
+
+## 일반 로그인 + 소셜 로그인 테스트
+
+### 일반 로그인 테스트
+
+**회원가입**
+
+![11](https://github.com/user-attachments/assets/98007577-73f3-41a4-acc9-e8cadc464fad)
+
+.
+
+**Login 테스트**
+
+![12](https://github.com/user-attachments/assets/3226f4a8-c7c5-47bc-97eb-aa9683dd46f3)
+
+![13](https://github.com/user-attachments/assets/80dae5f7-aa5c-4841-8a69-3469c2707af8)
+
+.
+
+**Refresh Token 재발급**
+
+![15](https://github.com/user-attachments/assets/96b6c87d-9809-4d58-a9a2-aaa413f3dcb7)
+
+![16](https://github.com/user-attachments/assets/ff2045e1-630f-47ec-a03d-59e507a890b3)
+
+.
+
+### 소셜 로그인 테스트
+
+![17](https://github.com/user-attachments/assets/e99d5285-74bf-4ca2-b4d6-3436a7bbd295)
+
+![18](https://github.com/user-attachments/assets/bb336592-2665-4a7f-8653-d3df35fa9cd8)
+
+![19](https://github.com/user-attachments/assets/e03c08f4-1c95-496d-9b05-95ece1f5b1c5)
+
+![20](https://github.com/user-attachments/assets/0be151d5-c7fc-4bd6-b15f-e680f68fdb0f)
